@@ -17,7 +17,7 @@
 <meta property="og:description" content="本地JAVAWEB项目，如果想通过外网URL可以直接访问，就需要将本地程序包的war包上传到远程服务器指定文件。本文以上传ubuntu服务器为例介绍。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://blog.mobatek.net/img/covers/update.jpg">
-<meta property="og:updated_time" content="2019-08-12T04:48:16.859Z">
+<meta property="og:updated_time" content="2019-08-12T04:57:22.347Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="web项目外网服务器">
 <meta name="twitter:description" content="本地JAVAWEB项目，如果想通过外网URL可以直接访问，就需要将本地程序包的war包上传到远程服务器指定文件。本文以上传ubuntu服务器为例介绍。">
@@ -196,7 +196,7 @@
 <li><p>在命令行进入mysql命令模式</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql -u用户名 -p密码    //进入数据库命令模式</span><br><span class="line">show databases;         //查看当前有哪些数据库</span><br><span class="line">creat database 数据库名  //创建自己的数据库</span><br><span class="line">source /var/lib/tomcat/webapps/数据库名.sql    //执行上传的sql脚本文件</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>额外需注意问题：windows数据库不区分大小写，Linux区分，需要修改<br>解决办法是：修改MySQL的配置文件my.cnf，在[mysqld]部分添加如下配置选项`lower_case_table_names = 1``，然后重启MySQL服务即可</p>
+<li><p>额外需注意问题：windows数据库不区分大小写，Linux区分，需要修改<br>解决办法是：修改MySQL的配置文件my.cnf，在[mysqld]部分添加如下配置选项<code>lower_case_table_names = 1</code>，然后重启MySQL服务即可</p>
 </li>
 </ul>
 
