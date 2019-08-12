@@ -17,7 +17,7 @@
 <meta property="og:description" content="本地JAVAWEB项目，如果想通过外网URL可以直接访问，就需要将本地程序包的war包上传到远程服务器指定文件。本文以上传ubuntu服务器为例介绍。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://blog.mobatek.net/img/covers/update.jpg">
-<meta property="og:updated_time" content="2019-08-12T04:57:22.347Z">
+<meta property="og:updated_time" content="2019-08-12T05:42:44.872Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="web项目外网服务器">
 <meta name="twitter:description" content="本地JAVAWEB项目，如果想通过外网URL可以直接访问，就需要将本地程序包的war包上传到远程服务器指定文件。本文以上传ubuntu服务器为例介绍。">
@@ -162,7 +162,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 472 个字)
+                    3 分钟 读完 (大约 494 个字)
                 </span>
                 
                 
@@ -191,10 +191,10 @@
 </ul>
 <p>此时连接 <code>服务器ip:8080/项目名</code>即可外网访问项目（服务器运行慢的情况下，刚将项目上传需要多刷新几遍才能出来）</p>
 <h2 id="将本地数据库上传服务器"><a href="#将本地数据库上传服务器" class="headerlink" title="将本地数据库上传服务器"></a>将本地数据库上传服务器</h2><ul>
-<li><p>将本地数据库导出到.sql脚本文件，再将该文件上传到</p>
+<li><p>将本地数据库导出到.sql脚本文件，再将该文件上传到服务器任意文件夹下</p>
 </li>
 <li><p>在命令行进入mysql命令模式</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql -u用户名 -p密码    //进入数据库命令模式</span><br><span class="line">show databases;         //查看当前有哪些数据库</span><br><span class="line">creat database 数据库名  //创建自己的数据库</span><br><span class="line">source /var/lib/tomcat/webapps/数据库名.sql    //执行上传的sql脚本文件</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql -u用户名 -p密码    //进入数据库命令模式</span><br><span class="line">show databases;         //查看当前有哪些数据库</span><br><span class="line">creat database 数据库名  //创建自己的数据库</span><br><span class="line">source /var/lib/tomcat/webapps/数据库名.sql    //执行上传的sql脚本文件，source后拼接的是.sql文件的路径</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>额外需注意问题：windows数据库不区分大小写，Linux区分，需要修改<br>解决办法是：修改MySQL的配置文件my.cnf，在[mysqld]部分添加如下配置选项<code>lower_case_table_names = 1</code>，然后重启MySQL服务即可</p>
 </li>
