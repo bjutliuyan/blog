@@ -17,7 +17,7 @@
 <meta property="og:description" content="本文对面向对象基础进行一个简单回顾，方便之后理解各种有趣的设计模式，">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1565701824002&di=16ce28befcae9bd3e9bc71ec64263f91&imgtype=0&src=http%3A%2F%2Fpic.ossfiles.cn%3A9186%2Fgroup2%2FM00%2F01%2FD6%2FrBgICV0LRPyAPHVkAAF3vfkXVzQ386.jpg">
-<meta property="og:updated_time" content="2019-08-13T10:26:27.500Z">
+<meta property="og:updated_time" content="2019-08-13T17:03:32.786Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(一)面向对象基础">
 <meta name="twitter:description" content="本文对面向对象基础进行一个简单回顾，方便之后理解各种有趣的设计模式，">
@@ -166,7 +166,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    7 分钟 读完 (大约 1120 个字)
+                    9 分钟 读完 (大约 1393 个字)
                 </span>
                 
                 
@@ -185,31 +185,31 @@
         </h1>
         <div class="content">
             <p>本文对面向对象基础进行一个简单回顾，方便之后理解各种有趣的设计模式，<a id="more"></a>几分钟就可读完。</p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本人本科专业为软件工程，曾参加过一些数模和算法方面竞赛，因为对研究方面较感兴趣，也是为了进一步扩展知识面做些喜欢的事情，研究生阶段开始投入HCI方面研究，主要是针对视觉方面的人机交互人体目标检测进行研究。</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本人本科专业为软件工程，曾参加过一些算法方面竞赛，因为对研究方面较感兴趣，也是为了进一步扩展知识面，研究生阶段开始投入HCI方面研究，主要是针对视觉方面的人机交互人体目标检测进行研究。</p>
 <p>在研究生刚开始阶段曾和实验室小伙伴协同开发过两个企业级WEB方面项目，预计今年九月份都能正式上线：</p>
 <ul>
 <li>ONOS系统（前端）<a href="[http://www.crsc.com.cn/](http://www.crsc.com.cn/)">[中国通号院CRSC]</a><br>采用Vue框架</li>
 <li>设备管理系统（全栈）<a href="https://xin.baidu.com/detail/compinfo?pid=xlTM-TogKuTwhldcJSp9Q2adxlHH3M5Bnwmd&from=ps" target="_blank" rel="noopener">[北京诚星科技有限]</a><br>自己搭建环境，后台采用Spring+SpringMVC+Hibernate框架，前端采用EasyUI框架</li>
 </ul>
-<p>当然，在这期间也曾遇到项目重构、Bug接连不断等各方面问题，在了解自己能力尚且不足同时，越来越明白设计模式、高内聚低耦合、程序规范化、项目经理任务分配的合理性、质量检测等在项目开发中真正的重要性。无论做python开发还是以后做研究，凡工程类的项目，该思想都有借鉴之处。因此我准备在文章分类里多添加一个设计模式的分类，在这里对经典常用的一些设计模式进行相关介绍总结。相信整体浏览下来你一定能受益匪浅。</p>
+<p>当然，在这期间也曾遇到项目重构、Bug接连不断等各方面问题，在了解自己能力尚且不足同时，越来越明白设计模式、高内聚低耦合、程序规范化、质量检测等在项目开发中真正的重要性。无论做python开发还是以后做研究，工程类的项目，该思想应该都有值得借鉴之处。因此我准备在文章分类里多添加一个设计模式的分类，在这里对主要经典常用的一些设计模式进行相关介绍总结。相信整体浏览下来你一定能受益匪浅。</p>
 <h2 id="知识理解"><a href="#知识理解" class="headerlink" title="知识理解"></a>知识理解</h2><ol>
 <li><p>类与实例化 </p>
 <blockquote>
 <ul>
 <li>类：具有相同属性和功能的对象的集合；<br>那么为什么要用类和实例而不是传统的函数调用呢，这就相当于如果居委会的电视放在你家里，而别人家里没有，于是街坊邻里都要到你家来看电视（函数调用），这样并不合适。所以正确的办法应该是将公用的方法放在居委会（类文件）。</li>
-<li>实例：类的具体对象；<br>实例化相当于从类工厂又生产出一台电视，任何需要的地方都可以实例化它。</li>
+<li>实例：类的具体对象；<br>实例化相当于从类工厂又生产出一台电视，任何需要的地方都可以实例化它。<br><img src="http://img5.imgtn.bdimg.com/it/u=866994913,4232037044&fm=26&gp=0.jpg" alt></li>
 </ul>
 </blockquote>
 </li>
 <li><p>构造方法与方法重载</p>
 <blockquote>
 <ul>
-<li>构造方法：对类进行初始化<br>比如对于一个猫的实例，我们希望一出生就可以有姓名，那么就应该写一个有参数的构造方法：<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cat cat1 = new Cat(&quot;喵喵&quot;)</span><br><span class="line">Cat cat2 = new Cat(&quot;咪咪&quot;)</span><br></pre></td></tr></table></figure></li>
+<li>构造方法：<br>对类进行初始化，比如对于一个猫的实例，我们希望一出生就可以有姓名，那么就应该写一个有参数的构造方法：<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cat cat1 = new Cat(&quot;喵喵&quot;)</span><br><span class="line">Cat cat2 = new Cat(&quot;咪咪&quot;)</span><br></pre></td></tr></table></figure></li>
 </ul>
 </blockquote>
 <blockquote>
 <ul>
-<li>方法重载：提供了创建同名的多个方法能力，可以在不改变原方法基础上，新增功能；<br> 重载也算是提供了方法的可扩展能力，比如实例化一个猫的时候起不起名字都可以：<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cat cat1 = new Cat()</span><br><span class="line">Cat cat2 = new Cat(&quot;喵喵&quot;)</span><br></pre></td></tr></table></figure></li>
+<li>方法重载：<br>提供了创建同名的多个方法能力，可以在不改变原方法基础上，新增功能；重载也算是提供了方法的可扩展能力，比如实例化一个猫的时候给它起不起名字都可以：<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cat cat1 = new Cat()</span><br><span class="line">Cat cat2 = new Cat(&quot;喵喵&quot;)</span><br></pre></td></tr></table></figure></li>
 </ul>
 </blockquote>
 </li>
@@ -218,9 +218,9 @@
 <li><p>封装继承多态</p>
 <blockquote>
 <ul>
-<li>封装：每个对象都包含它能进行操作所需要的所有信息</li>
-<li>继承：（Java中构造方法不能被继承，继承使得修改和扩展都变得容易，但也增大了两个类之间的耦合性以及破坏包装，将父类暴露给子类）<br><img src="http://www.fjjsp.com/upfile/2007-11/20071117090249546.gif" alt></li>
-<li>多态：不同的对象可以执行相同动作，但要通过它们自己的实现代码来执行 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arrayAnimal = new Animal[2];</span><br><span class="line">arrayAnimal[0] = new Cat(&quot;小花&quot;);</span><br><span class="line">arrayAnimal[1] = new Dog(&quot;阿毛&quot;);</span><br></pre></td></tr></table></figure>
+<li>封装：<br>每个对象都包含它能进行操作所需要的所有信息</li>
+<li>继承：<br>（Java中构造方法不能被继承，继承使得修改和扩展都变得容易，但也增大了两个类之间的耦合性以及破坏包装，将父类暴露给子类）<br><img src="http://www.fjjsp.com/upfile/2007-11/20071117090249546.gif" alt></li>
+<li>多态：<br>不同的对象可以执行相同动作，但要通过它们自己的实现代码来执行。比如说有一对父子是表演“京剧”的，有一天父亲发高烧上不了台表演，退票的话肯定会大大影响声誉，于是就决定让儿子代父亲上台表演。<br>这里有几点需要注意：(一)<code>子类以父类的身份出现</code>；(二)<code>子类在工作时以自己的方式来实现</code>；(三)<code>子类以父类身份出现时，子类特有属性和方法不可以使用</code><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arrayAnimal = new Animal[2];</span><br><span class="line">arrayAnimal[0] = new Cat(&quot;小花&quot;);</span><br><span class="line">arrayAnimal[1] = new Dog(&quot;阿毛&quot;);</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </blockquote>
@@ -230,8 +230,32 @@
 <li><p>抽象类与接口</p>
 <blockquote>
 <ul>
-<li>抽象类<br>实例化没有任何意义不能实例化的类<br>例如说一只猫长得什么样可以想象 ，说动物长什么样，没办法知道。抽象方法必须被子类重写，如果一个类中包含抽象方法也一定是抽象类；实际中看具体情况看父类是否需要改成抽象类。</li>
-<li>接口</li>
+<li>抽象类：<br>实例化没有任何意义不能实例化的类<br>例如说一只猫长得什么样可以想象 ，说动物长什么样，没办法知道。抽象方法必须被子类重写，如果一个类中包含抽象方法也一定是抽象类；实际中看具体情况看父类是否需要改成抽象类。</li>
+<li>接口：<br>接口是将隐式公共方法和属性组合起来，以封装特定功能的集合。主要需要注意的是接口与抽象类的区别与联系：<table>
+<thead>
+<tr>
+<th>抽象类</th>
+<th>接口</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>对类的抽取</td>
+<td>对行为的抽取</td>
+</tr>
+<tr>
+<td>对一些相似类对象，用继承抽象类</td>
+<td>若行为跨越不同类的对象可使用接口</td>
+</tr>
+<tr>
+<td>抽象类是从子类中泛化出父类</td>
+<td>接口是不知道子类的存在，预先定义</td>
+</tr>
+<tr>
+<td>一个类只能继承一个抽象类</td>
+<td>一个类可继承多个接口</td>
+</tr>
+</tbody></table>
+</li>
 </ul>
 </blockquote>
 </li>
