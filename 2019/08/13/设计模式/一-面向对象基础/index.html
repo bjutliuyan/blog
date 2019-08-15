@@ -17,7 +17,7 @@
 <meta property="og:description" content="本文对面向对象基础进行一个简单回顾，方便之后理解各种有趣的设计模式，">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1565701824002&di=16ce28befcae9bd3e9bc71ec64263f91&imgtype=0&src=http%3A%2F%2Fpic.ossfiles.cn%3A9186%2Fgroup2%2FM00%2F01%2FD6%2FrBgICV0LRPyAPHVkAAF3vfkXVzQ386.jpg">
-<meta property="og:updated_time" content="2019-08-13T17:03:32.786Z">
+<meta property="og:updated_time" content="2019-08-15T17:43:55.721Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(一)面向对象基础">
 <meta name="twitter:description" content="本文对面向对象基础进行一个简单回顾，方便之后理解各种有趣的设计模式，">
@@ -166,7 +166,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    9 分钟 读完 (大约 1393 个字)
+                    11 分钟 读完 (大约 1588 个字)
                 </span>
                 
                 
@@ -231,7 +231,7 @@
 <blockquote>
 <ul>
 <li>抽象类：<br>实例化没有任何意义不能实例化的类<br>例如说一只猫长得什么样可以想象 ，说动物长什么样，没办法知道。抽象方法必须被子类重写，如果一个类中包含抽象方法也一定是抽象类；实际中看具体情况看父类是否需要改成抽象类。</li>
-<li>接口：<br>接口是将隐式公共方法和属性组合起来，以封装特定功能的集合。主要需要注意的是接口与抽象类的区别与联系：<table>
+<li>接口：<br>接口是将隐式公共方法和属性组合起来，以封装特定功能的集合。以下图为例，比如变出东西是小叮当、孙悟空、猪八戒分别具备的功能，如果为了更具有普遍意义而让它们的父类也具有此种功能，显然是不合适的，比如猫并不具备变出来东西功能。所以为了将<strong>特定行为</strong>进行抽样，采用接口。<img src="0001.jpg" alt>主要需要注意的是接口与抽象类的区别与联系：<table>
 <thead>
 <tr>
 <th>抽象类</th>
@@ -259,7 +259,16 @@
 </ul>
 </blockquote>
 </li>
+</ol>
+<ol start="7">
 <li><p>集合与泛型</p>
+<blockquote>
+<ul>
+<li>集合：用于对数据进行存储和检索的专用类叫做集合<br>比如说ArrayList集合就是对IList接口的实现；</li>
+<li>泛型是具有占位符（参数类型）的类、结构、接口、方法<br>泛型集合可以将类型参数作为它所存储对对象类型的占位符。<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List &lt;Animal&gt; arraylist;s</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
 </li>
 <li><p>委托与事件</p>
 </li>
