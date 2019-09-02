@@ -3,25 +3,25 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-<title>hexo个人博客搭建 - Bjutliuyan&#39;s blog</title>
+<title>(三)商场促销——策略模式 - Bjutliuyan&#39;s blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta name="description" content="Hexo是一款基于Node.js的静态博客框架，依赖少易于安装使用，可以方便的">
-<meta name="keywords" content="hexo搭建">
+    <meta name="description" content="面向对象的编程并不是类越多越好，类的划分是为了封装，但分类的基础是抽象，具有相同属性和功能的对象的集合才是类。">
+<meta name="keywords" content="设计模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo个人博客搭建">
-<meta property="og:url" content="http://bjutliuyan.github.io/blog/2019/08/04/随笔/hexo个人博客搭建/index.html">
+<meta property="og:title" content="(三)商场促销——策略模式">
+<meta property="og:url" content="http://bjutliuyan.github.io/blog/2019/08/23/设计模式/三-商场促销——策略模式/index.html">
 <meta property="og:site_name" content="Bjutliuyan&#39;s blog">
-<meta property="og:description" content="Hexo是一款基于Node.js的静态博客框架，依赖少易于安装使用，可以方便的">
+<meta property="og:description" content="面向对象的编程并不是类越多越好，类的划分是为了封装，但分类的基础是抽象，具有相同属性和功能的对象的集合才是类。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1565534051268&di=8b050ec0d09c9c015005a6527440b96e&imgtype=0&src=http%3A%2F%2Fe0.ifengimg.com%2F08%2F2019%2F0226%2F68B5ED29247CFA85DFE5726B00AFCF5EC9D9AD66_size39_w740_h494.jpeg">
-<meta property="og:updated_time" content="2019-08-11T11:46:34.906Z">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567433459824&di=200e13f6442cf9d6bb9b54fa16ae2e96&imgtype=0&src=http%3A%2F%2Fwww.njxh.cn%2Fuploads%2Fallimg%2F150407%2F2_150407165816_1.jpg">
+<meta property="og:updated_time" content="2019-09-02T13:09:46.097Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hexo个人博客搭建">
-<meta name="twitter:description" content="Hexo是一款基于Node.js的静态博客框架，依赖少易于安装使用，可以方便的">
-<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1565534051268&di=8b050ec0d09c9c015005a6527440b96e&imgtype=0&src=http%3A%2F%2Fe0.ifengimg.com%2F08%2F2019%2F0226%2F68B5ED29247CFA85DFE5726B00AFCF5EC9D9AD66_size39_w740_h494.jpeg">
+<meta name="twitter:title" content="(三)商场促销——策略模式">
+<meta name="twitter:description" content="面向对象的编程并不是类越多越好，类的划分是为了封装，但分类的基础是抽象，具有相同属性和功能的对象的集合才是类。">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567433459824&di=200e13f6442cf9d6bb9b54fa16ae2e96&imgtype=0&src=http%3A%2F%2Fwww.njxh.cn%2Fuploads%2Fallimg%2F150407%2F2_150407165816_1.jpg">
 
 
 
@@ -99,7 +99,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/blog/">
             
-                <img src="/blog/images/logo.svg" alt="hexo个人博客搭建" height="28">
+                <img src="/blog/images/logo.svg" alt="(三)商场促销——策略模式" height="28">
             
             </a>
         </div>
@@ -148,7 +148,7 @@
     
     <div class="card-image">
         <span class="image is-7by1">
-            <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1565534051268&amp;di=8b050ec0d09c9c015005a6527440b96e&amp;imgtype=0&amp;src=http%3A%2F%2Fe0.ifengimg.com%2F08%2F2019%2F0226%2F68B5ED29247CFA85DFE5726B00AFCF5EC9D9AD66_size39_w740_h494.jpeg" alt="hexo个人博客搭建">
+            <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1567433459824&amp;di=200e13f6442cf9d6bb9b54fa16ae2e96&amp;imgtype=0&amp;src=http%3A%2F%2Fwww.njxh.cn%2Fuploads%2Fallimg%2F150407%2F2_150407165816_1.jpg" alt="(三)商场促销——策略模式">
         </span>
     </div>
     
@@ -156,17 +156,17 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-08-04T08:21:45.774Z">2019-08-04</time>
+                <time class="level-item has-text-grey" datetime="2019-08-23T13:16:00.000Z">2019-08-23</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/blog/categories/随笔/">随笔</a>
+                <a class="has-link-grey -link" href="/blog/categories/设计模式/">设计模式</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    5 分钟 读完 (大约 822 个字)
+                    6 分钟 读完 (大约 833 个字)
                 </span>
                 
                 
@@ -180,38 +180,36 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                hexo个人博客搭建
+                (三)商场促销——策略模式
             
         </h1>
         <div class="content">
-            <p>Hexo是一款基于Node.js的静态博客框架，依赖少易于安装使用，可以方便的<a id="more"></a>生成静态网页托管在GitHub上。以下步骤操作简单，只需先自行安装好node.js和git，剩余2~3小时大概就可完成。</p>
-<h2 id="所需工具"><a href="#所需工具" class="headerlink" title="所需工具"></a>所需工具</h2><ol>
-<li>node.js</li>
-<li>git</li>
-</ol>
-<h2 id="安装配置步骤"><a href="#安装配置步骤" class="headerlink" title="安装配置步骤"></a>安装配置步骤</h2><ol>
-<li>安装node.js和git之后安装hexo:<br><code>npm install -g hexo-cli</code><br>安装完成之后使用<code>npm -v</code>查看是否安装成功</li>
-<li>创建hexo项目<br>在本地新建一个blog的文件夹<br>在这个文件右键进入git bash模式<br>命令模式下执行<code>hexo init</code>初始化博客</li>
-<li>生成SSH密钥<br>打开Git Bash，使用以下命令配置git<br><code>git config --global user.name &quot;你的github用户的名字&quot;</code><br><code>git config --global user.email &quot;你的github账户邮箱&quot;</code><br><code>cd ~/.ssh</code><br><code>ssh-keygen -t rsa -C &quot;你的github账户邮箱&quot;</code><br>连续三个回车<br><code>eval &quot;$(ssh-agent -s)&quot;</code>，添加密钥到ssh-agent<br><code>ssh-add ~/.ssh/id_rsa</code>，添加生成的SSH key到ssh-agent<br><code>cat ~/.ssh/id_rsa.pub</code><br>复制此时显示的内容，内容应该是以ssh-rsa开头</li>
-<li>Github新建一个仓库，并配置SSH密钥<br>Ctrl+C退出后，在GitHub上新建一个新的仓库，仓库名随意，不过需要记录下来，我这里起名叫blog，最下面的Initialize this repository with a README要勾选上，然后保存即可。进入这个仓库后选择Settings，在左侧选项卡Options中翻到下面，GItHub Pages这项，Source选择master branch，选择save后，会在这部分的标题处写明这个仓库的url，这就是你博客的url了。还是页面的左侧的选项卡，Deploy 选择Add deploy key，添加密钥。<br> Title随意，我设置为了blog<br> Key粘贴我们刚才复制的那一段。<br> 最下面Allow write access要打勾.<br> 选择Add Key即可。<br> 然后在Git Bash中使用<br> <code>ssh -T git@github.com</code>测试，如果看到Hi后面是你的用户名，就说明成功了。</li>
-<li>使用<code>npm install</code>安装需要的组件</li>
-<li>使用<code>npm install hexo-deployer-git --save</code>安装插件</li>
-<li>修改hexo配置文件</li>
-</ol>
-<ul>
-<li><p>打开本地博客的根目录，找到_config.yml文件，<br>在文件的开头处，第二部分，url改成自己Github仓库的地址，root改为自己/自己本地仓库名/，如下所示：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># URL</span><br><span class="line">## If your site is put in a subdirectory, set url as &apos;http://yoursite.com/child&apos; and root as &apos;/child/&apos;</span><br><span class="line">url: https://github.com/bjutliuyan/blog</span><br><span class="line">root: /blog/</span><br><span class="line">permalink: :year/:month/:day/:title/</span><br><span class="line">permalink_defaults:</span><br></pre></td></tr></table></figure>
+            <p>面向对象的编程并不是类越多越好，类的划分是为了封装，但分类的基础是抽象，具有相同属性和功能的对象的集合才是类。<a id="more"></a></p>
+<ol>
+<li><p><strong>需求：</strong></p>
+<blockquote>
+<p>假如设计一个商场收银软件，营业员根据客户所购买的商品的单价和数量，向客户收费。==考虑到不同商品有不同的促销方式：打1折、打3折、满300减100、满200减50、满100积分10点（积分达到一定程度可以领取相对应奖品）==。<br>考虑界面如下：<br><img src="001.jpg" alt></p>
+</blockquote>
 </li>
-<li><p>再在最下面添加如下片段，repository这项，应该去GitHub里面新建的那个叫blog的仓库里面找。进入仓库主页后，点击右侧绿色的按钮Clone or download，在新弹出的窗口右上角选择Use SSH，然后将下面的文字复制粘贴到此处。<br>修改完配置文件后保存退出即可。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Deployment</span><br><span class="line">## Docs: https://hexo.io/docs/deployment.html</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: git@github.com:Davidham3/blog.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<li><p><strong>简单工厂实现</strong></p>
+<blockquote>
+<p>按照<a href="https://" target="_blank" rel="noopener">上一节</a>的讲法可以根据简单工厂模式建立类图如下，其中注意为了更好的抽象，应将打折操作（1折、2折等）抽象为一个类而不是两个类，其余操作也类似：<br><img src="002.jpg" alt><br>如果现在需要再添加打5折、满500减200活动，按照简单工厂的思想，只需要在收费生成对象工厂添加两个switch条件，再在下拉选框里加两项就OK了；如果加入满100送10积分的活动，需要添加该收费标准子类，再到界面稍加改动，</p>
+</blockquote>
+<blockquote>
+<p>可以看出的是，简单工厂只是解决了对象创建的问题，每次维护和扩展收费方式都要改动这个工厂，以致代码需要重新编译部署。面对算法时常变动，应该有更好的设计模式去选择。</p>
+</blockquote>
 </li>
-</ul>
-<ol start="8">
-<li>生成博客<br><code>hexo g</code></li>
-<li>发布博客<br><code>hexo d</code></li>
-<li>本地预览博客<br><code>hexo s</code><br>通过localhost:4000可以本地预览</li>
+<li><p><strong>策略模式实现</strong></p>
+<blockquote>
+<p><code>策略模式：</code>是一种定义一系列算法的方法，从概念上看，所有这些算法完成的都是相同的工作，只是实现不同，它可以相同的方式调用所有的算法，减少各种算法与使用算法类之间的耦合。（即通过一个Context类，引入Strategy策略父类，根据传入不同对象，调用具体对应方法），<code>**策略模式封装变化**</code><br><img src="003.jpg" alt><br>CashContext类：<br><img src="004.jpg" alt><br><img src="005.jpg" alt><br>客户端主要代码：<br><img src="006.jpg" alt></p>
+</blockquote>
+</li>
+<li><p><strong>简单工厂-策略模式相结合</strong></p>
+<blockquote>
+<p>可以发现策略模式又回到未用简单工厂之前的老套路，直接在哭护短去判断使用哪一个算法。显然是不合适的。所以可以将简单工厂在策略模式基础上将判断过程从客户端程序移走。<br>改造后CashContext类：<br><img src="007.jpg" alt><br>改造后客户端主要代码：<br><img src="008.jpg" alt><br><img src="009.jpg" alt><br><code>对比原先简单工厂的发现，简单工厂需要客户端认识两个类：CashSuper、CashFactory；而现在只需要认识一个CashContext类就可以了。使得具体的收费算法彻底地与客户端分离，连算法的父类CashSuper都不让客户端认识了，耦合度更加降低。</code><br>不过，目前仍不够完美，因为CashContext里还是用到了switch判断，但是相比原先的简单工厂改动成本较小。当然还有更好的办法，比如反射技术，在后面会进行相关整理介绍。</p>
+</blockquote>
+</li>
 </ol>
-<h2 id="本地预览效果"><a href="#本地预览效果" class="headerlink" title="本地预览效果"></a>本地预览效果</h2><p><img src="https://foxgrin.github.io/img/Hexo/20.png" alt></p>
 
         </div>
         
@@ -219,7 +217,7 @@
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/blog/tags/hexo搭建/">hexo搭建</a>
+                    <a class="has-link-grey -link" href="/blog/tags/设计模式/">设计模式</a>
                 </div>
             </div>
         </div>
@@ -269,13 +267,13 @@
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/blog/2019/08/09/随笔/hexo主题配置+发布博客方法/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">hexo主题配置+博客发布方法</span>
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/blog/2019/08/16/设计模式/二-简单工厂模式/">
+                <span class="level-item">(二)简单工厂模式</span>
+                <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
-        
         
     </div>
 </div>
@@ -312,8 +310,8 @@
      
       <script type="text/javascript">
         var gitment = new Gitment({
-              id: 'hexo个人博客搭建',
-              title: 'hexo个人博客搭建',
+              id: '(三)商场促销——策略模式',
+              title: '(三)商场促销——策略模式',
               owner: 'bjutliuyan',
               repo: 'hello-world',
               oauth: {
@@ -906,7 +904,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/blog/">
                 
-                    <img src="/blog/images/logo.svg" alt="hexo个人博客搭建" height="28">
+                    <img src="/blog/images/logo.svg" alt="(三)商场促销——策略模式" height="28">
                 
                 </a>
                 <p class="is-size-7">
