@@ -17,7 +17,7 @@
 <meta property="og:description" content="使用场景PyCharm是一种Python IDE，带有一整套可以帮助用户">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://resources.jetbrains.com/storage/products/pycharm/img/meta/pycharm_1280x800.png">
-<meta property="og:updated_time" content="2019-09-05T16:18:22.935Z">
+<meta property="og:updated_time" content="2019-09-06T01:09:09.088Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pycharm进行远程服务器代码编写与调试">
 <meta name="twitter:description" content="使用场景PyCharm是一种Python IDE，带有一整套可以帮助用户">
@@ -198,12 +198,11 @@
 <li>然后配置mapping（相当于本地项目文件地址与远程服务器项目地址的对应关系）:<br><img src="003.jpg" alt></li>
 <li>配置完这些之后，就发现Development里的上传和下载可以点击了，在这里可以点击自动上传，这样以后本地代码一有改动就会自动的变更到服务器，实现真正同步：<br><img src="004.jpg" alt></li>
 </ol>
-<p>##配置Interperter解释器信息</p>
-<ol>
+<h2 id="配置Interperter解释器信息"><a href="#配置Interperter解释器信息" class="headerlink" title="配置Interperter解释器信息"></a>配置Interperter解释器信息</h2><ol>
 <li>点击files —-setting — project Interpreter:<br><img src="005.jpg" alt></li>
 <li>可以看到上图中我选择的解释还是本地的，现在需要选择远程服务器的解释器，如果上一部分的服务器信息已经配置好，这里是直接有可以选择的：<br><img src="006.jpg" alt><br>到此，整体配置完成，已经可以实现本地与远程服务器同步。</li>
 </ol>
-<h2 id="测试是否成功"><a href="#测试是否成功" class="headerlink" title="测试是否成功"></a>测试是否成功</h2><p>现在远程服务器已经安装TensorFlow深度学习库，那么在本地运行一个简单的TensorFlow框架下的程序，如果可以跑通说明配置成功：</p>
+<h2 id="测试是否成功"><a href="#测试是否成功" class="headerlink" title="测试是否成功"></a>测试是否成功</h2><p>现在如果远程服务器已经安装了TensorFlow深度学习框架，那么在本地运行一个简单的TensorFlow程序，如果可以跑通说明配置成功：</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line"># 创建常量 </span><br><span class="line">hello = tf.constant(&apos;Hello,world!&apos;)</span><br><span class="line"># 创建会话 </span><br><span class="line">sess = tf.Session()</span><br><span class="line"># 执行 </span><br><span class="line">result = sess.run(hello)</span><br><span class="line"># 关闭会话 </span><br><span class="line">sess.close()</span><br><span class="line"># 输出结果 </span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
 
 <h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
