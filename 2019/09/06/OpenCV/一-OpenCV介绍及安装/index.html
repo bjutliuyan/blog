@@ -3,20 +3,25 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-<title>归档: 2019/8 - Bjutliuyan&#39;s blog</title>
+<title>(一)OpenCV介绍及安装 - Bjutliuyan&#39;s blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Bjutliuyan&#39;s blog">
-<meta property="og:url" content="http://bjutliuyan.github.io/blog/archives/2019/08/index.html">
+    <meta name="description" content="opencv是一个跨平台的计算机视觉库，可运行在多个平台，">
+<meta name="keywords" content="OpenCV">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(一)OpenCV介绍及安装">
+<meta property="og:url" content="http://bjutliuyan.github.io/blog/2019/09/06/OpenCV/一-OpenCV介绍及安装/index.html">
 <meta property="og:site_name" content="Bjutliuyan&#39;s blog">
+<meta property="og:description" content="opencv是一个跨平台的计算机视觉库，可运行在多个平台，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://bjutliuyan.github.io/blog/images/og_image.png">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567750445013&di=8f019f210c98688dec883c85a8c9f92b&imgtype=0&src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg">
+<meta property="og:updated_time" content="2019-09-06T04:07:14.929Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Bjutliuyan&#39;s blog">
-<meta name="twitter:image" content="http://bjutliuyan.github.io/blog/images/og_image.png">
+<meta name="twitter:title" content="(一)OpenCV介绍及安装">
+<meta name="twitter:description" content="opencv是一个跨平台的计算机视觉库，可运行在多个平台，">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567750445013&di=8f019f210c98688dec883c85a8c9f92b&imgtype=0&src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg">
 
 
 
@@ -94,7 +99,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/blog/">
             
-                <img src="/blog/images/logo.svg" alt="Bjutliuyan&#39;s blog" height="28">
+                <img src="/blog/images/logo.svg" alt="(一)OpenCV介绍及安装" height="28">
             
             </a>
         </div>
@@ -139,169 +144,176 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1567750445013&amp;di=8f019f210c98688dec883c85a8c9f92b&amp;imgtype=0&amp;src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg" alt="(一)OpenCV介绍及安装">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-09-06T01:34:59.000Z">2019-09-06</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 分钟 读完 (大约 378 个字)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span>次访问
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                (一)OpenCV介绍及安装
+            
+        </h1>
+        <div class="content">
+            <p><a href="https://docs.opencv.org/3.4/index.html" target="_blank" rel="noopener">opencv</a>是一个跨平台的计算机视觉库，可运行在多个平台，<a id="more"></a>由一系列 C 函数和少量 C++ 类，并同时提供了Python、Ruby、MATLAB等语言的接口，实现了图像处理和计算机视觉方面的很多通用算法。<br>以下介绍前提是已经安装好了Python和基本的numpy、matplotlib库。</p>
+<h2 id="Windows下安装OpenCV"><a href="#Windows下安装OpenCV" class="headerlink" title="Windows下安装OpenCV"></a>Windows下安装OpenCV</h2><ol>
+<li><p>到<a href="https://opencv.org/releases.html" target="_blank" rel="noopener">OpenCV官网</a>下载合适的win pack版本，然后傻瓜式操作解压安装：<br><img src="https://img-blog.csdn.net/20180807092613500" alt></p>
+</li>
+<li><p>安装完成之后，配置相应环境变量（依次选择计算机—&gt;属性—&gt;高级系统设置—&gt;环境变量，找到Path变量，然后把OpenCV执行文件的路径新增进去；OpenCV执行文件在解压好的OpenCV文件夹里，依次选择build—&gt;x64—&gt;vc15—&gt;bin）：<br><img src="001.jpg" alt></p>
+</li>
+<li><p>找到opencv-&gt;build-&gt;python-&gt;3.5-&gt;x64下的cv2.pyd工具包，拷贝到Python安装目录下的Lib-&gt;site-packages下<br>到此Windows下OpenCV配置完成。</p>
+</li>
+<li><p>一个简单测试：<br>新建text.py，输入如下的程序，cmd下输入python text.py，如果可以正确的显示图片，证明安装成功。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">img = cv2.imread(&quot;1.jpg&quot;)</span><br><span class="line">emptyImage = np.zeros(img.shape, np.uint8)</span><br><span class="line">emptyImage2 = img.copy()</span><br><span class="line">emptyImage3=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)</span><br><span class="line">cv2.imshow(&quot;EmptyImage3&quot;, emptyImage3)</span><br><span class="line">cv2.waitKey (0)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
 
-<div class="card widget">
+<p>   显示图片如下：<img src="https://img-blog.csdn.net/20160829164236865" alt></p>
+</li>
+</ol>
+<h2 id="Linux下安装OpenCV"><a href="#Linux下安装OpenCV" class="headerlink" title="Linux下安装OpenCV"></a>Linux下安装OpenCV</h2>
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/blog/tags/OpenCV/">OpenCV</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
     <div class="card-content">
-        <h3 class="tag is-link">
-        八月 2019
-        </h3>
-        <div class="timeline">
-        
-            <article class="media">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
                 
-                <a href="/blog/2019/08/23/设计模式/003-商场促销——策略模式/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1567431203519&amp;di=266c360162fcadcc8df7b56684aaf6f7&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.it610.com%2Fimage%2Fproduct%2Feb403f9be66540fcb200765bbd5f8ece.jpg" alt="(三)商场促销——策略模式">
-                    </p>
-                </a>
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/blog/images/alipay.jpg" alt="支付宝"></div>
+</a>
+
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-08-23T13:16:00.000Z">2019-08-23</time>
-                        <a href="/blog/2019/08/23/设计模式/003-商场促销——策略模式/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(三)商场促销——策略模式</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/blog/categories/设计模式/">设计模式</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
                 
-                <a href="/blog/2019/08/16/设计模式/002-简单工厂模式/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1566627816524&amp;di=c3a1d369be582c1fb6204c767ce01a91&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.mp.sohu.com%2Fupload%2F20170816%2Fbb913a24ebac4c9eb77ab699f4de14fb_th.png" alt="(二)简单工厂模式">
-                    </p>
-                </a>
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/blog/images/wechat_pay.jpg" alt="微信"></div>
+</a>
+
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-08-16T15:49:24.000Z">2019-08-16</time>
-                        <a href="/blog/2019/08/16/设计模式/002-简单工厂模式/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(二)简单工厂模式</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/blog/categories/设计模式/">设计模式</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/blog/2019/08/13/设计模式/001-面向对象基础/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1565701824002&amp;di=16ce28befcae9bd3e9bc71ec64263f91&amp;imgtype=0&amp;src=http%3A%2F%2Fpic.ossfiles.cn%3A9186%2Fgroup2%2FM00%2F01%2FD6%2FrBgICV0LRPyAPHVkAAF3vfkXVzQ386.jpg" alt="(一)面向对象基础">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-08-13T06:08:52.000Z">2019-08-13</time>
-                        <a href="/blog/2019/08/13/设计模式/001-面向对象基础/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(一)面向对象基础</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/blog/categories/设计模式/">设计模式</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/blog/2019/08/12/WEB/web项目发布外网服务器/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="https://blog.mobatek.net/img/covers/update.jpg" alt="web项目外网服务器">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-08-12T01:35:20.000Z">2019-08-12</time>
-                        <a href="/blog/2019/08/12/WEB/web项目发布外网服务器/" class="title has-link-black-ter is-size-6 has-text-weight-normal">web项目外网服务器</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/blog/2019/08/09/随笔/hexo主题配置+发布博客方法/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2913514719,2869154995&amp;fm=15&amp;gp=0.jpg" alt="hexo主题配置+博客发布方法">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-08-09T14:53:38.000Z">2019-08-09</time>
-                        <a href="/blog/2019/08/09/随笔/hexo主题配置+发布博客方法/" class="title has-link-black-ter is-size-6 has-text-weight-normal">hexo主题配置+博客发布方法</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/blog/categories/随笔/">随笔</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/blog/2019/08/04/随笔/hexo个人博客搭建/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1565534051268&amp;di=8b050ec0d09c9c015005a6527440b96e&amp;imgtype=0&amp;src=http%3A%2F%2Fe0.ifengimg.com%2F08%2F2019%2F0226%2F68B5ED29247CFA85DFE5726B00AFCF5EC9D9AD66_size39_w740_h494.jpeg" alt="hexo个人博客搭建">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-08-04T08:21:45.774Z">2019-08-04</time>
-                        <a href="/blog/2019/08/04/随笔/hexo个人博客搭建/" class="title has-link-black-ter is-size-6 has-text-weight-normal">hexo个人博客搭建</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/blog/categories/随笔/">随笔</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
         </div>
     </div>
 </div>
 
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/blog/2019/09/05/python/pycharm进行远程服务器代码编写与调试/">
+                <span class="level-item">pycharm进行远程服务器代码编写与调试</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+
+<!--gitment 评论-->
+  <div class="comments" id="comments">
+  
+    <!--汉化-->
+    <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+    <script src="https://billts.site/js/gitment.js"></script>
+    <!--原型-->
+    <!--
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js" type="text/javascript"></script>
+    -->
+    
+      <div id="gitmentContainer" style="margin-bottom: -19px;"></div>
+     
+      <style>
+        .gitment-container a {
+          border: none;
+        }
+        .comments {
+          margin: 60px 0 0;padding: 0 60px;
+        }
+      </style>
+     
+      <script type="text/javascript">
+        var gitment = new Gitment({
+              id: '(一)OpenCV介绍及安装',
+              title: '(一)OpenCV介绍及安装',
+              owner: 'bjutliuyan',
+              repo: 'hello-world',
+              oauth: {
+                client_id: 'fdf345739039350618b5',
+                client_secret: '9d97d820336314984fc3ef8ffc1e5c786b46572f',
+              },
+        })
+        gitment.render('gitmentContainer')
+      </script>
+    
+  </div>
+<!--gitment 评论 end-->
+    </div>
+</div>
 
 </div>
                 
@@ -946,7 +958,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/blog/">
                 
-                    <img src="/blog/images/logo.svg" alt="Bjutliuyan&#39;s blog" height="28">
+                    <img src="/blog/images/logo.svg" alt="(一)OpenCV介绍及安装" height="28">
                 
                 </a>
                 <p class="is-size-7">
