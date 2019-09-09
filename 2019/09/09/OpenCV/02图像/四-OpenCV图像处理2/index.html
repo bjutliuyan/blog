@@ -3,20 +3,25 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-<title>标签: WEB - Bjutliuyan&#39;s blog</title>
+<title>(四)OpenCV图像处理2 - Bjutliuyan&#39;s blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Bjutliuyan&#39;s blog">
-<meta property="og:url" content="http://bjutliuyan.github.io/blog/tags/WEB/index.html">
+    <meta name="description" content="本节对OpenCV图像处理中：图像阀值、图像模糊、图像的形态学转换，进行整理介绍">
+<meta name="keywords" content="OpenCV">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(四)OpenCV图像处理2">
+<meta property="og:url" content="http://bjutliuyan.github.io/blog/2019/09/09/OpenCV/02图像/四-OpenCV图像处理2/index.html">
 <meta property="og:site_name" content="Bjutliuyan&#39;s blog">
+<meta property="og:description" content="本节对OpenCV图像处理中：图像阀值、图像模糊、图像的形态学转换，进行整理介绍">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://bjutliuyan.github.io/blog/images/og_image.png">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567750445013&di=8f019f210c98688dec883c85a8c9f92b&imgtype=0&src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg">
+<meta property="og:updated_time" content="2019-09-09T16:00:44.906Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Bjutliuyan&#39;s blog">
-<meta name="twitter:image" content="http://bjutliuyan.github.io/blog/images/og_image.png">
+<meta name="twitter:title" content="(四)OpenCV图像处理2">
+<meta name="twitter:description" content="本节对OpenCV图像处理中：图像阀值、图像模糊、图像的形态学转换，进行整理介绍">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567750445013&di=8f019f210c98688dec883c85a8c9f92b&imgtype=0&src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg">
 
 
 
@@ -94,7 +99,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/blog/">
             
-                <img src="/blog/images/logo.svg" alt="Bjutliuyan&#39;s blog" height="28">
+                <img src="/blog/images/logo.svg" alt="(四)OpenCV图像处理2" height="28">
             
             </a>
         </div>
@@ -140,15 +145,231 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
-    <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/blog/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">WEB</a></li>
-        </ul>
-        </nav>
+    
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1567750445013&amp;di=8f019f210c98688dec883c85a8c9f92b&amp;imgtype=0&amp;src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg" alt="(四)OpenCV图像处理2">
+        </span>
     </div>
-</div></div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-09-09T04:40:34.000Z">2019-09-09</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    7 分钟 读完 (大约 1032 个字)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span>次访问
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                (四)OpenCV图像处理2
+            
+        </h1>
+        <div class="content">
+            <p>本节对OpenCV图像处理中：图像阀值、图像模糊、图像的形态学转换，进行整理介绍<a id="more"></a></p>
+<h2 id="图像阀值"><a href="#图像阀值" class="headerlink" title="图像阀值"></a>图像阀值</h2><ul>
+<li><input disabled type="checkbox"> 简单阀值 </li>
+<li><input disabled type="checkbox"> 自适应阀值</li>
+<li><input disabled type="checkbox"> Qtsu‘s二值化</li>
+</ul>
+<ol>
+<li><p><strong>简单阀值</strong><br>针对于灰度图片的灰度值，当灰度值高于阀值时，给这个灰度值赋一个新值：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#第一个参数是原始图像</span><br><span class="line">#第二个参数是阀值</span><br><span class="line">#第三个参数是低于或高于阀值时被置于的新值</span><br><span class="line">#第四个参数是阀值规则</span><br><span class="line">retVal,thresh = cv2.threshold(img, 127, 255, cv2.THRESH_TOZERO)</span><br></pre></td></tr></table></figure>
+
+<p>阀值规则对应如下：</p>
+<div align="center">  
+<img src="001.jpg">  
+</div>
+</li>
+<li><p><strong>自适应阀值</strong><br>与上面简单阀值类似，不过简单阀值是整幅图像采用一个数作为阀值，这种方法并不是适应于所有情况，尤其是当一幅图像上的不同部分具有不同亮度时，可以同一幅图像的不同区域采用不同的阀值。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#第一个是超过或小于阀值被重置的灰度值</span><br><span class="line">#第三个参数是指定阀值计算方法</span><br><span class="line">#11是指邻域大小</span><br><span class="line">#2是一个常数，阀值就等于平均值或者加权平均值减去这个常数</span><br><span class="line">thresh = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Otsu‘s 二值化</strong><br>在简单阀值时是随便给了一个数来做阀值，那么怎么知道选取的好坏呢？答案就是不停的尝试。如果是一幅双峰图像，就应该根据其直方图计算出一个阀值。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ret2,th2 = cv2.threshold(img,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTS</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="图像平滑"><a href="#图像平滑" class="headerlink" title="图像平滑"></a>图像平滑</h2><ul>
+<li><input disabled type="checkbox"> 学习使用不同的低通滤波器对图像进行模糊</li>
+<li><input disabled type="checkbox"> 使用自定义的滤波器对图像进行卷积（2D卷积）</li>
+</ul>
+<ol>
+<li><p><strong>2D卷积</strong><br>与信号一样，可以对2D图像实施低通滤波(LPF)，高通滤波(HPF)等。LPF帮助去除噪声、模糊图像；HPF帮助找得到图像的边缘。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kernel = np.ones((5,5),np.float32)/25</span><br><span class="line">dst = cv2.filter2D(img,-1,kernel)</span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<div align="center">  
+<img src="002.jpg">  
+</div>
+</li>
+<li><p><strong>图像模糊</strong><br>使用低通滤波器可以达到图像模糊的目的，这对去除噪音很有帮助，当然现在更多的是通过生成对抗网络来对图像进行增强等。OpenCV提供了四种模糊计算。</p>
+<ul>
+<li><p>平均<br>使用卷积框覆盖区域所有像素的平均值来替代中心元素</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#使用归一化卷积框</span><br><span class="line">blur = cv2.blur(img,(5,5))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>高斯模糊<br>一个卷积框里的值是符合高斯分布的，方框中心的值最大，其余根据距离中心元素的距离递减</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#卷积核的大小必须是一个奇数</span><br><span class="line">blur = cv2.GaussianBlur(img, (5,5), 标准差)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>中值模糊<br>用卷积框对应像素点的中值来替代中心像素的值，这个滤波器经常用来去除椒盐噪声。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">median = cv2.medianBlur(img, 5)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>双边滤波<br>高斯滤波器是求中心点邻近区域像素的高斯加权平均值，这种只考虑像素之间的空间关系，而不会考虑像素值之间的关系（像素的相似度）。所以这种方法不会考虑一个像素是否位于边界，边界也会模糊掉。</p>
+<p>双边滤波在同时使用空间高斯权重和灰度值相似性高斯权重。空间高斯函数确保只有邻近区域的像素对中心点有影响，灰度值相似性高斯函数确保只有与中心像素灰度值相近的才会被用来做模糊运算。所以这种方法会确保边界不会被模糊掉，因为边界处的灰度值变化比较大。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#9表示邻域直径，两个75分别是空间高斯函数标准差、灰度值相似性高斯函数标准差</span><br><span class="line">  blur = cv2.bilateralFilter(img, 9, 75, 75)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="形态学转换"><a href="#形态学转换" class="headerlink" title="形态学转换"></a>形态学转换</h2><ul>
+<li><input disabled type="checkbox"> 腐蚀、膨胀、开运算、闭运算等</li>
+</ul>
+<ol>
+<li><p>腐蚀</p>
+</li>
+<li><p>膨胀</p>
+</li>
+<li><p>开运算</p>
+</li>
+<li><p>闭运算</p>
+</li>
+</ol>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/blog/tags/OpenCV/">OpenCV</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/blog/images/alipay.jpg" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/blog/images/wechat_pay.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/blog/2019/09/08/OpenCV/02图像/三-OpenCV图像处理1/">
+                <span class="level-item">(三)OpenCV图像处理1</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+
+<!--gitment 评论-->
+  <div class="comments" id="comments">
+  
+    <!--汉化-->
+    <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+    <script src="https://billts.site/js/gitment.js"></script>
+    <!--原型-->
+    <!--
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js" type="text/javascript"></script>
+    -->
+    
+      <div id="gitmentContainer" style="margin-bottom: -19px;"></div>
+     
+      <style>
+        .gitment-container a {
+          border: none;
+        }
+        .comments {
+          margin: 60px 0 0;padding: 0 60px;
+        }
+      </style>
+     
+      <script type="text/javascript">
+        var gitment = new Gitment({
+              id: '(四)OpenCV图像处理2',
+              title: '(四)OpenCV图像处理2',
+              owner: 'bjutliuyan',
+              repo: 'hello-world',
+              oauth: {
+                client_id: 'fdf345739039350618b5',
+                client_secret: '9d97d820336314984fc3ef8ffc1e5c786b46572f',
+              },
+        })
+        gitment.render('gitmentContainer')
+      </script>
+    
+  </div>
+<!--gitment 评论 end-->
+    </div>
+</div>
+
+</div>
                 
 
 
@@ -791,7 +1012,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/blog/">
                 
-                    <img src="/blog/images/logo.svg" alt="Bjutliuyan&#39;s blog" height="28">
+                    <img src="/blog/images/logo.svg" alt="(四)OpenCV图像处理2" height="28">
                 
                 </a>
                 <p class="is-size-7">
