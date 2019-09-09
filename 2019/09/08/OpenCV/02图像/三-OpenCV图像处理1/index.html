@@ -3,20 +3,25 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-<title>分类: 随笔 - Bjutliuyan&#39;s blog</title>
+<title>(三)OpenCV图像处理1 - Bjutliuyan&#39;s blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Bjutliuyan&#39;s blog">
-<meta property="og:url" content="http://bjutliuyan.github.io/blog/categories/随笔/index.html">
+    <meta name="description" content="对OpenCV图像处理中最常用的操作：空间变换、几何变换，进行整理介绍">
+<meta name="keywords" content="OpenCV">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(三)OpenCV图像处理1">
+<meta property="og:url" content="http://bjutliuyan.github.io/blog/2019/09/08/OpenCV/02图像/三-OpenCV图像处理1/index.html">
 <meta property="og:site_name" content="Bjutliuyan&#39;s blog">
+<meta property="og:description" content="对OpenCV图像处理中最常用的操作：空间变换、几何变换，进行整理介绍">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://bjutliuyan.github.io/blog/images/og_image.png">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567750445013&di=8f019f210c98688dec883c85a8c9f92b&imgtype=0&src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg">
+<meta property="og:updated_time" content="2019-09-09T03:30:31.745Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Bjutliuyan&#39;s blog">
-<meta name="twitter:image" content="http://bjutliuyan.github.io/blog/images/og_image.png">
+<meta name="twitter:title" content="(三)OpenCV图像处理1">
+<meta name="twitter:description" content="对OpenCV图像处理中最常用的操作：空间变换、几何变换，进行整理介绍">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567750445013&di=8f019f210c98688dec883c85a8c9f92b&imgtype=0&src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg">
 
 
 
@@ -94,7 +99,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/blog/">
             
-                <img src="/blog/images/logo.svg" alt="Bjutliuyan&#39;s blog" height="28">
+                <img src="/blog/images/logo.svg" alt="(三)OpenCV图像处理1" height="28">
             
             </a>
         </div>
@@ -140,134 +145,198 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1567750445013&amp;di=8f019f210c98688dec883c85a8c9f92b&amp;imgtype=0&amp;src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg" alt="(三)OpenCV图像处理1">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-09-08T10:28:10.000Z">2019-09-08</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    4 分钟 读完 (大约 531 个字)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span>次访问
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                (三)OpenCV图像处理1
+            
+        </h1>
+        <div class="content">
+            <p>对OpenCV图像处理中最常用的操作：空间变换、几何变换，进行整理介绍<a id="more"></a></p>
+<h2 id="颜色空间转换"><a href="#颜色空间转换" class="headerlink" title="颜色空间转换"></a>颜色空间转换</h2><ol>
+<li><p>转换颜色空间<br>OpenCV中常用到的颜色空间转换的方法主要是两种：BGR&lt;-&gt;GRAY和BGR&lt;-&gt;HSV。用到的函数是cv2.cvtColor(input_image, flag)，其中flag是转换类型。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line">img = cv2.imread(&apos;image&apos;, image02.jpg)</span><br><span class="line">hsv = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)</span><br><span class="line">cv2.imshow(&apos;image&apos;, hsv)</span><br><span class="line">cv2.waitKey(0)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>物体跟踪<br>可以利用转换颜色空间来提取带有某个特定颜色的物体。在HSV颜色空间中要比在BGR中更容易表示一个特定颜色。比如以在一幅图片中提取蓝色物体为例：</p>
+<div align="center">  
+<img src="001.jpg">  
+<img src="003.jpg">  
+</div>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line">import numpy as np</span><br><span class="line">#获取图片并转化到HSV img = cv2.imread(&apos;image02.jpg&apos;, cv2.IMREAD_COLOR)</span><br><span class="line">hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)</span><br><span class="line">#设定蓝色的阀值 lower_blue=np.array([110,50,50])</span><br><span class="line">upper_blue=np.array([130,255,255])</span><br><span class="line">#根据阀值进行掩模 mask = cv2.inRange(hsv, lower_blue, upper_blue)</span><br><span class="line">#对原图像和掩模进行位运算 res = cv2.bitwise_and(img, img, mask=mask)</span><br><span class="line">#展示 cv2.imshow(&apos;res&apos;, res)</span><br><span class="line">cv2.waitKey(0)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="几何变换"><a href="#几何变换" class="headerlink" title="几何变换"></a>几何变换</h2><ol>
+<li><p>扩展缩放</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">res = cv2.resize(img, (newWidth,newHeight), interpolation=cv2.INTER_LINEAR)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>平移</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">M = np.float32([[1, 0, x], [0, 1, y]])</span><br><span class="line">shifted = cv2.warpAffine(img, M, (image.shape[1], image.shape[0]))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>旋转</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 这里的第一个参数为旋转中心，第二个为旋转角度，第三个为旋转后的缩放因子</span><br><span class="line"># 可以通过设置旋转中心，缩放因子，以及窗口大小来防止旋转后超出边界的问题</span><br><span class="line">M = cv2.getRotationMatrix2D((cols/2,rows/2), 45, 0.6)</span><br><span class="line"># 第三个参数是输出图像的尺寸中心</span><br><span class="line">dst = cv2.warpAffine(img, M, (2*cols,2*rows)</span><br></pre></td></tr></table></figure>
+
+<p><img src="002.jpg" alt></p>
+</li>
+<li><p>仿射变换<br>在仿射变换中，原图中所有的平行线在结果图像中同样平行。为了创建这个矩阵需要从原图像中找到三个点以及它们在输出图像的位置。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pts1=np.float32([[50,50],[200,50],[50,200]])</span><br><span class="line">pts2=np.float32([[10,100],[200,50],[100,250]])</span><br><span class="line">M=cv2.getAffineTransform(pts1,pts2)</span><br><span class="line">dst=cv2.warpAffine(img,M,(cols,rows))</span><br></pre></td></tr></table></figure>
+
+<p><img src="004.jpg" alt></p>
+</li>
+<li><p>透视变换<br>透视变换就相当于视角的变换：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pts1 = np.float32([[56,65],[368,52],[28,387],[389,390]])</span><br><span class="line">pts2 = np.float32([[0,0],[300,0],[0,300],[300,300]])</span><br><span class="line">M=cv2.getPerspectiveTransform(pts1,pts2)</span><br><span class="line">dst=cv2.warpPerspective(img,M,(300,300))</span><br></pre></td></tr></table></figure>
+
+<p><img src="005.jpg" alt></p>
+</li>
+</ol>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/blog/tags/OpenCV/">OpenCV</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
     <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/blog/categories">分类</a></li>
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
             
-            <li class="is-active"><a href="#" aria-current="page">随笔</a></li>
-        </ul>
-        </nav>
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/blog/images/alipay.jpg" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/blog/images/wechat_pay.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
     </div>
 </div>
 
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/blog/2019/08/09/随笔/hexo主题配置+发布博客方法/" class="image is-7by1">
-            <img class="thumbnail" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2913514719,2869154995&amp;fm=15&amp;gp=0.jpg" alt="hexo主题配置+博客发布方法">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-08-09T14:53:38.000Z">2019-08-09</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/blog/categories/随笔/">随笔</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    3 分钟 读完 (大约 482 个字)
-                </span>
-                
-                
-            </div>
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/blog/2019/09/06/OpenCV/02图像/二-OpenCV图像基础操作/">
+                <span class="level-item">(二)OpenCV图像基础操作</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
         </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/blog/2019/08/09/随笔/hexo主题配置+发布博客方法/">hexo主题配置+博客发布方法</a>
-            
-        </h1>
-        <div class="content">
-            <p>如果你已经成功搭建个人博客，可进一步更换不同主题及添加个性化设置，主题传送门：<a href="https://link.zhihu.com/?target=https%3A//hexo.io/themes/" target="_blank" rel="noopener">Themes</a> ，我自己使用的是<a href="https://blog.zhangruipeng.me/hexo-theme-icarus/" target="_blank" rel="noopener">icarus</a> 主题。</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/blog/2019/08/09/随笔/hexo主题配置+发布博客方法/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
         
     </div>
 </div>
 
 
 
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
 
-
-
-
-
-
-    <div class="card">
+<!--gitment 评论-->
+  <div class="comments" id="comments">
+  
+    <!--汉化-->
+    <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+    <script src="https://billts.site/js/gitment.js"></script>
+    <!--原型-->
+    <!--
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js" type="text/javascript"></script>
+    -->
     
-    <div class="card-image">
-        <a href="/blog/2019/08/04/随笔/hexo个人博客搭建/" class="image is-7by1">
-            <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1565534051268&amp;di=8b050ec0d09c9c015005a6527440b96e&amp;imgtype=0&amp;src=http%3A%2F%2Fe0.ifengimg.com%2F08%2F2019%2F0226%2F68B5ED29247CFA85DFE5726B00AFCF5EC9D9AD66_size39_w740_h494.jpeg" alt="hexo个人博客搭建">
-        </a>
-    </div>
+      <div id="gitmentContainer" style="margin-bottom: -19px;"></div>
+     
+      <style>
+        .gitment-container a {
+          border: none;
+        }
+        .comments {
+          margin: 60px 0 0;padding: 0 60px;
+        }
+      </style>
+     
+      <script type="text/javascript">
+        var gitment = new Gitment({
+              id: '(三)OpenCV图像处理1',
+              title: '(三)OpenCV图像处理1',
+              owner: 'bjutliuyan',
+              repo: 'hello-world',
+              oauth: {
+                client_id: 'fdf345739039350618b5',
+                client_secret: '9d97d820336314984fc3ef8ffc1e5c786b46572f',
+              },
+        })
+        gitment.render('gitmentContainer')
+      </script>
     
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-08-04T08:21:45.774Z">2019-08-04</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/blog/categories/随笔/">随笔</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    5 分钟 读完 (大约 822 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/blog/2019/08/04/随笔/hexo个人博客搭建/">hexo个人博客搭建</a>
-            
-        </h1>
-        <div class="content">
-            <p>Hexo是一款基于Node.js的静态博客框架，依赖少易于安装使用，可以方便的</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/blog/2019/08/04/随笔/hexo个人博客搭建/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
+  </div>
+<!--gitment 评论 end-->
     </div>
 </div>
-
-
-
-
-
-
-
-
 
 </div>
                 
@@ -912,7 +981,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/blog/">
                 
-                    <img src="/blog/images/logo.svg" alt="Bjutliuyan&#39;s blog" height="28">
+                    <img src="/blog/images/logo.svg" alt="(三)OpenCV图像处理1" height="28">
                 
                 </a>
                 <p class="is-size-7">
