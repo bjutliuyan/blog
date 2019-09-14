@@ -17,7 +17,7 @@
 <meta property="og:description" content="本节对OpenCV图像处理中：图像梯度、边缘检测，进行整理介绍">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567750445013&di=8f019f210c98688dec883c85a8c9f92b&imgtype=0&src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg">
-<meta property="og:updated_time" content="2019-09-12T03:39:09.190Z">
+<meta property="og:updated_time" content="2019-09-14T15:27:19.081Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(五)OpenCV图像处理3">
 <meta name="twitter:description" content="本节对OpenCV图像处理中：图像梯度、边缘检测，进行整理介绍">
@@ -166,7 +166,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    7 分钟 读完 (大约 1111 个字)
+                    7 分钟 读完 (大约 1107 个字)
                 </span>
                 
                 
@@ -188,7 +188,7 @@
 <a id="more"></a>
 
 <h2 id="图像梯度"><a href="#图像梯度" class="headerlink" title="图像梯度"></a>图像梯度</h2><p>当用之前提及过的均值滤波器来降低图像噪声时，会带来图像模糊的副作用。我们当然希望看到的是清晰图像。那么，清晰图像和模糊图像之间的差别在哪里呢？<br><code>从逻辑上考虑，图像模糊是因为图像中物体的轮廓不明显，轮廓边缘灰度变化不强烈，层次感不强造成的</code>，那么反过来考虑，轮廓边缘灰度变化明显些，层次感强些是不是图像就更清晰些呢。<br>这种灰度变化程度可以用微积分定义，梯度简单来说就是求导，OpenCV提供了三种不同的梯度滤波器，或者说高通滤波器：Sobel，Scharr，Laplacian。</p>
-<h2 id="边缘检测"><a href="#边缘检测" class="headerlink" title="边缘检测"></a>边缘检测</h2><ol>
+<ol>
 <li><p><strong>Sobel算子、Scharr算子</strong><br>Sobel 算子是高斯平滑与微分操作的结合体，所以它的抗噪声能力很好。可以设定求导的方向（xorder 或 yorder）。还可以设定使用的卷积核的大小（ksize）。如果 ksize=-1，会使用 3x3 的Scharr 滤波器，它的的效果要比 3x3 的 Sobel 滤波器好（而且速度相同，所以在使用 3x3 滤波器时应该尽量使用 Scharr 滤波器）。</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">img = cv2.imread(&apos;image01.jpg&apos;, 0)</span><br><span class="line"># cv2.CV_64F为输出图像的深度；1 0/一阶导数0 1表示对x对y轴方向求</span><br><span class="line">sobelx = cv2.Sobel(img, cv2.CV_64F, 1,0,ksize=5)</span><br><span class="line">sobely = cv2.Sobel(img, cv2.CV_64F, 0,1,ksize=5)</span><br></pre></td></tr></table></figure>
 </li>

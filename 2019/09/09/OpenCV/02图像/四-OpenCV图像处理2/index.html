@@ -17,7 +17,7 @@
 <meta property="og:description" content="本节对OpenCV图像处理中：图像阀值、图像模糊、图像的形态学转换，进行整理介绍">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567750445013&di=8f019f210c98688dec883c85a8c9f92b&imgtype=0&src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg">
-<meta property="og:updated_time" content="2019-09-10T14:27:45.242Z">
+<meta property="og:updated_time" content="2019-09-14T15:19:07.658Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(四)OpenCV图像处理2">
 <meta name="twitter:description" content="本节对OpenCV图像处理中：图像阀值、图像模糊、图像的形态学转换，进行整理介绍">
@@ -166,7 +166,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    8 分钟 读完 (大约 1199 个字)
+                    8 分钟 读完 (大约 1198 个字)
                 </span>
                 
                 
@@ -200,10 +200,10 @@
 </div>
 </li>
 <li><p><strong>自适应阀值</strong><br>与上面简单阀值类似，不过简单阀值是整幅图像采用一个数作为阀值，这种方法并不是适应于所有情况，尤其是当一幅图像上的不同部分具有不同亮度时，可以同一幅图像的不同区域采用不同的阀值。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#第一个是超过或小于阀值被重置的灰度值</span><br><span class="line">#第三个参数是指定阀值计算方法</span><br><span class="line">#11是指邻域大小</span><br><span class="line">#2是一个常数，阀值就等于平均值或者加权平均值减去这个常数</span><br><span class="line">thresh = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#第二个是超过或小于阀值被重置的灰度值</span><br><span class="line">#第三个参数是指定阀值计算方法</span><br><span class="line">#11是指邻域大小</span><br><span class="line">#2是一个常数，阀值就等于平均值或者加权平均值减去这个常数</span><br><span class="line">thresh = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>Otsu‘s 二值化</strong><br>在简单阀值时是随便给了一个数来做阀值，那么怎么知道选取的好坏呢？答案就是不停的尝试。如果是一幅双峰图像，就应该根据其直方图计算出一个阀值。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ret2,th2 = cv2.threshold(img,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTS</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ret2,th2 = cv2.threshold(img,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTS)</span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
@@ -232,7 +232,7 @@
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">median = cv2.medianBlur(img, 5)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>双边滤波<br>高斯滤波器是求中心点邻近区域像素的高斯加权平均值，这种只考虑像素之间的空间关系，而不会考虑像素值之间的关系（像素的相似度）。所以这种方法不会考虑一个像素是否位于边界，边界也会模糊掉。</p>
-<p>双边滤波在同时使用空间高斯权重和灰度值相似性高斯权重。空间高斯函数确保只有邻近区域的像素对中心点有影响，灰度值相似性高斯函数确保只有与中心像素灰度值相近的才会被用来做模糊运算。所以这种方法会确保边界不会被模糊掉，因为边界处的灰度值变化比较大。</p>
+<p>双边滤波同时使用空间高斯权重和灰度值相似性高斯权重。空间高斯函数确保只有邻近区域的像素对中心点有影响，灰度值相似性高斯函数确保只有与中心像素灰度值相近的才会被用来做模糊运算。所以这种方法会确保边界不会被模糊掉，因为边界处的灰度值变化比较大。</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#9表示邻域直径，两个75分别是空间高斯函数标准差、灰度值相似性高斯函数标准差</span><br><span class="line">  blur = cv2.bilateralFilter(img, 9, 75, 75)</span><br></pre></td></tr></table></figure>
 
 </li>
