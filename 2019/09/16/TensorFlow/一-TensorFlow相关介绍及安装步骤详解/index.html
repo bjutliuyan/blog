@@ -3,20 +3,25 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-<title>Bjutliuyan&#39;s blog</title>
+<title>(一)TensorFlow相关介绍及安装步骤详解 - Bjutliuyan&#39;s blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Bjutliuyan&#39;s blog">
-<meta property="og:url" content="http://bjutliuyan.github.io/blog/page/2/index.html">
+    <meta name="description" content="TensorFlow即是实现机器学习算法的接口，也是执行机器学习算法的框架">
+<meta name="keywords" content="TensorFlow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(一)TensorFlow相关介绍及安装步骤详解">
+<meta property="og:url" content="http://bjutliuyan.github.io/blog/2019/09/16/TensorFlow/一-TensorFlow相关介绍及安装步骤详解/index.html">
 <meta property="og:site_name" content="Bjutliuyan&#39;s blog">
+<meta property="og:description" content="TensorFlow即是实现机器学习算法的接口，也是执行机器学习算法的框架">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://bjutliuyan.github.io/blog/images/og_image.png">
+<meta property="og:image" content="http://pic2.zhimg.com/v2-26a6ce3b05d4f6e5d9cc22d286bc87e8_1200x500.jpg">
+<meta property="og:updated_time" content="2019-09-16T11:30:08.122Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Bjutliuyan&#39;s blog">
-<meta name="twitter:image" content="http://bjutliuyan.github.io/blog/images/og_image.png">
+<meta name="twitter:title" content="(一)TensorFlow相关介绍及安装步骤详解">
+<meta name="twitter:description" content="TensorFlow即是实现机器学习算法的接口，也是执行机器学习算法的框架">
+<meta name="twitter:image" content="http://pic2.zhimg.com/v2-26a6ce3b05d4f6e5d9cc22d286bc87e8_1200x500.jpg">
 
 
 
@@ -94,7 +99,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/blog/">
             
-                <img src="/blog/images/logo.svg" alt="Bjutliuyan&#39;s blog" height="28">
+                <img src="/blog/images/logo.svg" alt="(一)TensorFlow相关介绍及安装步骤详解" height="28">
             
             </a>
         </div>
@@ -139,209 +144,245 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
-    <div class="card">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
     
     <div class="card-image">
-        <a href="/blog/2019/09/09/OpenCV/02图像/四-OpenCV图像处理2/" class="image is-7by1">
-            <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1567750445013&amp;di=8f019f210c98688dec883c85a8c9f92b&amp;imgtype=0&amp;src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg" alt="(四)OpenCV图像处理2">
-        </a>
+        <span class="image is-7by1">
+            <img class="thumbnail" src="http://pic2.zhimg.com/v2-26a6ce3b05d4f6e5d9cc22d286bc87e8_1200x500.jpg" alt="(一)TensorFlow相关介绍及安装步骤详解">
+        </span>
     </div>
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-09-09T04:40:34.000Z">2019-09-09</time>
+                <time class="level-item has-text-grey" datetime="2019-09-16T05:28:00.000Z">2019-09-16</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
+                <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    8 分钟 读完 (大约 1198 个字)
+                    9 分钟 读完 (大约 1366 个字)
                 </span>
                 
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span>次访问
+                </span>
                 
             </div>
         </div>
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/blog/2019/09/09/OpenCV/02图像/四-OpenCV图像处理2/">(四)OpenCV图像处理2</a>
+                (一)TensorFlow相关介绍及安装步骤详解
             
         </h1>
         <div class="content">
-            <p>本节对OpenCV图像处理中：图像阀值、图像模糊、图像的形态学转换，进行整理介绍</p>
+            <p>TensorFlow即是实现机器学习算法的接口，也是执行机器学习算法的框架<a id="more"></a></p>
+<h2 id="TensorFlow介绍"><a href="#TensorFlow介绍" class="headerlink" title="TensorFlow介绍"></a>TensorFlow介绍</h2><ul>
+<li><strong>TensorFlow基础架构</strong><br><a href="https://github.com/tensorflow/tensorflow" target="_blank" rel="noopener">TensorFlow</a>是谷歌2015年发布的第二代分布式机器学习系统。前端支持Python、C++、Go、Java等多种开发语言，后端使用C++、CUDA等写成，可以方便的部署到各种平台。<br><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1568628494054&di=a317bc1f2ef028f249ee6d53f62aef83&imgtype=0&src=http%3A%2F%2Fimage.bubuko.com%2Finfo%2F201801%2F20180107231729146515.png" alt></li>
+</ul>
+<ul>
+<li><p><strong>构件图、执行图</strong><br>TensorFlow使用数据流式图来规划计算流程，图中的节点被称之为 <em>op</em> (operation 的缩写)。 一个 op 获得 0 个或多个 <code>Tensor</code>, 执行计算，产生 0 个或多个 <code>Tensor</code>。<br>一个 TensorFlow 图描述了计算的过程，不过图是静态的，为了进行计算，图必须在 <code>会话</code> 里被启动。 <code>会话</code> 将图的 op 分发到诸如 CPU 或 GPU 之类的 <code>设备</code> 上， 同时提供执行 op 的方法。执行后再将产生的 tensor 返回。在 Python 语言中, 返回的 tensor 是 <a href="http://www.numpy.org/" target="_blank" rel="noopener">numpy</a> <code>ndarray</code> 对象; 在 C 和 C++ 语言中, 返回的 tensor 是<code>tensorflow::Tensor</code> 实例.<br><img src="001.jpg" alt></p>
+</li>
+<li><p><strong>在一个会话中启动图</strong></p>
+<ol>
+<li><p>构建图完成后，执行图过程需要通过session会话完成：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">#构建图</span><br><span class="line">matrix1 = tf.constant([[3., 3.]])</span><br><span class="line">matrix2 = tf.constant([[2.],[2.]])</span><br><span class="line">product = tf.matmul(matrix1, matrix2)</span><br><span class="line">#执行图</span><br><span class="line">#函数调用 &apos;run(product)&apos; 触发了图中三个 op (两个常量 op 和一个矩阵乘法 op) 的执行，返回result</span><br><span class="line">sess = tf.Session()</span><br><span class="line">result = sess.run(product)</span><br><span class="line">print (result)</span><br><span class="line">sess.close()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>session使用完后需要关闭释放资源，除了显示调用close()，也可以用with自动完成：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">with tf.session() as sess:</span><br><span class="line">  result = sess.run(product)</span><br><span class="line">  print(result)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>分配设备：<br>一般不需要显示指定使用GPU还是CPU，TensorFlow能自动检测；如果检测到GPU会尽可能地利用找到的第一个GPU来执行操作。<br>如果机器上有多个可用GPU，除了第一个其余默认是不参与计算的，需要明确指派。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">with tf.Session() as sess:</span><br><span class="line">  with tf.device(&quot;/gpu:1&quot;):</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p><strong>交互式使用</strong><br>为了便于使用类与IPython的Python交互环境，可用<code>InteractiveSession</code>代替Session类，使用<code>Tensor.eval()</code>和<code>Operation.run()</code>代替Session.run()：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">sess = tf.InteractiveSession()</span><br><span class="line">x = tf.Variable([1.0, 2.0])</span><br><span class="line">a = tf.constant([3.0, 3.0])</span><br><span class="line"># 使用初始化器 initializer op 的 run() 方法初始化 &apos;x&apos; </span><br><span class="line">x.initializer.run()</span><br><span class="line"># 增加一个减法 sub op, 从 &apos;x&apos; 减去 &apos;a&apos;. 运行减法 op, 输出结果 </span><br><span class="line">sub = tf.sub(x, a)</span><br><span class="line">print sub.eval()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Fetch、Feed</strong></p>
+<ol>
+<li><p>Fetch<br>需要在op的一次运行中获取多个tensor值：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = sess.run([mul, intermed])</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Feed<br>Feed机制相当于提供数据作为run()调用的参数，只在调用它的方法内有效，方法结束feed就会消失。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">input1 = tf.placeholder(tf.types.float32)</span><br><span class="line">input2 = tf.placeholder(tf.types.float32)</span><br><span class="line">output = tf.mul(input1, input2)</span><br><span class="line">with tf.Session() as sess:</span><br><span class="line">  print sess.run([output], feed_dict=&#123;input1:[7.], input2:[2.]&#125;)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="Liunx下TensorFlow-GPU版本安装步骤"><a href="#Liunx下TensorFlow-GPU版本安装步骤" class="headerlink" title="Liunx下TensorFlow_GPU版本安装步骤"></a>Liunx下TensorFlow_GPU版本安装步骤</h2><p>TensorFlow并不是全部由Python写成的库，底层有很多C++乃至CUDA的代码。</p>
+<ul>
+<li><p>先在本地安装Python3.5</p>
+</li>
+<li><p>安装Anaconda<br>Anaconda是Python的一个科学计算发行版，内置了数百个Python经常会使用的库，单独安装这些库时很容易出现兼容性问题，建议安装Anaconda。</p>
+<ol>
+<li>到<a href="www.continuum.io/downloads">Anaconda官网</a>下载Anaconda3 4.2.0版</li>
+<li>到Anaconda下载目录执行<code>bash Anaconda3-4.2.0-Linux-x86_64.sh</code></li>
+<li>接下来会看到安装提示，直接按回车确认进入下一步</li>
+<li>安装完成后，程序提示是否把anaconda3的binary路径加入.bashrc，建议添加（这样以后python和ipython命令会自动使用Anaconda Python3.5的环境）</li>
+</ol>
+</li>
+<li><p>安装正确的CUDA版本</p>
+<ol>
+<li><p>到<a href="https://developer.nvidia.com/cuda-toolkit" target="_blank" rel="noopener">CUDA官网</a>下载CUDA安装包，一般里面集成了显卡驱动</p>
+</li>
+<li><p>安装前需要暂停当前NVIDIA驱动的X server，如果是远程连接的Linux机器，可以运行该命令：<code>sudo init 3</code></p>
+</li>
+<li><p>将CUDA安装包权限设置成可执行的，并执行安装程序：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod u+x cuda_8.0.44_linux.run</span><br><span class="line">sudo ./cuda_8.0.44_linux.run</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>接下来是CUDA安装的一些确认，除了确认是否安装CUDA 8.0 Samples选择n之外，其余的选择y；等待CUDA安装完成</p>
+</li>
+<li><p>到系统环境设置CUDA路径</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bashrc</span><br><span class="line">#cuda的绝对路径</span><br><span class="line">export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:/usr/local/cuda-8.0/extras/</span><br><span class="line">CUPTI/lib64:$LD_LIBRARY_PATH</span><br><span class="line">export CUDA_HOME=/usr/local/cuda-8.0</span><br><span class="line">export PATH=/usr/local/cuda-8.0/bin:$PATH</span><br><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>安装正确的CUDNN版本<br>cuDNN是NVIDIA推出的深度学习中CNN和RNN高度优化的实现，目前绝大多数的深度学习框架都使用cuDNN来驱动GPU计算。</p>
+<ol>
+<li>从<a href="https://developer.nvidia.com/rdp/cudnn-download" target="_blank" rel="noopener">CUDNN官网</a>下载，并解压</li>
+</ol>
+</li>
+<li><p>安装TensorFlow</p>
+<ol>
+<li><p>下载安装</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.0.0rc0-cp35-cp35m-linux_x86_64.whl</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>选择是否确认信息到是否支持CUDA这一步，选择支持</p>
+</li>
+<li><p>选择要支持使用的CUDA、CUDNN版本及安装路径<br>CUDA选择8.0版本，路径选择/usr/local/cuda-8.0；<br>CUDNN选择5.1版本，路径也设置为/usr/local/cuda-8.0</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Please specify the location where CUDA 8.0 toolkit is installed. Refer to</span><br><span class="line">README.md for more details. [default is: /usr/local/cuda]: /usr/local/cuda-8.0</span><br><span class="line"></span><br><span class="line">Please specify the location where CUDNN 5.1 V2 library is installed. Refer to</span><br><span class="line">README.md for more details. [default is: /usr/local/cuda]: /usr/local/cuda-8.0</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+</li>
+</ul>
+
         </div>
         
-        
-        <div class="level is-mobile">
+        <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/blog/2019/09/09/OpenCV/02图像/四-OpenCV图像处理2/#more">阅读更多</a>
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/blog/tags/TensorFlow/">TensorFlow</a>
                 </div>
             </div>
         </div>
         
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
         
     </div>
 </div>
 
 
 
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/blog/2019/09/08/OpenCV/02图像/三-OpenCV图像处理1/" class="image is-7by1">
-            <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1567750445013&amp;di=8f019f210c98688dec883c85a8c9f92b&amp;imgtype=0&amp;src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg" alt="(三)OpenCV图像处理1">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-09-08T10:28:10.000Z">2019-09-08</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    4 分钟 读完 (大约 567 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
             
-                <a class="has-link-black-ter" href="/blog/2019/09/08/OpenCV/02图像/三-OpenCV图像处理1/">(三)OpenCV图像处理1</a>
-            
-        </h1>
-        <div class="content">
-            <p>对OpenCV图像处理中最常用的操作：空间变换、几何变换，进行整理介绍</p>
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/blog/images/alipay.jpg" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/blog/images/wechat_pay.jpg" alt="微信"></div>
+</a>
+
+                
         </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/blog/2019/09/08/OpenCV/02图像/三-OpenCV图像处理1/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
     </div>
 </div>
 
 
 
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/blog/2019/09/06/OpenCV/02图像/二-OpenCV图像基础操作/" class="image is-7by1">
-            <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1567750445013&amp;di=8f019f210c98688dec883c85a8c9f92b&amp;imgtype=0&amp;src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg" alt="(二)OpenCV图像基础操作">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-09-06T08:33:51.000Z">2019-09-06</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    4 分钟 读完 (大约 607 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/blog/2019/09/06/OpenCV/02图像/二-OpenCV图像基础操作/">(二)OpenCV图像基础操作</a>
-            
-        </h1>
-        <div class="content">
-            <p>图像的许多操作与Numpy的关系比OpenCV关系更加紧密，</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/blog/2019/09/06/OpenCV/02图像/二-OpenCV图像基础操作/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-    
 <div class="card card-transparent">
-    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-        <div class="pagination-previous">
-            <a class="is-flex-grow has-text-black-ter" href="/blog/">上一页</a>
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/blog/2019/09/11/随笔/随笔篇20190911/">
+                <span class="level-item">随笔篇20190911</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
         </div>
-        <div class="pagination-next">
-            <a class="is-flex-grow has-text-black-ter" href="/blog/page/3/">下一页</a>
-        </div>
-        <ul class="pagination-list is-hidden-mobile">
-            
-            <li><a class="pagination-link has-text-black-ter" href="/blog/">1</a></li>
-            
-            <li><a class="pagination-link is-current" href="/blog/page/2/">2</a></li>
-            
-            <li><a class="pagination-link has-text-black-ter" href="/blog/page/3/">3</a></li>
-            
-            <li><a class="pagination-link has-text-black-ter" href="/blog/page/4/">4</a></li>
-            
-            <li><a class="pagination-link has-text-black-ter" href="/blog/page/5/">5</a></li>
-            
-        </ul>
-    </nav>
+        
+    </div>
 </div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+
+<!--gitment 评论-->
+  <div class="comments" id="comments">
+  
+    <!--汉化-->
+    <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+    <script src="https://billts.site/js/gitment.js"></script>
+    <!--原型-->
+    <!--
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js" type="text/javascript"></script>
+    -->
+    
+      <div id="gitmentContainer" style="margin-bottom: -19px;"></div>
+     
+      <style>
+        .gitment-container a {
+          border: none;
+        }
+        .comments {
+          margin: 60px 0 0;padding: 0 60px;
+        }
+      </style>
+     
+      <script type="text/javascript">
+        var gitment = new Gitment({
+              id: '(一)TensorFlow相关介绍及安装步骤详解',
+              title: '(一)TensorFlow相关介绍及安装步骤详解',
+              owner: 'bjutliuyan',
+              repo: 'hello-world',
+              oauth: {
+                client_id: 'fdf345739039350618b5',
+                client_secret: '9d97d820336314984fc3ef8ffc1e5c786b46572f',
+              },
+        })
+        gitment.render('gitmentContainer')
+      </script>
+    
+  </div>
+<!--gitment 评论 end-->
+    </div>
+</div>
+
 </div>
                 
 
@@ -1007,7 +1048,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/blog/">
                 
-                    <img src="/blog/images/logo.svg" alt="Bjutliuyan&#39;s blog" height="28">
+                    <img src="/blog/images/logo.svg" alt="(一)TensorFlow相关介绍及安装步骤详解" height="28">
                 
                 </a>
                 <p class="is-size-7">
