@@ -189,13 +189,11 @@
 <li><p>转换颜色空间<br>OpenCV中常用到的颜色空间转换的方法主要是两种：BGR&lt;-&gt;GRAY和BGR&lt;-&gt;HSV。用到的函数是cv2.cvtColor(input_image, flag)，其中flag是转换类型。</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line">img = cv2.imread(&apos;image&apos;, image02.jpg)</span><br><span class="line">hsv = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)</span><br><span class="line">cv2.imshow(&apos;image&apos;, hsv)</span><br><span class="line">cv2.waitKey(0)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>物体跟踪<br>可以利用转换颜色空间来提取带有某个特定颜色的物体。在HSV颜色空间中要比在BGR中更容易表示一个特定颜色。比如以在一幅图片中提取蓝色物体为例：</p>
-<div align="center">  
+<li><p>物体跟踪<br>可以利用转换颜色空间来提取带有某个特定颜色的物体。在HSV颜色空间中要比在BGR中更容易表示一个特定颜色。比如以在一幅图片中提取蓝色物体为例：<br><div align="center">  
 <img src="001.jpg">  
 <img src="003.jpg">  
-</div>
+</div></p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line">import numpy as np</span><br><span class="line">#获取图片并转化到HSV </span><br><span class="line">img = cv2.imread(&apos;image02.jpg&apos;, cv2.IMREAD_COLOR)</span><br><span class="line">hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)</span><br><span class="line">#设定蓝色的阀值 lower_blue=np.array([110,50,50])</span><br><span class="line">upper_blue=np.array([130,255,255])</span><br><span class="line">#根据阀值进行掩模 mask = cv2.inRange(hsv, lower_blue, upper_blue)</span><br><span class="line">#对原图像和掩模进行位运算 res = cv2.bitwise_and(img, img, mask=mask)</span><br><span class="line">#展示 cv2.imshow(&apos;res&apos;, res)</span><br><span class="line">cv2.waitKey(0)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
-
 </li>
 </ol>
 <h2 id="几何变换"><a href="#几何变换" class="headerlink" title="几何变换"></a>几何变换</h2><p>图像的集合变换在计算机视觉任务的数据与处理部分很重要，能更好的清洗数据。</p>
@@ -208,17 +206,14 @@
 </li>
 <li><p>旋转</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 这里的第一个参数为旋转中心，第二个为旋转角度，第三个为旋转后的缩放因子</span><br><span class="line"># 可以通过设置旋转中心，缩放因子，以及窗口大小来防止旋转后超出边界的问题</span><br><span class="line">M = cv2.getRotationMatrix2D((cols/2,rows/2), 45, 0.6)</span><br><span class="line"># 第三个参数是输出图像的尺寸中心</span><br><span class="line">dst = cv2.warpAffine(img, M, (2*cols,2*rows))</span><br></pre></td></tr></table></figure>
-
 <p><img src="002.jpg" alt></p>
 </li>
 <li><p>仿射变换<br>在仿射变换中，原图中所有的平行线在结果图像中同样平行。为了创建这个矩阵需要从原图像中找到三个点以及它们在输出图像的位置。</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pts1=np.float32([[50,50],[200,50],[50,200]])</span><br><span class="line">pts2=np.float32([[10,100],[200,50],[100,250]])</span><br><span class="line">M=cv2.getAffineTransform(pts1,pts2)</span><br><span class="line">dst=cv2.warpAffine(img,M,(cols,rows))</span><br></pre></td></tr></table></figure>
-
 <p><img src="004.jpg" alt></p>
 </li>
 <li><p>透视变换<br>透视变换就相当于视角的变换：</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pts1 = np.float32([[56,65],[368,52],[28,387],[389,390]])</span><br><span class="line">pts2 = np.float32([[0,0],[300,0],[0,300],[300,300]])</span><br><span class="line">M=cv2.getPerspectiveTransform(pts1,pts2)</span><br><span class="line">dst=cv2.warpPerspective(img,M,(300,300))</span><br></pre></td></tr></table></figure>
-
 <p><img src="005.jpg" alt></p>
 </li>
 </ol>
@@ -625,7 +620,7 @@
             
             <a href="/blog/2019/09/16/TensorFlow/一-TensorFlow相关介绍及安装步骤详解/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="http://pic2.zhimg.com/v2-26a6ce3b05d4f6e5d9cc22d286bc87e8_1200x500.jpg" alt="(一)TensorFlow相关介绍及安装步骤详解">
+                    <img class="thumbnail" src="http://www.soomal.com/images/doc/20180628/00075647_01.jpg" alt="(一)TensorFlow相关介绍及安装步骤详解">
                 </p>
             </a>
             
@@ -849,7 +844,7 @@
             
             <a href="/blog/2019/09/16/TensorFlow/一-TensorFlow相关介绍及安装步骤详解/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="http://pic2.zhimg.com/v2-26a6ce3b05d4f6e5d9cc22d286bc87e8_1200x500.jpg" alt="(一)TensorFlow相关介绍及安装步骤详解">
+                    <img class="thumbnail" src="http://www.soomal.com/images/doc/20180628/00075647_01.jpg" alt="(一)TensorFlow相关介绍及安装步骤详解">
                 </p>
             </a>
             

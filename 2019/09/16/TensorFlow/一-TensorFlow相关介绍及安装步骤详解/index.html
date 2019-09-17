@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="Bjutliuyan&#39;s blog">
 <meta property="og:description" content="TensorFlow即是实现机器学习算法的接口，也是执行机器学习算法的框架">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://pic2.zhimg.com/v2-26a6ce3b05d4f6e5d9cc22d286bc87e8_1200x500.jpg">
-<meta property="og:updated_time" content="2019-09-17T02:18:56.939Z">
+<meta property="og:image" content="http://www.soomal.com/images/doc/20180628/00075647_01.jpg">
+<meta property="og:updated_time" content="2019-09-17T14:21:59.049Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(一)TensorFlow相关介绍及安装步骤详解">
 <meta name="twitter:description" content="TensorFlow即是实现机器学习算法的接口，也是执行机器学习算法的框架">
-<meta name="twitter:image" content="http://pic2.zhimg.com/v2-26a6ce3b05d4f6e5d9cc22d286bc87e8_1200x500.jpg">
+<meta name="twitter:image" content="http://www.soomal.com/images/doc/20180628/00075647_01.jpg">
 
 
 
@@ -148,7 +148,7 @@
     
     <div class="card-image">
         <span class="image is-7by1">
-            <img class="thumbnail" src="http://pic2.zhimg.com/v2-26a6ce3b05d4f6e5d9cc22d286bc87e8_1200x500.jpg" alt="(一)TensorFlow相关介绍及安装步骤详解">
+            <img class="thumbnail" src="http://www.soomal.com/images/doc/20180628/00075647_01.jpg" alt="(一)TensorFlow相关介绍及安装步骤详解">
         </span>
     </div>
     
@@ -186,10 +186,10 @@
         <div class="content">
             <p>TensorFlow即是实现机器学习算法的接口，也是执行机器学习算法的框架<a id="more"></a></p>
 <h2 id="TensorFlow介绍"><a href="#TensorFlow介绍" class="headerlink" title="TensorFlow介绍"></a>TensorFlow介绍</h2><ul>
-<li><strong>TensorFlow基础架构</strong><br><a href="https://github.com/tensorflow/tensorflow" target="_blank" rel="noopener">TensorFlow</a>是谷歌2015年发布的第二代分布式机器学习系统。前端支持Python、C++、Go、Java等多种开发语言，后端使用C++、CUDA等写成，可以方便的部署到各种平台。<br><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1568628494054&di=a317bc1f2ef028f249ee6d53f62aef83&imgtype=0&src=http%3A%2F%2Fimage.bubuko.com%2Finfo%2F201801%2F20180107231729146515.png" alt></li>
+<li><strong>TensorFlow基础架构</strong><br><a href="https://github.com/tensorflow/tensorflow" target="_blank" rel="noopener">TensorFlow</a>是谷歌2015年发布的第二代分布式机器学习系统。前端支持Python、C++、Go、Java等多种开发语言，后端使用C++、CUDA等写成，可以方便的部署到各种平台。<br><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568628494054&amp;di=a317bc1f2ef028f249ee6d53f62aef83&amp;imgtype=0&amp;src=http%3A%2F%2Fimage.bubuko.com%2Finfo%2F201801%2F20180107231729146515.png" alt></li>
 </ul>
 <ul>
-<li><p><strong>构件图、执行图</strong><br>TensorFlow使用数据流式图来规划计算流程，图中的节点被称之为 <em>op</em> (operation 的缩写)。 一个 op 获得 0 个或多个 <code>Tensor</code>, 执行计算，产生 0 个或多个 <code>Tensor</code>。<br>一个 TensorFlow 图描述了计算的过程，不过图是静态的，为了进行计算，图必须在 <code>会话</code> 里被启动。 <code>会话</code> 将图的 op 分发到诸如 CPU 或 GPU 之类的 <code>设备</code> 上， 同时提供执行 op 的方法。执行后再将产生的 tensor 返回。在 Python 语言中, 返回的 tensor 是 <a href="http://www.numpy.org/" target="_blank" rel="noopener">numpy</a> <code>ndarray</code> 对象; 在 C 和 C++ 语言中, 返回的 tensor 是<code>tensorflow::Tensor</code> 实例.<br><img src="001.jpg" alt></p>
+<li><p><strong>构件图、执行图</strong><br>TensorFlow使用数据流式图来规划计算流程，图中的节点被称之为 _op_ (operation 的缩写)。 一个 op 获得 0 个或多个 <code>Tensor</code>, 执行计算，产生 0 个或多个 <code>Tensor</code>。<br>一个 TensorFlow 图描述了计算的过程，不过图是静态的，为了进行计算，图必须在 <code>会话</code> 里被启动。 <code>会话</code> 将图的 op 分发到诸如 CPU 或 GPU 之类的 <code>设备</code> 上， 同时提供执行 op 的方法。执行后再将产生的 tensor 返回。在 Python 语言中, 返回的 tensor 是 <a href="http://www.numpy.org/" target="_blank" rel="noopener">numpy</a> <code>ndarray</code> 对象; 在 C 和 C++ 语言中, 返回的 tensor 是<code>tensorflow::Tensor</code> 实例.<br><img src="001.jpg" alt></p>
 </li>
 <li><p><strong>在一个会话中启动图</strong></p>
 <ol>
@@ -214,7 +214,6 @@
 </li>
 <li><p>Feed<br>Feed机制相当于提供数据作为run()调用的参数，只在调用它的方法内有效，方法结束feed就会消失。</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">input1 = tf.placeholder(tf.types.float32)</span><br><span class="line">input2 = tf.placeholder(tf.types.float32)</span><br><span class="line">output = tf.mul(input1, input2)</span><br><span class="line">with tf.Session() as sess:</span><br><span class="line">  print sess.run([output], feed_dict=&#123;input1:[7.], input2:[2.]&#125;)</span><br></pre></td></tr></table></figure>
-
 </li>
 </ol>
 </li>
@@ -233,17 +232,14 @@
 </li>
 <li><p>安装正确的CUDA版本</p>
 <ol>
-<li><p>到<a href="https://developer.nvidia.com/cuda-toolkit" target="_blank" rel="noopener">CUDA官网</a>下载CUDA安装包，一般里面集成了显卡驱动</p>
-</li>
-<li><p>安装前需要暂停当前NVIDIA驱动的X server，如果是远程连接的Linux机器，可以运行该命令：<code>sudo init 3</code></p>
-</li>
+<li>到<a href="https://developer.nvidia.com/cuda-toolkit" target="_blank" rel="noopener">CUDA官网</a>下载CUDA安装包，一般里面集成了显卡驱动</li>
+<li>安装前需要暂停当前NVIDIA驱动的X server，如果是远程连接的Linux机器，可以运行该命令：<code>sudo init 3</code></li>
 <li><p>将CUDA安装包权限设置成可执行的，并执行安装程序：</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod u+x cuda_8.0.44_linux.run</span><br><span class="line">sudo ./cuda_8.0.44_linux.run</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>接下来是CUDA安装的一些确认，除了确认是否安装CUDA 8.0 Samples选择n之外，其余的选择y；等待CUDA安装完成</p>
 </li>
-<li><p>到系统环境设置CUDA路径</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bashrc</span><br><span class="line">#cuda的绝对路径</span><br><span class="line">export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:/usr/local/cuda-8.0/extras/</span><br><span class="line">CUPTI/lib64:$LD_LIBRARY_PATH</span><br><span class="line">export CUDA_HOME=/usr/local/cuda-8.0</span><br><span class="line">export PATH=/usr/local/cuda-8.0/bin:$PATH</span><br><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
+<li>到系统环境设置CUDA路径<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bashrc</span><br><span class="line">#cuda的绝对路径</span><br><span class="line">export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:/usr/local/cuda-8.0/extras/</span><br><span class="line">CUPTI/lib64:$LD_LIBRARY_PATH</span><br><span class="line">export CUDA_HOME=/usr/local/cuda-8.0</span><br><span class="line">export PATH=/usr/local/cuda-8.0/bin:$PATH</span><br><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 </li>
@@ -259,9 +255,7 @@
 </li>
 <li><p>选择是否确认信息到是否支持CUDA这一步，选择支持</p>
 </li>
-<li><p>选择要支持使用的CUDA、CUDNN版本及安装路径<br>CUDA选择8.0版本，路径选择/usr/local/cuda-8.0；<br>CUDNN选择5.1版本，路径也设置为/usr/local/cuda-8.0</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Please specify the location where CUDA 8.0 toolkit is installed. Refer to</span><br><span class="line">README.md for more details. [default is: /usr/local/cuda]: /usr/local/cuda-8.0</span><br><span class="line"></span><br><span class="line">Please specify the location where CUDNN 5.1 V2 library is installed. Refer to</span><br><span class="line">README.md for more details. [default is: /usr/local/cuda]: /usr/local/cuda-8.0</span><br></pre></td></tr></table></figure>
-
+<li>选择要支持使用的CUDA、CUDNN版本及安装路径<br>CUDA选择8.0版本，路径选择/usr/local/cuda-8.0；<br>CUDNN选择5.1版本，路径也设置为/usr/local/cuda-8.0<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Please specify the location where CUDA 8.0 toolkit is installed. Refer to</span><br><span class="line">README.md for more details. [default is: /usr/local/cuda]: /usr/local/cuda-8.0</span><br><span class="line"></span><br><span class="line">Please specify the location where CUDNN 5.1 V2 library is installed. Refer to</span><br><span class="line">README.md for more details. [default is: /usr/local/cuda]: /usr/local/cuda-8.0</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 </li>
@@ -669,7 +663,7 @@
             
             <a href="/blog/2019/09/16/TensorFlow/一-TensorFlow相关介绍及安装步骤详解/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="http://pic2.zhimg.com/v2-26a6ce3b05d4f6e5d9cc22d286bc87e8_1200x500.jpg" alt="(一)TensorFlow相关介绍及安装步骤详解">
+                    <img class="thumbnail" src="http://www.soomal.com/images/doc/20180628/00075647_01.jpg" alt="(一)TensorFlow相关介绍及安装步骤详解">
                 </p>
             </a>
             
@@ -893,7 +887,7 @@
             
             <a href="/blog/2019/09/16/TensorFlow/一-TensorFlow相关介绍及安装步骤详解/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="http://pic2.zhimg.com/v2-26a6ce3b05d4f6e5d9cc22d286bc87e8_1200x500.jpg" alt="(一)TensorFlow相关介绍及安装步骤详解">
+                    <img class="thumbnail" src="http://www.soomal.com/images/doc/20180628/00075647_01.jpg" alt="(一)TensorFlow相关介绍及安装步骤详解">
                 </p>
             </a>
             

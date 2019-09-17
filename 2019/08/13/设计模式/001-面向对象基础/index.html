@@ -188,28 +188,25 @@
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本人本科专业为软件工程，曾参加过一些算法方面竞赛，因为对研究方面较感兴趣，也是为了进一步扩展知识面，研究生阶段开始投入HCI方面研究，主要是针对视觉方面的人机交互人体目标检测进行研究。</p>
 <p>在研究生刚开始阶段曾和实验室小伙伴协同开发过两个企业级WEB方面项目，预计今年九月份都能正式上线：</p>
 <ul>
-<li>ONOS系统（前端）<a href="[http://www.crsc.com.cn/](http://www.crsc.com.cn/)">[中国通号院CRSC]</a><br>采用Vue框架</li>
-<li>设备管理系统（全栈）<a href="https://xin.baidu.com/detail/compinfo?pid=xlTM-TogKuTwhldcJSp9Q2adxlHH3M5Bnwmd&from=ps" target="_blank" rel="noopener">[北京诚星科技有限]</a><br>自己搭建环境，后台采用Spring+SpringMVC+Hibernate框架，前端采用EasyUI框架</li>
+<li>ONOS系统（前端）<a href="[http://www.crsc.com.cn/](http://www.crsc.com.cn/">[中国通号院CRSC]</a>)<br>采用Vue框架</li>
+<li>设备管理系统（全栈）<a href="https://xin.baidu.com/detail/compinfo?pid=xlTM-TogKuTwhldcJSp9Q2adxlHH3M5Bnwmd&amp;from=ps" target="_blank" rel="noopener">[北京诚星科技有限]</a><br>自己搭建环境，后台采用Spring+SpringMVC+Hibernate框架，前端采用EasyUI框架</li>
 </ul>
 <p>当然，在这期间也曾遇到项目重构、Bug接连不断等各方面问题，在了解自己能力尚且不足同时，越来越明白设计模式、高内聚低耦合、程序规范化、质量检测等在项目开发中真正的重要性。无论做python开发还是以后做研究，工程类的项目，该思想应该都有值得借鉴之处。因此我准备在文章分类里多添加一个设计模式的分类，在这里对主要经典常用的一些设计模式进行相关介绍总结。相信整体浏览下来你一定能受益匪浅。</p>
 <h2 id="知识理解"><a href="#知识理解" class="headerlink" title="知识理解"></a>知识理解</h2><ol>
-<li><p>类与实例化 </p>
-<blockquote>
+<li>类与实例化 <blockquote>
 <ul>
 <li>类：具有相同属性和功能的对象的集合；<br>那么为什么要用类和实例而不是传统的函数调用呢，这就相当于如果居委会的电视放在你家里，而别人家里没有，于是街坊邻里都要到你家来看电视（函数调用），这样并不合适。所以正确的办法应该是将公用的方法放在居委会（类文件）。</li>
-<li>实例：类的具体对象；<br>实例化相当于从类工厂又生产出一台电视，任何需要的地方都可以实例化它。<br><img src="http://img5.imgtn.bdimg.com/it/u=866994913,4232037044&fm=26&gp=0.jpg" alt></li>
+<li>实例：类的具体对象；<br>实例化相当于从类工厂又生产出一台电视，任何需要的地方都可以实例化它。<br><img src="http://img5.imgtn.bdimg.com/it/u=866994913,4232037044&amp;fm=26&amp;gp=0.jpg" alt></li>
 </ul>
 </blockquote>
 </li>
 <li><p>构造方法与方法重载</p>
 <blockquote>
 <ul>
-<li>构造方法：<br>对类进行初始化，比如对于一个猫的实例，我们希望一出生就可以有姓名，那么就应该写一个有参数的构造方法：<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cat cat1 = new Cat(&quot;喵喵&quot;)</span><br><span class="line">Cat cat2 = new Cat(&quot;咪咪&quot;)</span><br></pre></td></tr></table></figure></li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li>方法重载：<br>提供了创建同名的多个方法能力，可以在不改变原方法基础上，新增功能；重载也算是提供了方法的可扩展能力，比如实例化一个猫的时候给它起不起名字都可以：<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cat cat1 = new Cat()</span><br><span class="line">Cat cat2 = new Cat(&quot;喵喵&quot;)</span><br></pre></td></tr></table></figure></li>
+<li><p>构造方法：<br>对类进行初始化，比如对于一个猫的实例，我们希望一出生就可以有姓名，那么就应该写一个有参数的构造方法：<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cat cat1 = new Cat(&quot;喵喵&quot;)</span><br><span class="line">Cat cat2 = new Cat(&quot;咪咪&quot;)</span><br></pre></td></tr></table></figure></p>
+</li>
+<li><p>方法重载：<br>提供了创建同名的多个方法能力，可以在不改变原方法基础上，新增功能；重载也算是提供了方法的可扩展能力，比如实例化一个猫的时候给它起不起名字都可以：<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cat cat1 = new Cat()</span><br><span class="line">Cat cat2 = new Cat(&quot;喵喵&quot;)</span><br></pre></td></tr></table></figure></p>
+</li>
 </ul>
 </blockquote>
 </li>
@@ -227,40 +224,15 @@
 </li>
 <li><p>重构<br>采用合适的设计模式对原先结构进行重新构建</p>
 </li>
-<li><p>抽象类与接口</p>
-<blockquote>
+<li>抽象类与接口<blockquote>
 <ul>
 <li>抽象类：<br>实例化没有任何意义不能实例化的类<br>例如说一只猫长得什么样可以想象 ，说动物长什么样，没办法知道。抽象方法必须被子类重写，如果一个类中包含抽象方法也一定是抽象类；实际中看具体情况看父类是否需要改成抽象类。</li>
-<li>接口：<br>接口是将隐式公共方法和属性组合起来，以封装特定功能的集合。以下图为例，比如变出东西是小叮当、孙悟空、猪八戒分别具备的功能，如果为了更具有普遍意义而让它们的父类也具有此种功能，显然是不合适的，比如猫并不具备变出来东西功能。所以为了将<strong>特定行为</strong>进行抽样，采用接口。<img src="0001.jpg" alt>主要需要注意的是接口与抽象类的区别与联系：<table>
-<thead>
-<tr>
-<th>抽象类</th>
-<th>接口</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>对类的抽取</td>
-<td>对行为的抽取</td>
-</tr>
-<tr>
-<td>对一些相似类对象，用继承抽象类</td>
-<td>若行为跨越不同类的对象可使用接口</td>
-</tr>
-<tr>
-<td>抽象类是从子类中泛化出父类</td>
-<td>接口是不知道子类的存在，预先定义</td>
-</tr>
-<tr>
-<td>一个类只能继承一个抽象类</td>
-<td>一个类可继承多个接口</td>
-</tr>
-</tbody></table>
-</li>
+<li>接口：<br>接口是将隐式公共方法和属性组合起来，以封装特定功能的集合。以下图为例，比如变出东西是小叮当、孙悟空、猪八戒分别具备的功能，如果为了更具有普遍意义而让它们的父类也具有此种功能，显然是不合适的，比如猫并不具备变出来东西功能。所以为了将<strong>特定行为</strong>进行抽样，采用接口。<img src="0001.jpg" alt>主要需要注意的是接口与抽象类的区别与联系：<br>| 抽象类    | 接口    |<br>| ————- | ———— |<br>| 对类的抽取    | 对行为的抽取  |<br>| 对一些相似类对象，用继承抽象类     | 若行为跨越不同类的对象可使用接口     |<br>| 抽象类是从子类中泛化出父类     | 接口是不知道子类的存在，预先定义 |<br>| 一个类只能继承一个抽象类 | 一个类可继承多个接口    |</li>
 </ul>
 </blockquote>
 </li>
 </ol>
-<ol start="7">
+<ol>
 <li><p>集合与泛型</p>
 <blockquote>
 <ul>
@@ -676,7 +648,7 @@
             
             <a href="/blog/2019/09/16/TensorFlow/一-TensorFlow相关介绍及安装步骤详解/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="http://pic2.zhimg.com/v2-26a6ce3b05d4f6e5d9cc22d286bc87e8_1200x500.jpg" alt="(一)TensorFlow相关介绍及安装步骤详解">
+                    <img class="thumbnail" src="http://www.soomal.com/images/doc/20180628/00075647_01.jpg" alt="(一)TensorFlow相关介绍及安装步骤详解">
                 </p>
             </a>
             
@@ -900,7 +872,7 @@
             
             <a href="/blog/2019/09/16/TensorFlow/一-TensorFlow相关介绍及安装步骤详解/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="http://pic2.zhimg.com/v2-26a6ce3b05d4f6e5d9cc22d286bc87e8_1200x500.jpg" alt="(一)TensorFlow相关介绍及安装步骤详解">
+                    <img class="thumbnail" src="http://www.soomal.com/images/doc/20180628/00075647_01.jpg" alt="(一)TensorFlow相关介绍及安装步骤详解">
                 </p>
             </a>
             
