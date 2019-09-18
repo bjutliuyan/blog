@@ -186,13 +186,14 @@
         <div class="content">
             <p>本节对OpenCV图像处理中：图像阀值、图像模糊、图像的形态学转换，进行整理介绍<a id="more"></a></p>
 <h2 id="图像阀值"><a href="#图像阀值" class="headerlink" title="图像阀值"></a>图像阀值</h2><ul>
-<li>[ ] 简单阀值 </li>
-<li>[ ] 自适应阀值</li>
-<li>[ ] Qtsu‘s二值化</li>
+<li><input disabled type="checkbox"> 简单阀值 </li>
+<li><input disabled type="checkbox"> 自适应阀值</li>
+<li><input disabled type="checkbox"> Qtsu‘s二值化</li>
 </ul>
 <ol>
 <li><p><strong>简单阀值</strong><br>针对于灰度图片的灰度值，当灰度值高于阀值时，给这个灰度值赋一个新值：</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#第一个参数是原始图像</span><br><span class="line">#第二个参数是阀值</span><br><span class="line">#第三个参数是低于或高于阀值时被置于的新值</span><br><span class="line">#第四个参数是阀值规则</span><br><span class="line">retVal,thresh = cv2.threshold(img, 127, 255, cv2.THRESH_TOZERO)</span><br></pre></td></tr></table></figure>
+
 <p>阀值规则对应如下：</p>
 <div align="center">  
 <img src="001.jpg">  
@@ -203,15 +204,17 @@
 </li>
 <li><p><strong>Otsu‘s 二值化</strong><br>在简单阀值时是随便给了一个数来做阀值，那么怎么知道选取的好坏呢？答案就是不停的尝试。如果是一幅双峰图像，就应该根据其直方图计算出一个阀值。</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ret2,th2 = cv2.threshold(img,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTS)</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 <h2 id="图像平滑"><a href="#图像平滑" class="headerlink" title="图像平滑"></a>图像平滑</h2><ul>
-<li>[ ] 学习使用不同的低通滤波器对图像进行模糊</li>
-<li>[ ] 使用自定义的滤波器对图像进行卷积（2D卷积）</li>
+<li><input disabled type="checkbox"> 学习使用不同的低通滤波器对图像进行模糊</li>
+<li><input disabled type="checkbox"> 使用自定义的滤波器对图像进行卷积（2D卷积）</li>
 </ul>
 <ol>
 <li><p><strong>2D卷积</strong><br>与信号一样，可以对2D图像实施低通滤波(LPF)，高通滤波(HPF)等。LPF帮助去除噪声、模糊图像；HPF帮助找得到图像的边缘。</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kernel = np.ones((5,5),np.float32)/25</span><br><span class="line">dst = cv2.filter2D(img,-1,kernel)</span><br></pre></td></tr></table></figure>
+
 <p>效果如下：</p>
 <div align="center">  
 <img src="002.jpg">  
@@ -231,14 +234,17 @@
 <li><p>双边滤波<br>高斯滤波器是求中心点邻近区域像素的高斯加权平均值，这种只考虑像素之间的空间关系，而不会考虑像素值之间的关系（像素的相似度）。所以这种方法不会考虑一个像素是否位于边界，边界也会模糊掉。</p>
 <p>双边滤波同时使用空间高斯权重和灰度值相似性高斯权重。空间高斯函数确保只有邻近区域的像素对中心点有影响，灰度值相似性高斯函数确保只有与中心像素灰度值相近的才会被用来做模糊运算。所以这种方法会确保边界不会被模糊掉，因为边界处的灰度值变化比较大。</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#9表示邻域直径，两个75分别是空间高斯函数标准差、灰度值相似性高斯函数标准差</span><br><span class="line">  blur = cv2.bilateralFilter(img, 9, 75, 75)</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 </li>
 </ol>
 <h2 id="形态学转换"><a href="#形态学转换" class="headerlink" title="形态学转换"></a>形态学转换</h2><ul>
-<li>[ ] 腐蚀、膨胀、开运算、闭运算等<br>形态学操作是根据图像形状进行的简单操作。一般情况下对二值化图像进行的操作。需要输入两个参数，一个是原始图像，第二个被称为结构化元素或<br>核，它是用来决定操作的性质的。</li>
+<li><input disabled type="checkbox"> 腐蚀、膨胀、开运算、闭运算等<br>形态学操作是根据图像形状进行的简单操作。一般情况下对二值化图像进行的操作。需要输入两个参数，一个是原始图像，第二个被称为结构化元素或<br>核，它是用来决定操作的性质的。</li>
 </ul>
-<p>1.<strong>腐蚀</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">img = cv2.imread(&apos;j.png&apos;,0)</span><br><span class="line">kernel = np.ones((5,5),np.uint8)</span><br><span class="line">erosion = cv2.erode(img,kernel,iterations = 1)</span><br></pre></td></tr></table></figure></p>
+<p>1.<strong>腐蚀</strong></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">img = cv2.imread(&apos;j.png&apos;,0)</span><br><span class="line">kernel = np.ones((5,5),np.uint8)</span><br><span class="line">erosion = cv2.erode(img,kernel,iterations = 1)</span><br></pre></td></tr></table></figure>
+
 <div align="center">  
 <img src="003.jpg">  
 </div>
@@ -435,7 +441,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        17
+                        18
                     </p>
                 </div>
             </div>
@@ -576,7 +582,7 @@
                 <span class="level-item">TensorFlow</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">3</span>
+                <span class="level-item tag">4</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/blog/categories/WEB/">
@@ -631,6 +637,25 @@
         
         <article class="media">
             
+            <a href="/blog/2019/09/17/TensorFlow/四-TensorFlow数据读取/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568741106099&amp;di=93dcc8d78c3fdbc53ef21733862c46d9&amp;imgtype=0&amp;src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F69187cc5a0ee5414cb3437c272f1a6a112c0a76c5267b-eRcrDK_fw658" alt="(四)TensorFlow数据读取">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-17T14:27:18.000Z">2019-09-17</time></div>
+                    <a href="/blog/2019/09/17/TensorFlow/四-TensorFlow数据读取/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(四)TensorFlow数据读取</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2019/09/17/TensorFlow/三-TensorBoard可视化及模型数据的保存与加载/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568720993556&amp;di=27eecec21f23c01516a4957906b840fe&amp;imgtype=0&amp;src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170925%2F3c83dd1aa9ec47e58744928e22c5d152.jpeg" alt="(三)TensorBoard可视化及模型数据的保存加载">
@@ -705,25 +730,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/09/10/OpenCV/02图像/五-OpenCV图像处理3/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1567750445013&amp;di=8f019f210c98688dec883c85a8c9f92b&amp;imgtype=0&amp;src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg" alt="(五)OpenCV图像处理3">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-10T14:45:31.000Z">2019-09-10</time></div>
-                    <a href="/blog/2019/09/10/OpenCV/02图像/五-OpenCV图像处理3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(五)OpenCV图像处理3</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -742,7 +748,7 @@
                     <span class="level-item">九月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">11</span>
+                    <span class="level-item tag">12</span>
                 </span>
             </a>
         </li>
@@ -802,7 +808,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/blog/tags/TensorFlow/">
                         <span class="tag">TensorFlow</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 
@@ -855,6 +861,25 @@
         
         <article class="media">
             
+            <a href="/blog/2019/09/17/TensorFlow/四-TensorFlow数据读取/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568741106099&amp;di=93dcc8d78c3fdbc53ef21733862c46d9&amp;imgtype=0&amp;src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F69187cc5a0ee5414cb3437c272f1a6a112c0a76c5267b-eRcrDK_fw658" alt="(四)TensorFlow数据读取">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-17T14:27:18.000Z">2019-09-17</time></div>
+                    <a href="/blog/2019/09/17/TensorFlow/四-TensorFlow数据读取/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(四)TensorFlow数据读取</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2019/09/17/TensorFlow/三-TensorBoard可视化及模型数据的保存与加载/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568720993556&amp;di=27eecec21f23c01516a4957906b840fe&amp;imgtype=0&amp;src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170925%2F3c83dd1aa9ec47e58744928e22c5d152.jpeg" alt="(三)TensorBoard可视化及模型数据的保存加载">
@@ -929,25 +954,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/09/10/OpenCV/02图像/五-OpenCV图像处理3/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1567750445013&amp;di=8f019f210c98688dec883c85a8c9f92b&amp;imgtype=0&amp;src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg" alt="(五)OpenCV图像处理3">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-10T14:45:31.000Z">2019-09-10</time></div>
-                    <a href="/blog/2019/09/10/OpenCV/02图像/五-OpenCV图像处理3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(五)OpenCV图像处理3</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -966,7 +972,7 @@
                     <span class="level-item">九月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">11</span>
+                    <span class="level-item tag">12</span>
                 </span>
             </a>
         </li>
@@ -1026,7 +1032,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/blog/tags/TensorFlow/">
                         <span class="tag">TensorFlow</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 

@@ -17,7 +17,7 @@
 <meta property="og:description" content="模型的可视化与保存在深度学习训练中起到很重要的作用。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1568720993556&di=27eecec21f23c01516a4957906b840fe&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170925%2F3c83dd1aa9ec47e58744928e22c5d152.jpeg">
-<meta property="og:updated_time" content="2019-09-17T13:47:32.320Z">
+<meta property="og:updated_time" content="2019-09-18T02:49:15.793Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(三)TensorBoard可视化及模型数据的保存加载">
 <meta name="twitter:description" content="模型的可视化与保存在深度学习训练中起到很重要的作用。">
@@ -166,7 +166,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    6 分钟 读完 (大约 934 个字)
+                    6 分钟 读完 (大约 938 个字)
                 </span>
                 
                 
@@ -184,11 +184,13 @@
             
         </h1>
         <div class="content">
-            <p>模型的可视化与保存在深度学习训练中起到很重要的作用。<br><a id="more"></a></p>
-<h2 id="模型的保存与恢复"><a href="#模型的保存与恢复" class="headerlink" title="模型的保存与恢复"></a>模型的保存与恢复</h2><p>在通过TensorFlow进行深度学习训练时，会产生大量的参数，那么下一次进行训练的时候又得重新进行训练。所以可以将已经训练好的模型保存到本地。等需要的时候直接将模型读入到内存中来。</p>
+            <p>模型的可视化与保存在深度学习训练中起到很重要的作用。</p>
+<a id="more"></a>
+<h2 id="一、模型的保存与恢复"><a href="#一、模型的保存与恢复" class="headerlink" title="一、模型的保存与恢复"></a>一、模型的保存与恢复</h2><p>在通过TensorFlow进行深度学习训练时，会产生大量的参数，那么下一次进行训练的时候又得重新进行训练。所以可以将已经训练好的模型保存到本地。等需要的时候直接将模型读入到内存中来。</p>
 <ol>
 <li><p><strong>模型的保存</strong></p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line">v1 = tf.Variable(1, name=&quot;v1&quot;)</span><br><span class="line">v2 = tf.Variable(2, name=&quot;v2&quot;)</span><br><span class="line"></span><br><span class="line">#定义初始化所有变量</span><br><span class="line">op init_op = tf.initialize_all_variables()</span><br><span class="line">#增加保存模型</span><br><span class="line">op saver = tf.train.Saver()</span><br><span class="line"></span><br><span class="line">#开启一个会话</span><br><span class="line">with tf.Session() as sess:</span><br><span class="line">  sess.run(init_op)</span><br><span class="line">  save_path = saver.save(sess=sess, save_path=&quot;/home/liuyan/Desktop/OpenCV/checkpoints/model.ckpt&quot;)</span><br></pre></td></tr></table></figure>
+
 <p>   运行之后就会生成保存的模型：</p>
 <div align="center">  
 <img src="001.jpg">  
@@ -202,32 +204,37 @@
 </li>
 <li><p><strong>选择存储和恢复哪些变量</strong><br>如果不给<code>tf.train.Saver()</code>传入参数，那么会保存所有的变量，其中每一个变量都以被创建时的名称被保存。</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#Add ops to save and restore only &apos;v2&apos; using the name &quot;my_v2&quot;</span><br><span class="line">saver = tf.train.Saver(&#123;&quot;my_v2&quot;: v2&#125;)</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
-<h2 id="TensorBoard可视化学习"><a href="#TensorBoard可视化学习" class="headerlink" title="TensorBoard可视化学习"></a>TensorBoard可视化学习</h2><p>为了方便对TensorFlow程序的理解、调试与优化，可以使用TensorBoard来展现TensorFlow的静态图、绘制图像生成的定量指标图以及附加数据。相关操作十分简单，具体步骤如下：</p>
+<h2 id="二、TensorBoard可视化学习"><a href="#二、TensorBoard可视化学习" class="headerlink" title="二、TensorBoard可视化学习"></a>二、TensorBoard可视化学习</h2><p>为了方便对TensorFlow程序的理解、调试与优化，可以使用TensorBoard来展现TensorFlow的静态图、绘制图像生成的定量指标图以及附加数据。相关操作十分简单，具体步骤如下：</p>
 <ol>
 <li><p><strong>将当前的图写入硬盘</strong></p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line">v1 = tf.placeholder(dtype=tf.int32)</span><br><span class="line">v2 = tf.placeholder(dtype=tf.int32)</span><br><span class="line">v3 = tf.add(v1, v2, name=&quot;v3&quot;)</span><br><span class="line"></span><br><span class="line">#开启一个会话 with tf.Session() as sess:</span><br><span class="line">    print(sess.run(v3, feed_dict=&#123;v1: 1, v2: 2&#125;))</span><br><span class="line">    #第一个参数是图的存储路径</span><br><span class="line">    graph_writer_op = tf.summary.FileWriter(&apos;.&apos;, sess.graph)</span><br><span class="line">    sess.run(graph_writer_op)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>启动TensorBoard显示</strong><br>输入下面的指令来启动TensorBoard：</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python tensorflow/tensorboard/tensorboard.py --logdir=path/to/log-directory</span><br></pre></td></tr></table></figure>
+
 <p> 这里的参数 <code>logdir</code> 指向 <code>SummaryWriter</code> 序列化数据的存储路径。如果<code>logdir</code>目录的子目录中包含另一次运行时的数据，那么 TensorBoard 会展示所有运行的数据。TensorBoard 开始运行后，可以通过在浏览器中输入 <code>localhost:6006</code> 来查看 TensorBoard。</p>
 <p> 如果已经通过pip安装了TensorBoard，也可以通过执行以下命令来访问：</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensorboard --logdir=/path/to/log-directory</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 <div align="center">  
 <img src="002.jpg">  
 </div>
 
-<ol>
+<ol start="3">
 <li><p>TensorBoard图表可视化<br>TensorBoard的图表计算强大而又复杂，在可视化和理解网络结构时非常有帮助，如下所示：<br><img src="http://www.tensorfly.cn/tfdoc/images/graph_vis_animation.gif" alt><br>典型的网络结构都有数以千计的节点，那么多的节点难以一下子全部看到，简单起见我们可以为变量名划定范围。下面这个例子使用<code>tf.name_scope</code>在hidden命名域下定义了三个操作：</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line">with tf.name_scope(&apos;hidden&apos;) as scope:</span><br><span class="line">  a = tf.constant(5, name=&apos;alpha&apos;)</span><br><span class="line">  W = tf.Variable(tf.random_uniform([1, 2], -1.0, 1.0), name=&apos;weights&apos;)</span><br><span class="line">  b = tf.Variable(tf.zeros([1]), name=&apos;biases&apos;)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>通过静态图获取具体tensor</strong><br>TensorFlow是通过定义静态图来运行的，我们也可以在程序最后获得这张图：</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g = tf.get_default_graph</span><br></pre></td></tr></table></figure>
+
 <p> 然后可以进一步从图中获取变量： </p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var_a = g.get_tensor_by_name(“v1”)</span><br><span class="line">print(sess.run(var_a))</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 
@@ -286,6 +293,13 @@
 
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/blog/2019/09/17/TensorFlow/四-TensorFlow数据读取/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">(四)TensorFlow数据读取</span>
+            </a>
+        </div>
         
         
         <div class="level-end">
@@ -390,7 +404,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        17
+                        18
                     </p>
                 </div>
             </div>
@@ -531,7 +545,7 @@
                 <span class="level-item">TensorFlow</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">3</span>
+                <span class="level-item tag">4</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/blog/categories/WEB/">
@@ -586,6 +600,25 @@
         
         <article class="media">
             
+            <a href="/blog/2019/09/17/TensorFlow/四-TensorFlow数据读取/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568741106099&amp;di=93dcc8d78c3fdbc53ef21733862c46d9&amp;imgtype=0&amp;src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F69187cc5a0ee5414cb3437c272f1a6a112c0a76c5267b-eRcrDK_fw658" alt="(四)TensorFlow数据读取">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-17T14:27:18.000Z">2019-09-17</time></div>
+                    <a href="/blog/2019/09/17/TensorFlow/四-TensorFlow数据读取/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(四)TensorFlow数据读取</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2019/09/17/TensorFlow/三-TensorBoard可视化及模型数据的保存与加载/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568720993556&amp;di=27eecec21f23c01516a4957906b840fe&amp;imgtype=0&amp;src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170925%2F3c83dd1aa9ec47e58744928e22c5d152.jpeg" alt="(三)TensorBoard可视化及模型数据的保存加载">
@@ -660,25 +693,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/09/10/OpenCV/02图像/五-OpenCV图像处理3/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1567750445013&amp;di=8f019f210c98688dec883c85a8c9f92b&amp;imgtype=0&amp;src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg" alt="(五)OpenCV图像处理3">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-10T14:45:31.000Z">2019-09-10</time></div>
-                    <a href="/blog/2019/09/10/OpenCV/02图像/五-OpenCV图像处理3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(五)OpenCV图像处理3</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -697,7 +711,7 @@
                     <span class="level-item">九月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">11</span>
+                    <span class="level-item tag">12</span>
                 </span>
             </a>
         </li>
@@ -757,7 +771,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/blog/tags/TensorFlow/">
                         <span class="tag">TensorFlow</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 
@@ -810,6 +824,25 @@
         
         <article class="media">
             
+            <a href="/blog/2019/09/17/TensorFlow/四-TensorFlow数据读取/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568741106099&amp;di=93dcc8d78c3fdbc53ef21733862c46d9&amp;imgtype=0&amp;src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F69187cc5a0ee5414cb3437c272f1a6a112c0a76c5267b-eRcrDK_fw658" alt="(四)TensorFlow数据读取">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-17T14:27:18.000Z">2019-09-17</time></div>
+                    <a href="/blog/2019/09/17/TensorFlow/四-TensorFlow数据读取/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(四)TensorFlow数据读取</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2019/09/17/TensorFlow/三-TensorBoard可视化及模型数据的保存与加载/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568720993556&amp;di=27eecec21f23c01516a4957906b840fe&amp;imgtype=0&amp;src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170925%2F3c83dd1aa9ec47e58744928e22c5d152.jpeg" alt="(三)TensorBoard可视化及模型数据的保存加载">
@@ -884,25 +917,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/09/10/OpenCV/02图像/五-OpenCV图像处理3/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1567750445013&amp;di=8f019f210c98688dec883c85a8c9f92b&amp;imgtype=0&amp;src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg" alt="(五)OpenCV图像处理3">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-10T14:45:31.000Z">2019-09-10</time></div>
-                    <a href="/blog/2019/09/10/OpenCV/02图像/五-OpenCV图像处理3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(五)OpenCV图像处理3</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -921,7 +935,7 @@
                     <span class="level-item">九月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">11</span>
+                    <span class="level-item tag">12</span>
                 </span>
             </a>
         </li>
@@ -981,7 +995,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/blog/tags/TensorFlow/">
                         <span class="tag">TensorFlow</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 

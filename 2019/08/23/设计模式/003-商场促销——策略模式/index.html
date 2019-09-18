@@ -186,21 +186,26 @@
         <div class="content">
             <p>面向对象的编程并不是类越多越好，类的划分是为了封装，但分类的基础是抽象，具有相同属性和功能的对象的集合才是类。<a id="more"></a></p>
 <ol>
-<li><strong>需求：</strong><blockquote>
+<li><p><strong>需求：</strong></p>
+<blockquote>
 <p>假如设计一个商场收银软件，营业员根据客户所购买的商品的单价和数量，向客户收费。==考虑到不同商品有不同的促销方式：打1折、打3折、满300减100、满200减50、满100积分10点（积分达到一定程度可以领取相对应奖品）==。<br>考虑界面如下：<br><img src="001.jpg" alt></p>
 </blockquote>
 </li>
 <li><p><strong>简单工厂实现</strong></p>
 <blockquote>
 <p>按照<a href="https://" target="_blank" rel="noopener">上一节</a>的讲法可以根据简单工厂模式建立类图如下，其中注意为了更好的抽象，应将打折操作（1折、2折等）抽象为一个类而不是两个类，其余操作也类似：<br><img src="002.jpg" alt><br>如果现在需要再添加打5折、满500减200活动，按照简单工厂的思想，只需要在收费生成对象工厂添加两个switch条件，再在下拉选框里加两项就OK了；如果加入满100送10积分的活动，需要添加该收费标准子类，再到界面稍加改动，</p>
+</blockquote>
+<blockquote>
 <p>可以看出的是，简单工厂只是解决了对象创建的问题，每次维护和扩展收费方式都要改动这个工厂，以致代码需要重新编译部署。面对算法时常变动，应该有更好的设计模式去选择。</p>
 </blockquote>
 </li>
-<li><strong>策略模式实现</strong><blockquote>
+<li><p><strong>策略模式实现</strong></p>
+<blockquote>
 <p><code>策略模式：</code>是一种定义一系列算法的方法，从概念上看，所有这些算法完成的都是相同的工作，只是实现不同，它可以相同的方式调用所有的算法，减少各种算法与使用算法类之间的耦合。（即通过一个Context类，引入Strategy策略父类，根据传入不同对象，调用具体对应方法），<code>**策略模式封装变化**</code><br><img src="003.jpg" alt><br>CashContext类：<br><img src="004.jpg" alt><br><img src="005.jpg" alt><br>客户端主要代码：<br><img src="006.jpg" alt></p>
 </blockquote>
 </li>
-<li><strong>简单工厂-策略模式相结合</strong><blockquote>
+<li><p><strong>简单工厂-策略模式相结合</strong></p>
+<blockquote>
 <p>可以发现策略模式又回到未用简单工厂之前的老套路，直接在哭护短去判断使用哪一个算法。显然是不合适的。所以可以将简单工厂在策略模式基础上将判断过程从客户端程序移走。<br>改造后CashContext类：<br><img src="007.jpg" alt><br>改造后客户端主要代码：<br><img src="008.jpg" alt><br><img src="009.jpg" alt><br><code>对比原先简单工厂的发现，简单工厂需要客户端认识两个类：CashSuper、CashFactory；而现在只需要认识一个CashContext类就可以了。使得具体的收费算法彻底地与客户端分离，连算法的父类CashSuper都不让客户端认识了，耦合度更加降低。</code><br>不过，目前仍不够完美，因为CashContext里还是用到了switch判断，但是相比原先的简单工厂改动成本较小。当然还有更好的办法，比如反射技术，在后面会进行相关整理介绍。</p>
 </blockquote>
 </li>
@@ -372,7 +377,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        17
+                        18
                     </p>
                 </div>
             </div>
@@ -513,7 +518,7 @@
                 <span class="level-item">TensorFlow</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">3</span>
+                <span class="level-item tag">4</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/blog/categories/WEB/">
@@ -568,6 +573,25 @@
         
         <article class="media">
             
+            <a href="/blog/2019/09/17/TensorFlow/四-TensorFlow数据读取/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568741106099&amp;di=93dcc8d78c3fdbc53ef21733862c46d9&amp;imgtype=0&amp;src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F69187cc5a0ee5414cb3437c272f1a6a112c0a76c5267b-eRcrDK_fw658" alt="(四)TensorFlow数据读取">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-17T14:27:18.000Z">2019-09-17</time></div>
+                    <a href="/blog/2019/09/17/TensorFlow/四-TensorFlow数据读取/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(四)TensorFlow数据读取</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2019/09/17/TensorFlow/三-TensorBoard可视化及模型数据的保存与加载/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568720993556&amp;di=27eecec21f23c01516a4957906b840fe&amp;imgtype=0&amp;src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170925%2F3c83dd1aa9ec47e58744928e22c5d152.jpeg" alt="(三)TensorBoard可视化及模型数据的保存加载">
@@ -642,25 +666,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/09/10/OpenCV/02图像/五-OpenCV图像处理3/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1567750445013&amp;di=8f019f210c98688dec883c85a8c9f92b&amp;imgtype=0&amp;src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg" alt="(五)OpenCV图像处理3">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-10T14:45:31.000Z">2019-09-10</time></div>
-                    <a href="/blog/2019/09/10/OpenCV/02图像/五-OpenCV图像处理3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(五)OpenCV图像处理3</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -679,7 +684,7 @@
                     <span class="level-item">九月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">11</span>
+                    <span class="level-item tag">12</span>
                 </span>
             </a>
         </li>
@@ -739,7 +744,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/blog/tags/TensorFlow/">
                         <span class="tag">TensorFlow</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 
@@ -792,6 +797,25 @@
         
         <article class="media">
             
+            <a href="/blog/2019/09/17/TensorFlow/四-TensorFlow数据读取/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568741106099&amp;di=93dcc8d78c3fdbc53ef21733862c46d9&amp;imgtype=0&amp;src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F69187cc5a0ee5414cb3437c272f1a6a112c0a76c5267b-eRcrDK_fw658" alt="(四)TensorFlow数据读取">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-17T14:27:18.000Z">2019-09-17</time></div>
+                    <a href="/blog/2019/09/17/TensorFlow/四-TensorFlow数据读取/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(四)TensorFlow数据读取</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2019/09/17/TensorFlow/三-TensorBoard可视化及模型数据的保存与加载/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568720993556&amp;di=27eecec21f23c01516a4957906b840fe&amp;imgtype=0&amp;src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170925%2F3c83dd1aa9ec47e58744928e22c5d152.jpeg" alt="(三)TensorBoard可视化及模型数据的保存加载">
@@ -866,25 +890,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/09/10/OpenCV/02图像/五-OpenCV图像处理3/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1567750445013&amp;di=8f019f210c98688dec883c85a8c9f92b&amp;imgtype=0&amp;src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg" alt="(五)OpenCV图像处理3">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-10T14:45:31.000Z">2019-09-10</time></div>
-                    <a href="/blog/2019/09/10/OpenCV/02图像/五-OpenCV图像处理3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(五)OpenCV图像处理3</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -903,7 +908,7 @@
                     <span class="level-item">九月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">11</span>
+                    <span class="level-item tag">12</span>
                 </span>
             </a>
         </li>
@@ -963,7 +968,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/blog/tags/TensorFlow/">
                         <span class="tag">TensorFlow</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 
