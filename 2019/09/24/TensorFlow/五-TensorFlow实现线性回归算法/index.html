@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<script src="js/click.js"></script>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+<title>(五)TensorFlow实现线性回归算法 - Bjutliuyan&#39;s blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="本节以最简单y=0.7x+0.6线性回归为例，将TensorFlow训练、训练后模型保存及可视化串联介绍。">
+<meta name="keywords" content="LinearRegression">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(五)TensorFlow实现线性回归算法">
+<meta property="og:url" content="http://bjutliuyan.github.io/blog/2019/09/24/TensorFlow/五-TensorFlow实现线性回归算法/index.html">
+<meta property="og:site_name" content="Bjutliuyan&#39;s blog">
+<meta property="og:description" content="本节以最简单y=0.7x+0.6线性回归为例，将TensorFlow训练、训练后模型保存及可视化串联介绍。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://pic2.zhimg.com/v2-1928ba47b98b805324d62125b5a37f3f_1200x500.jpg">
+<meta property="og:updated_time" content="2019-09-24T12:59:20.457Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(五)TensorFlow实现线性回归算法">
+<meta name="twitter:description" content="本节以最简单y=0.7x+0.6线性回归为例，将TensorFlow训练、训练后模型保存及可视化串联介绍。">
+<meta name="twitter:image" content="http://pic2.zhimg.com/v2-1928ba47b98b805324d62125b5a37f3f_1200x500.jpg">
+
+
+
+
+
+
+
+<link rel="icon" href="/blog/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/blog/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/blog/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+
+<link rel="stylesheet" href="/blog/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/blog/">
+            
+                <img src="/blog/images/logo.svg" alt="(五)TensorFlow实现线性回归算法" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/blog/">Home</a>
+                
+                <a class="navbar-item" href="/blog/archives">Archives</a>
+                
+                <a class="navbar-item" href="/blog/categories">Categories</a>
+                
+                <a class="navbar-item" href="/blog/tags">Tags</a>
+                
+                <a class="navbar-item" href="/blog/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="http://pic2.zhimg.com/v2-1928ba47b98b805324d62125b5a37f3f_1200x500.jpg" alt="(五)TensorFlow实现线性回归算法">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-09-24T08:47:54.000Z">2019-09-24</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    4 分钟 读完 (大约 614 个字)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span>次访问
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                (五)TensorFlow实现线性回归算法
+            
+        </h1>
+        <div class="content">
+            <p>本节以最简单y=0.7x+0.6线性回归为例，将TensorFlow训练、训练后模型保存及可视化串联介绍。<a id="more"></a></p>
+<h2 id="一、相关步骤"><a href="#一、相关步骤" class="headerlink" title="一、相关步骤"></a>一、相关步骤</h2><ul>
+<li>数据预处理（可选）</li>
+<li>构建模型</li>
+<li>定义损失函数及优化方法</li>
+<li>使用梯度下降迭代训练(可其它优化方法)</li>
+<li>保存模型</li>
+<li>画图<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf</span><br><span class="line"><span class="hljs-comment"># 消除警告(使用源码安装可自动消除)</span></span><br><span class="line"><span class="hljs-keyword">import</span> os</span><br><span class="line">os.environ[<span class="hljs-string">'TF_CPP_MIN_LOG_LEVEL'</span>] = <span class="hljs-string">'2'</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># 回归函数</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">my_regression</span><span class="hljs-params">()</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment"># 准备数据</span></span><br><span class="line">    <span class="hljs-keyword">with</span> tf.variable_scope(<span class="hljs-string">"data"</span>):</span><br><span class="line">        <span class="hljs-comment"># 准备100 条数据x的平均值为5.0 标准差为1.0</span></span><br><span class="line">        x = tf.random_normal([<span class="hljs-number">100</span>, <span class="hljs-number">1</span>], mean = <span class="hljs-number">5.0</span>, stddev=<span class="hljs-number">1.0</span>, name=<span class="hljs-string">"x"</span>)</span><br><span class="line">        <span class="hljs-comment"># 真实的关系为 y = 0.7x + 0.6</span></span><br><span class="line">        y_true = tf.matmul(x, [[<span class="hljs-number">0.7</span>]]) + <span class="hljs-number">0.6</span></span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment"># 创建模型</span></span><br><span class="line">    <span class="hljs-keyword">with</span> tf.variable_scope (<span class="hljs-string">"model"</span>):</span><br><span class="line">        <span class="hljs-comment"># 创建权重变量</span></span><br><span class="line">        weight = tf.Variable(tf.random_normal([<span class="hljs-number">1</span>, <span class="hljs-number">1</span>], mean=<span class="hljs-number">1.0</span>, stddev=<span class="hljs-number">0.1</span>), name=<span class="hljs-string">"weight"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment"># 创建偏置变量,初始值为1</span></span><br><span class="line">        bias = tf.Variable(<span class="hljs-number">1.0</span>, name=<span class="hljs-string">"bias"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment"># 预测结果</span></span><br><span class="line">        y_predict = tf.matmul(x, weight) + bias</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment"># 计算损失</span></span><br><span class="line">    <span class="hljs-keyword">with</span> tf.variable_scope (<span class="hljs-string">"loss"</span>):</span><br><span class="line">        <span class="hljs-comment"># 计算损失</span></span><br><span class="line">        loss = tf.reduce_mean(tf.square(y_predict - y_true))</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment"># 减少损失</span></span><br><span class="line">    <span class="hljs-keyword">with</span> tf.variable_scope(<span class="hljs-string">"optimizer"</span>):</span><br><span class="line">        <span class="hljs-comment"># 梯度下降减少损失,每次的学习率为0.1</span></span><br><span class="line">        train_op = tf.train.GradientDescentOptimizer(<span class="hljs-number">0.01</span>).minimize(loss)</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment"># 收集变量</span></span><br><span class="line">    tf.summary.scalar(<span class="hljs-string">"losses"</span>, loss)</span><br><span class="line">    tf.summary.histogram(<span class="hljs-string">"weightes"</span>, weight)</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment"># 合并变量</span></span><br><span class="line">    merged = tf.summary.merge_all()</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment"># 初始化变量</span></span><br><span class="line">    init_op = tf.global_variables_initializer()</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment"># 梯度下降优化损失</span></span><br><span class="line">    <span class="hljs-keyword">with</span> tf.Session() <span class="hljs-keyword">as</span> sess:</span><br><span class="line">        sess.run(init_op)</span><br><span class="line">        print(<span class="hljs-string">"初始的权重为&#123;&#125;, 初始的偏置为&#123;&#125;"</span>.format(weight.eval(), bias.eval()))</span><br><span class="line">        <span class="hljs-comment"># 添加board记录文件</span></span><br><span class="line">        file_write = tf.summary.FileWriter(<span class="hljs-string">'/Users/liuyan/tensorBoard/my_regression'</span>, graph=sess.graph)</span><br><span class="line">        <span class="hljs-comment"># 循环训练线性回归模型(20000次)</span></span><br><span class="line">        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">20000</span>):</span><br><span class="line">            sess.run(train_op)</span><br><span class="line">            print(<span class="hljs-string">"训练第&#123;&#125;次的权重为&#123;&#125;, 偏置为&#123;&#125;"</span>.format(i,weight.eval(), bias.eval()))</span><br><span class="line">            <span class="hljs-comment"># 观察每次值的变化</span></span><br><span class="line">            <span class="hljs-comment"># 运行merge</span></span><br><span class="line">            summery = sess.run(merged)</span><br><span class="line">            <span class="hljs-comment"># 每次收集到的值添加到文件中</span></span><br><span class="line">            file_write.add_summary(summery, i)</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">'__main__'</span>:</span><br><span class="line">    my_regression()</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="二、运行结果"><a href="#二、运行结果" class="headerlink" title="二、运行结果"></a>二、运行结果</h2><ul>
+<li><img src="004.jpg" alt></li>
+</ul>
+<h2 id="三、模型的保存"><a href="#三、模型的保存" class="headerlink" title="三、模型的保存"></a>三、模型的保存</h2><ul>
+<li><p>模型的保存</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">saver = tf.train.Saver()</span><br><span class="line">saver.save(sess, <span class="hljs-string">"./tmp/ckpt/test"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>模型恢复</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">save.restore(sess, <span class="hljs-string">"./tmp/ckpt/test"</span>)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="四、可视化"><a href="#四、可视化" class="headerlink" title="四、可视化"></a>四、可视化</h2><ul>
+<li><img src="001.jpg" alt></li>
+<li><img src="002.jpg" alt></li>
+<li><img src="003.jpg" alt></li>
+</ul>
+<h2 id="五、扩展"><a href="#五、扩展" class="headerlink" title="五、扩展"></a>五、扩展</h2><p>关于损失函数和优化器，有很多种方法，其中也包括很多种激活函数，激活函数加在每一层神经网络后，避免多层网络变成单层。在线性回归基础上使用sigmoid激活函数就变成了逻辑回归(常用于二分类)，使用softmax激活函数就是多分类。</p>
+<ul>
+<li><strong>常用激活函数</strong><br><img src="005.jpg" alt></li>
+<li><strong>常用损失函数</strong><br><img src="006.jpg" alt></li>
+<li><strong>常用优化器</strong><br><img src="007.jpg" alt></li>
+</ul>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/blog/tags/LinearRegression/">LinearRegression</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/blog/images/alipay.jpg" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/blog/images/wechat_pay.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/blog/2019/09/17/TensorFlow/四-TensorFlow数据读取/">
+                <span class="level-item">(四)TensorFlow数据读取</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+
+<!--gitment 评论-->
+  <div class="comments" id="comments">
+  
+    <!--汉化-->
+    <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+    <script src="https://billts.site/js/gitment.js"></script>
+    <!--原型-->
+    <!--
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js" type="text/javascript"></script>
+    -->
+    
+      <div id="gitmentContainer" style="margin-bottom: -19px;"></div>
+     
+      <style>
+        .gitment-container a {
+          border: none;
+        }
+        .comments {
+          margin: 60px 0 0;padding: 0 60px;
+        }
+      </style>
+     
+      <script type="text/javascript">
+        var gitment = new Gitment({
+              id: '(五)TensorFlow实现线性回归算法',
+              title: '(五)TensorFlow实现线性回归算法',
+              owner: 'bjutliuyan',
+              repo: 'hello-world',
+              oauth: {
+                client_id: 'fdf345739039350618b5',
+                client_secret: '9d97d820336314984fc3ef8ffc1e5c786b46572f',
+              },
+        })
+        gitment.render('gitmentContainer')
+      </script>
+    
+  </div>
+<!--gitment 评论 end-->
+    </div>
+</div>
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/blog/images/avatar.png" alt="Liu Yan">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Liu Yan
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        计算机视觉·机器学习·软件工程
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>China,Beijing</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        19
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        6
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        9
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/bjutliuyan" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/bjutliuyan">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="https://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="https://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="https://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/blog/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        <!-- 以下为原有左边navbar内容，替换为网易云音乐链接
+
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+-->
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="100%" height="52" src="//music.163.com/outchain/player?type=2&id=4940455&auto=1&height=32"></iframe>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/blog/categories/OpenCV/">
+            <span class="level-start">
+                <span class="level-item">OpenCV</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/blog/categories/Python/">
+            <span class="level-start">
+                <span class="level-item">Python</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/blog/categories/TensorFlow/">
+            <span class="level-start">
+                <span class="level-item">TensorFlow</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/blog/categories/WEB/">
+            <span class="level-start">
+                <span class="level-item">WEB</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/blog/categories/设计模式/">
+            <span class="level-start">
+                <span class="level-item">设计模式</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/blog/categories/随笔/">
+            <span class="level-start">
+                <span class="level-item">随笔</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 13.33px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 16.67px;">设计模式</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/09/24/TensorFlow/五-TensorFlow实现线性回归算法/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://pic2.zhimg.com/v2-1928ba47b98b805324d62125b5a37f3f_1200x500.jpg" alt="(五)TensorFlow实现线性回归算法">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-24T08:47:54.000Z">2019-09-24</time></div>
+                    <a href="/blog/2019/09/24/TensorFlow/五-TensorFlow实现线性回归算法/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(五)TensorFlow实现线性回归算法</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/09/17/TensorFlow/四-TensorFlow数据读取/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568741106099&amp;di=93dcc8d78c3fdbc53ef21733862c46d9&amp;imgtype=0&amp;src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F69187cc5a0ee5414cb3437c272f1a6a112c0a76c5267b-eRcrDK_fw658" alt="(四)TensorFlow数据读取">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-17T14:27:18.000Z">2019-09-17</time></div>
+                    <a href="/blog/2019/09/17/TensorFlow/四-TensorFlow数据读取/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(四)TensorFlow数据读取</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/09/17/TensorFlow/三-TensorBoard可视化及模型数据的保存与加载/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568720993556&amp;di=27eecec21f23c01516a4957906b840fe&amp;imgtype=0&amp;src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170925%2F3c83dd1aa9ec47e58744928e22c5d152.jpeg" alt="(三)TensorBoard可视化及模型数据的保存加载">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-17T07:28:31.000Z">2019-09-17</time></div>
+                    <a href="/blog/2019/09/17/TensorFlow/三-TensorBoard可视化及模型数据的保存与加载/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(三)TensorBoard可视化及模型数据的保存加载</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/09/17/TensorFlow/二-TensorFlow常量、变量、占位符及op详解/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568696615309&amp;di=32782aecbdc08438d1812e3064739c91&amp;imgtype=0&amp;src=http%3A%2F%2Fstatic.open-open.com%2Fnews%2FuploadImg%2F20160421%2F20160421204054_742.jpg" alt="(二)TensorFlow常量、变量、占位符及op详解">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-17T02:04:07.000Z">2019-09-17</time></div>
+                    <a href="/blog/2019/09/17/TensorFlow/二-TensorFlow常量、变量、占位符及op详解/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(二)TensorFlow常量、变量、占位符及op详解</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/09/16/TensorFlow/一-TensorFlow相关介绍及安装步骤详解/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://www.soomal.com/images/doc/20180628/00075647_01.jpg" alt="(一)TensorFlow相关介绍及安装步骤详解">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-16T05:28:00.000Z">2019-09-16</time></div>
+                    <a href="/blog/2019/09/16/TensorFlow/一-TensorFlow相关介绍及安装步骤详解/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(一)TensorFlow相关介绍及安装步骤详解</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/blog/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">13</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/blog/archives/2019/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/LinearRegression/">
+                        <span class="tag">LinearRegression</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/Markdown/">
+                        <span class="tag">Markdown</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/OpenCV/">
+                        <span class="tag">OpenCV</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/Pycharm/">
+                        <span class="tag">Pycharm</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/TensorBoard/">
+                        <span class="tag">TensorBoard</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/TensorFlow/">
+                        <span class="tag">TensorFlow</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/WEB/">
+                        <span class="tag">WEB</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/hexo搭建/">
+                        <span class="tag">hexo搭建</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/设计模式/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--以下为新加访客统计-->
+    <script type="text/javascript" src="//rf.revolvermaps.com/0/0/0.js?i=5a01mramx76&amp;d=3&amp;p=0&amp;b=0&amp;w=293&amp;g=2&amp;f=arial&amp;fs=12&amp;r=0&amp;c0=362b05&amp;c1=375363&amp;c2=000000&amp;ic0=0&amp;ic1=0" async="async"></script>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/09/24/TensorFlow/五-TensorFlow实现线性回归算法/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://pic2.zhimg.com/v2-1928ba47b98b805324d62125b5a37f3f_1200x500.jpg" alt="(五)TensorFlow实现线性回归算法">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-24T08:47:54.000Z">2019-09-24</time></div>
+                    <a href="/blog/2019/09/24/TensorFlow/五-TensorFlow实现线性回归算法/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(五)TensorFlow实现线性回归算法</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/09/17/TensorFlow/四-TensorFlow数据读取/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568741106099&amp;di=93dcc8d78c3fdbc53ef21733862c46d9&amp;imgtype=0&amp;src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F69187cc5a0ee5414cb3437c272f1a6a112c0a76c5267b-eRcrDK_fw658" alt="(四)TensorFlow数据读取">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-17T14:27:18.000Z">2019-09-17</time></div>
+                    <a href="/blog/2019/09/17/TensorFlow/四-TensorFlow数据读取/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(四)TensorFlow数据读取</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/09/17/TensorFlow/三-TensorBoard可视化及模型数据的保存与加载/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568720993556&amp;di=27eecec21f23c01516a4957906b840fe&amp;imgtype=0&amp;src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170925%2F3c83dd1aa9ec47e58744928e22c5d152.jpeg" alt="(三)TensorBoard可视化及模型数据的保存加载">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-17T07:28:31.000Z">2019-09-17</time></div>
+                    <a href="/blog/2019/09/17/TensorFlow/三-TensorBoard可视化及模型数据的保存与加载/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(三)TensorBoard可视化及模型数据的保存加载</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/09/17/TensorFlow/二-TensorFlow常量、变量、占位符及op详解/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568696615309&amp;di=32782aecbdc08438d1812e3064739c91&amp;imgtype=0&amp;src=http%3A%2F%2Fstatic.open-open.com%2Fnews%2FuploadImg%2F20160421%2F20160421204054_742.jpg" alt="(二)TensorFlow常量、变量、占位符及op详解">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-17T02:04:07.000Z">2019-09-17</time></div>
+                    <a href="/blog/2019/09/17/TensorFlow/二-TensorFlow常量、变量、占位符及op详解/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(二)TensorFlow常量、变量、占位符及op详解</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/09/16/TensorFlow/一-TensorFlow相关介绍及安装步骤详解/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://www.soomal.com/images/doc/20180628/00075647_01.jpg" alt="(一)TensorFlow相关介绍及安装步骤详解">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-16T05:28:00.000Z">2019-09-16</time></div>
+                    <a href="/blog/2019/09/16/TensorFlow/一-TensorFlow相关介绍及安装步骤详解/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(一)TensorFlow相关介绍及安装步骤详解</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/blog/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">13</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/blog/archives/2019/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/LinearRegression/">
+                        <span class="tag">LinearRegression</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/Markdown/">
+                        <span class="tag">Markdown</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/OpenCV/">
+                        <span class="tag">OpenCV</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/Pycharm/">
+                        <span class="tag">Pycharm</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/TensorBoard/">
+                        <span class="tag">TensorBoard</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/TensorFlow/">
+                        <span class="tag">TensorFlow</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/WEB/">
+                        <span class="tag">WEB</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/hexo搭建/">
+                        <span class="tag">hexo搭建</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/设计模式/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--以下为新加访客统计-->
+    <script type="text/javascript" src="//rf.revolvermaps.com/0/0/0.js?i=5a01mramx76&amp;d=3&amp;p=0&amp;b=0&amp;w=293&amp;g=2&amp;f=arial&amp;fs=12&amp;r=0&amp;c0=362b05&amp;c1=375363&amp;c2=000000&amp;ic0=0&amp;ic1=0" async="async"></script>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/blog/">
+                
+                    <img src="/blog/images/logo.svg" alt="(五)TensorFlow实现线性回归算法" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 bjutliuyan&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                <br>
+                <span id="busuanzi_container_site_uv">
+                共<span id="busuanzi_value_site_uv">0</span>个访客
+                </span>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/blog/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/blog/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/blog/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/blog/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+    
+
+
+<script src="/blog/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/blog/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/blog/js/insight.js" defer></script>
+<link rel="stylesheet" href="/blog/css/search.css">
+<link rel="stylesheet" href="/blog/css/insight.css">
+    
+<script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/blog/live2dw/assets/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
