@@ -3,25 +3,20 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-<title>(三)TensorBoard可视化及模型数据的保存加载 - Bjutliuyan&#39;s blog</title>
+<title>归档 - Bjutliuyan&#39;s blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta name="description" content="模型的可视化与保存在深度学习训练中起到很重要的作用。">
-<meta name="keywords" content="TensorBoard">
-<meta property="og:type" content="article">
-<meta property="og:title" content="(三)TensorBoard可视化及模型数据的保存加载">
-<meta property="og:url" content="http://bjutliuyan.github.io/blog/2019/09/17/TensorFlow/三-TensorBoard可视化及模型数据的保存与加载/index.html">
+    <meta property="og:type" content="website">
+<meta property="og:title" content="Bjutliuyan&#39;s blog">
+<meta property="og:url" content="http://bjutliuyan.github.io/blog/archives/page/6/index.html">
 <meta property="og:site_name" content="Bjutliuyan&#39;s blog">
-<meta property="og:description" content="模型的可视化与保存在深度学习训练中起到很重要的作用。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1568720993556&di=27eecec21f23c01516a4957906b840fe&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170925%2F3c83dd1aa9ec47e58744928e22c5d152.jpeg">
-<meta property="og:updated_time" content="2019-09-20T15:56:03.010Z">
+<meta property="og:image" content="http://bjutliuyan.github.io/blog/images/og_image.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="(三)TensorBoard可视化及模型数据的保存加载">
-<meta name="twitter:description" content="模型的可视化与保存在深度学习训练中起到很重要的作用。">
-<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1568720993556&di=27eecec21f23c01516a4957906b840fe&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170925%2F3c83dd1aa9ec47e58744928e22c5d152.jpeg">
+<meta name="twitter:title" content="Bjutliuyan&#39;s blog">
+<meta name="twitter:image" content="http://bjutliuyan.github.io/blog/images/og_image.png">
 
 
 
@@ -99,7 +94,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/blog/">
             
-                <img src="/blog/images/logo.svg" alt="(三)TensorBoard可视化及模型数据的保存加载" height="28">
+                <img src="/blog/images/logo.svg" alt="Bjutliuyan&#39;s blog" height="28">
             
             </a>
         </div>
@@ -144,223 +139,118 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
-    
-    <div class="card-image">
-        <span class="image is-7by1">
-            <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568720993556&amp;di=27eecec21f23c01516a4957906b840fe&amp;imgtype=0&amp;src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170925%2F3c83dd1aa9ec47e58744928e22c5d152.jpeg" alt="(三)TensorBoard可视化及模型数据的保存加载">
-        </span>
-    </div>
-    
-    <div class="card-content article ">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
         
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-09-17T07:28:31.000Z">2019-09-17</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    6 分钟 读完 (大约 938 个字)
-                </span>
-                
-                
-                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
-                    <i class="far fa-eye"></i>
-                    <span id="busuanzi_value_page_pv">0</span>次访问
-                </span>
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                (三)TensorBoard可视化及模型数据的保存加载
-            
-        </h1>
-        <div class="content">
-            <p>模型的可视化与保存在深度学习训练中起到很重要的作用。</p>
-<a id="more"></a>
-<h2 id="一、模型的保存与恢复"><a href="#一、模型的保存与恢复" class="headerlink" title="一、模型的保存与恢复"></a>一、模型的保存与恢复</h2><p>在通过TensorFlow进行深度学习训练时，会产生大量的参数，那么下一次进行训练的时候又得重新进行训练。所以可以将已经训练好的模型保存到本地。等需要的时候直接将模型读入到内存中来。</p>
-<ol>
-<li><p><strong>模型的保存</strong></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line">v1 = tf.Variable(1, name=&quot;v1&quot;)</span><br><span class="line">v2 = tf.Variable(2, name=&quot;v2&quot;)</span><br><span class="line"></span><br><span class="line">#定义初始化所有变量</span><br><span class="line">op init_op = tf.initialize_all_variables()</span><br><span class="line">#增加保存模型</span><br><span class="line">op saver = tf.train.Saver()</span><br><span class="line"></span><br><span class="line">#开启一个会话</span><br><span class="line">with tf.Session() as sess:</span><br><span class="line">  sess.run(init_op)</span><br><span class="line">  save_path = saver.save(sess=sess, save_path=&quot;/home/liuyan/Desktop/OpenCV/checkpoints/model.ckpt&quot;)</span><br></pre></td></tr></table></figure>
-
-<p>   运行之后就会生成保存的模型：</p>
-<div align="center">  
-<img src="001.jpg">  
-</div></li>
-<li><p><strong>模型的恢复</strong><br>模型的恢复需要两步：</p>
-<ul>
-<li>恢复模型的结构（如果自己又重新写了一份静态图，则不需要该步）</li>
-<li>恢复模型的参数<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line">#恢复模型结构(省略的话如下所示需要自己再重新构建图)</span><br><span class="line">#saver = tf.train.import_meta_graph(&apos;/home/liuyan/Desktop/OpenCV/checkpoints/model.ckpt.meta&apos;)</span><br><span class="line">v1 = tf.Variable(0, name=&quot;v1&quot;)</span><br><span class="line">v2 = tf.Variable(0, name=&quot;v2&quot;)</span><br><span class="line"></span><br><span class="line">saver = tf.train.Saver()</span><br><span class="line"></span><br><span class="line">#开启会话 with tf.Session() as sess:</span><br><span class="line">  saver.restore(sess, &apos;/home/liuyan/Desktop/OpenCV/checkpoints/model.ckpt&apos;)</span><br><span class="line">  print(sess.run(v1))</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p><strong>选择存储和恢复哪些变量</strong><br>如果不给<code>tf.train.Saver()</code>传入参数，那么会保存所有的变量，其中每一个变量都以被创建时的名称被保存。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#Add ops to save and restore only &apos;v2&apos; using the name &quot;my_v2&quot;</span><br><span class="line">saver = tf.train.Saver(&#123;&quot;my_v2&quot;: v2&#125;)</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<h2 id="二、TensorBoard可视化学习"><a href="#二、TensorBoard可视化学习" class="headerlink" title="二、TensorBoard可视化学习"></a>二、TensorBoard可视化学习</h2><p>为了方便对TensorFlow程序的理解、调试与优化，可以使用TensorBoard来展现TensorFlow的静态图、绘制图像生成的定量指标图以及附加数据。相关操作十分简单，具体步骤如下：</p>
-<ol>
-<li><p><strong>将当前的图写入硬盘</strong></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line">v1 = tf.placeholder(dtype=tf.int32)</span><br><span class="line">v2 = tf.placeholder(dtype=tf.int32)</span><br><span class="line">v3 = tf.add(v1, v2, name=&quot;v3&quot;)</span><br><span class="line"></span><br><span class="line">#开启一个会话 with tf.Session() as sess:</span><br><span class="line">    print(sess.run(v3, feed_dict=&#123;v1: 1, v2: 2&#125;))</span><br><span class="line">    #第一个参数是图的存储路径</span><br><span class="line">    graph_writer_op = tf.summary.FileWriter(&apos;.&apos;, sess.graph)</span><br><span class="line">    sess.run(graph_writer_op)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>启动TensorBoard显示</strong><br>输入下面的指令来启动TensorBoard：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python tensorflow/tensorboard/tensorboard.py --logdir=path/to/log-directory</span><br></pre></td></tr></table></figure>
-
-<p> 这里的参数 <code>logdir</code> 指向 <code>SummaryWriter</code> 序列化数据的存储路径。如果<code>logdir</code>目录的子目录中包含另一次运行时的数据，那么 TensorBoard 会展示所有运行的数据。TensorBoard 开始运行后，可以通过在浏览器中输入 <code>localhost:6006</code> 来查看 TensorBoard。</p>
-<p> 如果已经通过pip安装了TensorBoard，也可以通过执行以下命令来访问：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensorboard --logdir=/path/to/log-directory</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<div align="center">  
-<img src="002.jpg">  
-</div>
-
-<ol start="3">
-<li><p><strong>TensorBoard图表可视化</strong><br>TensorBoard的图表计算强大而又复杂，在可视化和理解网络结构时非常有帮助，如下所示：<br><img src="http://www.tensorfly.cn/tfdoc/images/graph_vis_animation.gif" alt><br>典型的网络结构都有数以千计的节点，那么多的节点难以一下子全部看到，简单起见我们可以为变量名划定范围。下面这个例子使用<code>tf.name_scope</code>在hidden命名域下定义了三个操作：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line">with tf.name_scope(&apos;hidden&apos;) as scope:</span><br><span class="line">  a = tf.constant(5, name=&apos;alpha&apos;)</span><br><span class="line">  W = tf.Variable(tf.random_uniform([1, 2], -1.0, 1.0), name=&apos;weights&apos;)</span><br><span class="line">  b = tf.Variable(tf.zeros([1]), name=&apos;biases&apos;)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>通过静态图获取具体tensor</strong><br>TensorFlow是通过定义静态图来运行的，我们也可以在程序最后获得这张图：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g = tf.get_default_graph</span><br></pre></td></tr></table></figure>
-
-<p> 然后可以进一步从图中获取变量： </p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var_a = g.get_tensor_by_name(“v1”)</span><br><span class="line">print(sess.run(var_a))</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-
-        </div>
-        
-        <div class="level is-size-7 is-uppercase">
-            <div class="level-start">
-                <div class="level-item">
-                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/blog/tags/TensorBoard/">TensorBoard</a>
-                </div>
-            </div>
-        </div>
-        
-        
-        
-        <div class="social-share"></div>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
-<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
-        
-    </div>
-</div>
-
-
-
-<div class="card">
+<div class="card widget">
     <div class="card-content">
-        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
-        <div class="buttons is-centered">
-            
+        <h3 class="tag is-link">
+        2019
+        </h3>
+        <div class="timeline">
+        
+            <article class="media">
                 
-<a class="button is-info donate">
-    <span class="icon is-small">
-        <i class="fab fa-alipay"></i>
-    </span>
-    <span>支付宝</span>
-    <div class="qrcode"><img src="/blog/images/alipay.jpg" alt="支付宝"></div>
-</a>
-
+                <a href="/blog/2019/08/12/WEB/web项目发布外网服务器/" class="media-left">
+                    <p class="image is-64x64">
+                        <img class="thumbnail" src="https://blog.mobatek.net/img/covers/update.jpg" alt="web项目外网服务器">
+                    </p>
+                </a>
                 
+                <div class="media-content">
+                    <div class="content">
+                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-08-12T01:35:20.000Z">2019-08-12</time>
+                        <a href="/blog/2019/08/12/WEB/web项目发布外网服务器/" class="title has-link-black-ter is-size-6 has-text-weight-normal">web项目外网服务器</a>
+                        <div class="level article-meta is-mobile">
+                            <div class="level-left">
+                                
+                                <div class="level-item is-size-7 is-uppercase">
+                                <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        
+            <article class="media">
                 
-<a class="button is-success donate">
-    <span class="icon is-small">
-        <i class="fab fa-weixin"></i>
-    </span>
-    <span>微信</span>
-    <div class="qrcode"><img src="/blog/images/wechat_pay.jpg" alt="微信"></div>
-</a>
-
+                <a href="/blog/2019/08/09/随笔/hexo主题配置+发布博客方法/" class="media-left">
+                    <p class="image is-64x64">
+                        <img class="thumbnail" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2913514719,2869154995&amp;fm=15&amp;gp=0.jpg" alt="hexo主题配置+博客发布方法">
+                    </p>
+                </a>
                 
+                <div class="media-content">
+                    <div class="content">
+                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-08-09T14:53:38.000Z">2019-08-09</time>
+                        <a href="/blog/2019/08/09/随笔/hexo主题配置+发布博客方法/" class="title has-link-black-ter is-size-6 has-text-weight-normal">hexo主题配置+博客发布方法</a>
+                        <div class="level article-meta is-mobile">
+                            <div class="level-left">
+                                
+                                <div class="level-item is-size-7 is-uppercase">
+                                <a class="has-link-grey -link" href="/blog/categories/随笔/">随笔</a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        
+            <article class="media">
+                
+                <a href="/blog/2019/08/04/随笔/hexo个人博客搭建/" class="media-left">
+                    <p class="image is-64x64">
+                        <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1565534051268&amp;di=8b050ec0d09c9c015005a6527440b96e&amp;imgtype=0&amp;src=http%3A%2F%2Fe0.ifengimg.com%2F08%2F2019%2F0226%2F68B5ED29247CFA85DFE5726B00AFCF5EC9D9AD66_size39_w740_h494.jpeg" alt="hexo个人博客搭建">
+                    </p>
+                </a>
+                
+                <div class="media-content">
+                    <div class="content">
+                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-08-04T08:21:45.774Z">2019-08-04</time>
+                        <a href="/blog/2019/08/04/随笔/hexo个人博客搭建/" class="title has-link-black-ter is-size-6 has-text-weight-normal">hexo个人博客搭建</a>
+                        <div class="level article-meta is-mobile">
+                            <div class="level-left">
+                                
+                                <div class="level-item is-size-7 is-uppercase">
+                                <a class="has-link-grey -link" href="/blog/categories/随笔/">随笔</a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        
         </div>
     </div>
 </div>
 
+    
 
-
+    
 <div class="card card-transparent">
-    <div class="level post-navigation is-flex-wrap is-mobile">
-        
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/blog/2019/09/17/TensorFlow/四-TensorFlow数据读取/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">(四)TensorFlow数据读取</span>
-            </a>
+    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+        <div class="pagination-previous">
+            <a class="is-flex-grow has-text-black-ter" href="/blog/archives/page/5/">上一页</a>
         </div>
-        
-        
-        <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/blog/2019/09/17/TensorFlow/二-TensorFlow常量、变量、占位符及op详解/">
-                <span class="level-item">(二)TensorFlow常量、变量、占位符及op详解</span>
-                <i class="level-item fas fa-chevron-right"></i>
-            </a>
+        <div class="pagination-next is-invisible is-hidden-mobile">
+            <a class="is-flex-grow has-text-black-ter" href="/blog/archives/page/7/">下一页</a>
         </div>
-        
-    </div>
+        <ul class="pagination-list is-hidden-mobile">
+            
+            <li><a class="pagination-link has-text-black-ter" href="/blog/archives/">1</a></li>
+            
+            <li><span class="pagination-ellipsis has-text-black-ter">&hellip;</span></li>
+            
+            <li><a class="pagination-link has-text-black-ter" href="/blog/archives/page/5/">5</a></li>
+            
+            <li><a class="pagination-link is-current" href="/blog/archives/page/6/">6</a></li>
+            
+        </ul>
+    </nav>
 </div>
-
-
-
-<div class="card">
-    <div class="card-content">
-        <h3 class="title is-5 has-text-weight-normal">评论</h3>
-        
-
-<!--gitment 评论-->
-  <div class="comments" id="comments">
-  
-    <!--汉化-->
-    <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
-    <script src="https://billts.site/js/gitment.js"></script>
-    <!--原型-->
-    <!--
-    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js" type="text/javascript"></script>
-    -->
-    
-      <div id="gitmentContainer" style="margin-bottom: -19px;"></div>
-     
-      <style>
-        .gitment-container a {
-          border: none;
-        }
-        .comments {
-          margin: 60px 0 0;padding: 0 60px;
-        }
-      </style>
-     
-      <script type="text/javascript">
-        var gitment = new Gitment({
-              id: '(三)TensorBoard可视化及模型数据的保存加载',
-              title: '(三)TensorBoard可视化及模型数据的保存加载',
-              owner: 'bjutliuyan',
-              repo: 'hello-world',
-              oauth: {
-                client_id: 'fdf345739039350618b5',
-                client_secret: '9d97d820336314984fc3ef8ffc1e5c786b46572f',
-              },
-        })
-        gitment.render('gitmentContainer')
-      </script>
-    
-  </div>
-<!--gitment 评论 end-->
-    </div>
-</div>
-
 </div>
                 
 
@@ -1040,7 +930,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/blog/">
                 
-                    <img src="/blog/images/logo.svg" alt="(三)TensorBoard可视化及模型数据的保存加载" height="28">
+                    <img src="/blog/images/logo.svg" alt="Bjutliuyan&#39;s blog" height="28">
                 
                 </a>
                 <p class="is-size-7">
