@@ -3,20 +3,25 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-<title>归档 - Bjutliuyan&#39;s blog</title>
+<title>(二)Python基础_常用容器 - Bjutliuyan&#39;s blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Bjutliuyan&#39;s blog">
-<meta property="og:url" content="http://bjutliuyan.github.io/blog/archives/index.html">
+    <meta name="description" content="Python中常用的容器主要有四种：List、Set、Dictionary、Tuple。">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(二)Python基础_常用容器">
+<meta property="og:url" content="http://bjutliuyan.github.io/blog/2019/10/05/python/二-Python基础-常用容器/index.html">
 <meta property="og:site_name" content="Bjutliuyan&#39;s blog">
+<meta property="og:description" content="Python中常用的容器主要有四种：List、Set、Dictionary、Tuple。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://bjutliuyan.github.io/blog/images/og_image.png">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1570252478800&di=34eee5de5798386de7650baf283ab37f&imgtype=0&src=http%3A%2F%2Fgss0.baidu.com%2F-4o3dSag_xI4khGko9WTAnF6hhy%2Fzhidao%2Fpic%2Fitem%2Fcaef76094b36acaf1a099e5279d98d1000e99cb6.jpg">
+<meta property="og:updated_time" content="2019-10-05T04:07:10.472Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Bjutliuyan&#39;s blog">
-<meta name="twitter:image" content="http://bjutliuyan.github.io/blog/images/og_image.png">
+<meta name="twitter:title" content="(二)Python基础_常用容器">
+<meta name="twitter:description" content="Python中常用的容器主要有四种：List、Set、Dictionary、Tuple。">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1570252478800&di=34eee5de5798386de7650baf283ab37f&imgtype=0&src=http%3A%2F%2Fgss0.baidu.com%2F-4o3dSag_xI4khGko9WTAnF6hhy%2Fzhidao%2Fpic%2Fitem%2Fcaef76094b36acaf1a099e5279d98d1000e99cb6.jpg">
 
 
 
@@ -94,7 +99,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/blog/">
             
-                <img src="/blog/images/logo.svg" alt="Bjutliuyan&#39;s blog" height="28">
+                <img src="/blog/images/logo.svg" alt="(二)Python基础_常用容器" height="28">
             
             </a>
         </div>
@@ -104,7 +109,7 @@
                 
                 <a class="navbar-item" href="/blog/">Home</a>
                 
-                <a class="navbar-item is-active" href="/blog/archives">Archives</a>
+                <a class="navbar-item" href="/blog/archives">Archives</a>
                 
                 <a class="navbar-item" href="/blog/categories">Categories</a>
                 
@@ -139,118 +144,180 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1570252478800&amp;di=34eee5de5798386de7650baf283ab37f&amp;imgtype=0&amp;src=http%3A%2F%2Fgss0.baidu.com%2F-4o3dSag_xI4khGko9WTAnF6hhy%2Fzhidao%2Fpic%2Fitem%2Fcaef76094b36acaf1a099e5279d98d1000e99cb6.jpg" alt="(二)Python基础_常用容器">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
         
-<div class="card widget">
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-10-05T02:14:09.000Z">2019-10-05</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/blog/categories/Python/">Python</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    1 分钟 读完 (大约 217 个字)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span>次访问
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                (二)Python基础_常用容器
+            
+        </h1>
+        <div class="content">
+            <p>Python中常用的容器主要有四种：List、Set、Dictionary、Tuple。<a id="more"></a>其中Tuple属于不可变类型，其余三类属于可变类型。</p>
+<h2 id="1-List列表"><a href="#1-List列表" class="headerlink" title="1.List列表"></a>1.List列表</h2><p>List列表是最常见的基本数据结构，其数据项可以为不同类型，也可以为子表。</p>
+<ul>
+<li><p>访问列表元素</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">list2 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>]; </span><br><span class="line">print(<span class="hljs-string">"list1[0]: "</span>, list1[<span class="hljs-number">0</span>])  </span><br><span class="line">print(<span class="hljs-string">"list2[1:5]: "</span>, list2[<span class="hljs-number">1</span>:<span class="hljs-number">5</span>])</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改列表元素</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list[<span class="hljs-number">2</span>] = <span class="hljs-number">2001</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除列表元素</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">del</span> list[<span class="hljs-number">2</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>方法<br><img src="001.jpg" alt></p>
+</li>
+</ul>
+<h2 id="2-Tuple元组"><a href="#2-Tuple元组" class="headerlink" title="2.Tuple元组"></a>2.Tuple元组</h2><p>元组与list类似，不同之处在于tuple不可以修改</p>
+<h2 id="3-Dictionary字典"><a href="#3-Dictionary字典" class="headerlink" title="3.Dictionary字典"></a>3.Dictionary字典</h2><p>字典是另一种可变容器模型，且可存储任意类型对象。<br>字典的每个键值(key=&gt;value)对用冒号(<strong>:</strong>)分割，每个对之间用逗号(<strong>,</strong>)分割，整个字典包括在花括号<strong>{}</strong>中 ,格式如下所示：<br><code>dict = {key1:value1, key2:value2}</code></p>
+<h2 id="4-Set集合"><a href="#4-Set集合" class="headerlink" title="4.Set集合"></a>4.Set集合</h2>
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/blog/tags/Python/">Python</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
     <div class="card-content">
-        <h3 class="tag is-link">
-        2019
-        </h3>
-        <div class="timeline">
-        
-            <article class="media">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
                 
-                <a href="/blog/2019/10/05/python/二-Python基础-常用容器/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1570252478800&amp;di=34eee5de5798386de7650baf283ab37f&amp;imgtype=0&amp;src=http%3A%2F%2Fgss0.baidu.com%2F-4o3dSag_xI4khGko9WTAnF6hhy%2Fzhidao%2Fpic%2Fitem%2Fcaef76094b36acaf1a099e5279d98d1000e99cb6.jpg" alt="(二)Python基础_常用容器">
-                    </p>
-                </a>
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/blog/images/alipay.jpg" alt="支付宝"></div>
+</a>
+
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-10-05T02:14:09.000Z">2019-10-05</time>
-                        <a href="/blog/2019/10/05/python/二-Python基础-常用容器/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(二)Python基础_常用容器</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/blog/categories/Python/">Python</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
                 
-                <a href="/blog/2019/10/03/python/一-Python基础-面向过程语法介绍/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="http://tyunfile.71360.com/UpLoadFile/2018/12/31/19/636818818017678908_dongnao_8544048.png" alt="(一)Python基础_面向过程语法介绍">
-                    </p>
-                </a>
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/blog/images/wechat_pay.jpg" alt="微信"></div>
+</a>
+
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-10-03T07:19:25.000Z">2019-10-03</time>
-                        <a href="/blog/2019/10/03/python/一-Python基础-面向过程语法介绍/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(一)Python基础_面向过程语法介绍</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/blog/categories/Python/">Python</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/blog/2019/09/24/TensorFlow/五-TensorFlow实现线性回归算法/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="http://pic2.zhimg.com/v2-1928ba47b98b805324d62125b5a37f3f_1200x500.jpg" alt="(五)TensorFlow实现线性回归算法">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-09-24T08:47:54.000Z">2019-09-24</time>
-                        <a href="/blog/2019/09/24/TensorFlow/五-TensorFlow实现线性回归算法/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(五)TensorFlow实现线性回归算法</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
         </div>
     </div>
 </div>
 
-    
 
-    
+
 <div class="card card-transparent">
-    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-        <div class="pagination-previous is-invisible is-hidden-mobile">
-            <a class="is-flex-grow has-text-black-ter" href="/blog/archives/page/0/">上一页</a>
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/blog/2019/10/03/python/一-Python基础-面向过程语法介绍/">
+                <span class="level-item">(一)Python基础_面向过程语法介绍</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
         </div>
-        <div class="pagination-next">
-            <a class="is-flex-grow has-text-black-ter" href="/blog/archives/page/2/">下一页</a>
-        </div>
-        <ul class="pagination-list is-hidden-mobile">
-            
-            <li><a class="pagination-link is-current" href="/blog/archives/">1</a></li>
-            
-            <li><a class="pagination-link has-text-black-ter" href="/blog/archives/page/2/">2</a></li>
-            
-            <li><span class="pagination-ellipsis has-text-black-ter">&hellip;</span></li>
-            
-            <li><a class="pagination-link has-text-black-ter" href="/blog/archives/page/7/">7</a></li>
-            
-        </ul>
-    </nav>
+        
+    </div>
 </div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+
+<!--gitment 评论-->
+  <div class="comments" id="comments">
+  
+    <!--汉化-->
+    <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+    <script src="https://billts.site/js/gitment.js"></script>
+    <!--原型-->
+    <!--
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js" type="text/javascript"></script>
+    -->
+    
+      <div id="gitmentContainer" style="margin-bottom: -19px;"></div>
+     
+      <style>
+        .gitment-container a {
+          border: none;
+        }
+        .comments {
+          margin: 60px 0 0;padding: 0 60px;
+        }
+      </style>
+     
+      <script type="text/javascript">
+        var gitment = new Gitment({
+              id: '(二)Python基础_常用容器',
+              title: '(二)Python基础_常用容器',
+              owner: 'bjutliuyan',
+              repo: 'hello-world',
+              oauth: {
+                client_id: 'fdf345739039350618b5',
+                client_secret: '9d97d820336314984fc3ef8ffc1e5c786b46572f',
+              },
+        })
+        gitment.render('gitmentContainer')
+      </script>
+    
+  </div>
+<!--gitment 评论 end-->
+    </div>
+</div>
+
 </div>
                 
 
@@ -980,7 +1047,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/blog/">
                 
-                    <img src="/blog/images/logo.svg" alt="Bjutliuyan&#39;s blog" height="28">
+                    <img src="/blog/images/logo.svg" alt="(二)Python基础_常用容器" height="28">
                 
                 </a>
                 <p class="is-size-7">
