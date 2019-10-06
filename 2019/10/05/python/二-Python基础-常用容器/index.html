@@ -17,7 +17,7 @@
 <meta property="og:description" content="Python中常用的容器主要有四种：List、Set、Dictionary、Tuple。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1570252478800&di=34eee5de5798386de7650baf283ab37f&imgtype=0&src=http%3A%2F%2Fgss0.baidu.com%2F-4o3dSag_xI4khGko9WTAnF6hhy%2Fzhidao%2Fpic%2Fitem%2Fcaef76094b36acaf1a099e5279d98d1000e99cb6.jpg">
-<meta property="og:updated_time" content="2019-10-05T04:07:10.472Z">
+<meta property="og:updated_time" content="2019-10-06T03:59:39.596Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(二)Python基础_常用容器">
 <meta name="twitter:description" content="Python中常用的容器主要有四种：List、Set、Dictionary、Tuple。">
@@ -166,7 +166,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    1 分钟 读完 (大约 217 个字)
+                    3 分钟 读完 (大约 399 个字)
                 </span>
                 
                 
@@ -201,7 +201,34 @@
 </ul>
 <h2 id="2-Tuple元组"><a href="#2-Tuple元组" class="headerlink" title="2.Tuple元组"></a>2.Tuple元组</h2><p>元组与list类似，不同之处在于tuple不可以修改</p>
 <h2 id="3-Dictionary字典"><a href="#3-Dictionary字典" class="headerlink" title="3.Dictionary字典"></a>3.Dictionary字典</h2><p>字典是另一种可变容器模型，且可存储任意类型对象。<br>字典的每个键值(key=&gt;value)对用冒号(<strong>:</strong>)分割，每个对之间用逗号(<strong>,</strong>)分割，整个字典包括在花括号<strong>{}</strong>中 ,格式如下所示：<br><code>dict = {key1:value1, key2:value2}</code></p>
-<h2 id="4-Set集合"><a href="#4-Set集合" class="headerlink" title="4.Set集合"></a>4.Set集合</h2>
+<ul>
+<li><p>访问元素</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># 若用字典里没有的键访问数据，会出现错误</span></span><br><span class="line">dict = &#123;<span class="hljs-string">'Name'</span>: <span class="hljs-string">'Runoob'</span>, <span class="hljs-string">'Age'</span>: <span class="hljs-number">7</span>, <span class="hljs-string">'Class'</span>: <span class="hljs-string">'First'</span>&#125; <span class="hljs-keyword">print</span>  (<span class="hljs-string">"dict['Name']: "</span>, dict[<span class="hljs-string">'Name'</span>])</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改元素</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dict[<span class="hljs-string">'Age'</span>] = <span class="hljs-number">8</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除元素</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">del</span> dict[<span class="hljs-string">'Name'</span>]  <span class="hljs-comment"># 删除键 'Name'  </span></span><br><span class="line">dict.clear()      <span class="hljs-comment"># 清空字典  </span></span><br><span class="line"><span class="hljs-keyword">del</span> dict          <span class="hljs-comment"># 删除字典</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>常用方法<br><img src="003.jpg" alt></p>
+</li>
+</ul>
+<h2 id="4-Set集合"><a href="#4-Set集合" class="headerlink" title="4.Set集合"></a>4.Set集合</h2><p>set集合是一个无序的不重复元素集合。可以使用大括号{}或set()函数创建集合；创建空集必须用set()。</p>
+<ul>
+<li><p>创建格式</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">parame = &#123;value01, value02,...&#125;</span><br><span class="line">或者</span><br><span class="line">set(value)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加元素</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#若元素已存在则不执行任何操作</span></span><br><span class="line">s.add(x)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>移出元素</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#若元素不存在则会发生错误</span></span><br><span class="line">s.remove(x)</span><br><span class="line"><span class="hljs-comment">#随机删除一个元素</span></span><br><span class="line">s.pop()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>常用方法<br><img src="002.jpg" alt></p>
+</li>
+</ul>
+
         </div>
         
         <div class="level is-size-7 is-uppercase">
