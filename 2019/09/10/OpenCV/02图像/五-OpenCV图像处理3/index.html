@@ -184,17 +184,15 @@
             
         </h1>
         <div class="content">
-            <p>本节对OpenCV图像处理中：图像梯度、边缘检测，进行整理介绍</p>
-<a id="more"></a>
-
+            <p>本节对OpenCV图像处理中：图像梯度、边缘检测，进行整理介绍<br><a id="more"></a></p>
 <h2 id="图像梯度"><a href="#图像梯度" class="headerlink" title="图像梯度"></a>图像梯度</h2><p>当用之前提及过的均值滤波器来降低图像噪声时，会带来图像模糊的副作用。我们当然希望看到的是清晰图像。那么，清晰图像和模糊图像之间的差别在哪里呢？<br><code>从逻辑上考虑，图像模糊是因为图像中物体的轮廓不明显，轮廓边缘灰度变化不强烈，层次感不强造成的</code>，那么反过来考虑，轮廓边缘灰度变化明显些，层次感强些是不是图像就更清晰些呢。<br>这种灰度变化程度可以用微积分定义，梯度简单来说就是求导，OpenCV提供了三种不同的梯度滤波器，或者说高通滤波器：Sobel，Scharr，Laplacian。</p>
 <ol>
 <li><p><strong>Sobel算子、Scharr算子</strong><br>Sobel 算子是高斯平滑与微分操作的结合体，所以它的抗噪声能力很好。可以设定求导的方向（xorder 或 yorder）。还可以设定使用的卷积核的大小（ksize）。如果 ksize=-1，会使用 3x3 的Scharr 滤波器，它的的效果要比 3x3 的 Sobel 滤波器好（而且速度相同，所以在使用 3x3 滤波器时应该尽量使用 Scharr 滤波器）。</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">img = cv2.imread(&apos;image01.jpg&apos;, 0)</span><br><span class="line"># cv2.CV_64F为输出图像的深度；1 0/一阶导数0 1表示对x对y轴方向求</span><br><span class="line">sobelx = cv2.Sobel(img, cv2.CV_64F, 1,0,ksize=5)</span><br><span class="line">sobely = cv2.Sobel(img, cv2.CV_64F, 0,1,ksize=5)</span><br></pre></td></tr></table></figure>
 </li>
-<li><p><strong>Laplacian拉普拉斯算子</strong><br>拉普拉斯算子可以使用二阶导数的形式定义，可假设其离散实现类似于Sobel导数。事实上，OpenCV在计算拉普拉斯算子时直接调用Sobel算子。计算公式如下：<br>$$<br>\Delta src=\frac {\partial ^{2}src}{\partial x^2} + \frac {\partial ^{2}src}{\partial y^2}<br>$$</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#cv2.CV_64F是输出图像的深度，可以使用-1与原图像保持一致</span><br><span class="line">laplacian = cv2.laplacian(img, cv2.CV_64F)</span><br></pre></td></tr></table></figure>
-
+<li><p><strong>Laplacian拉普拉斯算子</strong><br>拉普拉斯算子可以使用二阶导数的形式定义，可假设其离散实现类似于Sobel导数。事实上，OpenCV在计算拉普拉斯算子时直接调用Sobel算子。计算公式如下：</p>
+<script type="math/tex; mode=display">
+\Delta src=\frac {\partial ^{2}src}{\partial x^2} + \frac {\partial ^{2}src}{\partial y^2}</script><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#cv2.CV_64F是输出图像的深度，可以使用-1与原图像保持一致</span><br><span class="line">laplacian = cv2.laplacian(img, cv2.CV_64F)</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <div align="center">  
@@ -205,22 +203,19 @@
 <li><strong>原理</strong></li>
 </ol>
 <ul>
-<li><p>噪声去除<br>由于边缘检测很容易受到噪声影响，所以第一步是使用高斯滤波器去燥。</p>
+<li>噪声去除<br>由于边缘检测很容易受到噪声影响，所以第一步是使用高斯滤波器去燥。</li>
+<li><p>计算图像梯度<br>对平滑后的图像使用Sobel算子计算水平方向和竖直方向的一阶导数。再根据这两幅梯度图找到边界的梯度和方向，公式如下：</p>
+<script type="math/tex; mode=display">
+Edge\_Gradient(G) = \sqrt{G^2_x+G^2_y}；
+Angle(\Theta) = tan^{-1}(\frac{G_x}{G_y})</script><p>  梯度的方向一般总是与边界垂直，梯度方向被归为四类：垂直、水平、两个对角线。</p>
 </li>
-<li><p>计算图像梯度<br>对平滑后的图像使用Sobel算子计算水平方向和竖直方向的一阶导数。再根据这两幅梯度图找到边界的梯度和方向，公式如下：<br>$$<br>Edge_Gradient(G) = \sqrt{G^2_x+G^2_y}；<br>Angle(\Theta) = tan^{-1}(\frac{G_x}{G_y})<br>$$</p>
-<p>  梯度的方向一般总是与边界垂直，梯度方向被归为四类：垂直、水平、两个对角线。</p>
-</li>
-<li><p>非极大值抑制<br>通过上一步获得梯度的方向和大小之后，应该对整幅图像做一个扫描，去除非边界上的点（对每一个像素进行检查，看这个点的梯度是不是周围具有相同梯度方向的点中最大的）。</p>
-</li>
-<li><p>滞后阀值<br>现在要确定哪些边界才是真正的边界，这时我们需要设置两个阀值：minVal和maxVal。当图像的灰度梯度高于maxVal被认为是真的边界，低于minVal的边界会被抛弃，如果介于两者之间的话，就要看这个点是否与某个被确定为真正的边界点相连，如果是就认为它也是边界点。如下图：</p>
-<div align="center">  
+<li>非极大值抑制<br>通过上一步获得梯度的方向和大小之后，应该对整幅图像做一个扫描，去除非边界上的点（对每一个像素进行检查，看这个点的梯度是不是周围具有相同梯度方向的点中最大的）。</li>
+<li>滞后阀值<br>现在要确定哪些边界才是真正的边界，这时我们需要设置两个阀值：minVal和maxVal。当图像的灰度梯度高于maxVal被认为是真的边界，低于minVal的边界会被抛弃，如果介于两者之间的话，就要看这个点是否与某个被确定为真正的边界点相连，如果是就认为它也是边界点。如下图：<br><div align="center">  
 <img src="002.jpg">  
-</div>
-A 高于阈值 maxVal 所以是真正的边界点，C 虽然低于 maxVal 但高于minVal 并且与 A 相连，所以也被认为是真正的边界点。而 B 就会被抛弃，因为他不仅低于 maxVal 而且不与真正的边界点相连。所以选择合适的 maxVal和 minVal 对于能否得到好的结果非常重要。在这一步一些小的噪声点也会被除去，因为我们假设边界都是一些长的线段。</li>
+</div><br>A 高于阈值 maxVal 所以是真正的边界点，C 虽然低于 maxVal 但高于minVal 并且与 A 相连，所以也被认为是真正的边界点。而 B 就会被抛弃，因为他不仅低于 maxVal 而且不与真正的边界点相连。所以选择合适的 maxVal和 minVal 对于能否得到好的结果非常重要。在这一步一些小的噪声点也会被除去，因为我们假设边界都是一些长的线段。</li>
 </ul>
-<ol start="2">
+<ol>
 <li><strong>OpenCV中的Canny边界检测</strong><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line">import numpy as np</span><br><span class="line">from matplotlib import pyplot as plt</span><br><span class="line">img = cv2.imread(&apos;image01.jpg&apos;,0)</span><br><span class="line">#原始图像，minVal，maxVal</span><br><span class="line">edges = cv2.Canny(img,100,200)</span><br><span class="line">plt.subplot(121),plt.imshow(img,cmap = &apos;gray&apos;)</span><br><span class="line">plt.title(&apos;Original Image&apos;), plt.xticks([]), plt.yticks([])</span><br><span class="line">plt.subplot(122),plt.imshow(edges,cmap = &apos;gray&apos;)</span><br><span class="line">plt.title(&apos;Edge Image&apos;), plt.xticks([]), plt.yticks([])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
 </li>
 </ol>
 <p>如下图所示：</p>
@@ -394,7 +389,7 @@ A 高于阈值 maxVal 所以是真正的边界点，C 虽然低于 maxVal 但高
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        21
+                        22
                     </p>
                 </div>
             </div>
@@ -527,7 +522,7 @@ A 高于阈值 maxVal 所以是真正的边界点，C 虽然低于 maxVal 但高
                 <span class="level-item">Python</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">3</span>
+                <span class="level-item tag">4</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/blog/categories/TensorFlow/">
@@ -573,7 +568,7 @@ A 高于阈值 maxVal 所以是真正的边界点，C 虽然低于 maxVal 但高
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 12.5px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 15px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 17.5px;">设计模式</a>
+        <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 13.33px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 16.67px;">设计模式</a>
     </div>
 </div>
 
@@ -587,6 +582,25 @@ A 高于阈值 maxVal 所以是真正的边界点，C 虽然低于 maxVal 但高
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/10/06/python/三-Python基础-文件访问与函数调用/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://img10.cache.hxsd.com/hxsdmy/show/2013/01/87/63/28/03/26/20130326223519.jpg" alt="(三)Python基础_文件访问与函数调用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-06T04:13:13.000Z">2019-10-06</time></div>
+                    <a href="/blog/2019/10/06/python/三-Python基础-文件访问与函数调用/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(三)Python基础_文件访问与函数调用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/Python/">Python</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -664,25 +678,6 @@ A 高于阈值 maxVal 所以是真正的边界点，C 虽然低于 maxVal 但高
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/09/17/TensorFlow/三-TensorBoard可视化及模型数据的保存与加载/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568720993556&amp;di=27eecec21f23c01516a4957906b840fe&amp;imgtype=0&amp;src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170925%2F3c83dd1aa9ec47e58744928e22c5d152.jpeg" alt="(三)TensorBoard可视化及模型数据的保存加载">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-17T07:28:31.000Z">2019-09-17</time></div>
-                    <a href="/blog/2019/09/17/TensorFlow/三-TensorBoard可视化及模型数据的保存与加载/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(三)TensorBoard可视化及模型数据的保存加载</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -701,7 +696,7 @@ A 高于阈值 maxVal 所以是真正的边界点，C 虽然低于 maxVal 但高
                     <span class="level-item">十月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">3</span>
                 </span>
             </a>
         </li>
@@ -772,7 +767,7 @@ A 高于阈值 maxVal 所以是真正的边界点，C 虽然低于 maxVal 但高
                 <div class="control">
                     <a class="tags has-addons" href="/blog/tags/Python/">
                         <span class="tag">Python</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 
@@ -839,6 +834,25 @@ A 高于阈值 maxVal 所以是真正的边界点，C 虽然低于 maxVal 但高
         
         <article class="media">
             
+            <a href="/blog/2019/10/06/python/三-Python基础-文件访问与函数调用/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://img10.cache.hxsd.com/hxsdmy/show/2013/01/87/63/28/03/26/20130326223519.jpg" alt="(三)Python基础_文件访问与函数调用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-06T04:13:13.000Z">2019-10-06</time></div>
+                    <a href="/blog/2019/10/06/python/三-Python基础-文件访问与函数调用/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(三)Python基础_文件访问与函数调用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/Python/">Python</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2019/10/05/python/二-Python基础-常用容器/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1570252478800&amp;di=34eee5de5798386de7650baf283ab37f&amp;imgtype=0&amp;src=http%3A%2F%2Fgss0.baidu.com%2F-4o3dSag_xI4khGko9WTAnF6hhy%2Fzhidao%2Fpic%2Fitem%2Fcaef76094b36acaf1a099e5279d98d1000e99cb6.jpg" alt="(二)Python基础_常用容器">
@@ -913,25 +927,6 @@ A 高于阈值 maxVal 所以是真正的边界点，C 虽然低于 maxVal 但高
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/09/17/TensorFlow/三-TensorBoard可视化及模型数据的保存与加载/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568720993556&amp;di=27eecec21f23c01516a4957906b840fe&amp;imgtype=0&amp;src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170925%2F3c83dd1aa9ec47e58744928e22c5d152.jpeg" alt="(三)TensorBoard可视化及模型数据的保存加载">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-17T07:28:31.000Z">2019-09-17</time></div>
-                    <a href="/blog/2019/09/17/TensorFlow/三-TensorBoard可视化及模型数据的保存与加载/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(三)TensorBoard可视化及模型数据的保存加载</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -950,7 +945,7 @@ A 高于阈值 maxVal 所以是真正的边界点，C 虽然低于 maxVal 但高
                     <span class="level-item">十月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">3</span>
                 </span>
             </a>
         </li>
@@ -1021,7 +1016,7 @@ A 高于阈值 maxVal 所以是真正的边界点，C 虽然低于 maxVal 但高
                 <div class="control">
                     <a class="tags has-addons" href="/blog/tags/Python/">
                         <span class="tag">Python</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 

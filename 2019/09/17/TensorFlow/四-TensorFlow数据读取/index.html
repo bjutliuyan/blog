@@ -190,23 +190,17 @@
 <li>文件读取： 在TensorFlow图的起始， 让一个输入管线从文件中读取数据。</li>
 <li>预加载数据：在TensorFlow图中定义常量或变量来保存所有数据(仅适用于数据量比较小的情况)。</li>
 </ul>
-<h2 id="一、供给数据"><a href="#一、供给数据" class="headerlink" title="一、供给数据"></a>一、供给数据</h2><p>供给数据(Feeding)就是之前讲解变量那一节提到的通过<code>feed_dict</code>给<code>placeholder占位符</code>提供值。</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">with</span> tf.Session():</span><br><span class="line">  input = tf.placeholder(tf.float32)</span><br><span class="line">  classifier = ...</span><br><span class="line">  <span class="hljs-keyword">print</span> classifier.eval(feed_dict=&#123;input: my_python_preprocessing_fn()&#125;)</span><br></pre></td></tr></table></figure>
-
+<h2 id="一、供给数据"><a href="#一、供给数据" class="headerlink" title="一、供给数据"></a>一、供给数据</h2><p>供给数据(Feeding)就是之前讲解变量那一节提到的通过<code>feed_dict</code>给<code>placeholder占位符</code>提供值。<br><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">with</span> tf.Session():</span><br><span class="line">  input = tf.placeholder(tf.float32)</span><br><span class="line">  classifier = ...</span><br><span class="line">  <span class="hljs-keyword">print</span> classifier.eval(feed_dict=&#123;input: my_python_preprocessing_fn()&#125;)</span><br></pre></td></tr></table></figure></p>
 <h2 id="二、文件读取"><a href="#二、文件读取" class="headerlink" title="二、文件读取"></a>二、文件读取</h2><p>当数据集很大，使用此方法可以确保不是所有数据都立即占用内存（如60GB的YouTube-8m数据集）。从文件读取的过程可以通过以下步骤完成：</p>
 <ol>
-<li><p>使用字符串张量 [“file0”，”file1”] 或者 [(“file%d”i)for in in range(2)] 的方式创建文件命名列表，或者使用 <code>files=tf.train.match_filenames_once(&#39;*.JPG&#39;)</code> 函数创建。</p>
-</li>
+<li>使用字符串张量 [“file0”，”file1”] 或者 [(“file%d”i)for in in range(2)] 的方式创建文件命名列表，或者使用 <code>files=tf.train.match_filenames_once(&#39;*.JPG&#39;)</code> 函数创建。</li>
 <li><p>将文件名列表交给<code>tf.train.string_input_producer</code> 函数来生成一个先入先出的队列，文件阅读器会需要它来读取数据。</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#string_input_producer提供的可配置参数来设置文件名乱序和最大的训练迭代数</span></span><br><span class="line">filename_queue = tf.train.string_input_producer(files)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>Reader用于从文件名队列中读取文件：<br>根据输入文件格式选择相应的阅读器，然后将文件名队列提供给阅读器的<code>read</code>方法。</p>
 </li>
-<li><p>Decoder：使用一个或多个解码器和转换操作将值字符串解码为构成训练样本的张量：<br>上一步阅读器的read方法会输出一个key来表征输入的文件和其中的纪录(对于调试非常有用)，同时得到一个字符串标量，这个字符串标量可以被一个或多个解析器，或者转换操作将其解码为张量并且构造成为样本。</p>
-</li>
-<li><p>以CSV格式文件举例：</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">filename_queue = tf.train.string_input_producer([<span class="hljs-string">"file0.csv"</span>, <span class="hljs-string">"file1.csv"</span>])</span><br><span class="line"></span><br><span class="line">reader = tf.TextLineReader()</span><br><span class="line">key, value = reader.read(filename_queue)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># Default values, in case of empty columns. Also specifies the type of the</span></span><br><span class="line"><span class="hljs-comment"># decoded result.</span></span><br><span class="line">record_defaults = [[<span class="hljs-number">1</span>], [<span class="hljs-number">1</span>], [<span class="hljs-number">1</span>], [<span class="hljs-number">1</span>], [<span class="hljs-number">1</span>]]</span><br><span class="line">col1, col2, col3, col4, col5 = tf.decode_csv(value, record_defaults=record_defaults)</span><br><span class="line">features = tf.concat(<span class="hljs-number">0</span>, [col1, col2, col3, col4])</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">with</span> tf.Session() <span class="hljs-keyword">as</span> sess:</span><br><span class="line">  <span class="hljs-comment"># Start populating the filename quee.</span></span><br><span class="line">  coord = tf.train.Coordinator()</span><br><span class="line">  threads = tf.train.start_queue_runners(coord=coord)</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1200</span>):</span><br><span class="line">    <span class="hljs-comment"># Retrieve a single instance:</span></span><br><span class="line">    example, label = sess.run([features, col5])</span><br><span class="line"></span><br><span class="line">  coord.request_stop()</span><br><span class="line">  coord.join(threads)</span><br></pre></td></tr></table></figure>
-
+<li>Decoder：使用一个或多个解码器和转换操作将值字符串解码为构成训练样本的张量：<br>上一步阅读器的read方法会输出一个key来表征输入的文件和其中的纪录(对于调试非常有用)，同时得到一个字符串标量，这个字符串标量可以被一个或多个解析器，或者转换操作将其解码为张量并且构造成为样本。</li>
+<li>以CSV格式文件举例：<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">filename_queue = tf.train.string_input_producer([<span class="hljs-string">"file0.csv"</span>, <span class="hljs-string">"file1.csv"</span>])</span><br><span class="line"></span><br><span class="line">reader = tf.TextLineReader()</span><br><span class="line">key, value = reader.read(filename_queue)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># Default values, in case of empty columns. Also specifies the type of the</span></span><br><span class="line"><span class="hljs-comment"># decoded result.</span></span><br><span class="line">record_defaults = [[<span class="hljs-number">1</span>], [<span class="hljs-number">1</span>], [<span class="hljs-number">1</span>], [<span class="hljs-number">1</span>], [<span class="hljs-number">1</span>]]</span><br><span class="line">col1, col2, col3, col4, col5 = tf.decode_csv(value, record_defaults=record_defaults)</span><br><span class="line">features = tf.concat(<span class="hljs-number">0</span>, [col1, col2, col3, col4])</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">with</span> tf.Session() <span class="hljs-keyword">as</span> sess:</span><br><span class="line">  <span class="hljs-comment"># Start populating the filename quee.</span></span><br><span class="line">  coord = tf.train.Coordinator()</span><br><span class="line">  threads = tf.train.start_queue_runners(coord=coord)</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1200</span>):</span><br><span class="line">    <span class="hljs-comment"># Retrieve a single instance:</span></span><br><span class="line">    example, label = sess.run([features, col5])</span><br><span class="line"></span><br><span class="line">  coord.request_stop()</span><br><span class="line">  coord.join(threads)</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>每次<code>read</code>的执行都会从文件中读取一行内容， <code>decode_csv</code> 操作会解析这一行内容并将其转为张量列表。如果输入的参数有缺失，<code>record_default</code>参数可以根据张量的类型来设置默认值。<br>在调用run或者eval去执行read之前， 必须调用<code>tf.train.start_queue_runners</code>来将文件名填充到队列。否则read操作会被阻塞到文件名队列中有值为止。</p>
@@ -217,7 +211,6 @@
 </li>
 <li><p>存储在变量中，初始化后，永远不要改变它的值</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">training_data = ...</span><br><span class="line">training_labels = ...</span><br><span class="line"><span class="hljs-keyword">with</span> tf.Session() <span class="hljs-keyword">as</span> sess:</span><br><span class="line">  data_initializer = tf.placeholder(dtype=training_data.dtype,shape=training_data.shape)</span><br><span class="line">  label_initializer = tf.placeholder(dtype=training_labels.dtype,shape=training_labels.shape)</span><br><span class="line">  input_data = tf.Variable(data_initalizer, trainable=<span class="hljs-literal">False</span>, collections=[])</span><br><span class="line">  input_labels = tf.Variable(label_initalizer, trainable=<span class="hljs-literal">False</span>, collections=[])</span><br><span class="line">  ...</span><br><span class="line">  sess.run(input_data.initializer,feed_dict=&#123;data_initializer: training_data&#125;)</span><br><span class="line">  sess.run(input_labels.initializer,feed_dict=&#123;label_initializer: training_lables&#125;)</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 
@@ -387,7 +380,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        21
+                        22
                     </p>
                 </div>
             </div>
@@ -520,7 +513,7 @@
                 <span class="level-item">Python</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">3</span>
+                <span class="level-item tag">4</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/blog/categories/TensorFlow/">
@@ -566,7 +559,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 12.5px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 15px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 17.5px;">设计模式</a>
+        <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 13.33px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 16.67px;">设计模式</a>
     </div>
 </div>
 
@@ -580,6 +573,25 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/10/06/python/三-Python基础-文件访问与函数调用/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://img10.cache.hxsd.com/hxsdmy/show/2013/01/87/63/28/03/26/20130326223519.jpg" alt="(三)Python基础_文件访问与函数调用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-06T04:13:13.000Z">2019-10-06</time></div>
+                    <a href="/blog/2019/10/06/python/三-Python基础-文件访问与函数调用/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(三)Python基础_文件访问与函数调用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/Python/">Python</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -657,25 +669,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/09/17/TensorFlow/三-TensorBoard可视化及模型数据的保存与加载/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568720993556&amp;di=27eecec21f23c01516a4957906b840fe&amp;imgtype=0&amp;src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170925%2F3c83dd1aa9ec47e58744928e22c5d152.jpeg" alt="(三)TensorBoard可视化及模型数据的保存加载">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-17T07:28:31.000Z">2019-09-17</time></div>
-                    <a href="/blog/2019/09/17/TensorFlow/三-TensorBoard可视化及模型数据的保存与加载/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(三)TensorBoard可视化及模型数据的保存加载</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -694,7 +687,7 @@
                     <span class="level-item">十月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">3</span>
                 </span>
             </a>
         </li>
@@ -765,7 +758,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/blog/tags/Python/">
                         <span class="tag">Python</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 
@@ -832,6 +825,25 @@
         
         <article class="media">
             
+            <a href="/blog/2019/10/06/python/三-Python基础-文件访问与函数调用/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://img10.cache.hxsd.com/hxsdmy/show/2013/01/87/63/28/03/26/20130326223519.jpg" alt="(三)Python基础_文件访问与函数调用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-06T04:13:13.000Z">2019-10-06</time></div>
+                    <a href="/blog/2019/10/06/python/三-Python基础-文件访问与函数调用/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(三)Python基础_文件访问与函数调用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/Python/">Python</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2019/10/05/python/二-Python基础-常用容器/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1570252478800&amp;di=34eee5de5798386de7650baf283ab37f&amp;imgtype=0&amp;src=http%3A%2F%2Fgss0.baidu.com%2F-4o3dSag_xI4khGko9WTAnF6hhy%2Fzhidao%2Fpic%2Fitem%2Fcaef76094b36acaf1a099e5279d98d1000e99cb6.jpg" alt="(二)Python基础_常用容器">
@@ -906,25 +918,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/09/17/TensorFlow/三-TensorBoard可视化及模型数据的保存与加载/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568720993556&amp;di=27eecec21f23c01516a4957906b840fe&amp;imgtype=0&amp;src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170925%2F3c83dd1aa9ec47e58744928e22c5d152.jpeg" alt="(三)TensorBoard可视化及模型数据的保存加载">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-17T07:28:31.000Z">2019-09-17</time></div>
-                    <a href="/blog/2019/09/17/TensorFlow/三-TensorBoard可视化及模型数据的保存与加载/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(三)TensorBoard可视化及模型数据的保存加载</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -943,7 +936,7 @@
                     <span class="level-item">十月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">3</span>
                 </span>
             </a>
         </li>
@@ -1014,7 +1007,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/blog/tags/Python/">
                         <span class="tag">Python</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 

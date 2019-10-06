@@ -186,10 +186,10 @@
         <div class="content">
             <p>TensorFlow即是实现机器学习算法的接口，也是执行机器学习算法的框架<a id="more"></a></p>
 <h2 id="TensorFlow介绍"><a href="#TensorFlow介绍" class="headerlink" title="TensorFlow介绍"></a>TensorFlow介绍</h2><ul>
-<li><strong>TensorFlow基础架构</strong><br><a href="https://github.com/tensorflow/tensorflow" target="_blank" rel="noopener">TensorFlow</a>是谷歌2015年发布的第二代分布式机器学习系统。前端支持Python、C++、Go、Java等多种开发语言，后端使用C++、CUDA等写成，可以方便的部署到各种平台。<br><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1568628494054&di=a317bc1f2ef028f249ee6d53f62aef83&imgtype=0&src=http%3A%2F%2Fimage.bubuko.com%2Finfo%2F201801%2F20180107231729146515.png" alt></li>
+<li><strong>TensorFlow基础架构</strong><br><a href="https://github.com/tensorflow/tensorflow" target="_blank" rel="noopener">TensorFlow</a>是谷歌2015年发布的第二代分布式机器学习系统。前端支持Python、C++、Go、Java等多种开发语言，后端使用C++、CUDA等写成，可以方便的部署到各种平台。<br><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568628494054&amp;di=a317bc1f2ef028f249ee6d53f62aef83&amp;imgtype=0&amp;src=http%3A%2F%2Fimage.bubuko.com%2Finfo%2F201801%2F20180107231729146515.png" alt></li>
 </ul>
 <ul>
-<li><p><strong>构件图、执行图</strong><br>TensorFlow使用数据流式图来规划计算流程，图中的节点被称之为 <em>op</em> (operation 的缩写)。 一个 op 获得 0 个或多个 <code>Tensor</code>, 执行计算，产生 0 个或多个 <code>Tensor</code>。<br>一个 TensorFlow 图描述了计算的过程，不过图是静态的，为了进行计算，图必须在 <code>会话</code> 里被启动。 <code>会话</code> 将图的 op 分发到诸如 CPU 或 GPU 之类的 <code>设备</code> 上， 同时提供执行 op 的方法。执行后再将产生的 tensor 返回。在 Python 语言中, 返回的 tensor 是 <a href="http://www.numpy.org/" target="_blank" rel="noopener">numpy</a> <code>ndarray</code> 对象; 在 C 和 C++ 语言中, 返回的 tensor 是<code>tensorflow::Tensor</code> 实例.<br><img src="001.jpg" alt></p>
+<li><p><strong>构件图、执行图</strong><br>TensorFlow使用数据流式图来规划计算流程，图中的节点被称之为 _op_ (operation 的缩写)。 一个 op 获得 0 个或多个 <code>Tensor</code>, 执行计算，产生 0 个或多个 <code>Tensor</code>。<br>一个 TensorFlow 图描述了计算的过程，不过图是静态的，为了进行计算，图必须在 <code>会话</code> 里被启动。 <code>会话</code> 将图的 op 分发到诸如 CPU 或 GPU 之类的 <code>设备</code> 上， 同时提供执行 op 的方法。执行后再将产生的 tensor 返回。在 Python 语言中, 返回的 tensor 是 <a href="http://www.numpy.org/" target="_blank" rel="noopener">numpy</a> <code>ndarray</code> 对象; 在 C 和 C++ 语言中, 返回的 tensor 是<code>tensorflow::Tensor</code> 实例.<br><img src="001.jpg" alt></p>
 </li>
 <li><p><strong>在一个会话中启动图</strong></p>
 <ol>
@@ -214,7 +214,6 @@
 </li>
 <li><p>Feed<br>Feed机制相当于提供数据作为run()调用的参数，只在调用它的方法内有效，方法结束feed就会消失。</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">input1 = tf.placeholder(tf.types.float32)</span><br><span class="line">input2 = tf.placeholder(tf.types.float32)</span><br><span class="line">output = tf.mul(input1, input2)</span><br><span class="line">with tf.Session() as sess:</span><br><span class="line">  print sess.run([output], feed_dict=&#123;input1:[7.], input2:[2.]&#125;)</span><br></pre></td></tr></table></figure>
-
 </li>
 </ol>
 </li>
@@ -233,17 +232,14 @@
 </li>
 <li><p>安装正确的CUDA版本</p>
 <ol>
-<li><p>到<a href="https://developer.nvidia.com/cuda-toolkit" target="_blank" rel="noopener">CUDA官网</a>下载CUDA安装包，一般里面集成了显卡驱动</p>
-</li>
-<li><p>安装前需要暂停当前NVIDIA驱动的X server，如果是远程连接的Linux机器，可以运行该命令：<code>sudo init 3</code></p>
-</li>
+<li>到<a href="https://developer.nvidia.com/cuda-toolkit" target="_blank" rel="noopener">CUDA官网</a>下载CUDA安装包，一般里面集成了显卡驱动</li>
+<li>安装前需要暂停当前NVIDIA驱动的X server，如果是远程连接的Linux机器，可以运行该命令：<code>sudo init 3</code></li>
 <li><p>将CUDA安装包权限设置成可执行的，并执行安装程序：</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod u+x cuda_8.0.44_linux.run</span><br><span class="line">sudo ./cuda_8.0.44_linux.run</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>接下来是CUDA安装的一些确认，除了确认是否安装CUDA 8.0 Samples选择n之外，其余的选择y；等待CUDA安装完成</p>
 </li>
-<li><p>到系统环境设置CUDA路径</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bashrc</span><br><span class="line">#cuda的绝对路径</span><br><span class="line">export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:/usr/local/cuda-8.0/extras/</span><br><span class="line">CUPTI/lib64:$LD_LIBRARY_PATH</span><br><span class="line">export CUDA_HOME=/usr/local/cuda-8.0</span><br><span class="line">export PATH=/usr/local/cuda-8.0/bin:$PATH</span><br><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
+<li>到系统环境设置CUDA路径<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bashrc</span><br><span class="line">#cuda的绝对路径</span><br><span class="line">export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:/usr/local/cuda-8.0/extras/</span><br><span class="line">CUPTI/lib64:$LD_LIBRARY_PATH</span><br><span class="line">export CUDA_HOME=/usr/local/cuda-8.0</span><br><span class="line">export PATH=/usr/local/cuda-8.0/bin:$PATH</span><br><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 </li>
@@ -259,9 +255,7 @@
 </li>
 <li><p>选择是否确认信息到是否支持CUDA这一步，选择支持</p>
 </li>
-<li><p>选择要支持使用的CUDA、CUDNN版本及安装路径<br>CUDA选择8.0版本，路径选择/usr/local/cuda-8.0；<br>CUDNN选择5.1版本，路径也设置为/usr/local/cuda-8.0</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Please specify the location where CUDA 8.0 toolkit is installed. Refer to</span><br><span class="line">README.md for more details. [default is: /usr/local/cuda]: /usr/local/cuda-8.0</span><br><span class="line"></span><br><span class="line">Please specify the location where CUDNN 5.1 V2 library is installed. Refer to</span><br><span class="line">README.md for more details. [default is: /usr/local/cuda]: /usr/local/cuda-8.0</span><br></pre></td></tr></table></figure>
-
+<li>选择要支持使用的CUDA、CUDNN版本及安装路径<br>CUDA选择8.0版本，路径选择/usr/local/cuda-8.0；<br>CUDNN选择5.1版本，路径也设置为/usr/local/cuda-8.0<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Please specify the location where CUDA 8.0 toolkit is installed. Refer to</span><br><span class="line">README.md for more details. [default is: /usr/local/cuda]: /usr/local/cuda-8.0</span><br><span class="line"></span><br><span class="line">Please specify the location where CUDNN 5.1 V2 library is installed. Refer to</span><br><span class="line">README.md for more details. [default is: /usr/local/cuda]: /usr/local/cuda-8.0</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 </li>
@@ -433,7 +427,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        21
+                        22
                     </p>
                 </div>
             </div>
@@ -566,7 +560,7 @@
                 <span class="level-item">Python</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">3</span>
+                <span class="level-item tag">4</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/blog/categories/TensorFlow/">
@@ -612,7 +606,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 12.5px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 15px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 17.5px;">设计模式</a>
+        <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 13.33px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 16.67px;">设计模式</a>
     </div>
 </div>
 
@@ -626,6 +620,25 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/10/06/python/三-Python基础-文件访问与函数调用/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://img10.cache.hxsd.com/hxsdmy/show/2013/01/87/63/28/03/26/20130326223519.jpg" alt="(三)Python基础_文件访问与函数调用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-06T04:13:13.000Z">2019-10-06</time></div>
+                    <a href="/blog/2019/10/06/python/三-Python基础-文件访问与函数调用/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(三)Python基础_文件访问与函数调用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/Python/">Python</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -703,25 +716,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/09/17/TensorFlow/三-TensorBoard可视化及模型数据的保存与加载/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568720993556&amp;di=27eecec21f23c01516a4957906b840fe&amp;imgtype=0&amp;src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170925%2F3c83dd1aa9ec47e58744928e22c5d152.jpeg" alt="(三)TensorBoard可视化及模型数据的保存加载">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-17T07:28:31.000Z">2019-09-17</time></div>
-                    <a href="/blog/2019/09/17/TensorFlow/三-TensorBoard可视化及模型数据的保存与加载/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(三)TensorBoard可视化及模型数据的保存加载</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -740,7 +734,7 @@
                     <span class="level-item">十月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">3</span>
                 </span>
             </a>
         </li>
@@ -811,7 +805,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/blog/tags/Python/">
                         <span class="tag">Python</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 
@@ -878,6 +872,25 @@
         
         <article class="media">
             
+            <a href="/blog/2019/10/06/python/三-Python基础-文件访问与函数调用/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://img10.cache.hxsd.com/hxsdmy/show/2013/01/87/63/28/03/26/20130326223519.jpg" alt="(三)Python基础_文件访问与函数调用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-06T04:13:13.000Z">2019-10-06</time></div>
+                    <a href="/blog/2019/10/06/python/三-Python基础-文件访问与函数调用/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(三)Python基础_文件访问与函数调用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/Python/">Python</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2019/10/05/python/二-Python基础-常用容器/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1570252478800&amp;di=34eee5de5798386de7650baf283ab37f&amp;imgtype=0&amp;src=http%3A%2F%2Fgss0.baidu.com%2F-4o3dSag_xI4khGko9WTAnF6hhy%2Fzhidao%2Fpic%2Fitem%2Fcaef76094b36acaf1a099e5279d98d1000e99cb6.jpg" alt="(二)Python基础_常用容器">
@@ -952,25 +965,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/09/17/TensorFlow/三-TensorBoard可视化及模型数据的保存与加载/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568720993556&amp;di=27eecec21f23c01516a4957906b840fe&amp;imgtype=0&amp;src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170925%2F3c83dd1aa9ec47e58744928e22c5d152.jpeg" alt="(三)TensorBoard可视化及模型数据的保存加载">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-17T07:28:31.000Z">2019-09-17</time></div>
-                    <a href="/blog/2019/09/17/TensorFlow/三-TensorBoard可视化及模型数据的保存与加载/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(三)TensorBoard可视化及模型数据的保存加载</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -989,7 +983,7 @@
                     <span class="level-item">十月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">3</span>
                 </span>
             </a>
         </li>
@@ -1060,7 +1054,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/blog/tags/Python/">
                         <span class="tag">Python</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 
