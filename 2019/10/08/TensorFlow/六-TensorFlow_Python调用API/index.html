@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<script src="js/click.js"></script>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+<title>(六)TensorFlow_Python调用API - Bjutliuyan&#39;s blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="针对于常用的TensorFlow方法进行一个简要的汇总介绍。">
+<meta name="keywords" content="TensorFlow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(六)TensorFlow_Python调用API">
+<meta property="og:url" content="http://bjutliuyan.github.io/blog/2019/10/08/TensorFlow/六-TensorFlow_Python调用API/index.html">
+<meta property="og:site_name" content="Bjutliuyan&#39;s blog">
+<meta property="og:description" content="针对于常用的TensorFlow方法进行一个简要的汇总介绍。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1570546970390&di=5a15d54c9c5c8855ea5622e4bf7e083e&imgtype=0&src=http%3A%2F%2Fres.cnoil.com%2FUploads%2FPicture%2F2017-03-08%2F58bf58270c1e1.jpeg">
+<meta property="og:updated_time" content="2019-10-08T14:04:43.115Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(六)TensorFlow_Python调用API">
+<meta name="twitter:description" content="针对于常用的TensorFlow方法进行一个简要的汇总介绍。">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1570546970390&di=5a15d54c9c5c8855ea5622e4bf7e083e&imgtype=0&src=http%3A%2F%2Fres.cnoil.com%2FUploads%2FPicture%2F2017-03-08%2F58bf58270c1e1.jpeg">
+
+
+
+
+
+
+
+<link rel="icon" href="/blog/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/blog/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/blog/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+
+<link rel="stylesheet" href="/blog/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/blog/">
+            
+                <img src="/blog/images/logo.svg" alt="(六)TensorFlow_Python调用API" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/blog/">Home</a>
+                
+                <a class="navbar-item" href="/blog/archives">Archives</a>
+                
+                <a class="navbar-item" href="/blog/categories">Categories</a>
+                
+                <a class="navbar-item" href="/blog/tags">Tags</a>
+                
+                <a class="navbar-item" href="/blog/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1570546970390&amp;di=5a15d54c9c5c8855ea5622e4bf7e083e&amp;imgtype=0&amp;src=http%3A%2F%2Fres.cnoil.com%2FUploads%2FPicture%2F2017-03-08%2F58bf58270c1e1.jpeg" alt="(六)TensorFlow_Python调用API">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-10-08T11:40:41.000Z">2019-10-08</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    1 小时 读完 (大约 7589 个字)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span>次访问
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                (六)TensorFlow_Python调用API
+            
+        </h1>
+        <div class="content">
+            <p>针对于常用的TensorFlow方法进行一个简要的汇总介绍。<a id="more"></a></p>
+<h2 id="1-变量转换"><a href="#1-变量转换" class="headerlink" title="1. 变量转换"></a>1. 变量转换</h2><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#AUTOGENERATED-casting" target="_blank" rel="noopener">Casting</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#string_to_number" target="_blank" rel="noopener"><code>tf.string_to_number(string_tensor, out_type=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#to_double" target="_blank" rel="noopener"><code>tf.to_double(x, name=&#39;ToDouble&#39;)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#to_float" target="_blank" rel="noopener"><code>tf.to_float(x, name=&#39;ToFloat&#39;)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#to_bfloat16" target="_blank" rel="noopener"><code>tf.to_bfloat16(x, name=&#39;ToBFloat16&#39;)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#to_int32" target="_blank" rel="noopener"><code>tf.to_int32(x, name=&#39;ToInt32&#39;)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#to_int64" target="_blank" rel="noopener"><code>tf.to_int64(x, name=&#39;ToInt64&#39;)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#cast" target="_blank" rel="noopener"><code>tf.cast(x, dtype, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#AUTOGENERATED-shapes-and-shaping" target="_blank" rel="noopener">Shapes and Shaping</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#shape" target="_blank" rel="noopener"><code>tf.shape(input, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#size" target="_blank" rel="noopener"><code>tf.size(input, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#rank" target="_blank" rel="noopener"><code>tf.rank(input, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#reshape" target="_blank" rel="noopener"><code>tf.reshape(tensor, shape, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#squeeze" target="_blank" rel="noopener"><code>tf.squeeze(input, squeeze_dims=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#expand_dims" target="_blank" rel="noopener"><code>tf.expand_dims(input, dim, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#AUTOGENERATED-slicing-and-joining" target="_blank" rel="noopener">Slicing and Joining</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#slice" target="_blank" rel="noopener"><code>tf.slice(input_, begin, size, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#split" target="_blank" rel="noopener"><code>tf.split(split_dim, num_split, value, name=&#39;split&#39;)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#tile" target="_blank" rel="noopener"><code>tf.tile(input, multiples, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#pad" target="_blank" rel="noopener"><code>tf.pad(input, paddings, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#concat" target="_blank" rel="noopener"><code>tf.concat(concat_dim, values, name=&#39;concat&#39;)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#pack" target="_blank" rel="noopener"><code>tf.pack(values, name=&#39;pack&#39;)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#unpack" target="_blank" rel="noopener"><code>tf.unpack(value, num=None, name=&#39;unpack&#39;)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#reverse_sequence" target="_blank" rel="noopener"><code>tf.reverse_sequence(input, seq_lengths, seq_dim, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#reverse" target="_blank" rel="noopener"><code>tf.reverse(tensor, dims, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#transpose" target="_blank" rel="noopener"><code>tf.transpose(a, perm=None, name=&#39;transpose&#39;)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#gather" target="_blank" rel="noopener"><code>tf.gather(params, indices, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#dynamic_partition" target="_blank" rel="noopener"><code>tf.dynamic_partition(data, partitions, num_partitions, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/array_ops.html#dynamic_stitch" target="_blank" rel="noopener"><code>tf.dynamic_stitch(indices, data, name=None)</code></a></li>
+</ul>
+</li>
+</ul>
+<h2 id="2-构建图"><a href="#2-构建图" class="headerlink" title="2.构建图"></a>2.构建图</h2><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/framework.html#AUTOGENERATED-core-graph-data-structures" target="_blank" rel="noopener">Core graph data structures</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/framework.html#Graph" target="_blank" rel="noopener"><code>class tf.Graph</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/framework.html#Operation" target="_blank" rel="noopener"><code>class tf.Operation</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/framework.html#Tensor" target="_blank" rel="noopener"><code>class tf.Tensor</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/framework.html#AUTOGENERATED-tensor-types" target="_blank" rel="noopener">Tensor types</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/framework.html#DType" target="_blank" rel="noopener"><code>class tf.DType</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/framework.html#as_dtype" target="_blank" rel="noopener"><code>tf.as_dtype(type_value)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/framework.html#AUTOGENERATED-utility-functions" target="_blank" rel="noopener">Utility functions</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/framework.html#device" target="_blank" rel="noopener"><code>tf.device(dev)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/framework.html#name_scope" target="_blank" rel="noopener"><code>tf.name_scope(name)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/framework.html#control_dependencies" target="_blank" rel="noopener"><code>tf.control_dependencies(control_inputs)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/framework.html#convert_to_tensor" target="_blank" rel="noopener"><code>tf.convert_to_tensor(value, dtype=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/framework.html#get_default_graph" target="_blank" rel="noopener"><code>tf.get_default_graph()</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/framework.html#import_graph_def" target="_blank" rel="noopener"><code>tf.import_graph_def(graph_def, input_map=None, return_elements=None, name=None, op_dict=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/framework.html#AUTOGENERATED-graph-collections" target="_blank" rel="noopener">Graph collections</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/framework.html#add_to_collection" target="_blank" rel="noopener"><code>tf.add_to_collection(name, value)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/framework.html#get_collection" target="_blank" rel="noopener"><code>tf.get_collection(key, scope=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/framework.html#GraphKeys" target="_blank" rel="noopener"><code>class tf.GraphKeys</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/framework.html#AUTOGENERATED-defining-new-operations" target="_blank" rel="noopener">Defining new operations</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/framework.html#RegisterGradient" target="_blank" rel="noopener"><code>class tf.RegisterGradient</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/framework.html#NoGradient" target="_blank" rel="noopener"><code>tf.NoGradient(op_type)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/framework.html#RegisterShape" target="_blank" rel="noopener"><code>class tf.RegisterShape</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/framework.html#TensorShape" target="_blank" rel="noopener"><code>class tf.TensorShape</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/framework.html#Dimension" target="_blank" rel="noopener"><code>class tf.Dimension</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/framework.html#op_scope" target="_blank" rel="noopener"><code>tf.op_scope(values, name, default_name)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/framework.html#get_seed" target="_blank" rel="noopener"><code>tf.get_seed(op_seed)</code></a></li>
+</ul>
+</li>
+</ul>
+<h2 id="3-运行图"><a href="#3-运行图" class="headerlink" title="3. 运行图"></a>3. 运行图</h2><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/client.html#AUTOGENERATED-session-management" target="_blank" rel="noopener">Session management</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/client.html#Session" target="_blank" rel="noopener"><code>class tf.Session</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/client.html#InteractiveSession" target="_blank" rel="noopener"><code>class tf.InteractiveSession</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/client.html#get_default_session" target="_blank" rel="noopener"><code>tf.get_default_session()</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/client.html#AUTOGENERATED-error-classes" target="_blank" rel="noopener">Error classes</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/client.html#OpError" target="_blank" rel="noopener"><code>class tf.OpError</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/client.html#CancelledError" target="_blank" rel="noopener"><code>class tf.errors.CancelledError</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/client.html#UnknownError" target="_blank" rel="noopener"><code>class tf.errors.UnknownError</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/client.html#InvalidArgumentError" target="_blank" rel="noopener"><code>class tf.errors.InvalidArgumentError</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/client.html#DeadlineExceededError" target="_blank" rel="noopener"><code>class tf.errors.DeadlineExceededError</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/client.html#NotFoundError" target="_blank" rel="noopener"><code>class tf.errors.NotFoundError</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/client.html#AlreadyExistsError" target="_blank" rel="noopener"><code>class tf.errors.AlreadyExistsError</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/client.html#PermissionDeniedError" target="_blank" rel="noopener"><code>class tf.errors.PermissionDeniedError</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/client.html#UnauthenticatedError" target="_blank" rel="noopener"><code>class tf.errors.UnauthenticatedError</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/client.html#ResourceExhaustedError" target="_blank" rel="noopener"><code>class tf.errors.ResourceExhaustedError</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/client.html#FailedPreconditionError" target="_blank" rel="noopener"><code>class tf.errors.FailedPreconditionError</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/client.html#AbortedError" target="_blank" rel="noopener"><code>class tf.errors.AbortedError</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/client.html#OutOfRangeError" target="_blank" rel="noopener"><code>class tf.errors.OutOfRangeError</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/client.html#UnimplementedError" target="_blank" rel="noopener"><code>class tf.errors.UnimplementedError</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/client.html#InternalError" target="_blank" rel="noopener"><code>class tf.errors.InternalError</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/client.html#UnavailableError" target="_blank" rel="noopener"><code>class tf.errors.UnavailableError</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/client.html#DataLossError" target="_blank" rel="noopener"><code>class tf.errors.DataLossError</code></a></li>
+</ul>
+</li>
+</ul>
+<h2 id="4-变量，序列以及随机数"><a href="#4-变量，序列以及随机数" class="headerlink" title="4. 变量，序列以及随机数"></a>4. 变量，序列以及随机数</h2><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/constant_op.html#AUTOGENERATED-constant-value-tensors" target="_blank" rel="noopener">Constant Value Tensors</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/constant_op.html#zeros" target="_blank" rel="noopener"><code>tf.zeros(shape, dtype=tf.float32, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/constant_op.html#zeros_like" target="_blank" rel="noopener"><code>tf.zeros_like(tensor, dtype=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/constant_op.html#ones" target="_blank" rel="noopener"><code>tf.ones(shape, dtype=tf.float32, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/constant_op.html#ones_like" target="_blank" rel="noopener"><code>tf.ones_like(tensor, dtype=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/constant_op.html#fill" target="_blank" rel="noopener"><code>tf.fill(dims, value, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/constant_op.html#constant" target="_blank" rel="noopener"><code>tf.constant(value, dtype=None, shape=None, name=&#39;Const&#39;)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/constant_op.html#AUTOGENERATED-sequences" target="_blank" rel="noopener">Sequences</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/constant_op.html#linspace" target="_blank" rel="noopener"><code>tf.linspace(start, stop, num, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/constant_op.html#range" target="_blank" rel="noopener"><code>tf.range(start, limit, delta=1, name=&#39;range&#39;)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/constant_op.html#AUTOGENERATED-random-tensors" target="_blank" rel="noopener">Random Tensors</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/constant_op.html#AUTOGENERATED-examples-" target="_blank" rel="noopener">Examples:</a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/constant_op.html#random_normal" target="_blank" rel="noopener"><code>tf.random_normal(shape, mean=0.0, stddev=1.0, dtype=tf.float32, seed=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/constant_op.html#truncated_normal" target="_blank" rel="noopener"><code>tf.truncated_normal(shape, mean=0.0, stddev=1.0, dtype=tf.float32, seed=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/constant_op.html#random_uniform" target="_blank" rel="noopener"><code>tf.random_uniform(shape, minval=0.0, maxval=1.0, dtype=tf.float32, seed=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/constant_op.html#random_shuffle" target="_blank" rel="noopener"><code>tf.random_shuffle(value, seed=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/constant_op.html#set_random_seed" target="_blank" rel="noopener"><code>tf.set_random_seed(seed)</code></a></li>
+</ul>
+</li>
+</ul>
+<h2 id="5-控制流"><a href="#5-控制流" class="headerlink" title="5.控制流"></a>5.控制流</h2><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#AUTOGENERATED-control-flow-operations" target="_blank" rel="noopener">Control Flow Operations</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#identity" target="_blank" rel="noopener"><code>tf.identity(input, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#tuple" target="_blank" rel="noopener"><code>tf.tuple(tensors, name=None, control_inputs=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#group" target="_blank" rel="noopener"><code>tf.group(*inputs, **kwargs)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#no_op" target="_blank" rel="noopener"><code>tf.no_op(name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#count_up_to" target="_blank" rel="noopener"><code>tf.count_up_to(ref, limit, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#AUTOGENERATED-logical-operators" target="_blank" rel="noopener">Logical Operators</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#logical_and" target="_blank" rel="noopener"><code>tf.logical_and(x, y, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#logical_not" target="_blank" rel="noopener"><code>tf.logical_not(x, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#logical_or" target="_blank" rel="noopener"><code>tf.logical_or(x, y, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#logical_xor" target="_blank" rel="noopener"><code>tf.logical_xor(x, y, name=&#39;LogicalXor&#39;)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#AUTOGENERATED-comparison-operators" target="_blank" rel="noopener">Comparison Operators</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#equal" target="_blank" rel="noopener"><code>tf.equal(x, y, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#not_equal" target="_blank" rel="noopener"><code>tf.not_equal(x, y, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#less" target="_blank" rel="noopener"><code>tf.less(x, y, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#less_equal" target="_blank" rel="noopener"><code>tf.less_equal(x, y, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#greater" target="_blank" rel="noopener"><code>tf.greater(x, y, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#greater_equal" target="_blank" rel="noopener"><code>tf.greater_equal(x, y, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#select" target="_blank" rel="noopener"><code>tf.select(condition, t, e, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#where" target="_blank" rel="noopener"><code>tf.where(input, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#AUTOGENERATED-debugging-operations" target="_blank" rel="noopener">Debugging Operations</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#is_finite" target="_blank" rel="noopener"><code>tf.is_finite(x, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#is_inf" target="_blank" rel="noopener"><code>tf.is_inf(x, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#is_nan" target="_blank" rel="noopener"><code>tf.is_nan(x, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#verify_tensor_all_finite" target="_blank" rel="noopener"><code>tf.verify_tensor_all_finite(t, msg, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#check_numerics" target="_blank" rel="noopener"><code>tf.check_numerics(tensor, message, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#add_check_numerics_ops" target="_blank" rel="noopener"><code>tf.add_check_numerics_ops()</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#Assert" target="_blank" rel="noopener"><code>tf.Assert(condition, data, summarize=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/control_flow_ops.html#Print" target="_blank" rel="noopener"><code>tf.Print(input_, data, message=None, first_n=None, summarize=None, name=None)</code></a></li>
+</ul>
+</li>
+</ul>
+<h2 id="6-图像"><a href="#6-图像" class="headerlink" title="6.图像"></a>6.图像</h2><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#AUTOGENERATED-encoding-and-decoding" target="_blank" rel="noopener">Encoding and Decoding</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#decode_jpeg" target="_blank" rel="noopener"><code>tf.image.decode_jpeg(contents, channels=None, ratio=None, fancy_upscaling=None, try_recover_truncated=None, acceptable_fraction=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#encode_jpeg" target="_blank" rel="noopener"><code>tf.image.encode_jpeg(image, format=None, quality=None, progressive=None, optimize_size=None, chroma_downsampling=None, density_unit=None, x_density=None, y_density=None, xmp_metadata=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#decode_png" target="_blank" rel="noopener"><code>tf.image.decode_png(contents, channels=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#encode_png" target="_blank" rel="noopener"><code>tf.image.encode_png(image, compression=None, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#AUTOGENERATED-resizing" target="_blank" rel="noopener">Resizing</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#resize_images" target="_blank" rel="noopener"><code>tf.image.resize_images(images, new_height, new_width, method=0)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#resize_area" target="_blank" rel="noopener"><code>tf.image.resize_area(images, size, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#resize_bicubic" target="_blank" rel="noopener"><code>tf.image.resize_bicubic(images, size, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#resize_bilinear" target="_blank" rel="noopener"><code>tf.image.resize_bilinear(images, size, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#resize_nearest_neighbor" target="_blank" rel="noopener"><code>tf.image.resize_nearest_neighbor(images, size, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#AUTOGENERATED-cropping" target="_blank" rel="noopener">Cropping</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#resize_image_with_crop_or_pad" target="_blank" rel="noopener"><code>tf.image.resize_image_with_crop_or_pad(image, target_height, target_width)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#pad_to_bounding_box" target="_blank" rel="noopener"><code>tf.image.pad_to_bounding_box(image, offset_height, offset_width, target_height, target_width)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#crop_to_bounding_box" target="_blank" rel="noopener"><code>tf.image.crop_to_bounding_box(image, offset_height, offset_width, target_height, target_width)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#random_crop" target="_blank" rel="noopener"><code>tf.image.random_crop(image, size, seed=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#extract_glimpse" target="_blank" rel="noopener"><code>tf.image.extract_glimpse(input, size, offsets, centered=None, normalized=None, uniform_noise=None, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#AUTOGENERATED-flipping-and-transposing" target="_blank" rel="noopener">Flipping and Transposing</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#flip_up_down" target="_blank" rel="noopener"><code>tf.image.flip_up_down(image)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#random_flip_up_down" target="_blank" rel="noopener"><code>tf.image.random_flip_up_down(image, seed=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#flip_left_right" target="_blank" rel="noopener"><code>tf.image.flip_left_right(image)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#random_flip_left_right" target="_blank" rel="noopener"><code>tf.image.random_flip_left_right(image, seed=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#transpose_image" target="_blank" rel="noopener"><code>tf.image.transpose_image(image)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#AUTOGENERATED-image-adjustments" target="_blank" rel="noopener">Image Adjustments</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#adjust_brightness" target="_blank" rel="noopener"><code>tf.image.adjust_brightness(image, delta, min_value=None, max_value=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#random_brightness" target="_blank" rel="noopener"><code>tf.image.random_brightness(image, max_delta, seed=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#adjust_contrast" target="_blank" rel="noopener"><code>tf.image.adjust_contrast(images, contrast_factor, min_value=None, max_value=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#random_contrast" target="_blank" rel="noopener"><code>tf.image.random_contrast(image, lower, upper, seed=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/image.html#per_image_whitening" target="_blank" rel="noopener"><code>tf.image.per_image_whitening(image)</code></a></li>
+</ul>
+</li>
+</ul>
+<h2 id="7-输入与读取"><a href="#7-输入与读取" class="headerlink" title="7.输入与读取"></a>7.输入与读取</h2><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#AUTOGENERATED-placeholders" target="_blank" rel="noopener">Placeholders</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#placeholder" target="_blank" rel="noopener"><code>tf.placeholder(dtype, shape=None, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#AUTOGENERATED-readers" target="_blank" rel="noopener">Readers</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#ReaderBase" target="_blank" rel="noopener"><code>class tf.ReaderBase</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#TextLineReader" target="_blank" rel="noopener"><code>class tf.TextLineReader</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#WholeFileReader" target="_blank" rel="noopener"><code>class tf.WholeFileReader</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#IdentityReader" target="_blank" rel="noopener"><code>class tf.IdentityReader</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#TFRecordReader" target="_blank" rel="noopener"><code>class tf.TFRecordReader</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#FixedLengthRecordReader" target="_blank" rel="noopener"><code>class tf.FixedLengthRecordReader</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#AUTOGENERATED-converting" target="_blank" rel="noopener">Converting</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#decode_csv" target="_blank" rel="noopener"><code>tf.decode_csv(records, record_defaults, field_delim=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#decode_raw" target="_blank" rel="noopener"><code>tf.decode_raw(bytes, out_type, little_endian=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#AUTOGENERATED-example-protocol-buffer" target="_blank" rel="noopener">Example protocol buffer</a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#parse_example" target="_blank" rel="noopener"><code>tf.parse_example(serialized, names=None, sparse_keys=None, sparse_types=None, dense_keys=None, dense_types=None, dense_defaults=None, dense_shapes=None, name=&#39;ParseExample&#39;)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#parse_single_example" target="_blank" rel="noopener"><code>tf.parse_single_example(serialized, names=None, sparse_keys=None, sparse_types=None, dense_keys=None, dense_types=None, dense_defaults=None, dense_shapes=None, name=&#39;ParseSingleExample&#39;)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#AUTOGENERATED-queues" target="_blank" rel="noopener">Queues</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#QueueBase" target="_blank" rel="noopener"><code>class tf.QueueBase</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#FIFOQueue" target="_blank" rel="noopener"><code>class tf.FIFOQueue</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#RandomShuffleQueue" target="_blank" rel="noopener"><code>class tf.RandomShuffleQueue</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#AUTOGENERATED-dealing-with-the-filesystem" target="_blank" rel="noopener">Dealing with the filesystem</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#matching_files" target="_blank" rel="noopener"><code>tf.matching_files(pattern, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#read_file" target="_blank" rel="noopener"><code>tf.read_file(filename, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#AUTOGENERATED-input-pipeline" target="_blank" rel="noopener">Input pipeline</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#AUTOGENERATED-beginning-of-an-input-pipeline" target="_blank" rel="noopener">Beginning of an input pipeline</a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#match_filenames_once" target="_blank" rel="noopener"><code>tf.train.match_filenames_once(pattern, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#limit_epochs" target="_blank" rel="noopener"><code>tf.train.limit_epochs(tensor, num_epochs=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#range_input_producer" target="_blank" rel="noopener"><code>tf.train.range_input_producer(limit, num_epochs=None, shuffle=True, seed=None, capacity=32, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#slice_input_producer" target="_blank" rel="noopener"><code>tf.train.slice_input_producer(tensor_list, num_epochs=None, shuffle=True, seed=None, capacity=32, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#string_input_producer" target="_blank" rel="noopener"><code>tf.train.string_input_producer(string_tensor, num_epochs=None, shuffle=True, seed=None, capacity=32, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#AUTOGENERATED-batching-at-the-end-of-an-input-pipeline" target="_blank" rel="noopener">Batching at the end of an input pipeline</a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#batch" target="_blank" rel="noopener"><code>tf.train.batch(tensor_list, batch_size, num_threads=1, capacity=32, enqueue_many=False, shapes=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#batch_join" target="_blank" rel="noopener"><code>tf.train.batch_join(tensor_list_list, batch_size, capacity=32, enqueue_many=False, shapes=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#shuffle_batch" target="_blank" rel="noopener"><code>tf.train.shuffle_batch(tensor_list, batch_size, capacity, min_after_dequeue, num_threads=1, seed=None, enqueue_many=False, shapes=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#shuffle_batch_join" target="_blank" rel="noopener"><code>tf.train.shuffle_batch_join(tensor_list_list, batch_size, capacity, min_after_dequeue, seed=None, enqueue_many=False, shapes=None, name=None)</code></a></li>
+</ul>
+</li>
+</ul>
+<h2 id="8-数学相关"><a href="#8-数学相关" class="headerlink" title="8.数学相关"></a>8.数学相关</h2><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#AUTOGENERATED-arithmetic-operators" target="_blank" rel="noopener">Arithmetic Operators</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#add" target="_blank" rel="noopener"><code>tf.add(x, y, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#sub" target="_blank" rel="noopener"><code>tf.sub(x, y, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#mul" target="_blank" rel="noopener"><code>tf.mul(x, y, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#div" target="_blank" rel="noopener"><code>tf.div(x, y, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#mod" target="_blank" rel="noopener"><code>tf.mod(x, y, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#AUTOGENERATED-basic-math-functions" target="_blank" rel="noopener">Basic Math Functions</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#add_n" target="_blank" rel="noopener"><code>tf.add_n(inputs, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#abs" target="_blank" rel="noopener"><code>tf.abs(x, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#neg" target="_blank" rel="noopener"><code>tf.neg(x, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#sign" target="_blank" rel="noopener"><code>tf.sign(x, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#inv" target="_blank" rel="noopener"><code>tf.inv(x, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#square" target="_blank" rel="noopener"><code>tf.square(x, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#round" target="_blank" rel="noopener"><code>tf.round(x, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#sqrt" target="_blank" rel="noopener"><code>tf.sqrt(x, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#rsqrt" target="_blank" rel="noopener"><code>tf.rsqrt(x, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#pow" target="_blank" rel="noopener"><code>tf.pow(x, y, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#exp" target="_blank" rel="noopener"><code>tf.exp(x, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#log" target="_blank" rel="noopener"><code>tf.log(x, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#ceil" target="_blank" rel="noopener"><code>tf.ceil(x, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#floor" target="_blank" rel="noopener"><code>tf.floor(x, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#maximum" target="_blank" rel="noopener"><code>tf.maximum(x, y, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#minimum" target="_blank" rel="noopener"><code>tf.minimum(x, y, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#cos" target="_blank" rel="noopener"><code>tf.cos(x, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#sin" target="_blank" rel="noopener"><code>tf.sin(x, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#AUTOGENERATED-matrix-math-functions" target="_blank" rel="noopener">Matrix Math Functions</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#diag" target="_blank" rel="noopener"><code>tf.diag(diagonal, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#transpose" target="_blank" rel="noopener"><code>tf.transpose(a, perm=None, name=&#39;transpose&#39;)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#matmul" target="_blank" rel="noopener"><code>tf.matmul(a, b, transpose_a=False, transpose_b=False, a_is_sparse=False, b_is_sparse=False, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#batch_matmul" target="_blank" rel="noopener"><code>tf.batch_matmul(x, y, adj_x=None, adj_y=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#matrix_determinant" target="_blank" rel="noopener"><code>tf.matrix_determinant(input, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#batch_matrix_determinant" target="_blank" rel="noopener"><code>tf.batch_matrix_determinant(input, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#matrix_inverse" target="_blank" rel="noopener"><code>tf.matrix_inverse(input, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#batch_matrix_inverse" target="_blank" rel="noopener"><code>tf.batch_matrix_inverse(input, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#cholesky" target="_blank" rel="noopener"><code>tf.cholesky(input, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#batch_cholesky" target="_blank" rel="noopener"><code>tf.batch_cholesky(input, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#AUTOGENERATED-complex-number-functions" target="_blank" rel="noopener">Complex Number Functions</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#complex" target="_blank" rel="noopener"><code>tf.complex(real, imag, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#complex_abs" target="_blank" rel="noopener"><code>tf.complex_abs(x, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#conj" target="_blank" rel="noopener"><code>tf.conj(in_, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#imag" target="_blank" rel="noopener"><code>tf.imag(in_, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#real" target="_blank" rel="noopener"><code>tf.real(in_, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#AUTOGENERATED-reduction" target="_blank" rel="noopener">Reduction</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#reduce_sum" target="_blank" rel="noopener"><code>tf.reduce_sum(input_tensor, reduction_indices=None, keep_dims=False, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#reduce_prod" target="_blank" rel="noopener"><code>tf.reduce_prod(input_tensor, reduction_indices=None, keep_dims=False, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#reduce_min" target="_blank" rel="noopener"><code>tf.reduce_min(input_tensor, reduction_indices=None, keep_dims=False, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#reduce_max" target="_blank" rel="noopener"><code>tf.reduce_max(input_tensor, reduction_indices=None, keep_dims=False, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#reduce_mean" target="_blank" rel="noopener"><code>tf.reduce_mean(input_tensor, reduction_indices=None, keep_dims=False, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#reduce_all" target="_blank" rel="noopener"><code>tf.reduce_all(input_tensor, reduction_indices=None, keep_dims=False, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#reduce_any" target="_blank" rel="noopener"><code>tf.reduce_any(input_tensor, reduction_indices=None, keep_dims=False, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#accumulate_n" target="_blank" rel="noopener"><code>tf.accumulate_n(inputs, shape=None, tensor_dtype=None, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#AUTOGENERATED-segmentation" target="_blank" rel="noopener">Segmentation</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#segment_sum" target="_blank" rel="noopener"><code>tf.segment_sum(data, segment_ids, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#segment_prod" target="_blank" rel="noopener"><code>tf.segment_prod(data, segment_ids, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#segment_min" target="_blank" rel="noopener"><code>tf.segment_min(data, segment_ids, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#segment_max" target="_blank" rel="noopener"><code>tf.segment_max(data, segment_ids, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#segment_mean" target="_blank" rel="noopener"><code>tf.segment_mean(data, segment_ids, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#unsorted_segment_sum" target="_blank" rel="noopener"><code>tf.unsorted_segment_sum(data, segment_ids, num_segments, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#sparse_segment_sum" target="_blank" rel="noopener"><code>tf.sparse_segment_sum(data, indices, segment_ids, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#sparse_segment_mean" target="_blank" rel="noopener"><code>tf.sparse_segment_mean(data, indices, segment_ids, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#AUTOGENERATED-sequence-comparison-and-indexing" target="_blank" rel="noopener">Sequence Comparison and Indexing</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#argmin" target="_blank" rel="noopener"><code>tf.argmin(input, dimension, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#argmax" target="_blank" rel="noopener"><code>tf.argmax(input, dimension, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#listdiff" target="_blank" rel="noopener"><code>tf.listdiff(x, y, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#where" target="_blank" rel="noopener"><code>tf.where(input, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#unique" target="_blank" rel="noopener"><code>tf.unique(x, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#edit_distance" target="_blank" rel="noopener"><code>tf.edit_distance(hypothesis, truth, normalize=True, name=&#39;edit_distance&#39;)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/math_ops.html#invert_permutation" target="_blank" rel="noopener"><code>tf.invert_permutation(x, name=None)</code></a></li>
+</ul>
+</li>
+</ul>
+<h2 id="9-神经网络相关"><a href="#9-神经网络相关" class="headerlink" title="9.神经网络相关"></a>9.神经网络相关</h2><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#AUTOGENERATED-activation-functions" target="_blank" rel="noopener">Activation Functions</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#relu" target="_blank" rel="noopener"><code>tf.nn.relu(features, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#relu6" target="_blank" rel="noopener"><code>tf.nn.relu6(features, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#softplus" target="_blank" rel="noopener"><code>tf.nn.softplus(features, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#dropout" target="_blank" rel="noopener"><code>tf.nn.dropout(x, keep_prob, noise_shape=None, seed=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#bias_add" target="_blank" rel="noopener"><code>tf.nn.bias_add(value, bias, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#sigmoid" target="_blank" rel="noopener"><code>tf.sigmoid(x, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#tanh" target="_blank" rel="noopener"><code>tf.tanh(x, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#AUTOGENERATED-convolution" target="_blank" rel="noopener">Convolution</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#conv2d" target="_blank" rel="noopener"><code>tf.nn.conv2d(input, filter, strides, padding, use_cudnn_on_gpu=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#depthwise_conv2d" target="_blank" rel="noopener"><code>tf.nn.depthwise_conv2d(input, filter, strides, padding, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#separable_conv2d" target="_blank" rel="noopener"><code>tf.nn.separable_conv2d(input, depthwise_filter, pointwise_filter, strides, padding, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#AUTOGENERATED-pooling" target="_blank" rel="noopener">Pooling</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#avg_pool" target="_blank" rel="noopener"><code>tf.nn.avg_pool(value, ksize, strides, padding, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#max_pool" target="_blank" rel="noopener"><code>tf.nn.max_pool(value, ksize, strides, padding, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#max_pool_with_argmax" target="_blank" rel="noopener"><code>tf.nn.max_pool_with_argmax(input, ksize, strides, padding, Targmax=None, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#AUTOGENERATED-normalization" target="_blank" rel="noopener">Normalization</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#l2_normalize" target="_blank" rel="noopener"><code>tf.nn.l2_normalize(x, dim, epsilon=1e-12, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#local_response_normalization" target="_blank" rel="noopener"><code>tf.nn.local_response_normalization(input, depth_radius=None, bias=None, alpha=None, beta=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#moments" target="_blank" rel="noopener"><code>tf.nn.moments(x, axes, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#AUTOGENERATED-losses" target="_blank" rel="noopener">Losses</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#l2_loss" target="_blank" rel="noopener"><code>tf.nn.l2_loss(t, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#AUTOGENERATED-classification" target="_blank" rel="noopener">Classification</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#sigmoid_cross_entropy_with_logits" target="_blank" rel="noopener"><code>tf.nn.sigmoid_cross_entropy_with_logits(logits, targets, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#softmax" target="_blank" rel="noopener"><code>tf.nn.softmax(logits, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#softmax_cross_entropy_with_logits" target="_blank" rel="noopener"><code>tf.nn.softmax_cross_entropy_with_logits(logits, labels, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#AUTOGENERATED-embeddings" target="_blank" rel="noopener">Embeddings</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#embedding_lookup" target="_blank" rel="noopener"><code>tf.nn.embedding_lookup(params, ids, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#AUTOGENERATED-evaluation" target="_blank" rel="noopener">Evaluation</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#top_k" target="_blank" rel="noopener"><code>tf.nn.top_k(input, k, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#in_top_k" target="_blank" rel="noopener"><code>tf.nn.in_top_k(predictions, targets, k, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#AUTOGENERATED-candidate-sampling" target="_blank" rel="noopener">Candidate Sampling</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#AUTOGENERATED-sampled-loss-functions" target="_blank" rel="noopener">Sampled Loss Functions</a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#nce_loss" target="_blank" rel="noopener"><code>tf.nn.nce_loss(weights, biases, inputs, labels, num_sampled, num_classes, num_true=1, sampled_values=None, remove_accidental_hits=False, name=&#39;nce_loss&#39;)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#sampled_softmax_loss" target="_blank" rel="noopener"><code>tf.nn.sampled_softmax_loss(weights, biases, inputs, labels, num_sampled, num_classes, num_true=1, sampled_values=None, remove_accidental_hits=True, name=&#39;sampled_softmax_loss&#39;)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#AUTOGENERATED-candidate-samplers" target="_blank" rel="noopener">Candidate Samplers</a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#uniform_candidate_sampler" target="_blank" rel="noopener"><code>tf.nn.uniform_candidate_sampler(true_classes, num_true, num_sampled, unique, range_max, seed=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#log_uniform_candidate_sampler" target="_blank" rel="noopener"><code>tf.nn.log_uniform_candidate_sampler(true_classes, num_true, num_sampled, unique, range_max, seed=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#learned_unigram_candidate_sampler" target="_blank" rel="noopener"><code>tf.nn.learned_unigram_candidate_sampler(true_classes, num_true, num_sampled, unique, range_max, seed=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#fixed_unigram_candidate_sampler" target="_blank" rel="noopener"><code>tf.nn.fixed_unigram_candidate_sampler(true_classes, num_true, num_sampled, unique, range_max, vocab_file=&#39;&#39;, distortion=0.0, num_reserved_ids=0, num_shards=1, shard=0, unigrams=[], seed=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#AUTOGENERATED-miscellaneous-candidate-sampling-utilities" target="_blank" rel="noopener">Miscellaneous candidate sampling utilities</a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/nn.html#compute_accidental_hits" target="_blank" rel="noopener"><code>tf.nn.compute_accidental_hits(true_classes, sampled_candidates, num_true, seed=None, name=None)</code></a></li>
+</ul>
+</li>
+</ul>
+<h2 id="10-稀疏张量"><a href="#10-稀疏张量" class="headerlink" title="10.稀疏张量"></a>10.稀疏张量</h2><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/sparse_ops.html#AUTOGENERATED-sparse-tensor-representation" target="_blank" rel="noopener">Sparse Tensor Representation</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/sparse_ops.html#SparseTensor" target="_blank" rel="noopener"><code>class tf.SparseTensor</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/sparse_ops.html#SparseTensorValue" target="_blank" rel="noopener"><code>class tf.SparseTensorValue</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/sparse_ops.html#AUTOGENERATED-sparse-to-dense-conversion" target="_blank" rel="noopener">Sparse to Dense Conversion</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/sparse_ops.html#sparse_to_dense" target="_blank" rel="noopener"><code>tf.sparse_to_dense(sparse_indices, output_shape, sparse_values, default_value, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/sparse_ops.html#sparse_tensor_to_dense" target="_blank" rel="noopener"><code>tf.sparse_tensor_to_dense(sp_input, default_value, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/sparse_ops.html#sparse_to_indicator" target="_blank" rel="noopener"><code>tf.sparse_to_indicator(sp_input, vocab_size, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/sparse_ops.html#AUTOGENERATED-manipulation" target="_blank" rel="noopener">Manipulation</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/sparse_ops.html#sparse_concat" target="_blank" rel="noopener"><code>tf.sparse_concat(concat_dim, sp_inputs, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/sparse_ops.html#sparse_reorder" target="_blank" rel="noopener"><code>tf.sparse_reorder(sp_input, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/sparse_ops.html#sparse_retain" target="_blank" rel="noopener"><code>tf.sparse_retain(sp_input, to_retain)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/sparse_ops.html#sparse_fill_empty_rows" target="_blank" rel="noopener"><code>tf.sparse_fill_empty_rows(sp_input, default_value, name=None)</code></a></li>
+</ul>
+</li>
+</ul>
+<h2 id="11-变量"><a href="#11-变量" class="headerlink" title="11.变量"></a>11.变量</h2><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#AUTOGENERATED-variables" target="_blank" rel="noopener">Variables</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#Variable" target="_blank" rel="noopener"><code>class tf.Variable</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#AUTOGENERATED-variable-helper-functions" target="_blank" rel="noopener">Variable helper functions</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#all_variables" target="_blank" rel="noopener"><code>tf.all_variables()</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#trainable_variables" target="_blank" rel="noopener"><code>tf.trainable_variables()</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#initialize_all_variables" target="_blank" rel="noopener"><code>tf.initialize_all_variables()</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#initialize_variables" target="_blank" rel="noopener"><code>tf.initialize_variables(var_list, name=&#39;init&#39;)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#assert_variables_initialized" target="_blank" rel="noopener"><code>tf.assert_variables_initialized(var_list=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#AUTOGENERATED-saving-and-restoring-variables" target="_blank" rel="noopener">Saving and Restoring Variables</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#Saver" target="_blank" rel="noopener"><code>class tf.train.Saver</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#latest_checkpoint" target="_blank" rel="noopener"><code>tf.train.latest_checkpoint(checkpoint_dir, latest_filename=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#get_checkpoint_state" target="_blank" rel="noopener"><code>tf.train.get_checkpoint_state(checkpoint_dir, latest_filename=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#update_checkpoint_state" target="_blank" rel="noopener"><code>tf.train.update_checkpoint_state(save_dir, model_checkpoint_path, all_model_checkpoint_paths=None, latest_filename=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#AUTOGENERATED-sharing-variables" target="_blank" rel="noopener">Sharing Variables</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#get_variable" target="_blank" rel="noopener"><code>tf.get_variable(name, shape=None, dtype=tf.float32, initializer=None, trainable=True, collections=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#get_variable_scope" target="_blank" rel="noopener"><code>tf.get_variable_scope()</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#variable_scope" target="_blank" rel="noopener"><code>tf.variable_scope(name_or_scope, reuse=None, initializer=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#constant_initializer" target="_blank" rel="noopener"><code>tf.constant_initializer(value=0.0)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#random_normal_initializer" target="_blank" rel="noopener"><code>tf.random_normal_initializer(mean=0.0, stddev=1.0, seed=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#truncated_normal_initializer" target="_blank" rel="noopener"><code>tf.truncated_normal_initializer(mean=0.0, stddev=1.0, seed=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#random_uniform_initializer" target="_blank" rel="noopener"><code>tf.random_uniform_initializer(minval=0.0, maxval=1.0, seed=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#uniform_unit_scaling_initializer" target="_blank" rel="noopener"><code>tf.uniform_unit_scaling_initializer(factor=1.0, seed=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#zeros_initializer" target="_blank" rel="noopener"><code>tf.zeros_initializer(shape, dtype=tf.float32)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#AUTOGENERATED-sparse-variable-updates" target="_blank" rel="noopener">Sparse Variable Updates</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#scatter_update" target="_blank" rel="noopener"><code>tf.scatter_update(ref, indices, updates, use_locking=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#scatter_add" target="_blank" rel="noopener"><code>tf.scatter_add(ref, indices, updates, use_locking=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#scatter_sub" target="_blank" rel="noopener"><code>tf.scatter_sub(ref, indices, updates, use_locking=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#sparse_mask" target="_blank" rel="noopener"><code>tf.sparse_mask(a, mask_indices, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/state_ops.html#IndexedSlices" target="_blank" rel="noopener"><code>class tf.IndexedSlices</code></a></li>
+</ul>
+</li>
+</ul>
+<h2 id="12-训练"><a href="#12-训练" class="headerlink" title="12.训练"></a>12.训练</h2><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#AUTOGENERATED-optimizers" target="_blank" rel="noopener">Optimizers</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#Optimizer" target="_blank" rel="noopener"><code>class tf.train.Optimizer</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#AUTOGENERATED-usage" target="_blank" rel="noopener">Usage</a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#AUTOGENERATED-processing-gradients-before-applying-them." target="_blank" rel="noopener">Processing gradients before applying them.</a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#AUTOGENERATED-gating-gradients" target="_blank" rel="noopener">Gating Gradients</a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#AUTOGENERATED-slots" target="_blank" rel="noopener">Slots</a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#GradientDescentOptimizer" target="_blank" rel="noopener"><code>class tf.train.GradientDescentOptimizer</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#AdagradOptimizer" target="_blank" rel="noopener"><code>class tf.train.AdagradOptimizer</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#MomentumOptimizer" target="_blank" rel="noopener"><code>class tf.train.MomentumOptimizer</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#AdamOptimizer" target="_blank" rel="noopener"><code>class tf.train.AdamOptimizer</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#FtrlOptimizer" target="_blank" rel="noopener"><code>class tf.train.FtrlOptimizer</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#RMSPropOptimizer" target="_blank" rel="noopener"><code>class tf.train.RMSPropOptimizer</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#AUTOGENERATED-gradient-computation" target="_blank" rel="noopener">Gradient Computation</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#gradients" target="_blank" rel="noopener"><code>tf.gradients(ys, xs, grad_ys=None, name=&#39;gradients&#39;, colocate_gradients_with_ops=False, gate_gradients=False, aggregation_method=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#AggregationMethod" target="_blank" rel="noopener"><code>class tf.AggregationMethod</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#stop_gradient" target="_blank" rel="noopener"><code>tf.stop_gradient(input, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#AUTOGENERATED-gradient-clipping" target="_blank" rel="noopener">Gradient Clipping</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#clip_by_value" target="_blank" rel="noopener"><code>tf.clip_by_value(t, clip_value_min, clip_value_max, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#clip_by_norm" target="_blank" rel="noopener"><code>tf.clip_by_norm(t, clip_norm, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#clip_by_average_norm" target="_blank" rel="noopener"><code>tf.clip_by_average_norm(t, clip_norm, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#clip_by_global_norm" target="_blank" rel="noopener"><code>tf.clip_by_global_norm(t_list, clip_norm, use_norm=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#global_norm" target="_blank" rel="noopener"><code>tf.global_norm(t_list, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#AUTOGENERATED-decaying-the-learning-rate" target="_blank" rel="noopener">Decaying the learning rate</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#exponential_decay" target="_blank" rel="noopener"><code>tf.train.exponential_decay(learning_rate, global_step, decay_steps, decay_rate, staircase=False, name=None)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#AUTOGENERATED-moving-averages" target="_blank" rel="noopener">Moving Averages</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#ExponentialMovingAverage" target="_blank" rel="noopener"><code>class tf.train.ExponentialMovingAverage</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#AUTOGENERATED-coordinator-and-queuerunner" target="_blank" rel="noopener">Coordinator and QueueRunner</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#Coordinator" target="_blank" rel="noopener"><code>class tf.train.Coordinator</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#QueueRunner" target="_blank" rel="noopener"><code>class tf.train.QueueRunner</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#add_queue_runner" target="_blank" rel="noopener"><code>tf.train.add_queue_runner(qr, collection=&#39;queue_runners&#39;)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#start_queue_runners" target="_blank" rel="noopener"><code>tf.train.start_queue_runners(sess=None, coord=None, daemon=True, start=True, collection=&#39;queue_runners&#39;)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#AUTOGENERATED-summary-operations" target="_blank" rel="noopener">Summary Operations</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#scalar_summary" target="_blank" rel="noopener"><code>tf.scalar_summary(tags, values, collections=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#image_summary" target="_blank" rel="noopener"><code>tf.image_summary(tag, tensor, max_images=None, collections=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#histogram_summary" target="_blank" rel="noopener"><code>tf.histogram_summary(tag, values, collections=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#zero_fraction" target="_blank" rel="noopener"><code>tf.nn.zero_fraction(value, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#merge_summary" target="_blank" rel="noopener"><code>tf.merge_summary(inputs, collections=None, name=None)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#merge_all_summaries" target="_blank" rel="noopener"><code>tf.merge_all_summaries(key=&#39;summaries&#39;)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#AUTOGENERATED-adding-summaries-to-event-files" target="_blank" rel="noopener">Adding Summaries to Event Files</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#SummaryWriter" target="_blank" rel="noopener"><code>class tf.train.SummaryWriter</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#summary_iterator" target="_blank" rel="noopener"><code>tf.train.summary_iterator(path)</code></a></li>
+</ul>
+</li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#AUTOGENERATED-training-utilities" target="_blank" rel="noopener">Training utilities</a><ul>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#global_step" target="_blank" rel="noopener"><code>tf.train.global_step(sess, global_step_tensor)</code></a></li>
+<li><a href="http://www.tensorfly.cn/tfdoc/api_docs/python/train.html#write_graph" target="_blank" rel="noopener"><code>tf.train.write_graph(graph_def, logdir, name, as_text=True)</code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/blog/tags/TensorFlow/">TensorFlow</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/blog/images/alipay.jpg" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/blog/images/wechat_pay.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/blog/2019/10/06/python/四-Python基础-列表推导及迭代器生成器/">
+                <span class="level-item">(四)Python基础_列表推导及迭代器生成器</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+
+<!--gitment 评论-->
+  <div class="comments" id="comments">
+  
+    <!--汉化-->
+    <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+    <script src="https://billts.site/js/gitment.js"></script>
+    <!--原型-->
+    <!--
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js" type="text/javascript"></script>
+    -->
+    
+      <div id="gitmentContainer" style="margin-bottom: -19px;"></div>
+     
+      <style>
+        .gitment-container a {
+          border: none;
+        }
+        .comments {
+          margin: 60px 0 0;padding: 0 60px;
+        }
+      </style>
+     
+      <script type="text/javascript">
+        var gitment = new Gitment({
+              id: '(六)TensorFlow_Python调用API',
+              title: '(六)TensorFlow_Python调用API',
+              owner: 'bjutliuyan',
+              repo: 'hello-world',
+              oauth: {
+                client_id: 'fdf345739039350618b5',
+                client_secret: '9d97d820336314984fc3ef8ffc1e5c786b46572f',
+              },
+        })
+        gitment.render('gitmentContainer')
+      </script>
+    
+  </div>
+<!--gitment 评论 end-->
+    </div>
+</div>
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/blog/images/avatar.png" alt="Liu Yan">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Liu Yan
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        计算机视觉·机器学习·软件工程
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>China,Beijing</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        24
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        6
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        10
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/bjutliuyan" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/bjutliuyan">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="https://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="https://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="https://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/blog/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        <!-- 以下为原有左边navbar内容，替换为网易云音乐链接
+
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+-->
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="100%" height="52" src="//music.163.com/outchain/player?type=2&id=4940455&auto=1&height=32"></iframe>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/blog/categories/OpenCV/">
+            <span class="level-start">
+                <span class="level-item">OpenCV</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/blog/categories/Python/">
+            <span class="level-start">
+                <span class="level-item">Python</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/blog/categories/TensorFlow/">
+            <span class="level-start">
+                <span class="level-item">TensorFlow</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">6</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/blog/categories/WEB/">
+            <span class="level-start">
+                <span class="level-item">WEB</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/blog/categories/设计模式/">
+            <span class="level-start">
+                <span class="level-item">设计模式</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/blog/categories/随笔/">
+            <span class="level-start">
+                <span class="level-item">随笔</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 15px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 15px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 15px;">设计模式</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/10/08/TensorFlow/六-TensorFlow_Python调用API/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1570546970390&amp;di=5a15d54c9c5c8855ea5622e4bf7e083e&amp;imgtype=0&amp;src=http%3A%2F%2Fres.cnoil.com%2FUploads%2FPicture%2F2017-03-08%2F58bf58270c1e1.jpeg" alt="(六)TensorFlow_Python调用API">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-08T11:40:41.000Z">2019-10-08</time></div>
+                    <a href="/blog/2019/10/08/TensorFlow/六-TensorFlow_Python调用API/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(六)TensorFlow_Python调用API</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/10/06/python/四-Python基础-列表推导及迭代器生成器/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://images.morethink.cn/python-tutorial-pdf.jpeg" alt="(四)Python基础_列表推导及迭代器生成器">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-06T10:32:19.000Z">2019-10-06</time></div>
+                    <a href="/blog/2019/10/06/python/四-Python基础-列表推导及迭代器生成器/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(四)Python基础_列表推导及迭代器生成器</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/Python/">Python</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/10/06/python/三-Python基础-文件访问与函数调用/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://img10.cache.hxsd.com/hxsdmy/show/2013/01/87/63/28/03/26/20130326223519.jpg" alt="(三)Python基础_文件访问与函数调用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-06T04:13:13.000Z">2019-10-06</time></div>
+                    <a href="/blog/2019/10/06/python/三-Python基础-文件访问与函数调用/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(三)Python基础_文件访问与函数调用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/Python/">Python</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/10/05/python/二-Python基础-常用容器/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1570252478800&amp;di=34eee5de5798386de7650baf283ab37f&amp;imgtype=0&amp;src=http%3A%2F%2Fgss0.baidu.com%2F-4o3dSag_xI4khGko9WTAnF6hhy%2Fzhidao%2Fpic%2Fitem%2Fcaef76094b36acaf1a099e5279d98d1000e99cb6.jpg" alt="(二)Python基础_常用容器">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-05T02:14:09.000Z">2019-10-05</time></div>
+                    <a href="/blog/2019/10/05/python/二-Python基础-常用容器/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(二)Python基础_常用容器</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/Python/">Python</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/10/03/python/一-Python基础-面向过程语法介绍/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://tyunfile.71360.com/UpLoadFile/2018/12/31/19/636818818017678908_dongnao_8544048.png" alt="(一)Python基础_面向过程语法介绍">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-03T07:19:25.000Z">2019-10-03</time></div>
+                    <a href="/blog/2019/10/03/python/一-Python基础-面向过程语法介绍/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(一)Python基础_面向过程语法介绍</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/Python/">Python</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/blog/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/blog/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">13</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/blog/archives/2019/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/LinearRegression/">
+                        <span class="tag">LinearRegression</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/Markdown/">
+                        <span class="tag">Markdown</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/OpenCV/">
+                        <span class="tag">OpenCV</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/Pycharm/">
+                        <span class="tag">Pycharm</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/Python/">
+                        <span class="tag">Python</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/TensorBoard/">
+                        <span class="tag">TensorBoard</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/TensorFlow/">
+                        <span class="tag">TensorFlow</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/WEB/">
+                        <span class="tag">WEB</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/hexo搭建/">
+                        <span class="tag">hexo搭建</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/设计模式/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--以下为新加访客统计-->
+    <script type="text/javascript" src="//rf.revolvermaps.com/0/0/0.js?i=5a01mramx76&amp;d=3&amp;p=0&amp;b=0&amp;w=293&amp;g=2&amp;f=arial&amp;fs=12&amp;r=0&amp;c0=362b05&amp;c1=375363&amp;c2=000000&amp;ic0=0&amp;ic1=0" async="async"></script>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/10/08/TensorFlow/六-TensorFlow_Python调用API/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1570546970390&amp;di=5a15d54c9c5c8855ea5622e4bf7e083e&amp;imgtype=0&amp;src=http%3A%2F%2Fres.cnoil.com%2FUploads%2FPicture%2F2017-03-08%2F58bf58270c1e1.jpeg" alt="(六)TensorFlow_Python调用API">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-08T11:40:41.000Z">2019-10-08</time></div>
+                    <a href="/blog/2019/10/08/TensorFlow/六-TensorFlow_Python调用API/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(六)TensorFlow_Python调用API</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/10/06/python/四-Python基础-列表推导及迭代器生成器/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://images.morethink.cn/python-tutorial-pdf.jpeg" alt="(四)Python基础_列表推导及迭代器生成器">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-06T10:32:19.000Z">2019-10-06</time></div>
+                    <a href="/blog/2019/10/06/python/四-Python基础-列表推导及迭代器生成器/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(四)Python基础_列表推导及迭代器生成器</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/Python/">Python</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/10/06/python/三-Python基础-文件访问与函数调用/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://img10.cache.hxsd.com/hxsdmy/show/2013/01/87/63/28/03/26/20130326223519.jpg" alt="(三)Python基础_文件访问与函数调用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-06T04:13:13.000Z">2019-10-06</time></div>
+                    <a href="/blog/2019/10/06/python/三-Python基础-文件访问与函数调用/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(三)Python基础_文件访问与函数调用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/Python/">Python</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/10/05/python/二-Python基础-常用容器/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1570252478800&amp;di=34eee5de5798386de7650baf283ab37f&amp;imgtype=0&amp;src=http%3A%2F%2Fgss0.baidu.com%2F-4o3dSag_xI4khGko9WTAnF6hhy%2Fzhidao%2Fpic%2Fitem%2Fcaef76094b36acaf1a099e5279d98d1000e99cb6.jpg" alt="(二)Python基础_常用容器">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-05T02:14:09.000Z">2019-10-05</time></div>
+                    <a href="/blog/2019/10/05/python/二-Python基础-常用容器/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(二)Python基础_常用容器</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/Python/">Python</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/10/03/python/一-Python基础-面向过程语法介绍/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://tyunfile.71360.com/UpLoadFile/2018/12/31/19/636818818017678908_dongnao_8544048.png" alt="(一)Python基础_面向过程语法介绍">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-03T07:19:25.000Z">2019-10-03</time></div>
+                    <a href="/blog/2019/10/03/python/一-Python基础-面向过程语法介绍/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(一)Python基础_面向过程语法介绍</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/Python/">Python</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/blog/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/blog/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">13</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/blog/archives/2019/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/LinearRegression/">
+                        <span class="tag">LinearRegression</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/Markdown/">
+                        <span class="tag">Markdown</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/OpenCV/">
+                        <span class="tag">OpenCV</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/Pycharm/">
+                        <span class="tag">Pycharm</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/Python/">
+                        <span class="tag">Python</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/TensorBoard/">
+                        <span class="tag">TensorBoard</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/TensorFlow/">
+                        <span class="tag">TensorFlow</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/WEB/">
+                        <span class="tag">WEB</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/hexo搭建/">
+                        <span class="tag">hexo搭建</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/设计模式/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--以下为新加访客统计-->
+    <script type="text/javascript" src="//rf.revolvermaps.com/0/0/0.js?i=5a01mramx76&amp;d=3&amp;p=0&amp;b=0&amp;w=293&amp;g=2&amp;f=arial&amp;fs=12&amp;r=0&amp;c0=362b05&amp;c1=375363&amp;c2=000000&amp;ic0=0&amp;ic1=0" async="async"></script>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/blog/">
+                
+                    <img src="/blog/images/logo.svg" alt="(六)TensorFlow_Python调用API" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 bjutliuyan&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                <br>
+                <span id="busuanzi_container_site_uv">
+                共<span id="busuanzi_value_site_uv">0</span>个访客
+                </span>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/blog/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/blog/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/blog/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/blog/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+    
+
+
+<script src="/blog/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/blog/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/blog/js/insight.js" defer></script>
+<link rel="stylesheet" href="/blog/css/search.css">
+<link rel="stylesheet" href="/blog/css/insight.css">
+    
+<script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/blog/live2dw/assets/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
