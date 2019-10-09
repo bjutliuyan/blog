@@ -190,7 +190,7 @@
 <li>首先使用面向对象的<code>封装</code>特将操作抽成一个类：<br>   Operation运算类：<br><img src="001.jpg" alt><br><img src="002.jpg" alt><br>   客户端代码：<br><img src="003.jpg" alt><br>在只使用封装的基础上，如果此时要添加一个求根号的操作，则需在Operation类的switch中新增一个分支，但是应该避免在新增分支的时候对原有代码进行修改。因此应该把加减乘除等运算分离，修改其中一个不影响另外几个，增加其它运算算法也不影响其它代码。</li>
 <li>使用<code>继承</code>抽离操作类中的具体算法：<br><img src="004.jpg" alt><br>   定义四个子类继承操作类：<br><img src="005.jpg" alt><br><img src="006.jpg" alt><br>在该基础上可以实现，如果想要新增或修改一个算法，只需新增一个子类或修改一个子类，对其它方法不会产生影响。<br>但是问题来了，不知道该如何让计算器去实例化对象，总不能在客户端代码里写一个switch判断，看是什么操作符返回什么运算子类进行操作吧。那么如果再新加一个运算子类（比如说开根号），总不能再去修改客户端代码，在switch里添加一个分支吧。</li>
 <li>使用<code>多态</code>添加一个工厂类，实例化出合适的对象：<br>   工厂类：<br><img src="007.jpg" alt><br><img src="008.jpg" alt><br>   客户端代码：<br><img src="009.jpg" alt></li>
-<li>类图：<br><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1566574232883&di=1f6527c3096dffd6c364bfd9108ac977&imgtype=jpg&src=http%3A%2F%2Fimg4.imgtn.bdimg.com%2Fit%2Fu%3D2067476079%2C1796698802%26fm%3D214%26gp%3D0.jpg" alt><br>这样再新加一个操作，只需新增一个操作子类，然后再在工厂类里添加一个分支就行了。</li>
+<li>类图：<br><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1566574232883&amp;di=1f6527c3096dffd6c364bfd9108ac977&amp;imgtype=jpg&amp;src=http%3A%2F%2Fimg4.imgtn.bdimg.com%2Fit%2Fu%3D2067476079%2C1796698802%26fm%3D214%26gp%3D0.jpg" alt><br>这样再新加一个操作，只需新增一个操作子类，然后再在工厂类里添加一个分支就行了。</li>
 </ol>
 
         </div>

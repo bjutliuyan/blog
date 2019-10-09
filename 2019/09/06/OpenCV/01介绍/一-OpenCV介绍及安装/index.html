@@ -186,15 +186,11 @@
         <div class="content">
             <p><a href="https://docs.opencv.org/3.4/index.html" target="_blank" rel="noopener">OpenCV</a>是一个跨平台的计算机视觉库，可运行在多个平台，<a id="more"></a>由一系列 C 函数和少量 C++ 类，并同时提供了Python、Ruby、MATLAB等语言的接口，实现了图像处理和计算机视觉方面的很多通用算法。<br>以下介绍前提是已经安装好了Python和基本的numpy、matplotlib库。</p>
 <h2 id="Windows下安装OpenCV"><a href="#Windows下安装OpenCV" class="headerlink" title="Windows下安装OpenCV"></a>Windows下安装OpenCV</h2><ol>
-<li><p>到<a href="https://opencv.org/releases.html" target="_blank" rel="noopener">OpenCV官网</a>下载合适的win pack版本，然后傻瓜式操作解压安装：<br><img src="https://img-blog.csdn.net/20180807092613500" alt></p>
-</li>
-<li><p>安装完成之后，配置相应环境变量（依次选择计算机—&gt;属性—&gt;高级系统设置—&gt;环境变量，找到Path变量，然后把OpenCV执行文件的路径新增进去；OpenCV执行文件在解压好的OpenCV文件夹里，依次选择build—&gt;x64—&gt;vc15—&gt;bin）：<br><img src="001.jpg" alt></p>
-</li>
-<li><p>找到opencv-&gt;build-&gt;python-&gt;3.5-&gt;x64下的cv2.pyd工具包，拷贝到Python安装目录下的Lib-&gt;site-packages下<br>到此Windows下OpenCV配置完成。</p>
-</li>
+<li>到<a href="https://opencv.org/releases.html" target="_blank" rel="noopener">OpenCV官网</a>下载合适的win pack版本，然后傻瓜式操作解压安装：<br><img src="https://img-blog.csdn.net/20180807092613500" alt></li>
+<li>安装完成之后，配置相应环境变量（依次选择计算机—&gt;属性—&gt;高级系统设置—&gt;环境变量，找到Path变量，然后把OpenCV执行文件的路径新增进去；OpenCV执行文件在解压好的OpenCV文件夹里，依次选择build—&gt;x64—&gt;vc15—&gt;bin）：<br><img src="001.jpg" alt></li>
+<li>找到opencv-&gt;build-&gt;python-&gt;3.5-&gt;x64下的cv2.pyd工具包，拷贝到Python安装目录下的Lib-&gt;site-packages下<br>到此Windows下OpenCV配置完成。</li>
 <li><p>一个简单测试：<br>新建text.py，输入如下的程序，cmd下输入python text.py，如果可以正确的显示图片，证明安装成功。</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">img = cv2.imread(&quot;1.jpg&quot;)</span><br><span class="line">emptyImage = np.zeros(img.shape, np.uint8)</span><br><span class="line">emptyImage2 = img.copy()</span><br><span class="line">emptyImage3=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)</span><br><span class="line">cv2.imshow(&quot;EmptyImage3&quot;, emptyImage3)</span><br><span class="line">cv2.waitKey (0)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
-
 <p>   显示图片如下：<img src="https://img-blog.csdn.net/20160829164236865" alt></p>
 </li>
 </ol>
@@ -222,14 +218,12 @@
 </li>
 <li><p>编译安装：</p>
 <figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make -j8</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
-
 <p> 到此linux下安装OpenCV已经完成。</p>
 </li>
 </ul>
-<ol start="3">
+<ol>
 <li><p>一个简单测试：</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line">print(cv2.__version__)</span><br></pre></td></tr></table></figure>
-
 <p>  能输出版本号则说明安装成功。</p>
 </li>
 </ol>
