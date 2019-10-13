@@ -184,7 +184,8 @@
             
         </h1>
         <div class="content">
-            <p>本地JAVAWEB项目，如果想通过外网URL可以直接访问，就需要将本地程序包的war包上传到远程服务器指定文件。本文以上传ubuntu服务器为例介绍。<br><a id="more"></a></p>
+            <p>本地JAVAWEB项目，如果想通过外网URL可以直接访问，就需要将本地程序包的war包上传到远程服务器指定文件。本文以上传ubuntu服务器为例介绍。</p>
+<a id="more"></a>
 <h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><ol>
 <li>远程服务器配置安装Apache、Tomcat、MySQL<a href="http://www.360doc.com/content/16/1130/16/18650478_610786099.shtml" target="_blank" rel="noopener">[参考网址]</a></li>
 <li>将本地程序上传服务器</li>
@@ -199,7 +200,8 @@
 </ul>
 <p>此时连接 <code>服务器ip:8080/项目名</code>即可外网访问项目（服务器运行慢的情况下，刚将项目上传需要多刷新几遍才能出来）</p>
 <h2 id="将本地数据库上传服务器"><a href="#将本地数据库上传服务器" class="headerlink" title="将本地数据库上传服务器"></a>将本地数据库上传服务器</h2><ul>
-<li>将本地数据库导出到.sql脚本文件，再将该文件上传到服务器任意文件夹下</li>
+<li><p>将本地数据库导出到.sql脚本文件，再将该文件上传到服务器任意文件夹下</p>
+</li>
 <li><p>在命令行进入mysql命令模式</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql -u用户名 -p密码    //进入数据库命令模式</span><br><span class="line">show databases;         //查看当前有哪些数据库</span><br><span class="line">creat database 数据库名  //创建自己的数据库</span><br><span class="line">source /var/lib/tomcat/webapps/数据库名.sql    //执行上传的sql脚本文件，source后拼接的是.sql文件的路径</span><br></pre></td></tr></table></figure>
 </li>
@@ -373,7 +375,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        24
+                        25
                     </p>
                 </div>
             </div>
@@ -383,7 +385,7 @@
                         分类
                     </p>
                     <p class="title has-text-weight-normal">
-                        6
+                        7
                     </p>
                 </div>
             </div>
@@ -393,7 +395,7 @@
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        10
+                        11
                     </p>
                 </div>
             </div>
@@ -493,6 +495,14 @@
             </h3>
             <ul class="menu-list">
             <li>
+        <a class="level is-marginless" href="/blog/categories/C-C/">
+            <span class="level-start">
+                <span class="level-item">C/C++</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
         <a class="level is-marginless" href="/blog/categories/OpenCV/">
             <span class="level-start">
                 <span class="level-item">OpenCV</span>
@@ -552,7 +562,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 15px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 15px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 15px;">设计模式</a>
+        <a href="/blog/tags/C-STL/" style="font-size: 10px;">C++_STL</a> <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 15px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 15px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 15px;">设计模式</a>
     </div>
 </div>
 
@@ -566,6 +576,25 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/10/12/C++/C++中STL用法详解一-内容介绍/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1570870275908&amp;di=9f0211607d6a997b8b482f71a1f58afe&amp;imgtype=0&amp;src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2Fd6fec7c3c046f13a828df66d1717351300155b2028af6-jIb8fs_fw658" alt="C+中STL用法详解一_内容介绍">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-12T05:50:52.000Z">2019-10-12</time></div>
+                    <a href="/blog/2019/10/12/C++/C++中STL用法详解一-内容介绍/" class="title has-link-black-ter is-size-6 has-text-weight-normal">C+中STL用法详解一_内容介绍</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/C-C/">C/C++</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -643,25 +672,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/10/03/python/一-Python基础-面向过程语法介绍/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://tyunfile.71360.com/UpLoadFile/2018/12/31/19/636818818017678908_dongnao_8544048.png" alt="(一)Python基础_面向过程语法介绍">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-03T07:19:25.000Z">2019-10-03</time></div>
-                    <a href="/blog/2019/10/03/python/一-Python基础-面向过程语法介绍/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(一)Python基础_面向过程语法介绍</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/Python/">Python</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -680,7 +690,7 @@
                     <span class="level-item">十月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">5</span>
+                    <span class="level-item tag">6</span>
                 </span>
             </a>
         </li>
@@ -719,6 +729,13 @@
                 标签
             </h3>
             <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/C-STL/">
+                        <span class="tag">C++_STL</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
                 
                 <div class="control">
                     <a class="tags has-addons" href="/blog/tags/LinearRegression/">
@@ -818,6 +835,25 @@
         
         <article class="media">
             
+            <a href="/blog/2019/10/12/C++/C++中STL用法详解一-内容介绍/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1570870275908&amp;di=9f0211607d6a997b8b482f71a1f58afe&amp;imgtype=0&amp;src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2Fd6fec7c3c046f13a828df66d1717351300155b2028af6-jIb8fs_fw658" alt="C+中STL用法详解一_内容介绍">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-12T05:50:52.000Z">2019-10-12</time></div>
+                    <a href="/blog/2019/10/12/C++/C++中STL用法详解一-内容介绍/" class="title has-link-black-ter is-size-6 has-text-weight-normal">C+中STL用法详解一_内容介绍</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/C-C/">C/C++</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2019/10/08/TensorFlow/六-TensorFlow_Python调用API/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1570546970390&amp;di=5a15d54c9c5c8855ea5622e4bf7e083e&amp;imgtype=0&amp;src=http%3A%2F%2Fres.cnoil.com%2FUploads%2FPicture%2F2017-03-08%2F58bf58270c1e1.jpeg" alt="(六)TensorFlow_Python调用API">
@@ -892,25 +928,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/10/03/python/一-Python基础-面向过程语法介绍/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://tyunfile.71360.com/UpLoadFile/2018/12/31/19/636818818017678908_dongnao_8544048.png" alt="(一)Python基础_面向过程语法介绍">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-03T07:19:25.000Z">2019-10-03</time></div>
-                    <a href="/blog/2019/10/03/python/一-Python基础-面向过程语法介绍/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(一)Python基础_面向过程语法介绍</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/Python/">Python</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -929,7 +946,7 @@
                     <span class="level-item">十月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">5</span>
+                    <span class="level-item tag">6</span>
                 </span>
             </a>
         </li>
@@ -968,6 +985,13 @@
                 标签
             </h3>
             <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/C-STL/">
+                        <span class="tag">C++_STL</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
                 
                 <div class="control">
                     <a class="tags has-addons" href="/blog/tags/LinearRegression/">
