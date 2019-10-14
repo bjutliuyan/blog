@@ -17,7 +17,7 @@
 <meta property="og:description" content="熟悉容器的使用是掌握STL的基本步骤。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1570986697460&di=76f8ffa27f84f11dce0cfb63bb4dafbf&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F4%2F582e754c7cede.jpg">
-<meta property="og:updated_time" content="2019-10-13T14:33:03.265Z">
+<meta property="og:updated_time" content="2019-10-14T07:27:29.525Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C+中STL用法详解二_常用容器用法介绍">
 <meta name="twitter:description" content="熟悉容器的使用是掌握STL的基本步骤。">
@@ -166,7 +166,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    几秒 读完 (大约 94 个字)
+                    6 分钟 读完 (大约 877 个字)
                 </span>
                 
                 
@@ -185,18 +185,35 @@
         </h1>
         <div class="content">
             <p>熟悉容器的使用是掌握STL的基本步骤。<a id="more"></a></p>
-<h2 id="1-序列式容器"><a href="#1-序列式容器" class="headerlink" title="1. 序列式容器"></a>1. 序列式容器</h2><ol>
-<li><p><strong>vector的基本用法</strong></p>
+<h2 id="1-序列式容器"><a href="#1-序列式容器" class="headerlink" title="1. 序列式容器"></a>1. 序列式容器</h2><p>序列容器以线性序列的方式存储元素。元素在序列中的顺序与存储的顺序相同，没有对元素进行排序。</p>
+<ol>
+<li><p><strong>vector的基本用法</strong><br>长度可变序列，但只能在序列的末尾高效地增加或删除元素。</p>
+<figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">vector</span>&lt;类型&gt;T;  <span class="hljs-comment">//构建</span></span><br><span class="line">T.push_back(x); <span class="hljs-comment">//尾部新增一个元素x</span></span><br><span class="line">T.insert(iterator it, <span class="hljs-keyword">int</span> x); <span class="hljs-comment">//在it指向的元素前新增一个x</span></span><br><span class="line">T.insert(iterator it, <span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span> x); <span class="hljs-comment">//在it指向元素前插入n个x</span></span><br><span class="line">T.erase(iterator it); <span class="hljs-comment">//删除it指向的元素</span></span><br><span class="line">T.erase(iterator first, iterator last); <span class="hljs-comment">//删除[last,first)中元素</span></span><br><span class="line">T.pop_back(); <span class="hljs-comment">//删除最后一个元素</span></span><br><span class="line">T.empty(); <span class="hljs-comment">//判断是否为空</span></span><br><span class="line">T.size(); <span class="hljs-comment">//返回元素个数</span></span><br><span class="line">T.at(index); <span class="hljs-comment">//返回index编号元素</span></span><br><span class="line">reverse(T); <span class="hljs-comment">//反转T中元素</span></span><br><span class="line">T.begin(); <span class="hljs-comment">//返回首元素指针</span></span><br><span class="line">T.end(); <span class="hljs-comment">//返回最后一个元素+1的指针</span></span><br><span class="line">T.front(); <span class="hljs-comment">//返回首元素引用</span></span><br><span class="line">T.back(); <span class="hljs-comment">//返回尾元素引用</span></span><br><span class="line">sort(T.begin(), T.end()); <span class="hljs-comment">//排序</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p><strong>deque的基本用法</strong></p>
+<li><p><strong>deque的基本用法</strong><br>以双端队列形式组织元素，在尾部和头部插入删除迅速，在中间插入删除元素则比较费时，因为必须移动中间其它元素。</p>
+<figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">deque</span>&lt;类型&gt;T； <span class="hljs-comment">//声明一个双端队列</span></span><br><span class="line"><span class="hljs-built_in">deque</span>&lt;类型&gt;T(size,value); <span class="hljs-comment">//声明具有size个value默认值的双端队列</span></span><br><span class="line">T.push_front(x); <span class="hljs-comment">//在头部插入x</span></span><br><span class="line">T.push_back(x); <span class="hljs-comment">//在尾部插入x</span></span><br><span class="line">T.pop_front(); <span class="hljs-comment">//弹出头部的一个元素</span></span><br><span class="line">T.pop_back(); <span class="hljs-comment">//弹出尾部的一个元素</span></span><br><span class="line">T.front(); <span class="hljs-comment">//返回第一个元素的引用</span></span><br><span class="line">T.back(); <span class="hljs-comment">//返回最后一个元素的引用</span></span><br><span class="line">T.begin();</span><br><span class="line">T.end();</span><br><span class="line">T.size();</span><br><span class="line">T.at(index);</span><br><span class="line">T.insert(it, x);</span><br></pre></td></tr></table></figure>
 </li>
-<li><p><strong>list的基本用法</strong></p>
+<li><p><strong>list的基本用法</strong><br>list实现的是双向链表，与vector比它允许快速的插入和删除，但随机访问比较慢。</p>
+<figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">list</span>&lt;类型&gt;T; <span class="hljs-comment">// 构建</span></span><br><span class="line">T.push_back(x);</span><br><span class="line">T.push_front(x);</span><br><span class="line">T.pop_back();</span><br><span class="line">T.pop_front();</span><br><span class="line">T.front();</span><br><span class="line">T.back();</span><br><span class="line">T.begin();</span><br><span class="line">T.reverse();</span><br><span class="line">T.sort();</span><br><span class="line">T.end();</span><br><span class="line">T.insert(x);</span><br><span class="line">T.remove(x);</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 <h2 id="2-关联式容器"><a href="#2-关联式容器" class="headerlink" title="2. 关联式容器"></a>2. 关联式容器</h2><ol>
-<li><p><strong>map的基本用法</strong></p>
+<li><strong>map的基本用法</strong><br>map是关联容器的一种，通过键值对来存储。map内部自建一颗红黑树(平衡二叉树)，这棵树具有对数据的自动排序功能（按照键值排序，当键值是不可比较元素时需指定比较仿函数）。<br>map容器有4中，每一种都由类模板定义，因为修改键会扰乱容器中元素的顺序，每种map容器模板都有不同的特性：</li>
+</ol>
+<ul>
+<li><font color="#008000">map：</font>唯一&lt;key,value&gt;对应，默认按键值从小到大排序。</li>
+<li><font color="#008000">mutlimap：</font>允许使用重复的键。</li>
+<li><font color="#008000">unordered_map：</font></li>
+<li><font color="#008000">unordered_multimap：</font><div align="center">  
+<img src="http://www.studytonight.com/cpp/images/map-example.png">  
+</div>
+<figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">map</span>&lt; <span class="hljs-keyword">int</span>,<span class="hljs-built_in">string</span> &gt; T; <span class="hljs-comment">//构建</span></span><br><span class="line">T.insert(make_pair&lt;<span class="hljs-keyword">int</span>,<span class="hljs-built_in">string</span>&gt;(<span class="hljs-number">1</span>, <span class="hljs-string">"student_one"</span>)); <span class="hljs-comment">//插入</span></span><br><span class="line">T.empty();</span><br><span class="line">T.size();</span><br><span class="line">T.erase(key); <span class="hljs-comment">//根据key删除，返回删除元素的数量</span></span><br><span class="line">T.erase(iterator it); <span class="hljs-comment">//删除迭代器指向位置的键值对，并返回指向下一个元素的迭代器</span></span><br><span class="line">T.at(key); <span class="hljs-comment">// 根据key获取对应value值</span></span><br><span class="line">T.find(key); <span class="hljs-comment">//返回指向键值key的迭代器指针</span></span><br><span class="line">T.count(key);</span><br></pre></td></tr></table></figure>
 </li>
-<li><p><strong>mutlimap的基本用法</strong></p>
+</ul>
+<ol start="2">
+<li><p><strong>mutlimap的基本用法</strong><br>mutlimap容器保存的是有序的键值对，键值可以重复。</p>
+<figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//操作与map类似</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>set的基本用法</strong></p>
 </li>
