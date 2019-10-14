@@ -3,20 +3,25 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-<title>归档: 2019/9 - Bjutliuyan&#39;s blog</title>
+<title>C+中STL用法详解二_常用容器用法介绍 - Bjutliuyan&#39;s blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Bjutliuyan&#39;s blog">
-<meta property="og:url" content="http://bjutliuyan.github.io/blog/archives/2019/09/page/3/index.html">
+    <meta name="description" content="熟悉容器的使用是掌握STL的基本步骤。">
+<meta name="keywords" content="C++_STL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C+中STL用法详解二_常用容器用法介绍">
+<meta property="og:url" content="http://bjutliuyan.github.io/blog/2019/10/13/C++/C++中STL用法详解二-常用容器用法介绍/index.html">
 <meta property="og:site_name" content="Bjutliuyan&#39;s blog">
+<meta property="og:description" content="熟悉容器的使用是掌握STL的基本步骤。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://bjutliuyan.github.io/blog/images/og_image.png">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1570986697460&di=76f8ffa27f84f11dce0cfb63bb4dafbf&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F4%2F582e754c7cede.jpg">
+<meta property="og:updated_time" content="2019-10-13T14:33:03.265Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Bjutliuyan&#39;s blog">
-<meta name="twitter:image" content="http://bjutliuyan.github.io/blog/images/og_image.png">
+<meta name="twitter:title" content="C+中STL用法详解二_常用容器用法介绍">
+<meta name="twitter:description" content="熟悉容器的使用是掌握STL的基本步骤。">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1570986697460&di=76f8ffa27f84f11dce0cfb63bb4dafbf&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F4%2F582e754c7cede.jpg">
 
 
 
@@ -94,7 +99,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/blog/">
             
-                <img src="/blog/images/logo.svg" alt="Bjutliuyan&#39;s blog" height="28">
+                <img src="/blog/images/logo.svg" alt="C+中STL用法详解二_常用容器用法介绍" height="28">
             
             </a>
         </div>
@@ -139,120 +144,190 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1570986697460&amp;di=76f8ffa27f84f11dce0cfb63bb4dafbf&amp;imgtype=0&amp;src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F4%2F582e754c7cede.jpg" alt="C+中STL用法详解二_常用容器用法介绍">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-10-13T14:14:18.000Z">2019-10-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/blog/categories/C-C/">C/C++</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    几秒 读完 (大约 94 个字)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span>次访问
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                C+中STL用法详解二_常用容器用法介绍
+            
+        </h1>
+        <div class="content">
+            <p>熟悉容器的使用是掌握STL的基本步骤。<a id="more"></a></p>
+<h2 id="1-序列式容器"><a href="#1-序列式容器" class="headerlink" title="1. 序列式容器"></a>1. 序列式容器</h2><ol>
+<li><p><strong>vector的基本用法</strong></p>
+</li>
+<li><p><strong>deque的基本用法</strong></p>
+</li>
+<li><p><strong>list的基本用法</strong></p>
+</li>
+</ol>
+<h2 id="2-关联式容器"><a href="#2-关联式容器" class="headerlink" title="2. 关联式容器"></a>2. 关联式容器</h2><ol>
+<li><p><strong>map的基本用法</strong></p>
+</li>
+<li><p><strong>mutlimap的基本用法</strong></p>
+</li>
+<li><p><strong>set的基本用法</strong></p>
+</li>
+<li><p><strong>mutliset的基本用法</strong></p>
+</li>
+</ol>
+<h2 id="3-容器适配器"><a href="#3-容器适配器" class="headerlink" title="3. 容器适配器"></a>3. 容器适配器</h2><ol>
+<li><p><strong>stack的基本用法</strong></p>
+</li>
+<li><p><strong>queue的基本用法</strong></p>
+</li>
+<li><p><strong>prority_queue的基本用法</strong></p>
+</li>
+</ol>
 
-<div class="card widget">
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/blog/tags/C-STL/">C++_STL</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
     <div class="card-content">
-        <h3 class="tag is-link">
-        九月 2019
-        </h3>
-        <div class="timeline">
-        
-            <article class="media">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
                 
-                <a href="/blog/2019/09/10/OpenCV/02图像/五-OpenCV图像处理3/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1567750445013&amp;di=8f019f210c98688dec883c85a8c9f92b&amp;imgtype=0&amp;src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg" alt="(五)OpenCV图像处理3">
-                    </p>
-                </a>
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/blog/images/alipay.jpg" alt="支付宝"></div>
+</a>
+
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-09-10T14:45:31.000Z">2019-09-10</time>
-                        <a href="/blog/2019/09/10/OpenCV/02图像/五-OpenCV图像处理3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(五)OpenCV图像处理3</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
                 
-                <a href="/blog/2019/09/09/OpenCV/02图像/四-OpenCV图像处理2/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1567750445013&amp;di=8f019f210c98688dec883c85a8c9f92b&amp;imgtype=0&amp;src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg" alt="(四)OpenCV图像处理2">
-                    </p>
-                </a>
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/blog/images/wechat_pay.jpg" alt="微信"></div>
+</a>
+
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-09-09T04:40:34.000Z">2019-09-09</time>
-                        <a href="/blog/2019/09/09/OpenCV/02图像/四-OpenCV图像处理2/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(四)OpenCV图像处理2</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/blog/2019/09/08/OpenCV/02图像/三-OpenCV图像处理1/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1567750445013&amp;di=8f019f210c98688dec883c85a8c9f92b&amp;imgtype=0&amp;src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg" alt="(三)OpenCV图像处理1">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-09-08T10:28:10.000Z">2019-09-08</time>
-                        <a href="/blog/2019/09/08/OpenCV/02图像/三-OpenCV图像处理1/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(三)OpenCV图像处理1</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
         </div>
     </div>
 </div>
 
 
 
-    
 <div class="card card-transparent">
-    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-        <div class="pagination-previous">
-            <a class="is-flex-grow has-text-black-ter" href="/blog/archives/2019/09/page/2/">上一页</a>
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/blog/2019/10/12/C++/C++中STL用法详解一-内容介绍/">
+                <span class="level-item">C+中STL用法详解一_内容介绍</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
         </div>
-        <div class="pagination-next">
-            <a class="is-flex-grow has-text-black-ter" href="/blog/archives/2019/09/page/4/">下一页</a>
-        </div>
-        <ul class="pagination-list is-hidden-mobile">
-            
-            <li><a class="pagination-link has-text-black-ter" href="/blog/archives/2019/09/">1</a></li>
-            
-            <li><a class="pagination-link has-text-black-ter" href="/blog/archives/2019/09/page/2/">2</a></li>
-            
-            <li><a class="pagination-link is-current" href="/blog/archives/2019/09/page/3/">3</a></li>
-            
-            <li><a class="pagination-link has-text-black-ter" href="/blog/archives/2019/09/page/4/">4</a></li>
-            
-            <li><a class="pagination-link has-text-black-ter" href="/blog/archives/2019/09/page/5/">5</a></li>
-            
-        </ul>
-    </nav>
+        
+    </div>
 </div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+
+<!--gitment 评论-->
+  <div class="comments" id="comments">
+  
+    <!--汉化-->
+    <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+    <script src="https://billts.site/js/gitment.js"></script>
+    <!--原型-->
+    <!--
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js" type="text/javascript"></script>
+    -->
+    
+      <div id="gitmentContainer" style="margin-bottom: -19px;"></div>
+     
+      <style>
+        .gitment-container a {
+          border: none;
+        }
+        .comments {
+          margin: 60px 0 0;padding: 0 60px;
+        }
+      </style>
+     
+      <script type="text/javascript">
+        var gitment = new Gitment({
+              id: 'C+中STL用法详解二_常用容器用法介绍',
+              title: 'C+中STL用法详解二_常用容器用法介绍',
+              owner: 'bjutliuyan',
+              repo: 'hello-world',
+              oauth: {
+                client_id: 'fdf345739039350618b5',
+                client_secret: '9d97d820336314984fc3ef8ffc1e5c786b46572f',
+              },
+        })
+        gitment.render('gitmentContainer')
+      </script>
+    
+  </div>
+<!--gitment 评论 end-->
+    </div>
+</div>
+
 </div>
                 
 
@@ -1004,7 +1079,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/blog/">
                 
-                    <img src="/blog/images/logo.svg" alt="Bjutliuyan&#39;s blog" height="28">
+                    <img src="/blog/images/logo.svg" alt="C+中STL用法详解二_常用容器用法介绍" height="28">
                 
                 </a>
                 <p class="is-size-7">
