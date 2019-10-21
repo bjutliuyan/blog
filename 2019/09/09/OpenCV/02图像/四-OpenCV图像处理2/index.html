@@ -17,7 +17,7 @@
 <meta property="og:description" content="本节对OpenCV图像处理中：图像阀值、图像模糊、图像的形态学转换，进行整理介绍">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567750445013&di=8f019f210c98688dec883c85a8c9f92b&imgtype=0&src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg">
-<meta property="og:updated_time" content="2019-10-21T12:33:38.290Z">
+<meta property="og:updated_time" content="2019-10-21T13:09:39.191Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(四)OpenCV图像处理2">
 <meta name="twitter:description" content="本节对OpenCV图像处理中：图像阀值、图像模糊、图像的形态学转换，进行整理介绍">
@@ -166,7 +166,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    9 分钟 读完 (大约 1406 个字)
+                    10 分钟 读完 (大约 1475 个字)
                 </span>
                 
                 
@@ -184,7 +184,7 @@
             
         </h1>
         <div class="content">
-            <p>本节对OpenCV图像处理中：图像阀值、图像模糊、图像的形态学转换，进行整理介绍<a id="more"></a></p>
+            <p>本节对OpenCV图像处理中：图像阀值、图像模糊、图像的形态学转换，进行整理介绍<a id="more"></a><br>对于图像的处理，基本步骤是：取得图像数据 —— 将图像进行平滑处理 —— 进行边缘检测，阈值分析 —— 进行形态学的操作 —— 获取某些特征点 —— 分析数据</p>
 <h2 id="一、图像阀值"><a href="#一、图像阀值" class="headerlink" title="一、图像阀值"></a>一、图像阀值</h2><ul>
 <li>简单阀值 </li>
 </ul>
@@ -194,7 +194,7 @@
 </ul>
 <ol>
 <li><p><strong>简单阀值</strong><br>针对于灰度图片的灰度值，当灰度值高于阀值时，给这个灰度值赋一个新值：</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#参数：原始图像，阀值，新值，阀值规则</span></span><br><span class="line">retVal,thresh = cv2.threshold(img, <span class="hljs-number">127</span>, <span class="hljs-number">255</span>, cv2.THRESH_TOZERO);</span><br><span class="line">ret,thresh2=cv2.threshold(img,<span class="hljs-number">127</span>,<span class="hljs-number">255</span>,cv2.THRESH_BINARY_INV);</span><br><span class="line">ret,thresh3=cv2.threshold(img,<span class="hljs-number">127</span>,<span class="hljs-number">255</span>,cv2.THRESH_TRUNC);</span><br><span class="line">ret,thresh4=cv2.threshold(img,<span class="hljs-number">127</span>,<span class="hljs-number">255</span>,cv2.THRESH_TOZERO);</span><br><span class="line">ret,thresh5=cv2.threshold(img,<span class="hljs-number">127</span>,<span class="hljs-number">255</span>,cv2.THRESH_TOZERO_INV);</span><br></pre></td></tr></table></figure>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#参数：原始图像，阀值，新值，阀值规则</span></span><br><span class="line">ret,thresh1 = cv2.threshold(img, <span class="hljs-number">127</span>, <span class="hljs-number">255</span>, cv2.THRESH_TOZERO);</span><br><span class="line">ret,thresh2 = cv2.threshold(img,<span class="hljs-number">127</span>,<span class="hljs-number">255</span>,cv2.THRESH_BINARY_INV);</span><br><span class="line">ret,thresh3 = cv2.threshold(img,<span class="hljs-number">127</span>,<span class="hljs-number">255</span>,cv2.THRESH_TRUNC);</span><br><span class="line">ret,thresh4 = cv2.threshold(img,<span class="hljs-number">127</span>,<span class="hljs-number">255</span>,cv2.THRESH_TOZERO);</span><br><span class="line">ret,thresh5 = cv2.threshold(img,<span class="hljs-number">127</span>,<span class="hljs-number">255</span>,cv2.THRESH_TOZERO_INV);</span><br></pre></td></tr></table></figure>
 
 <p>阀值规则对应如下：</p>
 <div align="center">  
