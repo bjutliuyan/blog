@@ -8,19 +8,19 @@
 
 
 
-    <meta name="description" content="本节对OpenCV图像处理中：图像梯度、边缘检测、图像金字塔，进行整理介绍">
+    <meta name="description" content="本节对OpenCV图像处理中：图像梯度、边缘检测，进行整理介绍">
 <meta name="keywords" content="OpenCV">
 <meta property="og:type" content="article">
 <meta property="og:title" content="(五)OpenCV图像处理3">
 <meta property="og:url" content="http://bjutliuyan.github.io/blog/2019/09/10/OpenCV/02图像/五-OpenCV图像处理3/index.html">
 <meta property="og:site_name" content="Bjutliuyan&#39;s blog">
-<meta property="og:description" content="本节对OpenCV图像处理中：图像梯度、边缘检测、图像金字塔，进行整理介绍">
+<meta property="og:description" content="本节对OpenCV图像处理中：图像梯度、边缘检测，进行整理介绍">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567750445013&di=8f019f210c98688dec883c85a8c9f92b&imgtype=0&src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg">
-<meta property="og:updated_time" content="2019-10-21T12:43:08.402Z">
+<meta property="og:updated_time" content="2019-10-21T15:54:46.358Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(五)OpenCV图像处理3">
-<meta name="twitter:description" content="本节对OpenCV图像处理中：图像梯度、边缘检测、图像金字塔，进行整理介绍">
+<meta name="twitter:description" content="本节对OpenCV图像处理中：图像梯度、边缘检测，进行整理介绍">
 <meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567750445013&di=8f019f210c98688dec883c85a8c9f92b&imgtype=0&src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg">
 
 
@@ -166,7 +166,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    7 分钟 读完 (大约 1116 个字)
+                    8 分钟 读完 (大约 1165 个字)
                 </span>
                 
                 
@@ -184,7 +184,7 @@
             
         </h1>
         <div class="content">
-            <p>本节对OpenCV图像处理中：图像梯度、边缘检测、图像金字塔，进行整理介绍</p>
+            <p>本节对OpenCV图像处理中：图像梯度、边缘检测，进行整理介绍</p>
 <a id="more"></a>
 
 <h2 id="图像梯度"><a href="#图像梯度" class="headerlink" title="图像梯度"></a>图像梯度</h2><p>当用之前提及过的均值滤波器来降低图像噪声时，会带来图像模糊的副作用。我们当然希望看到的是清晰图像。那么，清晰图像和模糊图像之间的差别在哪里呢？<br><code>从逻辑上考虑，图像模糊是因为图像中物体的轮廓不明显，轮廓边缘灰度变化不强烈，层次感不强造成的</code>，那么反过来考虑，轮廓边缘灰度变化明显些，层次感强些是不是图像就更清晰些呢。<br>这种灰度变化程度可以用微积分定义，梯度简单来说就是求导，OpenCV提供了三种不同的梯度滤波器，或者说高通滤波器：Sobel，Scharr，Laplacian。</p>
@@ -193,7 +193,7 @@
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">img = cv2.imread(<span class="hljs-string">'image01.jpg'</span>, <span class="hljs-number">0</span>)</span><br><span class="line"><span class="hljs-comment"># cv2.CV_64F为输出图像的深度；1 0/一阶导数0 1表示对x对y轴方向求</span></span><br><span class="line">sobelx = cv2.Sobel(img, cv2.CV_64F, <span class="hljs-number">1</span>,<span class="hljs-number">0</span>,ksize=<span class="hljs-number">5</span>)</span><br><span class="line">sobely = cv2.Sobel(img, cv2.CV_64F, <span class="hljs-number">0</span>,<span class="hljs-number">1</span>,ksize=<span class="hljs-number">5</span>)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>Laplacian拉普拉斯算子</strong><br>拉普拉斯算子可以使用二阶导数的形式定义，可假设其离散实现类似于Sobel导数。事实上，OpenCV在计算拉普拉斯算子时直接调用Sobel算子。计算公式如下：<br>$$<br>\Delta src=\frac {\partial ^{2}src}{\partial x^2} + \frac {\partial ^{2}src}{\partial y^2}<br>$$</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#cv2.CV_64F是输出图像的深度，可以使用-1与原图像保持一致</span></span><br><span class="line">laplacian = cv2.laplacian(img, cv2.CV_64F)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#cv2.CV_64F是输出图像的深度，可以使用-1与原图像保持一致</span></span><br><span class="line"><span class="hljs-comment">#图像深度是指存储每个像素所用的位数，确定了彩色图像的每个像素可能有的彩色数或者灰度图像每个像素可能有的灰度级数</span></span><br><span class="line">laplacian = cv2.laplacian(img, cv2.CV_64F)</span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
@@ -394,7 +394,7 @@ A 高于阈值 maxVal 所以是真正的边界点，C 虽然低于 maxVal 但高
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        26
+                        27
                     </p>
                 </div>
             </div>
@@ -527,7 +527,7 @@ A 高于阈值 maxVal 所以是真正的边界点，C 虽然低于 maxVal 但高
                 <span class="level-item">OpenCV</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">5</span>
+                <span class="level-item tag">6</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/blog/categories/Python/">
@@ -595,6 +595,25 @@ A 高于阈值 maxVal 所以是真正的边界点，C 虽然低于 maxVal 但高
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/10/21/OpenCV/02图像/六-OpenCV图像处理-轮廓/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1567750445013&amp;di=8f019f210c98688dec883c85a8c9f92b&amp;imgtype=0&amp;src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg" alt="(六)OpenCV图像处理_轮廓">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-21T15:55:03.000Z">2019-10-21</time></div>
+                    <a href="/blog/2019/10/21/OpenCV/02图像/六-OpenCV图像处理-轮廓/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(六)OpenCV图像处理_轮廓</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -672,25 +691,6 @@ A 高于阈值 maxVal 所以是真正的边界点，C 虽然低于 maxVal 但高
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/10/06/python/三-Python基础-文件访问与函数调用/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://img10.cache.hxsd.com/hxsdmy/show/2013/01/87/63/28/03/26/20130326223519.jpg" alt="(三)Python基础_文件访问与函数调用">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-06T04:13:13.000Z">2019-10-06</time></div>
-                    <a href="/blog/2019/10/06/python/三-Python基础-文件访问与函数调用/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(三)Python基础_文件访问与函数调用</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/Python/">Python</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -709,7 +709,7 @@ A 高于阈值 maxVal 所以是真正的边界点，C 虽然低于 maxVal 但高
                     <span class="level-item">十月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">7</span>
+                    <span class="level-item tag">8</span>
                 </span>
             </a>
         </li>
@@ -773,7 +773,7 @@ A 高于阈值 maxVal 所以是真正的边界点，C 虽然低于 maxVal 但高
                 <div class="control">
                     <a class="tags has-addons" href="/blog/tags/OpenCV/">
                         <span class="tag">OpenCV</span>
-                        <span class="tag is-grey">5</span>
+                        <span class="tag is-grey">6</span>
                     </a>
                 </div>
                 
@@ -854,6 +854,25 @@ A 高于阈值 maxVal 所以是真正的边界点，C 虽然低于 maxVal 但高
         
         <article class="media">
             
+            <a href="/blog/2019/10/21/OpenCV/02图像/六-OpenCV图像处理-轮廓/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1567750445013&amp;di=8f019f210c98688dec883c85a8c9f92b&amp;imgtype=0&amp;src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg" alt="(六)OpenCV图像处理_轮廓">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-21T15:55:03.000Z">2019-10-21</time></div>
+                    <a href="/blog/2019/10/21/OpenCV/02图像/六-OpenCV图像处理-轮廓/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(六)OpenCV图像处理_轮廓</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2019/10/13/C++/C++中STL用法详解二-常用容器用法介绍/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1570986697460&amp;di=76f8ffa27f84f11dce0cfb63bb4dafbf&amp;imgtype=0&amp;src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F4%2F582e754c7cede.jpg" alt="C+中STL用法详解二_常用容器用法介绍">
@@ -928,25 +947,6 @@ A 高于阈值 maxVal 所以是真正的边界点，C 虽然低于 maxVal 但高
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/10/06/python/三-Python基础-文件访问与函数调用/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://img10.cache.hxsd.com/hxsdmy/show/2013/01/87/63/28/03/26/20130326223519.jpg" alt="(三)Python基础_文件访问与函数调用">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-06T04:13:13.000Z">2019-10-06</time></div>
-                    <a href="/blog/2019/10/06/python/三-Python基础-文件访问与函数调用/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(三)Python基础_文件访问与函数调用</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/Python/">Python</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -965,7 +965,7 @@ A 高于阈值 maxVal 所以是真正的边界点，C 虽然低于 maxVal 但高
                     <span class="level-item">十月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">7</span>
+                    <span class="level-item tag">8</span>
                 </span>
             </a>
         </li>
@@ -1029,7 +1029,7 @@ A 高于阈值 maxVal 所以是真正的边界点，C 虽然低于 maxVal 但高
                 <div class="control">
                     <a class="tags has-addons" href="/blog/tags/OpenCV/">
                         <span class="tag">OpenCV</span>
-                        <span class="tag is-grey">5</span>
+                        <span class="tag is-grey">6</span>
                     </a>
                 </div>
                 
