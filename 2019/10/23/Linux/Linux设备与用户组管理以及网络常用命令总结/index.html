@@ -17,7 +17,7 @@
 <meta property="og:description" content="针对设备管理进行简单介绍，并对用户组管理常用命令进行总结。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1571847821634&di=43e8cde181892996b902dc194d723df2&imgtype=0&src=http%3A%2F%2Fwww.gec-edu.org%2FUploads%2F201811%2F5bea676444d00.jpg">
-<meta property="og:updated_time" content="2019-10-24T09:35:14.780Z">
+<meta property="og:updated_time" content="2019-10-24T12:18:23.215Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux设备与用户组管理以及网络常用命令总结">
 <meta name="twitter:description" content="针对设备管理进行简单介绍，并对用户组管理常用命令进行总结。">
@@ -166,7 +166,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    5 分钟 读完 (大约 693 个字)
+                    8 分钟 读完 (大约 1178 个字)
                 </span>
                 
                 
@@ -201,13 +201,29 @@
 <li><p>设备的分类<br>设备主要分为：块设备、字符设备、网卡。</p>
 </li>
 </ul>
-<h2 id="二、用户与组的管理"><a href="#二、用户与组的管理" class="headerlink" title="二、用户与组的管理"></a>二、用户与组的管理</h2><p>Linux下用户可分为三类：超级用户(root)、系统用户(系统正常工作所必需的内建用户，不能用来登录的虚拟用户)、普通用户。Linux下每个用户都有一个ID，Ubuntu中超级用户的UID为0，系统用户的一般为1<del>499，普通用户默认为1000</del>60000之间的值。<br>Linux系统采用纯文本来保护账号的各种信息。其中最重要的文件有/etc/password、/etc/shadow、/etc/group，Linux用户登录系统的过程实质上是系统读取和核对这几个文件的过程。<br><code>useradd（添加用户）</code></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd 用户名</span><br></pre></td></tr></table></figure>
+<h2 id="二、用户与组的管理"><a href="#二、用户与组的管理" class="headerlink" title="二、用户与组的管理"></a>二、用户与组的管理</h2><p>Linux下用户可分为三类：超级用户(root)、系统用户(系统正常工作所必需的内建用户，不能用来登录的虚拟用户)、普通用户。Linux下每个用户都有一个ID，Ubuntu中超级用户的UID为0，系统用户的一般为1~499，普通用户默认为1000~60000之间的值。<br>Linux系统采用纯文本来保护账号的各种信息。其中最重要的文件有/etc/password、/etc/shadow、/etc/group，Linux用户登录系统的过程实质上是系统读取和核对这几个文件的过程。</p>
+<ul>
+<li><p>用户的管理<br><code>useradd（添加用户）</code></p>
+ <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd 用户名</span><br></pre></td></tr></table></figure>
 
-<p><code>passwd（）</code><br>useradd 用户名</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`userMod（改变用户的属性）`</span><br></pre></td></tr></table></figure>
+<p> <code>passwd（修改密码）</code><br> <code>userMod（改变用户的属性）</code><br> <code>userdel （删除用户）</code></p>
+</li>
+<li><p>组管理<br> <code>groupadd(添加组名)</code><br> <code>groupmod(修改组属性)</code><br> <code>gpasswd(改变组中成员用户或组的密码)</code></p>
+ <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#修改user1组的密码</span><br><span class="line">gpasswd user1</span><br><span class="line">#添加student用户到user1组</span><br><span class="line">gpasswd -a student user1</span><br><span class="line">#删除student从user1组</span><br><span class="line">gpasswd -d student user1</span><br></pre></td></tr></table></figure>
 
-<p>```</p>
+<p> <code>groupdel(删除组)</code></p>
+</li>
+<li><p>权限控制<br>访问权限内规定了不同用户的3种访问文件或目录的方式：<code>读(r)、写(w)、可执行或查找(x)</code>。基本上文件或目录的9个属性分别属于文件主、组用户、其他用户这3类用户，在设定权限时可以对3类用户采用如下方式表示：<br>u(user)：表示文件所有者<br>g(group)：表示文件的所属组<br>o(others)：表示其他用户<br>a(all)：表示所有用户(即u+g+o)<br> <code>chmod（改变或设置文件或目录的访问权限）</code></p>
+ <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#将文件profile的权限改为所有用户对其都有执行权限</span><br><span class="line">chmod a+x profile</span><br><span class="line">#将文件profile的权限重新设置为文件主可以读和执行，组用户可以执行，其他用户无权访问</span><br><span class="line">chmod u=rx,g=x,o= profile</span><br><span class="line">#将文件profile的权限重新设置为只有文件主可以读和执行</span><br><span class="line">chmod g-x profile</span><br></pre></td></tr></table></figure>
+
+<p> <code>chown（改变某个文件或目录的拥有者和所属的组）</code></p>
+ <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#改变文件profile的文件主和用户组为student、group1</span><br><span class="line">chown student:group1 profile</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="三、sudo工具的使用"><a href="#三、sudo工具的使用" class="headerlink" title="三、sudo工具的使用"></a>三、sudo工具的使用</h2><p>在Linux系统中，提供了一个特殊的工具sudo，sudo允许系统管理员让普通用户执行部分或全部需要root权限命令的工具。要使用sudo工具的用户需要在/etc/sudoers里添加一行student ALL=(ALL) ALL<br>使用sudo命令很简单，只要在运行的命令前加上sudo，然后再运行，如：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir file</span><br></pre></td></tr></table></figure>
+
 
         </div>
         
