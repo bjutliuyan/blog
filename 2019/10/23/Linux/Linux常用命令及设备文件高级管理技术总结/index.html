@@ -3,25 +3,25 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-<title>(四)设计模式基本原则法则 - Bjutliuyan&#39;s blog</title>
+<title>Linux常用命令及设备文件高级管理技术总结 - Bjutliuyan&#39;s blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta name="description" content="本节对4个基本原则及1个基本法则进行简要整理介绍。">
-<meta name="keywords" content="设计模式">
+    <meta name="description" content="Linux是一套免费使用和自由传播的类UNIX操作系统。">
+<meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="(四)设计模式基本原则法则">
-<meta property="og:url" content="http://bjutliuyan.github.io/blog/2019/09/03/设计模式/004-设计模式基本原则法则总结/index.html">
+<meta property="og:title" content="Linux常用命令及设备文件高级管理技术总结">
+<meta property="og:url" content="http://bjutliuyan.github.io/blog/2019/10/23/Linux/Linux常用命令及设备文件高级管理技术总结/index.html">
 <meta property="og:site_name" content="Bjutliuyan&#39;s blog">
-<meta property="og:description" content="本节对4个基本原则及1个基本法则进行简要整理介绍。">
+<meta property="og:description" content="Linux是一套免费使用和自由传播的类UNIX操作系统。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2644725977,2046731051&fm=26&gp=0.jpg">
-<meta property="og:updated_time" content="2019-09-04T03:11:47.811Z">
+<meta property="og:image" content="http://www.wallcoo.com/photograph/Ubuntu_Maverick_Natty_Wallpapers/wallpapers/1680x1050/Aubergine_Sea_by_Wyatt_Kirby.jpg">
+<meta property="og:updated_time" content="2019-10-23T11:57:03.109Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="(四)设计模式基本原则法则">
-<meta name="twitter:description" content="本节对4个基本原则及1个基本法则进行简要整理介绍。">
-<meta name="twitter:image" content="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2644725977,2046731051&fm=26&gp=0.jpg">
+<meta name="twitter:title" content="Linux常用命令及设备文件高级管理技术总结">
+<meta name="twitter:description" content="Linux是一套免费使用和自由传播的类UNIX操作系统。">
+<meta name="twitter:image" content="http://www.wallcoo.com/photograph/Ubuntu_Maverick_Natty_Wallpapers/wallpapers/1680x1050/Aubergine_Sea_by_Wyatt_Kirby.jpg">
 
 
 
@@ -99,7 +99,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/blog/">
             
-                <img src="/blog/images/logo.svg" alt="(四)设计模式基本原则法则" height="28">
+                <img src="/blog/images/logo.svg" alt="Linux常用命令及设备文件高级管理技术总结" height="28">
             
             </a>
         </div>
@@ -148,7 +148,7 @@
     
     <div class="card-image">
         <span class="image is-7by1">
-            <img class="thumbnail" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2644725977,2046731051&amp;fm=26&amp;gp=0.jpg" alt="(四)设计模式基本原则法则">
+            <img class="thumbnail" src="http://www.wallcoo.com/photograph/Ubuntu_Maverick_Natty_Wallpapers/wallpapers/1680x1050/Aubergine_Sea_by_Wyatt_Kirby.jpg" alt="Linux常用命令及设备文件高级管理技术总结">
         </span>
     </div>
     
@@ -156,17 +156,17 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-09-03T02:05:53.000Z">2019-09-03</time>
+                <time class="level-item has-text-grey" datetime="2019-10-23T04:11:23.000Z">2019-10-23</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/blog/categories/设计模式/">设计模式</a>
+                <a class="has-link-grey -link" href="/blog/categories/Linux/">Linux</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    9 分钟 读完 (大约 1324 个字)
+                    9 分钟 读完 (大约 1339 个字)
                 </span>
                 
                 
@@ -180,40 +180,93 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                (四)设计模式基本原则法则
+                Linux常用命令及设备文件高级管理技术总结
             
         </h1>
         <div class="content">
-            <p>本节对4个基本原则及1个基本法则进行简要整理介绍。</p>
-<a id="more"></a>
-<h2 id="拍摄UFO——单一职责原则"><a href="#拍摄UFO——单一职责原则" class="headerlink" title="拍摄UFO——单一职责原则"></a>拍摄UFO——单一职责原则</h2><blockquote>
-<p><code>单一职责：</code><strong>就一个类而言，应该仅有一个引起它变化的原因。</strong>如果一个类承担的职责过多，就等于把这些职责耦合在一起，一个职责的变化可能会削弱或者抑制这个类完成其它职责的能力。软件设计真正要做的许多内容，就是发现职责并把那些职责相互分离。</p>
-</blockquote>
-<p>随着移动终端的发展，智能手机已经集成了众多功能：听音乐、玩游戏、拍照、摄像等。但有时一件产品简单一些，职责单一些，或许是更好的选择，比如摄像机拍摄性能要比手机更好一些。</p>
-<p>比如要写一个WinForm窗口程序，总不能把操作的方法都写入窗口类，更好的策略应该是将界面代码和逻辑代码相分离，即将界面职责和逻辑职责单独分开。<br>（手机的发展有它的特点，而编程时，我们却是要在类的职责分离上多思考，做到单一职责，这样代码才是真正的易维护、易扩展、易复用、灵活多样）</p>
-<h2 id="考研求职两不误——开闭原则"><a href="#考研求职两不误——开闭原则" class="headerlink" title="考研求职两不误——开闭原则"></a>考研求职两不误——开闭原则</h2><blockquote>
-<p><code>开闭原则：</code><strong>对于扩展是开放的，对于更改是封闭的。</strong><br>面对需求的改变应保持相对稳定，从而使得系统可以在第一个版本以后不断推出新的版本。当然改变大都是不可预测的，设计人员需要先猜测出最有可能发生的变化种类，然后构造抽象来隔离那些变化。</p>
-</blockquote>
-<p>比如在简单工厂运算器问题中，如果想添加一个乘法运算，只需要新增一个运算子类就行，与加法、减法、客户端隔离开来。这样就是<em>面对需求，对程序的改动是通过增加新代码实现，而不是更改现有的代码</em>。</p>
-<p>（比如，考研过程中，考研本身是不会改变的，为了做完全准备，可以在考研期间不影响考研本身前提下，扩展的写一写简历了解招聘的资讯）</p>
-<h2 id="会修电脑不会修收音机——依赖倒转原则"><a href="#会修电脑不会修收音机——依赖倒转原则" class="headerlink" title="会修电脑不会修收音机——依赖倒转原则"></a>会修电脑不会修收音机——依赖倒转原则</h2><blockquote>
-<p><code>依赖倒转原则：</code></p>
+            <p>Linux是一套免费使用和自由传播的类UNIX操作系统。<a id="more"></a></p>
+<h2 id="1-Linux简单介绍"><a href="#1-Linux简单介绍" class="headerlink" title="1 Linux简单介绍"></a>1 Linux简单介绍</h2><ul>
+<li><p>Linux操作系统特性</p>
+<blockquote>
 <ul>
-<li>高层模块不应依赖低层模块，两个都应依赖抽象</li>
-<li>抽象不应依赖细节，细节应该依赖抽象</li>
+<li><font color="#008000">开放性：</font>遵从国际标准规范，凡遵循国际标准规范所开发的硬件和软件都能彼此兼容；</li>
+<li><font color="#008000">多用户：</font>系统资源可以被不同用户各自拥有使用；</li>
+<li><font color="#008000">多任务：</font>多个任务可并行访问微处理器；</li>
+<li><font color="#008000">良好的用户界面：</font>用户界面、系统调用；</li>
+<li><font color="#008000">设备独立性：</font>操作系统可以把所有外设当作文件对待，只要安装它们的驱动程序，就可以像访问文件一样操纵和使用这些设备，而不必知道它们的具体存在形式；</li>
+<li><font color="#008000">提供丰富的网络功能、可考的系统安全、良好的可移植性</font></li>
 </ul>
 </blockquote>
-<p>我们可以把电脑理解成大的软件系统，任何部件如CPU、内存、硬盘、显卡等都可以理解为程序中封装的类或程序集，不管哪一个出了问题都可以在不影响别的部件的前提下进行修改和替换。具体一点就是接口和抽象类，只要接口是稳定的，那么任何一个的更改都不用担心其它受到影响。这使得高层模块和低层模块都能很好被复用。</p>
-<p>收音机就是典型的耦合过度，只要收音机出问题，不懂的人根本没法修，因为任何问题都可能涉及其他部件，各个部件相互依赖，难以维护。</p>
-<p>不太理解的话在看下面一个例子：<br><img src="001.jpg" alt><br>从上面的类图中可以看出，司机类和奔驰车类都属于细节，并没有实现或继承抽象，它们是对象级别的耦合。通过类图可以看出司机有一个drive()方法，用来开车，奔驰车有一个run()方法，用来表示车辆运行，并且奔驰车类依赖于司机类，用户模块表示高层模块，负责调用司机类和奔驰车类。</p>
-<p>这样乍一看没问题，但是有一天如果司机想换一辆宝马了，但是却不能开，因为司机类里没有对宝马的依赖。下面引入依赖倒转原则重新设计一下类图：<br><img src="002.jpg" alt><br>可以看出在新增低层模块（汽车）时，只修改了高层模块（Client），对已有的司机和车类都不用变动。</p>
-<h2 id="里氏代换原则"><a href="#里氏代换原则" class="headerlink" title="里氏代换原则"></a>里氏代换原则</h2><blockquote>
-<p><code>里氏代换原则：</code>子类型必须能够替换掉父类型。</p>
-</blockquote>
-<h2 id="迪米特法则"><a href="#迪米特法则" class="headerlink" title="迪米特法则"></a>迪米特法则</h2><blockquote>
-<p><code>迪米特法则：</code>如果两个类不直接通信，那么这两个类就不应当发生直接的相互作用。如果其中一个类需要调用另一个类的某一个方法，可以通过第三者转发这个调用。</p>
-</blockquote>
-<p>（类似于在controller层调用service层，再通过service层调用dao层访问数据库一样；而不是直接的由控制层调用数据访问层。）</p>
+</li>
+<li><p>发行版本<br>严格来讲，Linux只是操作系统中的一个<code>内核</code>。负责控制硬件、管理文件系统、程序进程等。其并不提供强大的应用程序，没有编译器、系统管理工具、网络工具、Office套件、多媒体和绘图软件等。这样也就无法发挥其强大功能。<br>因此有人便提出以Linux为核心再集成各式系统程序或应用工具程序，组成一套完整的操作系统。组装成的即为Linux发行版本。如：Red Hat、Ubuntu等。</p>
+</li>
+</ul>
+<h2 id="2-Linux基本命令"><a href="#2-Linux基本命令" class="headerlink" title="2 Linux基本命令"></a>2 Linux基本命令</h2><p>Linux命令格式如下：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command [-options] [arguments]</span><br></pre></td></tr></table></figure>
+
+<p>具体说明如下：<br>选项是对命令的特别定义，以“-”开始，多个选项可用一个“-”连起来。如“ls -l -a”与“ls -la”作用相同；<br>一般来说，单字符选项前使用一个减号，单词选项前使用两个减号，如“ls –help”；<br>Linux命令区分大小写，往往是表示相应功能英文单词缩写；<br>操作参数可以是文件、目录；</p>
+<h3 id="2-1文件和目录管理"><a href="#2-1文件和目录管理" class="headerlink" title="2.1文件和目录管理"></a>2.1文件和目录管理</h3><ul>
+<li><p>定位文件和目录<br><code>pwd显示用户所在的位置</code></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pwd</span><br></pre></td></tr></table></figure>
+
+<p> <code>cd(改变工作目录)</code></p>
+ <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#进入etc目录</span><br><span class="line">cd /etc</span><br><span class="line">#回到用户主目录</span><br><span class="line">cd ~</span><br><span class="line">#返回上级目录</span><br><span class="line">cd ../</span><br></pre></td></tr></table></figure>
+
+<p> <code>Find(在硬盘上查找文件)</code></p>
+ <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#格式</span><br><span class="line">find [&lt;路径&gt;] [匹配条件]</span><br><span class="line">#在usr文件夹下查找文件名为password的文件</span><br><span class="line">find /usr -name password</span><br><span class="line">#列出当前文件夹下所有扩展名是doc的文件</span><br><span class="line">find / -name “*.doc”</span><br><span class="line">#查找/etc、/home下文件尺寸大于4K的文件</span><br><span class="line">find /etc /home -size +4K</span><br></pre></td></tr></table></figure>
+
+<p> <code>Locate（定位文件或目录）</code></p>
+ <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locate apt.conf</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>浏览文件或目录<br><code>ls显示用户当前目录或指定目录的内容</code></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#输出根目录下文件或目录的详细信息</span><br><span class="line">ls -l</span><br><span class="line">#列出所有文件</span><br><span class="line">ls -a</span><br></pre></td></tr></table></figure>
+
+<p><code>head tail查看文件的开头或结尾部分</code></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#查看profile文件开头5行</span><br><span class="line">head -5 /etc/profile</span><br><span class="line">#查看profile文件结尾4行</span><br><span class="line">tail -4 /etc/profile</span><br></pre></td></tr></table></figure>
+
+<p><code>cat（合并文件或显示文件内容）</code></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#阅读profile文件</span><br><span class="line">cat /etc/profile</span><br><span class="line">#追加file2文件内容到file1</span><br><span class="line">cat file2 &gt;&gt; file1</span><br><span class="line">#合并file1 file2到file3</span><br><span class="line">cat file1 file2 &gt; file3</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>搜索文件内容<br><code>grep（在文件中查找指定字符串）</code></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep 字符串 /etc/profile</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>操作文件和目录</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#cp(将/etc/profile文件复制到home文件夹下)</span><br><span class="line">cp /etc/profile /home</span><br><span class="line">#touch创建文件</span><br><span class="line">#mv(将test文件移动到上层目录)</span><br><span class="line">mv test ../</span><br><span class="line">#rm（删除/etc/profile文件）</span><br><span class="line">rm /etc/profile</span><br><span class="line">#mkdir创建目录</span><br><span class="line">mkdir dir1</span><br><span class="line">#rmdir删除目录</span><br><span class="line">rmdir dir1</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="2-2-简单系统管理"><a href="#2-2-简单系统管理" class="headerlink" title="2.2 简单系统管理"></a>2.2 简单系统管理</h3><ul>
+<li><p>.<br><code>shutdown(关机)</code></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#立即关机</span><br><span class="line">showdown -h now</span><br><span class="line">#关机后立即重启</span><br><span class="line">showdown -r now</span><br><span class="line">#系统15:30后重启</span><br><span class="line">showdown -r 15:30</span><br></pre></td></tr></table></figure>
+
+<p><code>id（显示当前用户名和所属组）</code><br><code>su（切换登录用户）</code></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su otherUser</span><br></pre></td></tr></table></figure>
+
+<p><code>man（查看某个命令的使用手册）</code></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">man ls</span><br></pre></td></tr></table></figure>
+
+<p><code>其它</code></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">date(查看日期)，cal（显示日历或年历），df（查看磁盘），du（查看目录或文件容量），free（查看系统内存占用情况）</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="2-3-文件压缩和解压缩"><a href="#2-3-文件压缩和解压缩" class="headerlink" title="2.3 文件压缩和解压缩"></a>2.3 文件压缩和解压缩</h3><p>  通常使用zip、unzip、gzip、gunzip、tar命令。</p>
+<h3 id="2-4-进程控制与作业控制"><a href="#2-4-进程控制与作业控制" class="headerlink" title="2.4 进程控制与作业控制"></a>2.4 进程控制与作业控制</h3><p>Linux启动进程有两个主要途径：手工启动和调度启动，手工启动又分为前台启动和后台启动。</p>
+<ul>
+<li><p>进程管理<br><code>ps（查看系统的进程）</code></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#显示当前控制终端的进程</span><br><span class="line">ps</span><br><span class="line">#显示所有进程</span><br><span class="line">ps -A</span><br><span class="line">#详细显示包含其它使用者的进程</span><br><span class="line">ps -au</span><br></pre></td></tr></table></figure>
+
+<p><code>kill(给进程发送信号)</code></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#当某个进程运行错误时，对于前台进程可以Ctrl+C终止该进程，后台进程可以使用kill命令给进程发送信息，比如强行终止信息</span><br><span class="line">kill  -9 进程号</span><br></pre></td></tr></table></figure>
+
+<p><code>bg（将作业放到后台执行）</code></p>
+ <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#在手工启动前台进程时，如果没有执行完毕，则可使用Ctrl+Z 暂停进程的执行，然后可使用bg命令将进程放到后台执行，前台继续其它任务。</span><br><span class="line">#列出所有作业及作业ID信息</span><br><span class="line">jobs</span><br><span class="line">#将作业放到后台</span><br><span class="line">bg %作业ID</span><br><span class="line">#将作业放到前台</span><br><span class="line">fg %作业ID</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>作业调度(略)</li>
+</ul>
+</li>
+</ul>
 
         </div>
         
@@ -221,7 +274,7 @@
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/blog/tags/设计模式/">设计模式</a>
+                    <a class="has-link-grey -link" href="/blog/tags/Linux/">Linux</a>
                 </div>
             </div>
         </div>
@@ -272,16 +325,16 @@
     <div class="level post-navigation is-flex-wrap is-mobile">
         
         <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/blog/2019/09/05/python/pycharm进行远程服务器代码编写与调试/">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/blog/2019/10/23/Linux/Linux设备与用户组管理以及网络常用命令总结/">
                 <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">pycharm进行远程服务器代码编写与调试</span>
+                <span class="level-item">Linux设备与用户组管理以及网络常用命令总结</span>
             </a>
         </div>
         
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/blog/2019/08/23/设计模式/003-商场促销——策略模式/">
-                <span class="level-item">(三)商场促销——策略模式</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/blog/2019/10/21/OpenCV/02图像/六-OpenCV图像处理-轮廓/">
+                <span class="level-item">(六)OpenCV图像处理_轮廓</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -321,8 +374,8 @@
      
       <script type="text/javascript">
         var gitment = new Gitment({
-              id: '(四)设计模式基本原则法则',
-              title: '(四)设计模式基本原则法则',
+              id: 'Linux常用命令及设备文件高级管理技术总结',
+              title: 'Linux常用命令及设备文件高级管理技术总结',
               owner: 'bjutliuyan',
               repo: 'hello-world',
               oauth: {
@@ -1111,7 +1164,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/blog/">
                 
-                    <img src="/blog/images/logo.svg" alt="(四)设计模式基本原则法则" height="28">
+                    <img src="/blog/images/logo.svg" alt="Linux常用命令及设备文件高级管理技术总结" height="28">
                 
                 </a>
                 <p class="is-size-7">

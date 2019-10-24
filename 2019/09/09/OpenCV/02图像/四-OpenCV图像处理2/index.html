@@ -17,7 +17,7 @@
 <meta property="og:description" content="本节对OpenCV图像处理中：图像阀值、图像模糊、图像的形态学转换，进行整理介绍">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567750445013&di=8f019f210c98688dec883c85a8c9f92b&imgtype=0&src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg">
-<meta property="og:updated_time" content="2019-10-21T13:09:39.191Z">
+<meta property="og:updated_time" content="2019-10-22T13:23:31.340Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(四)OpenCV图像处理2">
 <meta name="twitter:description" content="本节对OpenCV图像处理中：图像阀值、图像模糊、图像的形态学转换，进行整理介绍">
@@ -194,7 +194,7 @@
 </ul>
 <ol>
 <li><p><strong>简单阀值</strong><br>针对于灰度图片的灰度值，当灰度值高于阀值时，给这个灰度值赋一个新值：</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#参数：原始图像，阀值，新值，阀值规则</span></span><br><span class="line">ret,thresh1 = cv2.threshold(img, <span class="hljs-number">127</span>, <span class="hljs-number">255</span>, cv2.THRESH_TOZERO);</span><br><span class="line">ret,thresh2 = cv2.threshold(img,<span class="hljs-number">127</span>,<span class="hljs-number">255</span>,cv2.THRESH_BINARY_INV);</span><br><span class="line">ret,thresh3 = cv2.threshold(img,<span class="hljs-number">127</span>,<span class="hljs-number">255</span>,cv2.THRESH_TRUNC);</span><br><span class="line">ret,thresh4 = cv2.threshold(img,<span class="hljs-number">127</span>,<span class="hljs-number">255</span>,cv2.THRESH_TOZERO);</span><br><span class="line">ret,thresh5 = cv2.threshold(img,<span class="hljs-number">127</span>,<span class="hljs-number">255</span>,cv2.THRESH_TOZERO_INV);</span><br></pre></td></tr></table></figure>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#参数：原始图像，阀值，新值，阀值规则</span></span><br><span class="line">ret,thresh1 = cv2.threshold(img,<span class="hljs-number">127</span>,<span class="hljs-number">255</span>,cv2.THRESH_TOZERO);</span><br><span class="line">ret,thresh2 = cv2.threshold(img,<span class="hljs-number">127</span>,<span class="hljs-number">255</span>,cv2.THRESH_BINARY_INV);</span><br><span class="line">ret,thresh3 = cv2.threshold(img,<span class="hljs-number">127</span>,<span class="hljs-number">255</span>,cv2.THRESH_TRUNC);</span><br><span class="line">ret,thresh4 = cv2.threshold(img,<span class="hljs-number">127</span>,<span class="hljs-number">255</span>,cv2.THRESH_TOZERO);</span><br><span class="line">ret,thresh5 = cv2.threshold(img,<span class="hljs-number">127</span>,<span class="hljs-number">255</span>,cv2.THRESH_TOZERO_INV);</span><br></pre></td></tr></table></figure>
 
 <p>阀值规则对应如下：</p>
 <div align="center">  
@@ -448,7 +448,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        27
+                        29
                     </p>
                 </div>
             </div>
@@ -458,7 +458,7 @@
                         分类
                     </p>
                     <p class="title has-text-weight-normal">
-                        7
+                        8
                     </p>
                 </div>
             </div>
@@ -468,7 +468,7 @@
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        11
+                        12
                     </p>
                 </div>
             </div>
@@ -576,6 +576,14 @@
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
+        <a class="level is-marginless" href="/blog/categories/Linux/">
+            <span class="level-start">
+                <span class="level-item">Linux</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
         <a class="level is-marginless" href="/blog/categories/OpenCV/">
             <span class="level-start">
                 <span class="level-item">OpenCV</span>
@@ -635,7 +643,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/blog/tags/C-STL/" style="font-size: 13.33px;">C++_STL</a> <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 16.67px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 16.67px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 16.67px;">设计模式</a>
+        <a href="/blog/tags/C-STL/" style="font-size: 13.33px;">C++_STL</a> <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 16.67px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 16.67px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 16.67px;">设计模式</a>
     </div>
 </div>
 
@@ -649,6 +657,44 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/10/23/Linux/Linux设备与用户组管理以及网络常用命令总结/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1571847821634&amp;di=43e8cde181892996b902dc194d723df2&amp;imgtype=0&amp;src=http%3A%2F%2Fwww.gec-edu.org%2FUploads%2F201811%2F5bea676444d00.jpg" alt="Linux设备与用户组管理以及网络常用命令总结">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-23T13:30:10.000Z">2019-10-23</time></div>
+                    <a href="/blog/2019/10/23/Linux/Linux设备与用户组管理以及网络常用命令总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Linux设备与用户组管理以及网络常用命令总结</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/Linux/">Linux</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/10/23/Linux/Linux常用命令及设备文件高级管理技术总结/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://www.wallcoo.com/photograph/Ubuntu_Maverick_Natty_Wallpapers/wallpapers/1680x1050/Aubergine_Sea_by_Wyatt_Kirby.jpg" alt="Linux常用命令及设备文件高级管理技术总结">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-23T04:11:23.000Z">2019-10-23</time></div>
+                    <a href="/blog/2019/10/23/Linux/Linux常用命令及设备文件高级管理技术总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Linux常用命令及设备文件高级管理技术总结</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/Linux/">Linux</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -707,44 +753,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/10/08/TensorFlow/六-TensorFlow_Python调用API/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1570546970390&amp;di=5a15d54c9c5c8855ea5622e4bf7e083e&amp;imgtype=0&amp;src=http%3A%2F%2Fres.cnoil.com%2FUploads%2FPicture%2F2017-03-08%2F58bf58270c1e1.jpeg" alt="(六)TensorFlow_Python调用API">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-08T11:40:41.000Z">2019-10-08</time></div>
-                    <a href="/blog/2019/10/08/TensorFlow/六-TensorFlow_Python调用API/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(六)TensorFlow_Python调用API</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/blog/2019/10/06/python/四-Python基础-列表推导及迭代器生成器/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://images.morethink.cn/python-tutorial-pdf.jpeg" alt="(四)Python基础_列表推导及迭代器生成器">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-06T10:32:19.000Z">2019-10-06</time></div>
-                    <a href="/blog/2019/10/06/python/四-Python基础-列表推导及迭代器生成器/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(四)Python基础_列表推导及迭代器生成器</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/Python/">Python</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -763,7 +771,7 @@
                     <span class="level-item">十月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">8</span>
+                    <span class="level-item tag">10</span>
                 </span>
             </a>
         </li>
@@ -814,6 +822,13 @@
                     <a class="tags has-addons" href="/blog/tags/LinearRegression/">
                         <span class="tag">LinearRegression</span>
                         <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/Linux/">
+                        <span class="tag">Linux</span>
+                        <span class="tag is-grey">2</span>
                     </a>
                 </div>
                 
@@ -908,6 +923,44 @@
         
         <article class="media">
             
+            <a href="/blog/2019/10/23/Linux/Linux设备与用户组管理以及网络常用命令总结/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1571847821634&amp;di=43e8cde181892996b902dc194d723df2&amp;imgtype=0&amp;src=http%3A%2F%2Fwww.gec-edu.org%2FUploads%2F201811%2F5bea676444d00.jpg" alt="Linux设备与用户组管理以及网络常用命令总结">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-23T13:30:10.000Z">2019-10-23</time></div>
+                    <a href="/blog/2019/10/23/Linux/Linux设备与用户组管理以及网络常用命令总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Linux设备与用户组管理以及网络常用命令总结</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/Linux/">Linux</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/10/23/Linux/Linux常用命令及设备文件高级管理技术总结/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://www.wallcoo.com/photograph/Ubuntu_Maverick_Natty_Wallpapers/wallpapers/1680x1050/Aubergine_Sea_by_Wyatt_Kirby.jpg" alt="Linux常用命令及设备文件高级管理技术总结">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-23T04:11:23.000Z">2019-10-23</time></div>
+                    <a href="/blog/2019/10/23/Linux/Linux常用命令及设备文件高级管理技术总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Linux常用命令及设备文件高级管理技术总结</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/Linux/">Linux</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2019/10/21/OpenCV/02图像/六-OpenCV图像处理-轮廓/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1567750445013&amp;di=8f019f210c98688dec883c85a8c9f92b&amp;imgtype=0&amp;src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg" alt="(六)OpenCV图像处理_轮廓">
@@ -963,44 +1016,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/10/08/TensorFlow/六-TensorFlow_Python调用API/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1570546970390&amp;di=5a15d54c9c5c8855ea5622e4bf7e083e&amp;imgtype=0&amp;src=http%3A%2F%2Fres.cnoil.com%2FUploads%2FPicture%2F2017-03-08%2F58bf58270c1e1.jpeg" alt="(六)TensorFlow_Python调用API">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-08T11:40:41.000Z">2019-10-08</time></div>
-                    <a href="/blog/2019/10/08/TensorFlow/六-TensorFlow_Python调用API/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(六)TensorFlow_Python调用API</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/blog/2019/10/06/python/四-Python基础-列表推导及迭代器生成器/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://images.morethink.cn/python-tutorial-pdf.jpeg" alt="(四)Python基础_列表推导及迭代器生成器">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-06T10:32:19.000Z">2019-10-06</time></div>
-                    <a href="/blog/2019/10/06/python/四-Python基础-列表推导及迭代器生成器/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(四)Python基础_列表推导及迭代器生成器</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/Python/">Python</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1019,7 +1034,7 @@
                     <span class="level-item">十月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">8</span>
+                    <span class="level-item tag">10</span>
                 </span>
             </a>
         </li>
@@ -1070,6 +1085,13 @@
                     <a class="tags has-addons" href="/blog/tags/LinearRegression/">
                         <span class="tag">LinearRegression</span>
                         <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/Linux/">
+                        <span class="tag">Linux</span>
+                        <span class="tag is-grey">2</span>
                     </a>
                 </div>
                 
