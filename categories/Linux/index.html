@@ -173,7 +173,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    2 分钟 读完 (大约 374 个字)
+                    3 分钟 读完 (大约 393 个字)
                 </span>
                 
                 
@@ -186,41 +186,17 @@
             
         </h1>
         <div class="content">
-            <a id="more"></a>
-<h2 id="一、常用网络命令"><a href="#一、常用网络命令" class="headerlink" title="一、常用网络命令"></a>一、常用网络命令</h2><ul>
-<li><p>网络测试命令<br><code>ping(测试本主机与目标主机连通性)</code></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#使用IP地址ping主机之间的连通性（以下命令发出三次信息，并显示）</span><br><span class="line">ping -c 3 192.168.0.1</span><br><span class="line">#使用IP地址ping主机之间的连通性（不显示中间结果）</span><br><span class="line">ping -c 3 -q 192.168.0.1</span><br><span class="line">#使用域名ping主机之间的连通性</span><br><span class="line">ping -c 5 ubuntu.org.cn</span><br></pre></td></tr></table></figure>
-
-<p> <code>traceroute(显示本机到目标主机的路由路径)</code></p>
- <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">traceroute ubuntu.prg.cn</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>网络查看命令<br><code>host(显示主机名称)</code></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#查看ubuntu.org.cn的IP</span><br><span class="line">host ubuntu.org.cn</span><br><span class="line">#查看202.103.224.68的主机名</span><br><span class="line">host 202.103.224.68</span><br></pre></td></tr></table></figure>
-
-<p> <code>netstat(显示网络连接、路由表、网络接口统计数等信息)</code></p>
- <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#显示路由表</span><br><span class="line">netstat -r</span><br><span class="line">#显示网络接口信息</span><br><span class="line">netstat -i eth0</span><br><span class="line">#显示正在监听网络服务</span><br><span class="line">netstat -tul</span><br><span class="line">#显示网络所有的连接</span><br><span class="line">netstat -an</span><br></pre></td></tr></table></figure>
-
-<p> <code>hostname(显示或设置系统的主机名)</code></p>
- <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostname</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>通信命令<br><code>telnet(远程登录客户程序)</code></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#远程登录服务器192.168.0.200</span><br><span class="line">telnet 192.168.0.200</span><br></pre></td></tr></table></figure>
-
-<p><code>ftp(连接远程FTP服务器)</code></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ftp 192.168.0.10</span><br></pre></td></tr></table></figure>
-
-<p><code>wall(向所有终端发送字符信息)</code></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#没有提示，可输入一行或多行信息，按Ctrl+D结束</span><br><span class="line">wall</span><br></pre></td></tr></table></figure>
-
-<p><code>mail(发送电子邮件)</code></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#向student用户发送电子邮件，按Ctrl+D结束输入</span><br><span class="line">mail student</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="二、APT软件的安装与升级"><a href="#二、APT软件的安装与升级" class="headerlink" title="二、APT软件的安装与升级"></a>二、APT软件的安装与升级</h2><p>Ubuntu提供了APT，在软件安装、维护方面更加易用，使用起来甚至比Windows的安装与升级更加方便。</p>
-
+            <p>对Linux常用命令及APT安装软件技术做出总结。</p>
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/blog/2019/10/24/Linux/Linux常用网络命令及APT软件的安装与升级/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
