@@ -17,7 +17,7 @@
 <meta property="og:description" content="图像的许多操作与Numpy的关系比OpenCV关系更加紧密，">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567750445013&di=8f019f210c98688dec883c85a8c9f92b&imgtype=0&src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg">
-<meta property="og:updated_time" content="2019-10-21T05:56:57.591Z">
+<meta property="og:updated_time" content="2019-10-27T14:32:05.924Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(二)OpenCV图像基础操作">
 <meta name="twitter:description" content="图像的许多操作与Numpy的关系比OpenCV关系更加紧密，">
@@ -166,7 +166,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    6 分钟 读完 (大约 894 个字)
+                    6 分钟 读完 (大约 916 个字)
                 </span>
                 
                 
@@ -210,7 +210,7 @@
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">selectArea = img[280:340,330:390]</span><br><span class="line">img[273:333, 100:160] = selectArea</span><br></pre></td></tr></table></figure>
 
 <h2 id="5-拆分合并图像通道"><a href="#5-拆分合并图像通道" class="headerlink" title="5.拆分合并图像通道"></a>5.拆分合并图像通道</h2><p>有时需要对图像的BGR三个通道单独进行操作或者合并成一个图像，实现如下：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">b, g, r = cv2.split(img)    #拆分</span><br><span class="line">cv2.merge(b, g, r)          #合并</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#将BGR格式图片转换为RGB格式的</span><br><span class="line">img = cv2.imread(&apos;image04.jpg&apos;, cv2.IMREAD_COLOR)</span><br><span class="line">b,g,r = cv2.split(img)    #拆分</span><br><span class="line">img = cv2.merge((r,g,b))  #合并</span><br></pre></td></tr></table></figure>
 
 <h2 id="6-图像扩边"><a href="#6-图像扩边" class="headerlink" title="6.图像扩边"></a>6.图像扩边</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cv2.copyMakeBorder(img, top, bottom, left, right, 边界类型参数)</span><br></pre></td></tr></table></figure>
 
@@ -298,9 +298,9 @@
     <div class="level post-navigation is-flex-wrap is-mobile">
         
         <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/blog/2019/09/08/OpenCV/02图像/三-OpenCV图像处理1/">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/blog/2019/09/08/OpenCV/02图像/三-OpenCV图像处理-图像变换基础/">
                 <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">(三)OpenCV图像处理_图像变换</span>
+                <span class="level-item">(三)OpenCV图像处理_图像变换基础</span>
             </a>
         </div>
         
@@ -407,7 +407,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        30
+                        31
                     </p>
                 </div>
             </div>
@@ -548,7 +548,7 @@
                 <span class="level-item">OpenCV</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">6</span>
+                <span class="level-item tag">7</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/blog/categories/Python/">
@@ -616,6 +616,25 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/10/27/OpenCV/02图像/七-OpenCV图像处理_图像变换进阶、模板匹配/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1572197234726&amp;di=f93085285a1da7f7ef10202206130f04&amp;imgtype=0&amp;src=http%3A%2F%2Fi5.hexun.com%2F2019-04-26%2F196979501.jpg" alt="(七)OpenCV图像处理_图像变换进阶、模板匹配">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-27T06:36:25.000Z">2019-10-27</time></div>
+                    <a href="/blog/2019/10/27/OpenCV/02图像/七-OpenCV图像处理_图像变换进阶、模板匹配/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(七)OpenCV图像处理_图像变换进阶、模板匹配</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -693,25 +712,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/10/13/C++/C++中STL用法详解二-常用容器用法介绍/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1570986697460&amp;di=76f8ffa27f84f11dce0cfb63bb4dafbf&amp;imgtype=0&amp;src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F4%2F582e754c7cede.jpg" alt="C+中STL用法详解二_常用容器用法介绍">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-13T14:14:18.000Z">2019-10-13</time></div>
-                    <a href="/blog/2019/10/13/C++/C++中STL用法详解二-常用容器用法介绍/" class="title has-link-black-ter is-size-6 has-text-weight-normal">C+中STL用法详解二_常用容器用法介绍</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/C-C/">C/C++</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -730,7 +730,7 @@
                     <span class="level-item">十月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">11</span>
+                    <span class="level-item tag">12</span>
                 </span>
             </a>
         </li>
@@ -801,7 +801,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/blog/tags/OpenCV/">
                         <span class="tag">OpenCV</span>
-                        <span class="tag is-grey">6</span>
+                        <span class="tag is-grey">7</span>
                     </a>
                 </div>
                 
@@ -882,6 +882,25 @@
         
         <article class="media">
             
+            <a href="/blog/2019/10/27/OpenCV/02图像/七-OpenCV图像处理_图像变换进阶、模板匹配/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1572197234726&amp;di=f93085285a1da7f7ef10202206130f04&amp;imgtype=0&amp;src=http%3A%2F%2Fi5.hexun.com%2F2019-04-26%2F196979501.jpg" alt="(七)OpenCV图像处理_图像变换进阶、模板匹配">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-27T06:36:25.000Z">2019-10-27</time></div>
+                    <a href="/blog/2019/10/27/OpenCV/02图像/七-OpenCV图像处理_图像变换进阶、模板匹配/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(七)OpenCV图像处理_图像变换进阶、模板匹配</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2019/10/24/Linux/Linux常用网络命令及APT软件的安装与升级/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="http://attach.bbs.miui.com/forum/201105/02/105247grh97mlrqm4zk8z9.jpg" alt="Linux常用网络命令及APT软件的安装与升级">
@@ -956,25 +975,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/10/13/C++/C++中STL用法详解二-常用容器用法介绍/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1570986697460&amp;di=76f8ffa27f84f11dce0cfb63bb4dafbf&amp;imgtype=0&amp;src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F4%2F582e754c7cede.jpg" alt="C+中STL用法详解二_常用容器用法介绍">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-13T14:14:18.000Z">2019-10-13</time></div>
-                    <a href="/blog/2019/10/13/C++/C++中STL用法详解二-常用容器用法介绍/" class="title has-link-black-ter is-size-6 has-text-weight-normal">C+中STL用法详解二_常用容器用法介绍</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/C-C/">C/C++</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -993,7 +993,7 @@
                     <span class="level-item">十月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">11</span>
+                    <span class="level-item tag">12</span>
                 </span>
             </a>
         </li>
@@ -1064,7 +1064,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/blog/tags/OpenCV/">
                         <span class="tag">OpenCV</span>
-                        <span class="tag is-grey">6</span>
+                        <span class="tag is-grey">7</span>
                     </a>
                 </div>
                 
