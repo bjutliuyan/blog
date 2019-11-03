@@ -17,7 +17,7 @@
 <meta property="og:description" content="TensorFlow即是实现机器学习算法的接口，也是执行机器学习算法的框架">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://www.soomal.com/images/doc/20180628/00075647_01.jpg">
-<meta property="og:updated_time" content="2019-09-17T14:21:59.049Z">
+<meta property="og:updated_time" content="2019-11-03T08:16:40.715Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(一)TensorFlow相关介绍及安装步骤详解">
 <meta name="twitter:description" content="TensorFlow即是实现机器学习算法的接口，也是执行机器学习算法的框架">
@@ -166,7 +166,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    9 分钟 读完 (大约 1366 个字)
+                    12 分钟 读完 (大约 1778 个字)
                 </span>
                 
                 
@@ -185,41 +185,53 @@
         </h1>
         <div class="content">
             <p>TensorFlow即是实现机器学习算法的接口，也是执行机器学习算法的框架<a id="more"></a></p>
-<h2 id="TensorFlow介绍"><a href="#TensorFlow介绍" class="headerlink" title="TensorFlow介绍"></a>TensorFlow介绍</h2><ul>
-<li><strong>TensorFlow基础架构</strong><br><a href="https://github.com/tensorflow/tensorflow" target="_blank" rel="noopener">TensorFlow</a>是谷歌2015年发布的第二代分布式机器学习系统。前端支持Python、C++、Go、Java等多种开发语言，后端使用C++、CUDA等写成，可以方便的部署到各种平台。<br><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1568628494054&di=a317bc1f2ef028f249ee6d53f62aef83&imgtype=0&src=http%3A%2F%2Fimage.bubuko.com%2Finfo%2F201801%2F20180107231729146515.png" alt></li>
-</ul>
-<ul>
+<h2 id="一、TensorFlow介绍"><a href="#一、TensorFlow介绍" class="headerlink" title="一、TensorFlow介绍"></a>一、TensorFlow介绍</h2><ul>
+<li><p><strong>TensorFlow基础架构</strong><br><a href="https://github.com/tensorflow/tensorflow" target="_blank" rel="noopener">TensorFlow</a>是谷歌2015年发布的第二代分布式机器学习系统。前端支持Python、C++、Go、Java等多种开发语言，后端使用C++、CUDA等写成，可以方便的部署到各种平台。<br><img src="002.jpg" alt></p>
+</li>
 <li><p><strong>构件图、执行图</strong><br>TensorFlow使用数据流式图来规划计算流程，图中的节点被称之为 <em>op</em> (operation 的缩写)。 一个 op 获得 0 个或多个 <code>Tensor</code>, 执行计算，产生 0 个或多个 <code>Tensor</code>。<br>一个 TensorFlow 图描述了计算的过程，不过图是静态的，为了进行计算，图必须在 <code>会话</code> 里被启动。 <code>会话</code> 将图的 op 分发到诸如 CPU 或 GPU 之类的 <code>设备</code> 上， 同时提供执行 op 的方法。执行后再将产生的 tensor 返回。在 Python 语言中, 返回的 tensor 是 <a href="http://www.numpy.org/" target="_blank" rel="noopener">numpy</a> <code>ndarray</code> 对象; 在 C 和 C++ 语言中, 返回的 tensor 是<code>tensorflow::Tensor</code> 实例.<br><img src="001.jpg" alt></p>
 </li>
 <li><p><strong>在一个会话中启动图</strong></p>
 <ol>
 <li><p>构建图完成后，执行图过程需要通过session会话完成：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">#构建图</span><br><span class="line">matrix1 = tf.constant([[3., 3.]])</span><br><span class="line">matrix2 = tf.constant([[2.],[2.]])</span><br><span class="line">product = tf.matmul(matrix1, matrix2)</span><br><span class="line">#执行图</span><br><span class="line">#函数调用 &apos;run(product)&apos; 触发了图中三个 op (两个常量 op 和一个矩阵乘法 op) 的执行，返回result</span><br><span class="line">sess = tf.Session()</span><br><span class="line">result = sess.run(product)</span><br><span class="line">print (result)</span><br><span class="line">sess.close()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf</span><br><span class="line"><span class="hljs-comment">#构建图</span></span><br><span class="line">matrix1 = tf.constant([[<span class="hljs-number">3.</span>, <span class="hljs-number">3.</span>]])</span><br><span class="line">matrix2 = tf.constant([[<span class="hljs-number">2.</span>],[<span class="hljs-number">2.</span>]])</span><br><span class="line">product = tf.matmul(matrix1, matrix2)</span><br><span class="line"><span class="hljs-comment">#执行图</span></span><br><span class="line"><span class="hljs-comment">#函数调用 'run(product)' 触发了图中三个 op (两个常量 op 和一个矩阵乘法 op) 的执行，返回result</span></span><br><span class="line">sess = tf.Session()</span><br><span class="line">result = sess.run(product)</span><br><span class="line"><span class="hljs-keyword">print</span> (result)</span><br><span class="line">sess.close()</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>session使用完后需要关闭释放资源，除了显示调用close()，也可以用with自动完成：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">with tf.session() as sess:</span><br><span class="line">  result = sess.run(product)</span><br><span class="line">  print(result)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">with</span> tf.session() <span class="hljs-keyword">as</span> sess:</span><br><span class="line">  result = sess.run(product)</span><br><span class="line">  print(result)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>分配设备：<br>一般不需要显示指定使用GPU还是CPU，TensorFlow能自动检测；如果检测到GPU会尽可能地利用找到的第一个GPU来执行操作。<br>如果机器上有多个可用GPU，除了第一个其余默认是不参与计算的，需要明确指派。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">with tf.Session() as sess:</span><br><span class="line">  with tf.device(&quot;/gpu:1&quot;):</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">with</span> tf.Session() <span class="hljs-keyword">as</span> sess:</span><br><span class="line">  <span class="hljs-keyword">with</span> tf.device(<span class="hljs-string">"/gpu:1"</span>):</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 </li>
 <li><p><strong>交互式使用</strong><br>为了便于使用类与IPython的Python交互环境，可用<code>InteractiveSession</code>代替Session类，使用<code>Tensor.eval()</code>和<code>Operation.run()</code>代替Session.run()：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">sess = tf.InteractiveSession()</span><br><span class="line">x = tf.Variable([1.0, 2.0])</span><br><span class="line">a = tf.constant([3.0, 3.0])</span><br><span class="line"># 使用初始化器 initializer op 的 run() 方法初始化 &apos;x&apos; </span><br><span class="line">x.initializer.run()</span><br><span class="line"># 增加一个减法 sub op, 从 &apos;x&apos; 减去 &apos;a&apos;. 运行减法 op, 输出结果 </span><br><span class="line">sub = tf.sub(x, a)</span><br><span class="line">print sub.eval()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf</span><br><span class="line">sess = tf.InteractiveSession()</span><br><span class="line">x = tf.Variable([<span class="hljs-number">1.0</span>, <span class="hljs-number">2.0</span>])</span><br><span class="line">a = tf.constant([<span class="hljs-number">3.0</span>, <span class="hljs-number">3.0</span>])</span><br><span class="line"><span class="hljs-comment"># 使用初始化器 initializer op 的 run() 方法初始化 'x' </span></span><br><span class="line">x.initializer.run()</span><br><span class="line"><span class="hljs-comment"># 增加一个减法 sub op, 从 'x' 减去 'a'. 运行减法 op, 输出结果 </span></span><br><span class="line">sub = tf.sub(x, a)</span><br><span class="line"><span class="hljs-keyword">print</span> sub.eval()</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>Fetch、Feed</strong></p>
 <ol>
 <li><p>Fetch<br>需要在op的一次运行中获取多个tensor值：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = sess.run([mul, intermed])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = sess.run([mul, intermed])</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>Feed<br>Feed机制相当于提供数据作为run()调用的参数，只在调用它的方法内有效，方法结束feed就会消失。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">input1 = tf.placeholder(tf.types.float32)</span><br><span class="line">input2 = tf.placeholder(tf.types.float32)</span><br><span class="line">output = tf.mul(input1, input2)</span><br><span class="line">with tf.Session() as sess:</span><br><span class="line">  print sess.run([output], feed_dict=&#123;input1:[7.], input2:[2.]&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">input1 = tf.placeholder(tf.types.float32)</span><br><span class="line">input2 = tf.placeholder(tf.types.float32)</span><br><span class="line">output = tf.mul(input1, input2)</span><br><span class="line"><span class="hljs-keyword">with</span> tf.Session() <span class="hljs-keyword">as</span> sess:</span><br><span class="line">  <span class="hljs-keyword">print</span> sess.run([output], feed_dict=&#123;input1:[<span class="hljs-number">7.</span>], input2:[<span class="hljs-number">2.</span>]&#125;)</span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
 </li>
 </ul>
-<h2 id="Liunx下TensorFlow-GPU版本安装步骤"><a href="#Liunx下TensorFlow-GPU版本安装步骤" class="headerlink" title="Liunx下TensorFlow_GPU版本安装步骤"></a>Liunx下TensorFlow_GPU版本安装步骤</h2><p>TensorFlow并不是全部由Python写成的库，底层有很多C++乃至CUDA的代码。</p>
+<h2 id="二、TensorFlow实现原理"><a href="#二、TensorFlow实现原理" class="headerlink" title="二、TensorFlow实现原理"></a>二、TensorFlow实现原理</h2><p>TensorFlow有单机模式和分布式模式两种实现，单机指的是client、master、worker全在一台机器上的同一个进程中，分布式版本允许client、master、worker在不同机器的不同进程中，同时由 集群调度系统统一管理各项任务。<br><img src="https://upload-images.jianshu.io/upload_images/6237396-c0bc23ff8d5cbce6.jpg" alt="TensorFlow单机版本和分布式版本的示例图"><br>在只有一个设备时，计算图会按依赖关系被顺序执行，当有多个设备时，复杂点有二：</p>
+<ul>
+<li>每一个节点选择什么硬件设备执行</li>
+<li>如何管理节点间的数据通信<br>针对第一个问题，TensorFlow设计了一套为节点分配设备的策略，称为<code>代价模型</code>，会在模拟执行一个节点时，把每一个能执行这个节点的设备都测试一遍，现在一个综合时间最短的设备作为这个节点的运算设备。TensorFlow还能对节点的分配设置限制条件。<br>针对第二个问题，整个计算图会被划分为许多子图，使用同一个设备并且相邻的节点会被划分到同一个子图：<br><img src="https://img-blog.csdnimg.cn/20181121110731481.png" alt="TensorFlow的通信机制"></li>
+</ul>
+<ul>
+<li>性能优化<br>关于TensorFlow的性能优化，TensorFlow会自动识别一些冲重复计算，同时改写计算图，只执行一次重复的计算。TensorFlow提供了三种不同的加速神经网络训练的并行计算模式：<ul>
+<li>数据并行</li>
+<li>模型并行</li>
+<li>流水线并行</li>
+</ul>
+</li>
+</ul>
+<h2 id="三、Liunx下TensorFlow-GPU版本安装步骤"><a href="#三、Liunx下TensorFlow-GPU版本安装步骤" class="headerlink" title="三、Liunx下TensorFlow_GPU版本安装步骤"></a>三、Liunx下TensorFlow_GPU版本安装步骤</h2><p>TensorFlow并不是全部由Python写成的库，底层有很多C++乃至CUDA的代码。</p>
 <ul>
 <li><p>先在本地安装Python3.5</p>
 </li>
@@ -433,7 +445,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        31
+                        34
                     </p>
                 </div>
             </div>
@@ -443,7 +455,7 @@
                         分类
                     </p>
                     <p class="title has-text-weight-normal">
-                        8
+                        9
                     </p>
                 </div>
             </div>
@@ -453,7 +465,7 @@
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        12
+                        14
                     </p>
                 </div>
             </div>
@@ -574,7 +586,7 @@
                 <span class="level-item">OpenCV</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">7</span>
+                <span class="level-item tag">8</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/blog/categories/Python/">
@@ -590,7 +602,7 @@
                 <span class="level-item">TensorFlow</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">6</span>
+                <span class="level-item tag">7</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/blog/categories/WEB/">
@@ -598,9 +610,17 @@
                 <span class="level-item">WEB</span>
             </span>
             <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/blog/categories/WEB/JAVA/">
+            <span class="level-start">
+                <span class="level-item">JAVA</span>
+            </span>
+            <span class="level-end">
                 <span class="level-item tag">1</span>
             </span>
-        </a></li><li>
+        </a></li></ul></li><li>
         <a class="level is-marginless" href="/blog/categories/设计模式/">
             <span class="level-start">
                 <span class="level-item">设计模式</span>
@@ -628,7 +648,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/blog/tags/C-STL/" style="font-size: 12.5px;">C++_STL</a> <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 17.5px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 17.5px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 17.5px;">设计模式</a>
+        <a href="/blog/tags/C-STL/" style="font-size: 12.5px;">C++_STL</a> <a href="/blog/tags/Java/" style="font-size: 10px;">Java</a> <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/blog/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 17.5px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 17.5px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 17.5px;">设计模式</a>
     </div>
 </div>
 
@@ -642,6 +662,63 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识识识别_线性回归、多层感知机、CNN实现">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T08:27:02.000Z">2019-11-03</time></div>
+                    <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(七)手写数字识识识别_线性回归、多层感知机、CNN实现</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/11/02/OpenCV/02图像/八-OpenCV图像处理-图像分割、交互式前景提取/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://static.cdn.longmaosoft.com/o_1db09hk4a1tl91uhuao7r6v1ovi2i.png" alt="(八)OpenCV图像处理_图像分割、交互式前景提取">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-02T08:11:17.000Z">2019-11-02</time></div>
+                    <a href="/blog/2019/11/02/OpenCV/02图像/八-OpenCV图像处理-图像分割、交互式前景提取/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(八)OpenCV图像处理_图像分割、交互式前景提取</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/11/01/WEB/JAVA面向过程基础总结/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://pic2.zhimg.com/v2-e75055be5076ae979cf23bd7d597637f_1200x500.jpg" alt="JAVA面向过程基础总结">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-01T15:41:16.000Z">2019-11-01</time></div>
+                    <a href="/blog/2019/11/01/WEB/JAVA面向过程基础总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JAVA面向过程基础总结</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JAVA/">JAVA</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -681,63 +758,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/10/23/Linux/Linux设备与用户组管理以及网络常用命令总结/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1571847821634&amp;di=43e8cde181892996b902dc194d723df2&amp;imgtype=0&amp;src=http%3A%2F%2Fwww.gec-edu.org%2FUploads%2F201811%2F5bea676444d00.jpg" alt="Linux设备与用户组管理以及网络常用命令总结">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-23T13:30:10.000Z">2019-10-23</time></div>
-                    <a href="/blog/2019/10/23/Linux/Linux设备与用户组管理以及网络常用命令总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Linux设备与用户组管理以及网络常用命令总结</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/Linux/">Linux</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/blog/2019/10/23/Linux/Linux常用命令及设备文件高级管理技术总结/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://www.wallcoo.com/photograph/Ubuntu_Maverick_Natty_Wallpapers/wallpapers/1680x1050/Aubergine_Sea_by_Wyatt_Kirby.jpg" alt="Linux常用命令及设备文件高级管理技术总结">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-23T04:11:23.000Z">2019-10-23</time></div>
-                    <a href="/blog/2019/10/23/Linux/Linux常用命令及设备文件高级管理技术总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Linux常用命令及设备文件高级管理技术总结</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/Linux/">Linux</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/blog/2019/10/21/OpenCV/02图像/六-OpenCV图像处理-轮廓以及直方图/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1567750445013&amp;di=8f019f210c98688dec883c85a8c9f92b&amp;imgtype=0&amp;src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg" alt="(六)OpenCV图像处理_轮廓以及直方图">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-21T15:55:03.000Z">2019-10-21</time></div>
-                    <a href="/blog/2019/10/21/OpenCV/02图像/六-OpenCV图像处理-轮廓以及直方图/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(六)OpenCV图像处理_轮廓以及直方图</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -749,6 +769,17 @@
             归档
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/blog/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/blog/archives/2019/10/">
@@ -804,6 +835,13 @@
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/blog/tags/LinearRegression/">
                         <span class="tag">LinearRegression</span>
                         <span class="tag is-grey">1</span>
@@ -818,6 +856,13 @@
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/MNIST/">
+                        <span class="tag">MNIST</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/blog/tags/Markdown/">
                         <span class="tag">Markdown</span>
                         <span class="tag is-grey">1</span>
@@ -827,7 +872,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/blog/tags/OpenCV/">
                         <span class="tag">OpenCV</span>
-                        <span class="tag is-grey">7</span>
+                        <span class="tag is-grey">8</span>
                     </a>
                 </div>
                 
@@ -908,6 +953,63 @@
         
         <article class="media">
             
+            <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识识识别_线性回归、多层感知机、CNN实现">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T08:27:02.000Z">2019-11-03</time></div>
+                    <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(七)手写数字识识识别_线性回归、多层感知机、CNN实现</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/11/02/OpenCV/02图像/八-OpenCV图像处理-图像分割、交互式前景提取/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://static.cdn.longmaosoft.com/o_1db09hk4a1tl91uhuao7r6v1ovi2i.png" alt="(八)OpenCV图像处理_图像分割、交互式前景提取">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-02T08:11:17.000Z">2019-11-02</time></div>
+                    <a href="/blog/2019/11/02/OpenCV/02图像/八-OpenCV图像处理-图像分割、交互式前景提取/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(八)OpenCV图像处理_图像分割、交互式前景提取</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/11/01/WEB/JAVA面向过程基础总结/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://pic2.zhimg.com/v2-e75055be5076ae979cf23bd7d597637f_1200x500.jpg" alt="JAVA面向过程基础总结">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-01T15:41:16.000Z">2019-11-01</time></div>
+                    <a href="/blog/2019/11/01/WEB/JAVA面向过程基础总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JAVA面向过程基础总结</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JAVA/">JAVA</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2019/10/27/OpenCV/02图像/七-OpenCV图像处理_图像变换进阶、模板匹配/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1572237031888&amp;di=58dc5c7fcc296206b20d897cb552a277&amp;imgtype=0&amp;src=http%3A%2F%2Fwww.chinaidcard.com%2Fuploadfiles%2Fpictures%2Fnews%2F20170623102105_5007.jpg" alt="(七)OpenCV图像处理_图像变换进阶、模板匹配">
@@ -944,63 +1046,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/10/23/Linux/Linux设备与用户组管理以及网络常用命令总结/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1571847821634&amp;di=43e8cde181892996b902dc194d723df2&amp;imgtype=0&amp;src=http%3A%2F%2Fwww.gec-edu.org%2FUploads%2F201811%2F5bea676444d00.jpg" alt="Linux设备与用户组管理以及网络常用命令总结">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-23T13:30:10.000Z">2019-10-23</time></div>
-                    <a href="/blog/2019/10/23/Linux/Linux设备与用户组管理以及网络常用命令总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Linux设备与用户组管理以及网络常用命令总结</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/Linux/">Linux</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/blog/2019/10/23/Linux/Linux常用命令及设备文件高级管理技术总结/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://www.wallcoo.com/photograph/Ubuntu_Maverick_Natty_Wallpapers/wallpapers/1680x1050/Aubergine_Sea_by_Wyatt_Kirby.jpg" alt="Linux常用命令及设备文件高级管理技术总结">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-23T04:11:23.000Z">2019-10-23</time></div>
-                    <a href="/blog/2019/10/23/Linux/Linux常用命令及设备文件高级管理技术总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Linux常用命令及设备文件高级管理技术总结</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/Linux/">Linux</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/blog/2019/10/21/OpenCV/02图像/六-OpenCV图像处理-轮廓以及直方图/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1567750445013&amp;di=8f019f210c98688dec883c85a8c9f92b&amp;imgtype=0&amp;src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg" alt="(六)OpenCV图像处理_轮廓以及直方图">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-21T15:55:03.000Z">2019-10-21</time></div>
-                    <a href="/blog/2019/10/21/OpenCV/02图像/六-OpenCV图像处理-轮廓以及直方图/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(六)OpenCV图像处理_轮廓以及直方图</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1012,6 +1057,17 @@
             归档
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/blog/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/blog/archives/2019/10/">
@@ -1067,6 +1123,13 @@
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/blog/tags/LinearRegression/">
                         <span class="tag">LinearRegression</span>
                         <span class="tag is-grey">1</span>
@@ -1081,6 +1144,13 @@
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/MNIST/">
+                        <span class="tag">MNIST</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/blog/tags/Markdown/">
                         <span class="tag">Markdown</span>
                         <span class="tag is-grey">1</span>
@@ -1090,7 +1160,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/blog/tags/OpenCV/">
                         <span class="tag">OpenCV</span>
-                        <span class="tag is-grey">7</span>
+                        <span class="tag is-grey">8</span>
                     </a>
                 </div>
                 

@@ -17,7 +17,7 @@
 <meta property="og:description" content="针对图像处理中的傅里叶变换、霍夫变换、模板检测进行总结。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1572237031888&di=58dc5c7fcc296206b20d897cb552a277&imgtype=0&src=http%3A%2F%2Fwww.chinaidcard.com%2Fuploadfiles%2Fpictures%2Fnews%2F20170623102105_5007.jpg">
-<meta property="og:updated_time" content="2019-10-31T15:43:19.705Z">
+<meta property="og:updated_time" content="2019-11-02T08:05:29.517Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(七)OpenCV图像处理_图像变换进阶、模板匹配">
 <meta name="twitter:description" content="针对图像处理中的傅里叶变换、霍夫变换、模板检测进行总结。">
@@ -166,7 +166,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    13 分钟 读完 (大约 1942 个字)
+                    14 分钟 读完 (大约 2074 个字)
                 </span>
                 
                 
@@ -186,7 +186,7 @@
         <div class="content">
             <p>针对图像处理中的傅里叶变换、霍夫变换、模板检测进行总结。</p>
 <a id="more"></a>
-<h2 id="1-傅里叶变换"><a href="#1-傅里叶变换" class="headerlink" title="1 傅里叶变换"></a>1 傅里叶变换</h2><p>傅里叶变换经常用来分析不同滤波器的频率特性。我们可以使用2D离散傅里叶变换(DFT)分析图像的频域特性。实现DFT的一个快速算法被称为快速傅里叶变换(FFT)。对应到图像，高频分量指边界和噪声，没有大的幅度变化成为低频分量。</p>
+<h2 id="1-傅里叶变换"><a href="#1-傅里叶变换" class="headerlink" title="1 傅里叶变换"></a>1 傅里叶变换</h2><p>傅里叶变换经常用来分析不同滤波器的频率特性。我们可以使用2D离散傅里叶变换(DFT)分析图像的频域特性。实现DFT的一个快速算法被称为快速傅里叶变换(FFT)。<br>对于一个正弦信号：$x(t)=Asin(2\Pi ft)$，它的频率为$f$，可以把图像想象成沿着两个方向采集的信号，所以对图像同时进行X方向和Y方向的傅里叶变换，就会得到这幅图像的频域表示。<br>更直观一点，对于一个正弦信号，如果幅度变化非常快则为高频信号，否则为低频信号。对应到图像，图像哪里的幅度变化非常大呢？边界点或噪声。所以说边界和噪声点是图像中的高频分量。</p>
 <ul>
 <li>OpenCV的傅里叶变换<br>OpenCV中相应的函数是cv2.dft()和cv2.idft()。<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</span><br><span class="line"><span class="hljs-keyword">import</span> cv2</span><br><span class="line"><span class="hljs-keyword">from</span> matplotlib <span class="hljs-keyword">import</span> pyplot <span class="hljs-keyword">as</span> plt</span><br><span class="line">img = cv2.imread(<span class="hljs-string">'messi5.jpg'</span>,<span class="hljs-number">0</span>)</span><br><span class="line">dft = cv2.dft(np.float32(img),flags = cv2.DFT_COMPLEX_OUTPUT)</span><br><span class="line">dft_shift = np.fft.fftshift(dft)</span><br><span class="line">magnitude_spectrum = <span class="hljs-number">20</span>*np.log(cv2.magnitude(dft_shift[:,:,<span class="hljs-number">0</span>],dft_shift[:,:,<span class="hljs-number">1</span>]))</span><br><span class="line">plt.subplot(<span class="hljs-number">121</span>),plt.imshow(img, cmap = <span class="hljs-string">'gray'</span>)</span><br><span class="line">plt.title(<span class="hljs-string">'Input Image'</span>), plt.xticks([]), plt.yticks([])</span><br><span class="line">plt.subplot(<span class="hljs-number">122</span>),plt.imshow(magnitude_spectrum, cmap = <span class="hljs-string">'gray'</span>)</span><br><span class="line">plt.title(<span class="hljs-string">'Magnitude Spectrum'</span>), plt.xticks([]), plt.yticks([])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 
@@ -308,6 +308,13 @@
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/blog/2019/11/01/WEB/JAVA面向过程基础总结/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">JAVA面向过程基础总结</span>
+            </a>
+        </div>
+        
         
         <div class="level-end">
             <a class="level level-item has-link-grey  article-nav-next" href="/blog/2019/10/24/Linux/Linux常用网络命令及APT软件的安装与升级/">
@@ -411,7 +418,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        31
+                        34
                     </p>
                 </div>
             </div>
@@ -421,7 +428,7 @@
                         分类
                     </p>
                     <p class="title has-text-weight-normal">
-                        8
+                        9
                     </p>
                 </div>
             </div>
@@ -431,7 +438,7 @@
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        12
+                        14
                     </p>
                 </div>
             </div>
@@ -552,7 +559,7 @@
                 <span class="level-item">OpenCV</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">7</span>
+                <span class="level-item tag">8</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/blog/categories/Python/">
@@ -568,7 +575,7 @@
                 <span class="level-item">TensorFlow</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">6</span>
+                <span class="level-item tag">7</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/blog/categories/WEB/">
@@ -576,9 +583,17 @@
                 <span class="level-item">WEB</span>
             </span>
             <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/blog/categories/WEB/JAVA/">
+            <span class="level-start">
+                <span class="level-item">JAVA</span>
+            </span>
+            <span class="level-end">
                 <span class="level-item tag">1</span>
             </span>
-        </a></li><li>
+        </a></li></ul></li><li>
         <a class="level is-marginless" href="/blog/categories/设计模式/">
             <span class="level-start">
                 <span class="level-item">设计模式</span>
@@ -606,7 +621,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/blog/tags/C-STL/" style="font-size: 12.5px;">C++_STL</a> <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 17.5px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 17.5px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 17.5px;">设计模式</a>
+        <a href="/blog/tags/C-STL/" style="font-size: 12.5px;">C++_STL</a> <a href="/blog/tags/Java/" style="font-size: 10px;">Java</a> <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/blog/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 17.5px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 17.5px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 17.5px;">设计模式</a>
     </div>
 </div>
 
@@ -620,6 +635,63 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识识识别_线性回归、多层感知机、CNN实现">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T08:27:02.000Z">2019-11-03</time></div>
+                    <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(七)手写数字识识识别_线性回归、多层感知机、CNN实现</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/11/02/OpenCV/02图像/八-OpenCV图像处理-图像分割、交互式前景提取/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://static.cdn.longmaosoft.com/o_1db09hk4a1tl91uhuao7r6v1ovi2i.png" alt="(八)OpenCV图像处理_图像分割、交互式前景提取">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-02T08:11:17.000Z">2019-11-02</time></div>
+                    <a href="/blog/2019/11/02/OpenCV/02图像/八-OpenCV图像处理-图像分割、交互式前景提取/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(八)OpenCV图像处理_图像分割、交互式前景提取</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/11/01/WEB/JAVA面向过程基础总结/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://pic2.zhimg.com/v2-e75055be5076ae979cf23bd7d597637f_1200x500.jpg" alt="JAVA面向过程基础总结">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-01T15:41:16.000Z">2019-11-01</time></div>
+                    <a href="/blog/2019/11/01/WEB/JAVA面向过程基础总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JAVA面向过程基础总结</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JAVA/">JAVA</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -659,63 +731,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/10/23/Linux/Linux设备与用户组管理以及网络常用命令总结/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1571847821634&amp;di=43e8cde181892996b902dc194d723df2&amp;imgtype=0&amp;src=http%3A%2F%2Fwww.gec-edu.org%2FUploads%2F201811%2F5bea676444d00.jpg" alt="Linux设备与用户组管理以及网络常用命令总结">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-23T13:30:10.000Z">2019-10-23</time></div>
-                    <a href="/blog/2019/10/23/Linux/Linux设备与用户组管理以及网络常用命令总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Linux设备与用户组管理以及网络常用命令总结</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/Linux/">Linux</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/blog/2019/10/23/Linux/Linux常用命令及设备文件高级管理技术总结/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://www.wallcoo.com/photograph/Ubuntu_Maverick_Natty_Wallpapers/wallpapers/1680x1050/Aubergine_Sea_by_Wyatt_Kirby.jpg" alt="Linux常用命令及设备文件高级管理技术总结">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-23T04:11:23.000Z">2019-10-23</time></div>
-                    <a href="/blog/2019/10/23/Linux/Linux常用命令及设备文件高级管理技术总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Linux常用命令及设备文件高级管理技术总结</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/Linux/">Linux</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/blog/2019/10/21/OpenCV/02图像/六-OpenCV图像处理-轮廓以及直方图/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1567750445013&amp;di=8f019f210c98688dec883c85a8c9f92b&amp;imgtype=0&amp;src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg" alt="(六)OpenCV图像处理_轮廓以及直方图">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-21T15:55:03.000Z">2019-10-21</time></div>
-                    <a href="/blog/2019/10/21/OpenCV/02图像/六-OpenCV图像处理-轮廓以及直方图/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(六)OpenCV图像处理_轮廓以及直方图</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -727,6 +742,17 @@
             归档
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/blog/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/blog/archives/2019/10/">
@@ -782,6 +808,13 @@
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/blog/tags/LinearRegression/">
                         <span class="tag">LinearRegression</span>
                         <span class="tag is-grey">1</span>
@@ -796,6 +829,13 @@
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/MNIST/">
+                        <span class="tag">MNIST</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/blog/tags/Markdown/">
                         <span class="tag">Markdown</span>
                         <span class="tag is-grey">1</span>
@@ -805,7 +845,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/blog/tags/OpenCV/">
                         <span class="tag">OpenCV</span>
-                        <span class="tag is-grey">7</span>
+                        <span class="tag is-grey">8</span>
                     </a>
                 </div>
                 
@@ -886,6 +926,63 @@
         
         <article class="media">
             
+            <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识识识别_线性回归、多层感知机、CNN实现">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T08:27:02.000Z">2019-11-03</time></div>
+                    <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(七)手写数字识识识别_线性回归、多层感知机、CNN实现</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/11/02/OpenCV/02图像/八-OpenCV图像处理-图像分割、交互式前景提取/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://static.cdn.longmaosoft.com/o_1db09hk4a1tl91uhuao7r6v1ovi2i.png" alt="(八)OpenCV图像处理_图像分割、交互式前景提取">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-02T08:11:17.000Z">2019-11-02</time></div>
+                    <a href="/blog/2019/11/02/OpenCV/02图像/八-OpenCV图像处理-图像分割、交互式前景提取/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(八)OpenCV图像处理_图像分割、交互式前景提取</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/11/01/WEB/JAVA面向过程基础总结/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://pic2.zhimg.com/v2-e75055be5076ae979cf23bd7d597637f_1200x500.jpg" alt="JAVA面向过程基础总结">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-01T15:41:16.000Z">2019-11-01</time></div>
+                    <a href="/blog/2019/11/01/WEB/JAVA面向过程基础总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JAVA面向过程基础总结</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JAVA/">JAVA</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2019/10/27/OpenCV/02图像/七-OpenCV图像处理_图像变换进阶、模板匹配/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1572237031888&amp;di=58dc5c7fcc296206b20d897cb552a277&amp;imgtype=0&amp;src=http%3A%2F%2Fwww.chinaidcard.com%2Fuploadfiles%2Fpictures%2Fnews%2F20170623102105_5007.jpg" alt="(七)OpenCV图像处理_图像变换进阶、模板匹配">
@@ -922,63 +1019,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/10/23/Linux/Linux设备与用户组管理以及网络常用命令总结/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1571847821634&amp;di=43e8cde181892996b902dc194d723df2&amp;imgtype=0&amp;src=http%3A%2F%2Fwww.gec-edu.org%2FUploads%2F201811%2F5bea676444d00.jpg" alt="Linux设备与用户组管理以及网络常用命令总结">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-23T13:30:10.000Z">2019-10-23</time></div>
-                    <a href="/blog/2019/10/23/Linux/Linux设备与用户组管理以及网络常用命令总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Linux设备与用户组管理以及网络常用命令总结</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/Linux/">Linux</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/blog/2019/10/23/Linux/Linux常用命令及设备文件高级管理技术总结/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://www.wallcoo.com/photograph/Ubuntu_Maverick_Natty_Wallpapers/wallpapers/1680x1050/Aubergine_Sea_by_Wyatt_Kirby.jpg" alt="Linux常用命令及设备文件高级管理技术总结">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-23T04:11:23.000Z">2019-10-23</time></div>
-                    <a href="/blog/2019/10/23/Linux/Linux常用命令及设备文件高级管理技术总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Linux常用命令及设备文件高级管理技术总结</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/Linux/">Linux</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/blog/2019/10/21/OpenCV/02图像/六-OpenCV图像处理-轮廓以及直方图/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1567750445013&amp;di=8f019f210c98688dec883c85a8c9f92b&amp;imgtype=0&amp;src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg" alt="(六)OpenCV图像处理_轮廓以及直方图">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-21T15:55:03.000Z">2019-10-21</time></div>
-                    <a href="/blog/2019/10/21/OpenCV/02图像/六-OpenCV图像处理-轮廓以及直方图/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(六)OpenCV图像处理_轮廓以及直方图</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -990,6 +1030,17 @@
             归档
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/blog/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/blog/archives/2019/10/">
@@ -1045,6 +1096,13 @@
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/blog/tags/LinearRegression/">
                         <span class="tag">LinearRegression</span>
                         <span class="tag is-grey">1</span>
@@ -1059,6 +1117,13 @@
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/MNIST/">
+                        <span class="tag">MNIST</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/blog/tags/Markdown/">
                         <span class="tag">Markdown</span>
                         <span class="tag is-grey">1</span>
@@ -1068,7 +1133,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/blog/tags/OpenCV/">
                         <span class="tag">OpenCV</span>
-                        <span class="tag is-grey">7</span>
+                        <span class="tag is-grey">8</span>
                     </a>
                 </div>
                 
