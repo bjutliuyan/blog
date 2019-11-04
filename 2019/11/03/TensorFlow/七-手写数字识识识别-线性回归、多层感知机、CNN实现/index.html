@@ -17,7 +17,7 @@
 <meta property="og:description" content="以手写数字识别为出发点，对深度学习中的网络构建、预测分析、迭代优化等主要流程进行相关介绍。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&fm=26&gp=0.jpg">
-<meta property="og:updated_time" content="2019-11-03T14:53:44.330Z">
+<meta property="og:updated_time" content="2019-11-04T01:24:21.301Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(七)手写数字识识识别_线性回归、多层感知机、CNN实现">
 <meta name="twitter:description" content="以手写数字识别为出发点，对深度学习中的网络构建、预测分析、迭代优化等主要流程进行相关介绍。">
@@ -166,7 +166,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    4 分钟 读完 (大约 530 个字)
+                    6 分钟 读完 (大约 858 个字)
                 </span>
                 
                 
@@ -195,14 +195,31 @@
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">from</span> tensorflow.examples.tutorials.mnist <span class="hljs-keyword">import</span> input_data</span><br><span class="line">mnist = input_data.read_data_sets(<span class="hljs-string">"MNIST_data"</span>, one_hot=<span class="hljs-literal">True</span>)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>图片保存</strong><br>以上下载的数据集是向量集，如果想保存为具体的图片，可执行如下操作：</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">from</span> tensorflow.examples.tutorials.mnist <span class="hljs-keyword">import</span> input_data</span><br><span class="line"><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image</span><br><span class="line"><span class="hljs-keyword">import</span> os</span><br><span class="line"></span><br><span class="line">mnist = input_data.read_data_sets(<span class="hljs-string">"../MNIST_data/"</span>, one_hot=<span class="hljs-literal">True</span>)</span><br><span class="line"><span class="hljs-comment"># 如果没这个文件夹自动创建 save_dir = '../MNIST_data/raw/' if os.path.exists(save_dir) is False:</span></span><br><span class="line">    os.makedirs(save_dir)</span><br><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">20</span>):</span><br><span class="line">    image_array = mnist.train.images[i, :]</span><br><span class="line">    image_array = image_array.reshape(<span class="hljs-number">28</span>, <span class="hljs-number">28</span>)</span><br><span class="line">    <span class="hljs-comment">#MNIST数据集图片灰度值都是0或者1，这里乘以256便于直观化图像</span></span><br><span class="line">  image_array *= <span class="hljs-number">256</span></span><br><span class="line">  filename = save_dir + <span class="hljs-string">'mnist_train_%d.jpg'</span> % i</span><br><span class="line">    image = Image.fromarray(image_array);</span><br><span class="line">    <span class="hljs-keyword">if</span> image.mode == <span class="hljs-string">"F"</span>:</span><br><span class="line">        image = image.convert(<span class="hljs-string">'RGB'</span>)</span><br><span class="line">    image.save(filename)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">from</span> tensorflow.examples.tutorials.mnist <span class="hljs-keyword">import</span> input_data</span><br><span class="line"><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image</span><br><span class="line"><span class="hljs-keyword">import</span> os</span><br><span class="line"></span><br><span class="line">mnist = input_data.read_data_sets(<span class="hljs-string">"../MNIST_data/"</span>, one_hot=<span class="hljs-literal">True</span>)</span><br><span class="line"><span class="hljs-comment"># 如果没这个文件夹自动创建 </span></span><br><span class="line">save_dir = <span class="hljs-string">'../MNIST_data/raw/'</span> </span><br><span class="line"><span class="hljs-keyword">if</span> os.path.exists(save_dir) <span class="hljs-keyword">is</span> <span class="hljs-literal">False</span>:</span><br><span class="line">    os.makedirs(save_dir)</span><br><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">20</span>):</span><br><span class="line">    image_array = mnist.train.images[i, :]</span><br><span class="line">    image_array = image_array.reshape(<span class="hljs-number">28</span>, <span class="hljs-number">28</span>)</span><br><span class="line">    <span class="hljs-comment">#MNIST数据集图片灰度值都是0或者1，这里乘以256便于直观化图像</span></span><br><span class="line">  image_array *= <span class="hljs-number">256</span></span><br><span class="line">  filename = save_dir + <span class="hljs-string">'mnist_train_%d.jpg'</span> % i</span><br><span class="line">    image = Image.fromarray(image_array);</span><br><span class="line">    <span class="hljs-keyword">if</span> image.mode == <span class="hljs-string">"F"</span>:</span><br><span class="line">        image = image.convert(<span class="hljs-string">'RGB'</span>)</span><br><span class="line">    image.save(filename)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>独热表示</strong><br>手写数字识别的标签是通过<code>独热编码</code>表示的。</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">from</span> tensorflow.examples.tutorials.mnist <span class="hljs-keyword">import</span> input_data</span><br><span class="line"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</span><br><span class="line"></span><br><span class="line">mnist = input_data.read_data_sets(<span class="hljs-string">"../MNIST_data"</span>, one_hot=<span class="hljs-literal">True</span>)</span><br><span class="line"><span class="hljs-comment">#看前20张训练图片的label for i in range(20):</span></span><br><span class="line">    one_hot_label = mnist.train.labels[i, :]</span><br><span class="line">    label = np.argmax(one_hot_label)</span><br><span class="line">    print(<span class="hljs-string">'mnist_train_%d.jpg label: %d'</span> % (i, label))</span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
-<h2 id="二、线性回归识别MNIST"><a href="#二、线性回归识别MNIST" class="headerlink" title="二、线性回归识别MNIST"></a>二、线性回归识别MNIST</h2><h2 id="三、多层感知机识别MNIST"><a href="#三、多层感知机识别MNIST" class="headerlink" title="三、多层感知机识别MNIST"></a>三、多层感知机识别MNIST</h2><h2 id="四、CNN识别MNIST"><a href="#四、CNN识别MNIST" class="headerlink" title="四、CNN识别MNIST"></a>四、CNN识别MNIST</h2>
+<h2 id="二、线性回归识别MNIST"><a href="#二、线性回归识别MNIST" class="headerlink" title="二、线性回归识别MNIST"></a>二、线性回归识别MNIST</h2><ul>
+<li><p>原理<br>因为是多分类问题，整体模型采用softmax回归；<br>并用交叉熵作为概率分布的准确度估计；<br>然后通过梯度下降迭代的进行训练；<br>最后在测试集或验证集上对准确度进行评测。</p>
+</li>
+<li><p>代码示例<br><a href="https://github.com/bjutliuyan/tf-mnist/blob/master/SR-mnist.py" target="_blank" rel="noopener">SR-mnist.py</a></p>
+</li>
+<li><p>准确度<br>0.91</p>
+</li>
+</ul>
+<h2 id="三、多层感知机识别MNIST"><a href="#三、多层感知机识别MNIST" class="headerlink" title="三、多层感知机识别MNIST"></a>三、多层感知机识别MNIST</h2><ul>
+<li>原理<br>softmax和传统的神经网络的区别是没有隐含层，拟合能力有限。同时隐含层越多，越容易拟合复杂函数。使用较多层次的神经网络越容易过拟合、参数难以调试、梯度弥散等。对于这些问题需要很多Trick来解决，比如Dropout、Adagrad、ReLU等。<br>当引入隐含层并使用非线性激活函数后，就可以使用曲线来划分一些样本，可以轻松解决异或函数的分类问题，神经网络的隐含层越多，就可以对原有特征进行更抽象的变换，模型的拟合能力就越强。</li>
+<li>代码示例<br><a href="https://github.com/bjutliuyan/tf-mnist/blob/master/MLT-mnist.py" target="_blank" rel="noopener">MLT-mnist.py</a></li>
+<li>准确度<br>0.978</li>
+</ul>
+<h2 id="四、CNN识别MNIST"><a href="#四、CNN识别MNIST" class="headerlink" title="四、CNN识别MNIST"></a>四、CNN识别MNIST</h2><ul>
+<li>原理</li>
+<li>代码示例<br><a href="https://github.com/bjutliuyan/tf-mnist/blob/master/CNN-simple-mnist.py" target="_blank" rel="noopener">CNN-simple-mnist.py</a></li>
+</ul>
+
         </div>
         
         <div class="level is-size-7 is-uppercase">
