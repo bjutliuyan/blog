@@ -3,7 +3,7 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-<title>(七)手写数字识识识别_线性回归、多层感知机、CNN实现 - Bjutliuyan&#39;s blog</title>
+<title>(七)手写数字识别_线性回归、多层感知机、CNN实现 - Bjutliuyan&#39;s blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
@@ -11,15 +11,15 @@
     <meta name="description" content="以手写数字识别为出发点，对深度学习中的网络构建、预测分析、迭代优化等主要流程进行相关介绍。">
 <meta name="keywords" content="MNIST">
 <meta property="og:type" content="article">
-<meta property="og:title" content="(七)手写数字识识识别_线性回归、多层感知机、CNN实现">
+<meta property="og:title" content="(七)手写数字识别_线性回归、多层感知机、CNN实现">
 <meta property="og:url" content="http://bjutliuyan.github.io/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/index.html">
 <meta property="og:site_name" content="Bjutliuyan&#39;s blog">
 <meta property="og:description" content="以手写数字识别为出发点，对深度学习中的网络构建、预测分析、迭代优化等主要流程进行相关介绍。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&fm=26&gp=0.jpg">
-<meta property="og:updated_time" content="2019-11-04T01:24:21.301Z">
+<meta property="og:updated_time" content="2019-11-04T13:28:22.087Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="(七)手写数字识识识别_线性回归、多层感知机、CNN实现">
+<meta name="twitter:title" content="(七)手写数字识别_线性回归、多层感知机、CNN实现">
 <meta name="twitter:description" content="以手写数字识别为出发点，对深度学习中的网络构建、预测分析、迭代优化等主要流程进行相关介绍。">
 <meta name="twitter:image" content="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&fm=26&gp=0.jpg">
 
@@ -99,7 +99,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/blog/">
             
-                <img src="/blog/images/logo.svg" alt="(七)手写数字识识识别_线性回归、多层感知机、CNN实现" height="28">
+                <img src="/blog/images/logo.svg" alt="(七)手写数字识别_线性回归、多层感知机、CNN实现" height="28">
             
             </a>
         </div>
@@ -148,7 +148,7 @@
     
     <div class="card-image">
         <span class="image is-7by1">
-            <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识识识别_线性回归、多层感知机、CNN实现">
+            <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识别_线性回归、多层感知机、CNN实现">
         </span>
     </div>
     
@@ -166,7 +166,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    6 分钟 读完 (大约 858 个字)
+                    8 分钟 读完 (大约 1158 个字)
                 </span>
                 
                 
@@ -180,7 +180,7 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                (七)手写数字识识识别_线性回归、多层感知机、CNN实现
+                (七)手写数字识别_线性回归、多层感知机、CNN实现
             
         </h1>
         <div class="content">
@@ -210,14 +210,15 @@
 <li><p>准确度<br>0.91</p>
 </li>
 </ul>
-<h2 id="三、多层感知机识别MNIST"><a href="#三、多层感知机识别MNIST" class="headerlink" title="三、多层感知机识别MNIST"></a>三、多层感知机识别MNIST</h2><ul>
-<li>原理<br>softmax和传统的神经网络的区别是没有隐含层，拟合能力有限。同时隐含层越多，越容易拟合复杂函数。使用较多层次的神经网络越容易过拟合、参数难以调试、梯度弥散等。对于这些问题需要很多Trick来解决，比如Dropout、Adagrad、ReLU等。<br>当引入隐含层并使用非线性激活函数后，就可以使用曲线来划分一些样本，可以轻松解决异或函数的分类问题，神经网络的隐含层越多，就可以对原有特征进行更抽象的变换，模型的拟合能力就越强。</li>
+<h2 id="三、多层感知机-MLT或FCN-识别MNIST"><a href="#三、多层感知机-MLT或FCN-识别MNIST" class="headerlink" title="三、多层感知机(MLT或FCN)识别MNIST"></a>三、多层感知机(MLT或FCN)识别MNIST</h2><ul>
+<li>原理<br>softmax和传统的神经网络的区别是没有隐含层，拟合能力有限。同时隐含层越多，越容易拟合复杂函数。使用较多层次的神经网络越容易过拟合、参数难以调试、梯度弥散等。对于这些问题需要很多Trick来解决，比如Dropout、Adagrad、ReLU等。当引入隐含层并使用非线性激活函数后，就可以使用曲线来划分一些样本，可以轻松解决异或函数的分类问题，神经网络的隐含层越多，就可以对原有特征进行更抽象的变换，模型的拟合能力就越强。<br>没有隐含层的Softmax Regression只能直接从图像的像素点推断出是哪个数字，而没有特征抽象的过程。多层神经网络依靠隐含层，可以组合出高阶特征，之后可以将这些高阶特征组合成数字，就能实现精准的匹配和分类。<br>现在加上隐含层，并使用<code>减轻过拟合的Dropout</code>、<code>自适应学习速率的Adagrad</code>、以及可以<code>解决梯度弥散的激活函数ReLU</code>。</li>
 <li>代码示例<br><a href="https://github.com/bjutliuyan/tf-mnist/blob/master/MLT-mnist.py" target="_blank" rel="noopener">MLT-mnist.py</a></li>
 <li>准确度<br>0.978</li>
 </ul>
 <h2 id="四、CNN识别MNIST"><a href="#四、CNN识别MNIST" class="headerlink" title="四、CNN识别MNIST"></a>四、CNN识别MNIST</h2><ul>
-<li>原理</li>
+<li>原理<br>全连接的网络因为参数过多和梯度弥散等问题，在早期很难顺利地进行多层的训练，卷积神经网络可以利用空间结构关系减少需要学习的参数量，从而提高反向传播算法的训练效率。<br>卷积神经网络的特点是<code>局部连接</code>(降低了参数量)、<code>权值共享</code>(赋予了对平移的容忍性)、<code>池化层降采样</code>(进一步降低参数量，赋予模型对轻度形变的容忍性)。<br><img src="https://cuijiahua.com/wp-content/uploads/2018/01/dl_3_11.png" alt="leNet5示例图"></li>
 <li>代码示例<br><a href="https://github.com/bjutliuyan/tf-mnist/blob/master/CNN-simple-mnist.py" target="_blank" rel="noopener">CNN-simple-mnist.py</a></li>
+<li>精确度<br>0.992</li>
 </ul>
 
         </div>
@@ -319,8 +320,8 @@
      
       <script type="text/javascript">
         var gitment = new Gitment({
-              id: '(七)手写数字识识识别_线性回归、多层感知机、CNN实现',
-              title: '(七)手写数字识识识别_线性回归、多层感知机、CNN实现',
+              id: '(七)手写数字识别_线性回归、多层感知机、CNN实现',
+              title: '(七)手写数字识别_线性回归、多层感知机、CNN实现',
               owner: 'bjutliuyan',
               repo: 'hello-world',
               oauth: {
@@ -601,14 +602,14 @@
             
             <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识识识别_线性回归、多层感知机、CNN实现">
+                    <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识别_线性回归、多层感知机、CNN实现">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T08:27:02.000Z">2019-11-03</time></div>
-                    <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(七)手写数字识识识别_线性回归、多层感知机、CNN实现</a>
+                    <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(七)手写数字识别_线性回归、多层感知机、CNN实现</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
                     </p>
@@ -889,14 +890,14 @@
             
             <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识识识别_线性回归、多层感知机、CNN实现">
+                    <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识别_线性回归、多层感知机、CNN实现">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T08:27:02.000Z">2019-11-03</time></div>
-                    <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(七)手写数字识识识别_线性回归、多层感知机、CNN实现</a>
+                    <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(七)手写数字识别_线性回归、多层感知机、CNN实现</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
                     </p>
@@ -1167,7 +1168,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/blog/">
                 
-                    <img src="/blog/images/logo.svg" alt="(七)手写数字识识识别_线性回归、多层感知机、CNN实现" height="28">
+                    <img src="/blog/images/logo.svg" alt="(七)手写数字识别_线性回归、多层感知机、CNN实现" height="28">
                 
                 </a>
                 <p class="is-size-7">

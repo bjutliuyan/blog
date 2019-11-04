@@ -203,9 +203,7 @@
 </li>
 </ul>
 <h2 id="3-Python3运算符"><a href="#3-Python3运算符" class="headerlink" title="3.Python3运算符"></a>3.Python3运算符</h2><p><img src="http://images2018.cnblogs.com/blog/1303708/201804/1303708-20180415181535404-1326450443.png" alt></p>
-<h2 id="4-条件控制"><a href="#4-条件控制" class="headerlink" title="4.条件控制"></a>4.条件控制</h2><p>Python中都是以代码缩进划分语句块，并且没有switch分支语句。</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">if</span> condition_1: </span><br><span class="line">  statement_block_1</span><br><span class="line"><span class="hljs-keyword">elif</span> condition_2: </span><br><span class="line">  statement_block_2  </span><br><span class="line"><span class="hljs-keyword">else</span>: statement_block_3</span><br><span class="line">  statement_block_2</span><br></pre></td></tr></table></figure>
-
+<h2 id="4-条件控制"><a href="#4-条件控制" class="headerlink" title="4.条件控制"></a>4.条件控制</h2><p>Python中都是以代码缩进划分语句块，并且没有switch分支语句。<br><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">if</span> condition_1: </span><br><span class="line">  statement_block_1</span><br><span class="line"><span class="hljs-keyword">elif</span> condition_2: </span><br><span class="line">  statement_block_2  </span><br><span class="line"><span class="hljs-keyword">else</span>: statement_block_3</span><br><span class="line">  statement_block_2</span><br></pre></td></tr></table></figure></p>
 <h2 id="5-循环语句"><a href="#5-循环语句" class="headerlink" title="5.循环语句"></a>5.循环语句</h2><ul>
 <li><p>for循环</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for &lt;variable&gt; in &lt;sequence&gt;:</span><br><span class="line">  执行语句</span><br></pre></td></tr></table></figure>
@@ -216,12 +214,8 @@
 <li><p>break、continue、pass语句<br>可以通过break、continue、pass分别跳出循环、跳过当前循环中的剩余语句块、不做任何事。</p>
 </li>
 </ul>
-<h2 id="6-导入模块"><a href="#6-导入模块" class="headerlink" title="6.导入模块"></a>6.导入模块</h2><p>模块是一个包含所有你定义的函数和变量的文件，其后缀名是.py。模块可以被别的程序引入，以使用该模块中的函数等功能。这也是使用 python 标准库的方法。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># import module1, module2, module3 </span><br><span class="line"># from module import name1, name2 </span><br><span class="line"># from module import * # import module as something # from module import name1 as something</span><br></pre></td></tr></table></figure>
-
-<p>python中的__name__属性可以用来使程序块仅在该模块自身运行时执行，如下所示：</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">if</span> __name__ ==  <span class="hljs-string">'__main__'</span>:</span><br><span class="line">  print(<span class="hljs-string">'程序自身在运行'</span>)  </span><br><span class="line"><span class="hljs-keyword">else</span>:  </span><br><span class="line">  print(<span class="hljs-string">'我来自另一模块'</span>)</span><br></pre></td></tr></table></figure>
-
+<h2 id="6-导入模块"><a href="#6-导入模块" class="headerlink" title="6.导入模块"></a>6.导入模块</h2><p>模块是一个包含所有你定义的函数和变量的文件，其后缀名是.py。模块可以被别的程序引入，以使用该模块中的函数等功能。这也是使用 python 标准库的方法。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># import module1, module2, module3 </span><br><span class="line"># from module import name1, name2 </span><br><span class="line"># from module import * # import module as something # from module import name1 as something</span><br></pre></td></tr></table></figure></p>
+<p>python中的__name__属性可以用来使程序块仅在该模块自身运行时执行，如下所示：<br><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">if</span> __name__ ==  <span class="hljs-string">'__main__'</span>:</span><br><span class="line">  print(<span class="hljs-string">'程序自身在运行'</span>)  </span><br><span class="line"><span class="hljs-keyword">else</span>:  </span><br><span class="line">  print(<span class="hljs-string">'我来自另一模块'</span>)</span><br></pre></td></tr></table></figure></p>
 <h2 id="7-输入输出"><a href="#7-输入输出" class="headerlink" title="7.输入输出"></a>7.输入输出</h2><ul>
 <li><p>输入</p>
 <ul>
@@ -230,7 +224,6 @@
 </li>
 <li><p>文件读取</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">f = open(<span class="hljs-string">"/tmp/foo.txt"</span>, <span class="hljs-string">"w"</span>)</span><br><span class="line">f.write( <span class="hljs-string">"I love China!\n"</span> )</span><br><span class="line"><span class="hljs-comment"># 关闭打开的文件</span></span><br><span class="line">f.close()</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 </li>
@@ -244,9 +237,7 @@
 <ul>
 <li>格式<br>切片[start:end:steps] </li>
 </ul>
-<p>其中默认步长为1，start缺省的话就是0，end缺省的话就是到结束。</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">li = list(range(<span class="hljs-number">10</span>))</span><br><span class="line">print(li[<span class="hljs-number">2</span>:<span class="hljs-number">5</span>]) <span class="hljs-comment">#输出[2,5)</span></span><br><span class="line">print(li[:<span class="hljs-number">4</span>]) <span class="hljs-comment">#输出[0,4)</span></span><br><span class="line">print(li[<span class="hljs-number">5</span>:]) <span class="hljs-comment">#输出[5,9)</span></span><br><span class="line">print(li[<span class="hljs-number">0</span>::<span class="hljs-number">1</span>]) <span class="hljs-comment">#输出[0,9)</span></span><br><span class="line">print(li[<span class="hljs-number">9</span>:<span class="hljs-number">0</span>:<span class="hljs-number">-1</span>]) <span class="hljs-comment">#步长为负数情况向下,输出[9, 8, 7, 6, 5, 4, 3, 2, 1]</span></span><br></pre></td></tr></table></figure>
-
+<p>其中默认步长为1，start缺省的话就是0，end缺省的话就是到结束。<br><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">li = list(range(<span class="hljs-number">10</span>))</span><br><span class="line">print(li[<span class="hljs-number">2</span>:<span class="hljs-number">5</span>]) <span class="hljs-comment">#输出[2,5)</span></span><br><span class="line">print(li[:<span class="hljs-number">4</span>]) <span class="hljs-comment">#输出[0,4)</span></span><br><span class="line">print(li[<span class="hljs-number">5</span>:]) <span class="hljs-comment">#输出[5,9)</span></span><br><span class="line">print(li[<span class="hljs-number">0</span>::<span class="hljs-number">1</span>]) <span class="hljs-comment">#输出[0,9)</span></span><br><span class="line">print(li[<span class="hljs-number">9</span>:<span class="hljs-number">0</span>:<span class="hljs-number">-1</span>]) <span class="hljs-comment">#步长为负数情况向下,输出[9, 8, 7, 6, 5, 4, 3, 2, 1]</span></span><br></pre></td></tr></table></figure></p>
 
         </div>
         
@@ -636,14 +627,14 @@
             
             <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识识识别_线性回归、多层感知机、CNN实现">
+                    <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识别_线性回归、多层感知机、CNN实现">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T08:27:02.000Z">2019-11-03</time></div>
-                    <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(七)手写数字识识识别_线性回归、多层感知机、CNN实现</a>
+                    <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(七)手写数字识别_线性回归、多层感知机、CNN实现</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
                     </p>
@@ -924,14 +915,14 @@
             
             <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识识识别_线性回归、多层感知机、CNN实现">
+                    <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识别_线性回归、多层感知机、CNN实现">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T08:27:02.000Z">2019-11-03</time></div>
-                    <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(七)手写数字识识识别_线性回归、多层感知机、CNN实现</a>
+                    <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(七)手写数字识别_线性回归、多层感知机、CNN实现</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
                     </p>

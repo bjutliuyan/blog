@@ -184,13 +184,11 @@
             
         </h1>
         <div class="content">
-            <p>模型的可视化与保存在深度学习训练中起到很重要的作用。</p>
-<a id="more"></a>
+            <p>模型的可视化与保存在深度学习训练中起到很重要的作用。<br><a id="more"></a></p>
 <h2 id="一、模型的保存与恢复"><a href="#一、模型的保存与恢复" class="headerlink" title="一、模型的保存与恢复"></a>一、模型的保存与恢复</h2><p>在通过TensorFlow进行深度学习训练时，会产生大量的参数，那么下一次进行训练的时候又得重新进行训练。所以可以将已经训练好的模型保存到本地。等需要的时候直接将模型读入到内存中来。</p>
 <ol>
 <li><p><strong>模型的保存</strong></p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">v1 = tf.Variable(<span class="hljs-number">1</span>, name=<span class="hljs-string">"v1"</span>)</span><br><span class="line">v2 = tf.Variable(<span class="hljs-number">2</span>, name=<span class="hljs-string">"v2"</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#定义初始化所有变量op</span></span><br><span class="line">init_op = tf.initialize_all_variables()</span><br><span class="line"><span class="hljs-comment">#增加保存模型op</span></span><br><span class="line">saver = tf.train.Saver()</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#开启一个会话</span></span><br><span class="line"><span class="hljs-keyword">with</span> tf.Session() <span class="hljs-keyword">as</span> sess:</span><br><span class="line">  sess.run(init_op)</span><br><span class="line">  save_path = saver.save(sess=sess, save_path=<span class="hljs-string">"/home/liuyan/Desktop/OpenCV/checkpoints/model.ckpt"</span>)</span><br></pre></td></tr></table></figure>
-
 <p>   运行之后就会生成保存的模型：</p>
 <div align="center">  
 <img src="001.jpg">  
@@ -204,7 +202,6 @@
 </li>
 <li><p><strong>选择存储和恢复哪些变量</strong><br>如果不给<code>tf.train.Saver()</code>传入参数，那么会保存所有的变量，其中每一个变量都以被创建时的名称被保存。</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#Add ops to save and restore only 'v2' using the name "my_v2"</span></span><br><span class="line">saver = tf.train.Saver(&#123;<span class="hljs-string">"my_v2"</span>: v2&#125;)</span><br></pre></td></tr></table></figure>
-
 </li>
 </ol>
 <h2 id="二、TensorBoard可视化学习"><a href="#二、TensorBoard可视化学习" class="headerlink" title="二、TensorBoard可视化学习"></a>二、TensorBoard可视化学习</h2><p>为了方便对TensorFlow程序的理解、调试与优化，可以使用TensorBoard来展现TensorFlow的静态图、绘制图像生成的定量指标图以及附加数据。相关操作十分简单，具体步骤如下：</p>
@@ -214,27 +211,23 @@
 </li>
 <li><p><strong>启动TensorBoard显示</strong><br>输入下面的指令来启动TensorBoard：</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python tensorflow/tensorboard/tensorboard.py --logdir=path/to/log-directory</span><br></pre></td></tr></table></figure>
-
 <p> 这里的参数 <code>logdir</code> 指向 <code>SummaryWriter</code> 序列化数据的存储路径。如果<code>logdir</code>目录的子目录中包含另一次运行时的数据，那么 TensorBoard 会展示所有运行的数据。TensorBoard 开始运行后，可以通过在浏览器中输入 <code>localhost:6006</code> 来查看 TensorBoard。</p>
 <p> 如果已经通过pip安装了TensorBoard，也可以通过执行以下命令来访问：</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensorboard --logdir=/path/to/log-directory</span><br></pre></td></tr></table></figure>
-
 </li>
 </ol>
 <div align="center">  
 <img src="002.jpg">  
 </div>
 
-<ol start="3">
+<ol>
 <li><p><strong>TensorBoard图表可视化</strong><br>TensorBoard的图表计算强大而又复杂，在可视化和理解网络结构时非常有帮助，，如下所示：<br><img src="http://www.tensorfly.cn/tfdoc/images/graph_vis_animation.gif" alt><br>典型的网络结构都有数以千计的节点，那么多的节点难以一下子全部看到，简单起见我们可以为变量名划定范围。下面这个例子使用<code>tf.name_scope</code>在hidden命名域下定义了三个操作：</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">with</span> tf.name_scope(<span class="hljs-string">'hidden'</span>) <span class="hljs-keyword">as</span> scope:</span><br><span class="line">  a = tf.constant(<span class="hljs-number">5</span>, name=<span class="hljs-string">'alpha'</span>)</span><br><span class="line">  W = tf.Variable(tf.random_uniform([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], <span class="hljs-number">-1.0</span>, <span class="hljs-number">1.0</span>), name=<span class="hljs-string">'weights'</span>)</span><br><span class="line">  b = tf.Variable(tf.zeros([<span class="hljs-number">1</span>]), name=<span class="hljs-string">'biases'</span>)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>通过静态图获取具体tensor</strong><br>TensorFlow是通过定义静态图来运行的，我们也可以在程序最后获得这张图：</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g = tf.get_default_graph</span><br></pre></td></tr></table></figure>
-
 <p> 然后可以进一步从图中获取变量： </p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var_a = g.get_tensor_by_name(“v1”)</span><br><span class="line">print(sess.run(var_a))</span><br></pre></td></tr></table></figure>
-
 </li>
 </ol>
 
@@ -626,14 +619,14 @@
             
             <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识识识别_线性回归、多层感知机、CNN实现">
+                    <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识别_线性回归、多层感知机、CNN实现">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T08:27:02.000Z">2019-11-03</time></div>
-                    <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(七)手写数字识识识别_线性回归、多层感知机、CNN实现</a>
+                    <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(七)手写数字识别_线性回归、多层感知机、CNN实现</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
                     </p>
@@ -914,14 +907,14 @@
             
             <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识识识别_线性回归、多层感知机、CNN实现">
+                    <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识别_线性回归、多层感知机、CNN实现">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T08:27:02.000Z">2019-11-03</time></div>
-                    <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(七)手写数字识识识别_线性回归、多层感知机、CNN实现</a>
+                    <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(七)手写数字识别_线性回归、多层感知机、CNN实现</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
                     </p>

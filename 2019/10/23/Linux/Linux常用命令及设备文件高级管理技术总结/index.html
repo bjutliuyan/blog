@@ -194,36 +194,30 @@
 <li><font color="#008000">多任务：</font>多个任务可并行访问微处理器；</li>
 <li><font color="#008000">良好的用户界面：</font>用户界面、系统调用；</li>
 <li><font color="#008000">设备独立性：</font>操作系统可以把所有外设当作文件对待，只要安装它们的驱动程序，就可以像访问文件一样操纵和使用这些设备，而不必知道它们的具体存在形式；</li>
-<li><font color="#008000">提供丰富的网络功能、可考的系统安全、良好的可移植性</font></li>
+<li><font color="#008000">提供丰富的网络功能、可考的系统安全、良好的可移植性</font>
+</li>
 </ul>
 </blockquote>
 </li>
 <li><p>发行版本<br>严格来讲，Linux只是操作系统中的一个<code>内核</code>。负责控制硬件、管理文件系统、程序进程等。其并不提供强大的应用程序，没有编译器、系统管理工具、网络工具、Office套件、多媒体和绘图软件等。这样也就无法发挥其强大功能。<br>因此有人便提出以Linux为核心再集成各式系统程序或应用工具程序，组成一套完整的操作系统。组装成的即为Linux发行版本。如：Red Hat、Ubuntu等。</p>
 </li>
 </ul>
-<h2 id="2-Linux基本命令"><a href="#2-Linux基本命令" class="headerlink" title="2 Linux基本命令"></a>2 Linux基本命令</h2><p>Linux命令格式如下：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command [-options] [arguments]</span><br></pre></td></tr></table></figure>
-
-<p>具体说明如下：<br>选项是对命令的特别定义，以“-”开始，多个选项可用一个“-”连起来。如“ls -l -a”与“ls -la”作用相同；<br>一般来说，单字符选项前使用一个减号，单词选项前使用两个减号，如“ls –help”；<br>Linux命令区分大小写，往往是表示相应功能英文单词缩写；<br>操作参数可以是文件、目录；</p>
+<h2 id="2-Linux基本命令"><a href="#2-Linux基本命令" class="headerlink" title="2 Linux基本命令"></a>2 Linux基本命令</h2><p>Linux命令格式如下：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command [-options] [arguments]</span><br></pre></td></tr></table></figure></p>
+<p>具体说明如下：<br>选项是对命令的特别定义，以“-”开始，多个选项可用一个“-”连起来。如“ls -l -a”与“ls -la”作用相同；<br>一般来说，单字符选项前使用一个减号，单词选项前使用两个减号，如“ls —help”；<br>Linux命令区分大小写，往往是表示相应功能英文单词缩写；<br>操作参数可以是文件、目录；</p>
 <h3 id="2-1文件和目录管理"><a href="#2-1文件和目录管理" class="headerlink" title="2.1文件和目录管理"></a>2.1文件和目录管理</h3><ul>
 <li><p>定位文件和目录<br><code>pwd显示用户所在的位置</code></p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pwd</span><br></pre></td></tr></table></figure>
-
 <p> <code>cd(改变工作目录)</code></p>
  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#进入etc目录</span><br><span class="line">cd /etc</span><br><span class="line">#回到用户主目录</span><br><span class="line">cd ~</span><br><span class="line">#返回上级目录</span><br><span class="line">cd ../</span><br></pre></td></tr></table></figure>
-
 <p> <code>Find(在硬盘上查找文件)</code></p>
  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#格式</span><br><span class="line">find [&lt;路径&gt;] [匹配条件]</span><br><span class="line">#在usr文件夹下查找文件名为password的文件</span><br><span class="line">find /usr -name password</span><br><span class="line">#列出当前文件夹下所有扩展名是doc的文件</span><br><span class="line">find / -name “*.doc”</span><br><span class="line">#查找/etc、/home下文件尺寸大于4K的文件</span><br><span class="line">find /etc /home -size +4K</span><br></pre></td></tr></table></figure>
-
 <p> <code>Locate（定位文件或目录）</code></p>
  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locate apt.conf</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>浏览文件或目录<br><code>ls显示用户当前目录或指定目录的内容</code></p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#输出根目录下文件或目录的详细信息</span><br><span class="line">ls -l</span><br><span class="line">#列出所有文件</span><br><span class="line">ls -a</span><br></pre></td></tr></table></figure>
-
 <p><code>head tail查看文件的开头或结尾部分</code></p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#查看profile文件开头5行</span><br><span class="line">head -5 /etc/profile</span><br><span class="line">#查看profile文件结尾4行</span><br><span class="line">tail -4 /etc/profile</span><br></pre></td></tr></table></figure>
-
 <p><code>cat（合并文件或显示文件内容）</code></p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#阅读profile文件</span><br><span class="line">cat /etc/profile</span><br><span class="line">#追加file2文件内容到file1</span><br><span class="line">cat file2 &gt;&gt; file1</span><br><span class="line">#合并file1 file2到file3</span><br><span class="line">cat file1 file2 &gt; file3</span><br></pre></td></tr></table></figure>
 </li>
@@ -232,22 +226,17 @@
 </li>
 <li><p>操作文件和目录</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#cp(将/etc/profile文件复制到home文件夹下)</span><br><span class="line">cp /etc/profile /home</span><br><span class="line">#touch创建文件</span><br><span class="line">#mv(将test文件移动到上层目录)</span><br><span class="line">mv test ../</span><br><span class="line">#rm（删除/etc/profile文件）</span><br><span class="line">rm /etc/profile</span><br><span class="line">#mkdir创建目录</span><br><span class="line">mkdir dir1</span><br><span class="line">#rmdir删除目录</span><br><span class="line">rmdir dir1</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h3 id="2-2-简单系统管理"><a href="#2-2-简单系统管理" class="headerlink" title="2.2 简单系统管理"></a>2.2 简单系统管理</h3><ul>
 <li><p>.<br><code>shutdown(关机)</code></p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#立即关机</span><br><span class="line">showdown -h now</span><br><span class="line">#关机后立即重启</span><br><span class="line">showdown -r now</span><br><span class="line">#系统15:30后重启</span><br><span class="line">showdown -r 15:30</span><br></pre></td></tr></table></figure>
-
 <p><code>id（显示当前用户名和所属组）</code><br><code>su（切换登录用户）</code></p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su otherUser</span><br></pre></td></tr></table></figure>
-
 <p><code>man（查看某个命令的使用手册）</code></p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">man ls</span><br></pre></td></tr></table></figure>
-
 <p><code>其它</code></p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">date(查看日期)，cal（显示日历或年历），df（查看磁盘），du（查看目录或文件容量），free（查看系统内存占用情况）</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h3 id="2-3-文件压缩和解压缩"><a href="#2-3-文件压缩和解压缩" class="headerlink" title="2.3 文件压缩和解压缩"></a>2.3 文件压缩和解压缩</h3><p>  通常使用zip、unzip、gzip、gunzip、tar命令。</p>
@@ -255,13 +244,10 @@
 <ul>
 <li><p>进程管理<br><code>ps（查看系统的进程）</code></p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#显示当前控制终端的进程</span><br><span class="line">ps</span><br><span class="line">#显示所有进程</span><br><span class="line">ps -A</span><br><span class="line">#详细显示包含其它使用者的进程</span><br><span class="line">ps -au</span><br></pre></td></tr></table></figure>
-
 <p><code>kill(给进程发送信号)</code></p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#当某个进程运行错误时，对于前台进程可以Ctrl+C终止该进程，后台进程可以使用kill命令给进程发送信息，比如强行终止信息</span><br><span class="line">kill  -9 进程号</span><br></pre></td></tr></table></figure>
-
 <p><code>bg（将作业放到后台执行）</code></p>
  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#在手工启动前台进程时，如果没有执行完毕，则可使用Ctrl+Z 暂停进程的执行，然后可使用bg命令将进程放到后台执行，前台继续其它任务。</span><br><span class="line">#列出所有作业及作业ID信息</span><br><span class="line">jobs</span><br><span class="line">#将作业放到后台</span><br><span class="line">bg %作业ID</span><br><span class="line">#将作业放到前台</span><br><span class="line">fg %作业ID</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>作业调度(略)</li>
 </ul>
@@ -656,14 +642,14 @@
             
             <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识识识别_线性回归、多层感知机、CNN实现">
+                    <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识别_线性回归、多层感知机、CNN实现">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T08:27:02.000Z">2019-11-03</time></div>
-                    <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(七)手写数字识识识别_线性回归、多层感知机、CNN实现</a>
+                    <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(七)手写数字识别_线性回归、多层感知机、CNN实现</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
                     </p>
@@ -944,14 +930,14 @@
             
             <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识识识别_线性回归、多层感知机、CNN实现">
+                    <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识别_线性回归、多层感知机、CNN实现">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T08:27:02.000Z">2019-11-03</time></div>
-                    <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(七)手写数字识识识别_线性回归、多层感知机、CNN实现</a>
+                    <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(七)手写数字识别_线性回归、多层感知机、CNN实现</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
                     </p>
