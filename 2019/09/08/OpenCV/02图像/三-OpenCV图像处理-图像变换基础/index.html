@@ -189,14 +189,18 @@
 <li><p>转换颜色空间<br>OpenCV中常用到的颜色空间转换的方法主要是两种：BGR&lt;-&gt;GRAY和BGR&lt;-&gt;HSV。用到的函数是cv2.cvtColor(input_image, flag)，其中flag是转换类型。</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> cv2</span><br><span class="line">img = cv2.imread(<span class="hljs-string">'image'</span>, image02.jpg)</span><br><span class="line">hsv = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)</span><br><span class="line">cv2.imshow(<span class="hljs-string">'image'</span>, hsv)</span><br><span class="line">cv2.waitKey(<span class="hljs-number">0</span>)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>物体跟踪<br>可以利用转换颜色空间来提取带有某个特定颜色的物体。在HSV颜色空间中要比在BGR中更容易表示一个特定颜色。比如以在一幅图片中提取蓝色物体为例：<br><div align="center">  
+<li><p>物体跟踪<br>可以利用转换颜色空间来提取带有某个特定颜色的物体。在HSV颜色空间中要比在BGR中更容易表示一个特定颜色。比如以在一幅图片中提取蓝色物体为例：</p>
+<div align="center">  
 <img src="001.jpg">  
 <img src="003.jpg">  
-</div></p>
+</div>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> cv2</span><br><span class="line"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</span><br><span class="line"><span class="hljs-comment">#获取图片并转化到HSV </span></span><br><span class="line">img = cv2.imread(<span class="hljs-string">'image02.jpg'</span>, cv2.IMREAD_COLOR)</span><br><span class="line">hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)</span><br><span class="line"><span class="hljs-comment">#设定蓝色的阀值 </span></span><br><span class="line">lower_blue=np.array([<span class="hljs-number">110</span>,<span class="hljs-number">50</span>,<span class="hljs-number">50</span>])</span><br><span class="line">upper_blue=np.array([<span class="hljs-number">130</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>])</span><br><span class="line"><span class="hljs-comment">#根据阀值进行掩模 </span></span><br><span class="line">mask = cv2.inRange(hsv, lower_blue, upper_blue)</span><br><span class="line"><span class="hljs-comment">#对原图像和掩模进行位运算 </span></span><br><span class="line">res = cv2.bitwise_and(img, img, mask=mask)</span><br><span class="line"><span class="hljs-comment">#展示 </span></span><br><span class="line">cv2.imshow(<span class="hljs-string">'res'</span>, res)</span><br><span class="line">cv2.waitKey(<span class="hljs-number">0</span>)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
-<h2 id="二、图像变换"><a href="#二、图像变换" class="headerlink" title="二、图像变换"></a>二、图像变换</h2><p>图像的集合变换在计算机视觉任务的数据与处理部分很重要，能更好的清洗数据。可采用的变换模型有：刚性变换、仿射变换、透视变换、非线性变换等（参考链接[<a href="https://wenku.baidu.com/view/826a796027d3240c8447ef20.html" target="_blank" rel="noopener">link1</a>][<a href="https://www.cnblogs.com/happystudyeveryday/p/10547316.html" target="_blank" rel="noopener">link2</a>][<a href="https://blog.csdn.net/qq_27261889/article/details/80720359" target="_blank" rel="noopener">link3</a>]）。目标图像变换后所得点坐标不一定为整数像素，此时应进行插值。<br><img src="https://images2015.cnblogs.com/blog/120296/201602/120296-20160218190315722-2110673980.png" alt><br>OpenCV提供了两个变换函数：<br><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#参数：输入图像，变换矩阵，输出图像大小，插值方法的组合，边界像素模式，边界填充值(默认为0)</span></span><br><span class="line"><span class="hljs-comment">#1.仿射变换</span></span><br><span class="line">cv2.warpAffine(src, M, dsize, flags, borderMode, borderValue);</span><br><span class="line"><span class="hljs-comment">#2.透视变换</span></span><br><span class="line">cv2.warpPerspective(src, M, dsize, flags, borderMode, borderValue);</span><br></pre></td></tr></table></figure></p>
+<h2 id="二、图像变换"><a href="#二、图像变换" class="headerlink" title="二、图像变换"></a>二、图像变换</h2><p>图像的集合变换在计算机视觉任务的数据与处理部分很重要，能更好的清洗数据。可采用的变换模型有：刚性变换、仿射变换、透视变换、非线性变换等（参考链接[<a href="https://wenku.baidu.com/view/826a796027d3240c8447ef20.html" target="_blank" rel="noopener">link1</a>][<a href="https://www.cnblogs.com/happystudyeveryday/p/10547316.html" target="_blank" rel="noopener">link2</a>][<a href="https://blog.csdn.net/qq_27261889/article/details/80720359" target="_blank" rel="noopener">link3</a>]）。目标图像变换后所得点坐标不一定为整数像素，此时应进行插值。<br><img src="https://images2015.cnblogs.com/blog/120296/201602/120296-20160218190315722-2110673980.png" alt><br>OpenCV提供了两个变换函数：</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#参数：输入图像，变换矩阵，输出图像大小，插值方法的组合，边界像素模式，边界填充值(默认为0)</span></span><br><span class="line"><span class="hljs-comment">#1.仿射变换</span></span><br><span class="line">cv2.warpAffine(src, M, dsize, flags, borderMode, borderValue);</span><br><span class="line"><span class="hljs-comment">#2.透视变换</span></span><br><span class="line">cv2.warpPerspective(src, M, dsize, flags, borderMode, borderValue);</span><br></pre></td></tr></table></figure>
+
 <p><img src="https://img-blog.csdn.net/2018061719172616?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI3MjYxODg5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt></p>
 <ol>
 <li><p>扩展缩放</p>
@@ -207,22 +211,25 @@
 </li>
 <li><p>旋转</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># 通过内置的函数得到仿射矩阵M，这里的第一个参数为旋转中心，第二个为旋转角度，第三个为旋转后的缩放因子</span></span><br><span class="line"><span class="hljs-comment"># 可以通过设置旋转中心，缩放因子，以及窗口大小来防止旋转后超出边界的问题</span></span><br><span class="line">M = cv2.getRotationMatrix2D((cols/<span class="hljs-number">2</span>,rows/<span class="hljs-number">2</span>), <span class="hljs-number">45</span>, <span class="hljs-number">0.6</span>)</span><br><span class="line"><span class="hljs-comment"># 第三个参数是输出图像的尺寸中心</span></span><br><span class="line">dst = cv2.warpAffine(img, M, (<span class="hljs-number">2</span>*cols,<span class="hljs-number">2</span>*rows))</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 <div align="center">  
 <img src="002.jpg">  
 </div>
 
-<ol>
+<ol start="4">
 <li>仿射变换<br>在仿射变换中，原图中所有的平行线在结果图像中同样平行。为了创建这个矩阵需要从原图像中找到三个点以及它们在输出图像的位置。<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pts1=np.float32([[<span class="hljs-number">50</span>,<span class="hljs-number">50</span>],[<span class="hljs-number">200</span>,<span class="hljs-number">50</span>],[<span class="hljs-number">50</span>,<span class="hljs-number">200</span>]])</span><br><span class="line">pts2=np.float32([[<span class="hljs-number">10</span>,<span class="hljs-number">100</span>],[<span class="hljs-number">200</span>,<span class="hljs-number">50</span>],[<span class="hljs-number">100</span>,<span class="hljs-number">250</span>]])</span><br><span class="line">M=cv2.getAffineTransform(pts1,pts2)</span><br><span class="line">dst=cv2.warpAffine(img,M,(cols,rows))</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 <div align="center">  
 <img src="004.jpg">   
 </div>
 
-<ol>
+<ol start="5">
 <li>透视变换<br>透视变换就相当于视角的变换：<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pts1 = np.float32([[<span class="hljs-number">56</span>,<span class="hljs-number">65</span>],[<span class="hljs-number">368</span>,<span class="hljs-number">52</span>],[<span class="hljs-number">28</span>,<span class="hljs-number">387</span>],[<span class="hljs-number">389</span>,<span class="hljs-number">390</span>]])</span><br><span class="line">pts2 = np.float32([[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>],[<span class="hljs-number">300</span>,<span class="hljs-number">0</span>],[<span class="hljs-number">0</span>,<span class="hljs-number">300</span>],[<span class="hljs-number">300</span>,<span class="hljs-number">300</span>]])</span><br><span class="line">M=cv2.getPerspectiveTransform(pts1,pts2)</span><br><span class="line">dst=cv2.warpPerspective(img,M,(<span class="hljs-number">300</span>,<span class="hljs-number">300</span>))</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 <div align="center">  
@@ -395,7 +402,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        34
+                        35
                     </p>
                 </div>
             </div>
@@ -415,7 +422,7 @@
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        14
+                        15
                     </p>
                 </div>
             </div>
@@ -598,7 +605,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/blog/tags/C-STL/" style="font-size: 12.5px;">C++_STL</a> <a href="/blog/tags/Java/" style="font-size: 10px;">Java</a> <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/blog/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 17.5px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 17.5px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 17.5px;">设计模式</a>
+        <a href="/blog/tags/C-STL/" style="font-size: 12.5px;">C++_STL</a> <a href="/blog/tags/CIFAR-10/" style="font-size: 10px;">CIFAR-10</a> <a href="/blog/tags/Java/" style="font-size: 10px;">Java</a> <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/blog/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 17.5px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 17.5px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 17.5px;">设计模式</a>
     </div>
 </div>
 
@@ -612,6 +619,25 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/11/04/TensorFlow/八-CIFAR-10与ImageNet图像识别/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://www.cs.toronto.edu/~kriz/cifar-10-sample/automobile6.png" alt="(八)CIFAR-10与ImageNet图像识别">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-04T15:36:07.000Z">2019-11-04</time></div>
+                    <a href="/blog/2019/11/04/TensorFlow/八-CIFAR-10与ImageNet图像识别/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(八)CIFAR-10与ImageNet图像识别</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -689,25 +715,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/10/24/Linux/Linux常用网络命令及APT软件的安装与升级/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://attach.bbs.miui.com/forum/201105/02/105247grh97mlrqm4zk8z9.jpg" alt="Linux常用网络命令及APT软件的安装与升级">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-24T12:59:02.000Z">2019-10-24</time></div>
-                    <a href="/blog/2019/10/24/Linux/Linux常用网络命令及APT软件的安装与升级/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Linux常用网络命令及APT软件的安装与升级</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/Linux/">Linux</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -726,7 +733,7 @@
                     <span class="level-item">十一月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">4</span>
                 </span>
             </a>
         </li>
@@ -781,6 +788,13 @@
                     <a class="tags has-addons" href="/blog/tags/C-STL/">
                         <span class="tag">C++_STL</span>
                         <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/CIFAR-10/">
+                        <span class="tag">CIFAR-10</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
@@ -903,6 +917,25 @@
         
         <article class="media">
             
+            <a href="/blog/2019/11/04/TensorFlow/八-CIFAR-10与ImageNet图像识别/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://www.cs.toronto.edu/~kriz/cifar-10-sample/automobile6.png" alt="(八)CIFAR-10与ImageNet图像识别">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-04T15:36:07.000Z">2019-11-04</time></div>
+                    <a href="/blog/2019/11/04/TensorFlow/八-CIFAR-10与ImageNet图像识别/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(八)CIFAR-10与ImageNet图像识别</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识别_线性回归、多层感知机、CNN实现">
@@ -977,25 +1010,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/10/24/Linux/Linux常用网络命令及APT软件的安装与升级/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://attach.bbs.miui.com/forum/201105/02/105247grh97mlrqm4zk8z9.jpg" alt="Linux常用网络命令及APT软件的安装与升级">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-24T12:59:02.000Z">2019-10-24</time></div>
-                    <a href="/blog/2019/10/24/Linux/Linux常用网络命令及APT软件的安装与升级/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Linux常用网络命令及APT软件的安装与升级</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/Linux/">Linux</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1014,7 +1028,7 @@
                     <span class="level-item">十一月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">4</span>
                 </span>
             </a>
         </li>
@@ -1069,6 +1083,13 @@
                     <a class="tags has-addons" href="/blog/tags/C-STL/">
                         <span class="tag">C++_STL</span>
                         <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/CIFAR-10/">
+                        <span class="tag">CIFAR-10</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 

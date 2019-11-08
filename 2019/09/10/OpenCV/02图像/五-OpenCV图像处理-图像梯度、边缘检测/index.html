@@ -184,15 +184,17 @@
             
         </h1>
         <div class="content">
-            <p>本节对OpenCV图像处理中：图像梯度、边缘检测，进行整理介绍<br><a id="more"></a></p>
+            <p>本节对OpenCV图像处理中：图像梯度、边缘检测，进行整理介绍</p>
+<a id="more"></a>
+
 <h2 id="图像梯度"><a href="#图像梯度" class="headerlink" title="图像梯度"></a>图像梯度</h2><p>当用之前提及过的均值滤波器来降低图像噪声时，会带来图像模糊的副作用。我们当然希望看到的是清晰图像。那么，清晰图像和模糊图像之间的差别在哪里呢？<br><code>从逻辑上考虑，图像模糊是因为图像中物体的轮廓不明显，轮廓边缘灰度变化不强烈，层次感不强造成的</code>，那么反过来考虑，轮廓边缘灰度变化明显些，层次感强些是不是图像就更清晰些呢。<br>这种灰度变化程度可以用微积分定义，梯度简单来说就是求导，OpenCV提供了三种不同的梯度滤波器，或者说高通滤波器：Sobel，Scharr，Laplacian。</p>
 <ol>
 <li><p><strong>Sobel算子、Scharr算子</strong><br>Sobel 算子是高斯平滑与微分操作的结合体，所以它的抗噪声能力很好。可以设定求导的方向（xorder 或 yorder）。还可以设定使用的卷积核的大小（ksize）。如果 ksize=-1，会使用 3x3 的Scharr 滤波器，它的的效果要比 3x3 的 Sobel 滤波器好（而且速度相同，所以在使用 3x3 滤波器时应该尽量使用 Scharr 滤波器）。</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">img = cv2.imread(<span class="hljs-string">'image01.jpg'</span>, <span class="hljs-number">0</span>)</span><br><span class="line"><span class="hljs-comment"># cv2.CV_64F为输出图像的深度；1 0/一阶导数0 1表示对x对y轴方向求</span></span><br><span class="line">sobelx = cv2.Sobel(img, cv2.CV_64F, <span class="hljs-number">1</span>,<span class="hljs-number">0</span>,ksize=<span class="hljs-number">5</span>)</span><br><span class="line">sobely = cv2.Sobel(img, cv2.CV_64F, <span class="hljs-number">0</span>,<span class="hljs-number">1</span>,ksize=<span class="hljs-number">5</span>)</span><br></pre></td></tr></table></figure>
 </li>
-<li><p><strong>Laplacian拉普拉斯算子</strong><br>拉普拉斯算子可以使用二阶导数的形式定义，可假设其离散实现类似于Sobel导数。事实上，OpenCV在计算拉普拉斯算子时直接调用Sobel算子。计算公式如下：</p>
-<script type="math/tex; mode=display">
-\Delta src=\frac {\partial ^{2}src}{\partial x^2} + \frac {\partial ^{2}src}{\partial y^2}</script><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#cv2.CV_64F是输出图像的深度，可以使用-1与原图像保持一致</span></span><br><span class="line"><span class="hljs-comment">#图像深度是指存储每个像素所用的位数，确定了彩色图像的每个像素可能有的彩色数或者灰度图像每个像素可能有的灰度级数</span></span><br><span class="line">laplacian = cv2.laplacian(img, cv2.CV_64F)</span><br></pre></td></tr></table></figure>
+<li><p><strong>Laplacian拉普拉斯算子</strong><br>拉普拉斯算子可以使用二阶导数的形式定义，可假设其离散实现类似于Sobel导数。事实上，OpenCV在计算拉普拉斯算子时直接调用Sobel算子。计算公式如下：<br>$$<br>\Delta src=\frac {\partial ^{2}src}{\partial x^2} + \frac {\partial ^{2}src}{\partial y^2}<br>$$</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#cv2.CV_64F是输出图像的深度，可以使用-1与原图像保持一致</span></span><br><span class="line"><span class="hljs-comment">#图像深度是指存储每个像素所用的位数，确定了彩色图像的每个像素可能有的彩色数或者灰度图像每个像素可能有的灰度级数</span></span><br><span class="line">laplacian = cv2.laplacian(img, cv2.CV_64F)</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 <div align="center">  
@@ -203,19 +205,22 @@
 <li><strong>原理</strong></li>
 </ol>
 <ul>
-<li>噪声去除<br>由于边缘检测很容易受到噪声影响，所以第一步是使用高斯滤波器去燥。</li>
-<li><p>计算图像梯度<br>对平滑后的图像使用Sobel算子计算水平方向和竖直方向的一阶导数。再根据这两幅梯度图找到边界的梯度和方向，公式如下：</p>
-<script type="math/tex; mode=display">
-Edge\_Gradient(G) = \sqrt{G^2_x+G^2_y}；
-Angle(\Theta) = tan^{-1}(\frac{G_x}{G_y})</script><p>  梯度的方向一般总是与边界垂直，梯度方向被归为四类：垂直、水平、两个对角线。</p>
+<li><p>噪声去除<br>由于边缘检测很容易受到噪声影响，所以第一步是使用高斯滤波器去燥。</p>
 </li>
-<li>非极大值抑制<br>通过上一步获得梯度的方向和大小之后，应该对整幅图像做一个扫描，去除非边界上的点（对每一个像素进行检查，看这个点的梯度是不是周围具有相同梯度方向的点中最大的）。</li>
-<li>滞后阀值<br>现在要确定哪些边界才是真正的边界，这时我们需要设置两个阀值：minVal和maxVal。当图像的灰度梯度高于maxVal被认为是真的边界，低于minVal的边界会被抛弃，如果介于两者之间的话，就要看这个点是否与某个被确定为真正的边界点相连，如果是就认为它也是边界点。如下图：<br><div align="center">  
+<li><p>计算图像梯度<br>对平滑后的图像使用Sobel算子计算水平方向和竖直方向的一阶导数。再根据这两幅梯度图找到边界的梯度和方向，公式如下：<br>$$<br>Edge_Gradient(G) = \sqrt{G^2_x+G^2_y}；<br>Angle(\Theta) = tan^{-1}(\frac{G_x}{G_y})<br>$$</p>
+<p>  梯度的方向一般总是与边界垂直，梯度方向被归为四类：垂直、水平、两个对角线。</p>
+</li>
+<li><p>非极大值抑制<br>通过上一步获得梯度的方向和大小之后，应该对整幅图像做一个扫描，去除非边界上的点（对每一个像素进行检查，看这个点的梯度是不是周围具有相同梯度方向的点中最大的）。</p>
+</li>
+<li><p>滞后阀值<br>现在要确定哪些边界才是真正的边界，这时我们需要设置两个阀值：minVal和maxVal。当图像的灰度梯度高于maxVal被认为是真的边界，低于minVal的边界会被抛弃，如果介于两者之间的话，就要看这个点是否与某个被确定为真正的边界点相连，如果是就认为它也是边界点。如下图：</p>
+<div align="center">  
 <img src="002.jpg">  
-</div><br>A 高于阈值 maxVal 所以是真正的边界点，C 虽然低于 maxVal 但高于minVal 并且与 A 相连，所以也被认为是真正的边界点。而 B 就会被抛弃，因为他不仅低于 maxVal 而且不与真正的边界点相连。所以选择合适的 maxVal和 minVal 对于能否得到好的结果非常重要。在这一步一些小的噪声点也会被除去，因为我们假设边界都是一些长的线段。</li>
+</div>
+A 高于阈值 maxVal 所以是真正的边界点，C 虽然低于 maxVal 但高于minVal 并且与 A 相连，所以也被认为是真正的边界点。而 B 就会被抛弃，因为他不仅低于 maxVal 而且不与真正的边界点相连。所以选择合适的 maxVal和 minVal 对于能否得到好的结果非常重要。在这一步一些小的噪声点也会被除去，因为我们假设边界都是一些长的线段。</li>
 </ul>
-<ol>
+<ol start="2">
 <li><strong>OpenCV中的Canny边界检测</strong><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> cv2</span><br><span class="line"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</span><br><span class="line"><span class="hljs-keyword">from</span> matplotlib <span class="hljs-keyword">import</span> pyplot <span class="hljs-keyword">as</span> plt</span><br><span class="line">img = cv2.imread(<span class="hljs-string">'image01.jpg'</span>,<span class="hljs-number">0</span>)</span><br><span class="line"><span class="hljs-comment">#原始图像，minVal，maxVal</span></span><br><span class="line">edges = cv2.Canny(img,<span class="hljs-number">100</span>,<span class="hljs-number">200</span>)</span><br><span class="line">plt.subplot(<span class="hljs-number">121</span>),plt.imshow(img,cmap = <span class="hljs-string">'gray'</span>)</span><br><span class="line">plt.title(<span class="hljs-string">'Original Image'</span>), plt.xticks([]), plt.yticks([])</span><br><span class="line">plt.subplot(<span class="hljs-number">122</span>),plt.imshow(edges,cmap = <span class="hljs-string">'gray'</span>)</span><br><span class="line">plt.title(<span class="hljs-string">'Edge Image'</span>), plt.xticks([]), plt.yticks([])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 <p>如下图所示：</p>
@@ -389,7 +394,7 @@ Angle(\Theta) = tan^{-1}(\frac{G_x}{G_y})</script><p>  梯度的方向一般总�
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        34
+                        35
                     </p>
                 </div>
             </div>
@@ -409,7 +414,7 @@ Angle(\Theta) = tan^{-1}(\frac{G_x}{G_y})</script><p>  梯度的方向一般总�
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        14
+                        15
                     </p>
                 </div>
             </div>
@@ -592,7 +597,7 @@ Angle(\Theta) = tan^{-1}(\frac{G_x}{G_y})</script><p>  梯度的方向一般总�
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/blog/tags/C-STL/" style="font-size: 12.5px;">C++_STL</a> <a href="/blog/tags/Java/" style="font-size: 10px;">Java</a> <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/blog/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 17.5px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 17.5px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 17.5px;">设计模式</a>
+        <a href="/blog/tags/C-STL/" style="font-size: 12.5px;">C++_STL</a> <a href="/blog/tags/CIFAR-10/" style="font-size: 10px;">CIFAR-10</a> <a href="/blog/tags/Java/" style="font-size: 10px;">Java</a> <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/blog/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 17.5px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 17.5px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 17.5px;">设计模式</a>
     </div>
 </div>
 
@@ -606,6 +611,25 @@ Angle(\Theta) = tan^{-1}(\frac{G_x}{G_y})</script><p>  梯度的方向一般总�
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/11/04/TensorFlow/八-CIFAR-10与ImageNet图像识别/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://www.cs.toronto.edu/~kriz/cifar-10-sample/automobile6.png" alt="(八)CIFAR-10与ImageNet图像识别">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-04T15:36:07.000Z">2019-11-04</time></div>
+                    <a href="/blog/2019/11/04/TensorFlow/八-CIFAR-10与ImageNet图像识别/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(八)CIFAR-10与ImageNet图像识别</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -683,25 +707,6 @@ Angle(\Theta) = tan^{-1}(\frac{G_x}{G_y})</script><p>  梯度的方向一般总�
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/10/24/Linux/Linux常用网络命令及APT软件的安装与升级/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://attach.bbs.miui.com/forum/201105/02/105247grh97mlrqm4zk8z9.jpg" alt="Linux常用网络命令及APT软件的安装与升级">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-24T12:59:02.000Z">2019-10-24</time></div>
-                    <a href="/blog/2019/10/24/Linux/Linux常用网络命令及APT软件的安装与升级/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Linux常用网络命令及APT软件的安装与升级</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/Linux/">Linux</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -720,7 +725,7 @@ Angle(\Theta) = tan^{-1}(\frac{G_x}{G_y})</script><p>  梯度的方向一般总�
                     <span class="level-item">十一月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">4</span>
                 </span>
             </a>
         </li>
@@ -775,6 +780,13 @@ Angle(\Theta) = tan^{-1}(\frac{G_x}{G_y})</script><p>  梯度的方向一般总�
                     <a class="tags has-addons" href="/blog/tags/C-STL/">
                         <span class="tag">C++_STL</span>
                         <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/CIFAR-10/">
+                        <span class="tag">CIFAR-10</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
@@ -897,6 +909,25 @@ Angle(\Theta) = tan^{-1}(\frac{G_x}{G_y})</script><p>  梯度的方向一般总�
         
         <article class="media">
             
+            <a href="/blog/2019/11/04/TensorFlow/八-CIFAR-10与ImageNet图像识别/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="http://www.cs.toronto.edu/~kriz/cifar-10-sample/automobile6.png" alt="(八)CIFAR-10与ImageNet图像识别">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-04T15:36:07.000Z">2019-11-04</time></div>
+                    <a href="/blog/2019/11/04/TensorFlow/八-CIFAR-10与ImageNet图像识别/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(八)CIFAR-10与ImageNet图像识别</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识别_线性回归、多层感知机、CNN实现">
@@ -971,25 +1002,6 @@ Angle(\Theta) = tan^{-1}(\frac{G_x}{G_y})</script><p>  梯度的方向一般总�
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/10/24/Linux/Linux常用网络命令及APT软件的安装与升级/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://attach.bbs.miui.com/forum/201105/02/105247grh97mlrqm4zk8z9.jpg" alt="Linux常用网络命令及APT软件的安装与升级">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-24T12:59:02.000Z">2019-10-24</time></div>
-                    <a href="/blog/2019/10/24/Linux/Linux常用网络命令及APT软件的安装与升级/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Linux常用网络命令及APT软件的安装与升级</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/Linux/">Linux</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1008,7 +1020,7 @@ Angle(\Theta) = tan^{-1}(\frac{G_x}{G_y})</script><p>  梯度的方向一般总�
                     <span class="level-item">十一月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">4</span>
                 </span>
             </a>
         </li>
@@ -1063,6 +1075,13 @@ Angle(\Theta) = tan^{-1}(\frac{G_x}{G_y})</script><p>  梯度的方向一般总�
                     <a class="tags has-addons" href="/blog/tags/C-STL/">
                         <span class="tag">C++_STL</span>
                         <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/CIFAR-10/">
+                        <span class="tag">CIFAR-10</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
