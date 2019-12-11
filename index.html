@@ -142,6 +142,180 @@
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
     <div class="card">
     
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-12-11T02:41:39.000Z">2019-12-11</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    19 分钟 读完 (大约 2893 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/blog/2019/12/11/深度学习/CNN网络架构演进-从LeNet到DenseNet/">CNN网络架构演进:从LeNet到DenseNet</a>
+            
+        </h1>
+        <div class="content">
+            <div align="center">  
+<img src="001.jpg">  
+</div> 
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>卷积神经网络可谓是现在深度学习领域中大红大紫的网络框架，尤其在计算机视觉领域更是一枝独秀。CNN从90年代的LeNet开始，21世纪初沉寂了10年，直到12年AlexNet开始又再焕发第二春，从ZF Net到VGG，GoogLeNet再到ResNet和最近的DenseNet，网络越来越深，架构越来越复杂，解决反向传播时梯度消失的方法也越来越巧妙。本文针对过往一些主流CNN网络架构进行总结。<br>本文将会谈及到以下经典的卷积神经网络：</p>
+<ul>
+<li>LeNet</li>
+<li>AlexNet</li>
+<li>ZF</li>
+<li>VGG</li>
+<li>Network in Network</li>
+<li>GoogLeNet(Inception-v1/v2/v3/v4)</li>
+<li>ResNet</li>
+<li>DenseNet</li>
+</ul>
+<h2 id="1-开山之作：LeNet"><a href="#1-开山之作：LeNet" class="headerlink" title="1.开山之作：LeNet"></a>1.开山之作：LeNet</h2><p><img src="https://images2017.cnblogs.com/blog/1093303/201802/1093303-20180217131615671-367457714.png" alt><br>LeNet是卷积神经网络的祖师爷LeCun在1998年提出，用于解决手写数字识别的视觉任务。自那时起，CNN的最基本的架构就定下来了：卷积层、池化层、全连接层。如今各大深度学习框架中所使用的LeNet都是简化改进过的LeNet-5（-5表示具有5个层），和原始的LeNet有些许不同，比如把激活函数改为了现在很常用的ReLu。<br>LeNet-5跟现有的conv-&gt;pool-&gt;ReLU的套路不同，它使用的方式是<code>conv1-&gt;pool-&gt;conv2-&gt;pool2再接全连接层</code>，但是不变的是，卷积层后紧接池化层的模式依旧不变。</p>
+<div align="center">  
+<img src="https://images2017.cnblogs.com/blog/1093303/201802/1093303-20180217131630609-291700181.png">  
+</div> 
+
+<h2 id="2-王者归来：AlexNet"><a href="#2-王者归来：AlexNet" class="headerlink" title="2.王者归来：AlexNet"></a>2.王者归来：AlexNet</h2><p>AlexNet在2012年ImageNet竞赛中以超过第二名10.9个百分点的绝对优势一举夺冠，从此深度学习和卷积神经网络名声鹊起，深度学习的研究如雨后春笋般出现，AlexNet的出现可谓是卷积神经网络的王者归来。<br><img src="https://images2017.cnblogs.com/blog/1093303/201802/1093303-20180217131643890-1883639712.png" alt><br>闪光点：</p>
+<ul>
+<li>更深的网络<br>以上图AlexNet架构为例，这个网络<code>前面5层是卷积层，后面三层是全连接层，最终softmax输出是1000类</code>。层数比LeNet多了不少，但<code>卷积神经网络总的流程并没有变化，只是在深度上加了不少</code>。</li>
+<li>数据增广<br>AlexNet针对的是1000类的分类问题，输入图片规定是256×256的三通道彩色图片，为了增强模型的泛化能力，避免过拟合，作者使用了随机裁剪的思路对原来256×256的图像进行随机裁剪，得到尺寸为3×224×224的图像，输入到网络训练。<br><img src="https://images2017.cnblogs.com/blog/1093303/201802/1093303-20180217131703406-1977094290.png" alt></li>
+<li>多GPU训练（结构上双分支）</li>
+<li>ReLu<br>最后一层的激活函数，由LeNet的Sigmoid改为ReLu加快随机梯度下降的收敛速度。</li>
+<li>Dropout<br>缓解过拟合</li>
+<li>LRN<br>对局部神经元的活动创建竞争机制，使得其中响应比较大的值变得相对更大，并抑制其他反馈较小的神经元，增强了模型的泛化能力。</li>
+</ul>
+<h2 id="3-稳步前行：ZF-Net"><a href="#3-稳步前行：ZF-Net" class="headerlink" title="3.稳步前行：ZF-Net"></a>3.稳步前行：ZF-Net</h2><p>ZFNet是2013ImageNet分类任务的冠军，其网络结构没什么改进，只是调了调参，性能较Alex提升了不少。<code>ZF-Net只是将AlexNet第一层卷积核由11变成7，步长由4变为2，第3，4，5卷积层转变为384，384，256</code>。这一年的ImageNet还是比较平静的一届，其冠军ZF-Net的名堂也没其他届的经典网络架构响亮。<br><img src="https://images2017.cnblogs.com/blog/1093303/201802/1093303-20180217131724437-1439325209.png" alt></p>
+<h2 id="4-越走越深：VGG-Nets"><a href="#4-越走越深：VGG-Nets" class="headerlink" title="4.越走越深：VGG-Nets"></a>4.越走越深：VGG-Nets</h2><p>VGG-Nets是由牛津大学VGG（Visual Geometry Group）提出，是2014年ImageNet竞赛定位任务的第一名和分类任务的第二名的中的基础网络。<code>VGG可以看成是加深版本的AlexNet. 都是conv layer + FC layer</code>。<br><strong>优点：</strong>VGG采用的是一种Pre-training的方式，这种方式在经典的神经网络中常见得到，就是先训练一部分小网络，然后再确保这部分网络稳定之后，再在这基础上逐渐加深。下表从左到右体现的就是这个过程，并且当网络处于D阶段的时候，效果是最优的，因此D阶段的网络也就是VGG-16了！E阶段得到的网络就是VGG-19了！VGG-16的16指的是conv+fc的总层数是16，是不包括max pool的层数！使用更小的卷积核3X3,1X1,3X3减小计算参数，1X1减小输入维度，同时都增加了非线性。</p>
+<div align="center">  
+<img src="https://images2017.cnblogs.com/blog/1093303/201802/1093303-20180217131736640-1269864740.png">  
+</div> 
+下面这个图就是VGG-16的网络结构:
+<div align="center">  
+<img src="https://images2017.cnblogs.com/blog/1093303/201802/1093303-20180217131751843-269987601.png">  
+</div> 
+从上图看出，VGG网络filter的个数（卷积后的输出通道数）从64开始，然后没接一个pooling后其成倍的增加，128、512，VGG的注意贡献是使用小尺寸的filter，及有规则的卷积-池化操作。
+闪光点：
+- 卷积层使用更小的尺寸
+>- 3×3卷积核的优点：
+>>*   多个3×3的卷基层比一个大尺寸filter卷基层有更多的非线性，使得判决函数更加具有判决性
+>>*   多个3×3的卷积层比一个大尺寸的filter有更少的参数，假设卷基层的输入和输出的特征图大小相同为C，那么三个3×3的卷积层参数个数3×（3×3×C×C）=27CC；一个7×7的卷积层参数为49CC；所以可以把三个3×3的filter看成是一个7×7filter的分解（中间层有非线性的分解）
+>- 1*1卷积核的优点：
+>>*  升降维：比如，一张500 * 500且厚度depth为100 的图片在20个filter上做1*1的卷积，那么结果的大小为500*500*20。
+>>* 加入非线性：卷积层之后经过激励层，1*1的卷积在前一层的学习表示上添加了非线性激励（ non-linear activation ），提升网络的表达能力；
+
+
+<h2 id="5-端到端：Network-in-Network"><a href="#5-端到端：Network-in-Network" class="headerlink" title="5.端到端：Network in Network"></a>5.端到端：Network in Network</h2><p><strong>优点：</strong></p>
+<ul>
+<li>数据处理，随机裁剪等；</li>
+<li>使用好的激活函数，relu替换sigmoid，防止过拟合采用dropout，lrn，卷积核变小减少计算量和参数，增加非线性，采用1X1减少维度，</li>
+<li>加速训练分组训练；</li>
+</ul>
+<p><strong>全连接的目的是什么呢？因为传统的网络我们的输出都是分类，也就是几个类别的概率甚至就是一个数–类别号，那么全连接层就是高度提纯的特征了，方便交给最后的分类器或者回归。</strong><br><strong>但是全连接的参数太多了，所以现在的趋势是尽量避免全连接，近期的大部分论文FC多用全局平均池化层（GAP，Global Average Pooling）的方法代替。后者的思想就是：用 feature map 直接表示属于某个类的 confidence map，比如有10个类，就在最后输出10个 feature map，每个feature map中的值加起来求平均值，这十个数字就是对应的概率或者叫置信度。然后把得到的这些平均值直接作为属于某个类别的 confidence value，再输入softmax中分类， 更重要的是实验效果并不比用 FC 差。</strong><br>关于Network in Network的解释参考以下链接[<a href="https://www.jianshu.com/p/defcd6a90205" target="_blank" rel="noopener">link</a>]<br><img src="https://upload-images.jianshu.io/upload_images/2795802-269bce3451079f09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/991/format/webp" alt></p>
+<h2 id="6-大浪推手：GoogLeNet"><a href="#6-大浪推手：GoogLeNet" class="headerlink" title="6.大浪推手：GoogLeNet"></a>6.大浪推手：GoogLeNet</h2><p><strong>优点：</strong></p>
+<ul>
+<li><code>使用Network in Network中1x1 conv及AvgPool替换fc</code></li>
+<li><code>引入inception模块</code><br>想通过一种spared layer architecture来实现较优的多维度特征表达，然后通过对这种结构进行叠加，中间不时再插入一些MaxPool层以减少参数数目（从而节省内存与计算开销）。<strong>具体来说，就是将CNN中常用的卷积（1x1，3x3，5x5）、池化操作（3x3）堆叠在一起（卷积、池化后的尺寸相同，将通道相加），一方面增加了网络的宽度，另一方面也增加了网络对尺度的适应性。</strong></li>
+</ul>
+<p>输入（可以是被卷积完的长方体输出作为该层的输入）进来后，通常可以选择直接使用像素信息(1x1卷积)传递到下一层，可以选择3x3卷积，可以选择5x5卷积，还可以选择max pooling对刚被卷积后的特征图降采样。但在实际的网络设计中，究竟该如何选择需要大量的实验和经验。Inception就不用我们来选择，而是将4个选项给神经网络，让网络自己去选择最合适的解决方案。<br><img src="https://pic1.zhimg.com/80/v2-9692631d087622f1b34c80055f13fac5_hd.jpg" alt><br>上图结构就是Inception，结构里的卷积stride都是1，另外为了保持特征响应图大小一致，都用了零填充。最后每个卷积层后面都立刻接了个ReLU层。在输出前有个叫concatenate的层，直译的意思是“并置”，即把4组不同类型但大小相同的特征响应图一张张并排叠起来，形成新的特征响应图。</p>
+<h2 id="7-坚持可持续性发展：Inception-v1-v2-v3-v4"><a href="#7-坚持可持续性发展：Inception-v1-v2-v3-v4" class="headerlink" title="7.坚持可持续性发展：Inception-v1/v2/v3/v4"></a>7.坚持可持续性发展：Inception-v1/v2/v3/v4</h2><p><code>这四个网络都是对Inception结构进行调整</code>。</p>
+<h2 id="8-里程碑式创新：ResNet"><a href="#8-里程碑式创新：ResNet" class="headerlink" title="8.里程碑式创新：ResNet"></a>8.里程碑式创新：ResNet</h2><p>2015年何恺明推出的ResNet在ISLVRC和COCO上横扫所有选手，获得冠军。ResNet在网络结构上做了大创新，而不再是简单的堆积层数，ResNet在卷积神经网络的新思路，绝对是深度学习发展历程上里程碑式的事件。详解参见该链接[<a href="https://www.jianshu.com/p/23c73b90657f" target="_blank" rel="noopener">link</a>]。<br>当卷积网络层数增加的同时容易引发梯度消失或梯度爆炸问题，ResNet的主要思想是在网络中增加了直连通道，即Highway Network的思想。此前的网络结构是性能输入做一个非线性变换，而Highway Network则允许保留之前网络层的一定比例的输出。ResNet的思想和Highway Network的思想也非常类似，允许原始输入信息直接传到后面的层中，如下图所示。<br><code>可以直接学习输入和输出的差值F(x)</code><br><img src="https://images2017.cnblogs.com/blog/1093303/201802/1093303-20180217131952952-92773471.png" alt></p>
+<p><img src="https://images2017.cnblogs.com/blog/1093303/201802/1093303-20180217131926202-233779647.jpg" alt><br><strong>优点：</strong></p>
+<ul>
+<li><code>层数已经非常深，超过百层</code></li>
+<li><code>引入残差单元来解决退化问题</code></li>
+</ul>
+<h2 id="9-继往开来：DenseNet"><a href="#9-继往开来：DenseNet" class="headerlink" title="9.继往开来：DenseNet"></a>9.继往开来：DenseNet</h2><p><strong>优点：</strong>有效地复用各layers之间的feature map计算，从而减少每层需用的训练参数。<br>自Resnet提出以后，ResNet的变种网络层出不穷，都各有其特点，网络性能也有一定的提升。本文介绍的最后一个网络是CVPR 2017最佳论文DenseNet，论文中提出的DenseNet（Dense Convolutional Network）主要还是和ResNet及Inception网络做对比，思想上有借鉴，但却是全新的结构，网络结构并不复杂，却非常有效，在CIFAR指标上全面超越ResNet。可以说DenseNet吸收了ResNet最精华的部分，并在此上做了更加创新的工作，使得网络性能进一步提升。<br><img src="https://images2017.cnblogs.com/blog/1093303/201802/1093303-20180217132019609-1216378928.png" alt></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-image">
+        <a href="/blog/2019/12/05/MySql/数据库安全保护机制大总结/" class="image is-7by1">
+            <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1575557339669&amp;di=4dc8bb79574f0620fe694be0b936fffa&amp;imgtype=0&amp;src=http%3A%2F%2Fwww.51cto.com%2Ffiles%2Fuploadimg%2F20110801%2F102020807.jpg" alt="数据库安全机制及恢复技术大总结">
+        </a>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-12-05T11:58:45.000Z">2019-12-05</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/blog/categories/WEB/MySql/">MySql</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    几秒 读完 (大约 76 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/blog/2019/12/05/MySql/数据库安全保护机制大总结/">数据库安全机制及恢复技术大总结</a>
+            
+        </h1>
+        <div class="content">
+            <p>本文对数据库中的安全保护机制进行详细总计。</p>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/blog/2019/12/05/MySql/数据库安全保护机制大总结/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
     <div class="card-image">
         <a href="/blog/2019/12/05/MySql/数据库基础知识大总结/" class="image is-7by1">
             <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1575552346478&amp;di=c58c159a04ef803d6477dfab065dfcf0&amp;imgtype=0&amp;src=http%3A%2F%2Fpic2.zhimg.com%2F80%2Fv2-a1217564b1dd515fd0b8555455cb015e_hd.jpg" alt="数据库基础知识大总结">
@@ -183,114 +357,6 @@
             <div class="level-start">
                 <div class="level-item">
                 <a class="button is-size-7 is-light" href="/blog/2019/12/05/MySql/数据库基础知识大总结/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/blog/2019/12/04/MySql/MySql命令总结大全/" class="image is-7by1">
-            <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1575548525810&amp;di=14d976b730085e5de37ebf2ed6838f0e&amp;imgtype=0&amp;src=http%3A%2F%2Fwww.javacui.com%2Fueditor%2Fphp%2Fupload%2Fimage%2F20140818%2F1408329495178606.gif" alt="MySql命令总结大全">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-12-04T02:17:39.000Z">2019-12-04</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/blog/categories/WEB/MySql/">MySql</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    8 分钟 读完 (大约 1140 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/blog/2019/12/04/MySql/MySql命令总结大全/">MySql命令总结大全</a>
-            
-        </h1>
-        <div class="content">
-            <p>对MySql中命令进行详细总结。</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/blog/2019/12/04/MySql/MySql命令总结大全/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-11-04T15:36:07.000Z">2019-11-04</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    1 分钟 读完 (大约 121 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/blog/2019/11/04/TensorFlow/八-CIFAR-10与ImageNet图像识别/">(八)CIFAR-10与ImageNet图像识别</a>
-            
-        </h1>
-        <div class="content">
-            <p>本文以CIFAR-10数据集为例，从数据集下载、显示、数据预处理、训练模型，到查看测试模型效果整体进行介绍。</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/blog/2019/11/04/TensorFlow/八-CIFAR-10与ImageNet图像识别/#more">阅读更多</a>
                 </div>
             </div>
         </div>
@@ -373,7 +439,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        37
+                        39
                     </p>
                 </div>
             </div>
@@ -393,7 +459,7 @@
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        16
+                        17
                     </p>
                 </div>
             </div>
@@ -530,7 +596,7 @@
                 <span class="level-item">TensorFlow</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">7</span>
+                <span class="level-item tag">8</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/blog/categories/WEB/">
@@ -538,7 +604,7 @@
                 <span class="level-item">WEB</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">4</span>
+                <span class="level-item tag">5</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/blog/categories/WEB/JAVA/">
@@ -554,7 +620,7 @@
                 <span class="level-item">MySql</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">2</span>
+                <span class="level-item tag">3</span>
             </span>
         </a></li></ul></li><li>
         <a class="level is-marginless" href="/blog/categories/设计模式/">
@@ -584,7 +650,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/blog/tags/C-STL/" style="font-size: 12.5px;">C++_STL</a> <a href="/blog/tags/CIFAR-10/" style="font-size: 10px;">CIFAR-10</a> <a href="/blog/tags/Java/" style="font-size: 10px;">Java</a> <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/blog/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/MySql/" style="font-size: 12.5px;">MySql</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 17.5px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 17.5px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 17.5px;">设计模式</a>
+        <a href="/blog/tags/C-STL/" style="font-size: 12.5px;">C++_STL</a> <a href="/blog/tags/CIFAR-10/" style="font-size: 10px;">CIFAR-10</a> <a href="/blog/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/blog/tags/Java/" style="font-size: 10px;">Java</a> <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/blog/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/MySql/" style="font-size: 15px;">MySql</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 17.5px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 17.5px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 17.5px;">设计模式</a>
     </div>
 </div>
 
@@ -598,6 +664,44 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/12/11/深度学习/CNN网络架构演进-从LeNet到DenseNet/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="CNN网络架构演进:从LeNet到DenseNet">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-11T02:41:39.000Z">2019-12-11</time></div>
+                    <a href="/blog/2019/12/11/深度学习/CNN网络架构演进-从LeNet到DenseNet/" class="title has-link-black-ter is-size-6 has-text-weight-normal">CNN网络架构演进:从LeNet到DenseNet</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/12/05/MySql/数据库安全保护机制大总结/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1575557339669&amp;di=4dc8bb79574f0620fe694be0b936fffa&amp;imgtype=0&amp;src=http%3A%2F%2Fwww.51cto.com%2Ffiles%2Fuploadimg%2F20110801%2F102020807.jpg" alt="数据库安全机制及恢复技术大总结">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-05T11:58:45.000Z">2019-12-05</time></div>
+                    <a href="/blog/2019/12/05/MySql/数据库安全保护机制大总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">数据库安全机制及恢复技术大总结</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/MySql/">MySql</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -656,44 +760,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识别_线性回归、多层感知机、CNN实现">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T08:27:02.000Z">2019-11-03</time></div>
-                    <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(七)手写数字识别_线性回归、多层感知机、CNN实现</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/blog/2019/11/02/OpenCV/02图像/八-OpenCV图像处理-图像分割、交互式前景提取/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://static.cdn.longmaosoft.com/o_1db09hk4a1tl91uhuao7r6v1ovi2i.png" alt="(八)OpenCV图像处理_图像分割、交互式前景提取">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-02T08:11:17.000Z">2019-11-02</time></div>
-                    <a href="/blog/2019/11/02/OpenCV/02图像/八-OpenCV图像处理-图像分割、交互式前景提取/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(八)OpenCV图像处理_图像分割、交互式前景提取</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -712,7 +778,7 @@
                     <span class="level-item">十二月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">4</span>
                 </span>
             </a>
         </li>
@@ -789,6 +855,13 @@
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/CNN/">
+                        <span class="tag">CNN</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/blog/tags/Java/">
                         <span class="tag">Java</span>
                         <span class="tag is-grey">1</span>
@@ -826,7 +899,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/blog/tags/MySql/">
                         <span class="tag">MySql</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 
@@ -914,6 +987,44 @@
         
         <article class="media">
             
+            <a href="/blog/2019/12/11/深度学习/CNN网络架构演进-从LeNet到DenseNet/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="CNN网络架构演进:从LeNet到DenseNet">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-11T02:41:39.000Z">2019-12-11</time></div>
+                    <a href="/blog/2019/12/11/深度学习/CNN网络架构演进-从LeNet到DenseNet/" class="title has-link-black-ter is-size-6 has-text-weight-normal">CNN网络架构演进:从LeNet到DenseNet</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/blog/2019/12/05/MySql/数据库安全保护机制大总结/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1575557339669&amp;di=4dc8bb79574f0620fe694be0b936fffa&amp;imgtype=0&amp;src=http%3A%2F%2Fwww.51cto.com%2Ffiles%2Fuploadimg%2F20110801%2F102020807.jpg" alt="数据库安全机制及恢复技术大总结">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-05T11:58:45.000Z">2019-12-05</time></div>
+                    <a href="/blog/2019/12/05/MySql/数据库安全保护机制大总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">数据库安全机制及恢复技术大总结</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/MySql/">MySql</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2019/12/05/MySql/数据库基础知识大总结/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1575552346478&amp;di=c58c159a04ef803d6477dfab065dfcf0&amp;imgtype=0&amp;src=http%3A%2F%2Fpic2.zhimg.com%2F80%2Fv2-a1217564b1dd515fd0b8555455cb015e_hd.jpg" alt="数据库基础知识大总结">
@@ -969,44 +1080,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识别_线性回归、多层感知机、CNN实现">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T08:27:02.000Z">2019-11-03</time></div>
-                    <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(七)手写数字识别_线性回归、多层感知机、CNN实现</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/blog/2019/11/02/OpenCV/02图像/八-OpenCV图像处理-图像分割、交互式前景提取/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://static.cdn.longmaosoft.com/o_1db09hk4a1tl91uhuao7r6v1ovi2i.png" alt="(八)OpenCV图像处理_图像分割、交互式前景提取">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-02T08:11:17.000Z">2019-11-02</time></div>
-                    <a href="/blog/2019/11/02/OpenCV/02图像/八-OpenCV图像处理-图像分割、交互式前景提取/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(八)OpenCV图像处理_图像分割、交互式前景提取</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1025,7 +1098,7 @@
                     <span class="level-item">十二月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">4</span>
                 </span>
             </a>
         </li>
@@ -1102,6 +1175,13 @@
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/CNN/">
+                        <span class="tag">CNN</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/blog/tags/Java/">
                         <span class="tag">Java</span>
                         <span class="tag is-grey">1</span>
@@ -1139,7 +1219,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/blog/tags/MySql/">
                         <span class="tag">MySql</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 

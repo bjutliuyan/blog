@@ -3,19 +3,24 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-<title>归档: 2019 - Bjutliuyan&#39;s blog</title>
+<title>CNN网络架构演进:从LeNet到DenseNet - Bjutliuyan&#39;s blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Bjutliuyan&#39;s blog">
-<meta property="og:url" content="http://bjutliuyan.github.io/blog/archives/2019/page/4/index.html">
+    <meta name="description" content="前言卷积神经网络可谓是现在深度学习领域中大红大紫的网络框架，尤其在计算机视觉领域更是一枝独秀。CNN从90年代的LeNet开始，21世纪初沉寂了10年，直到12年AlexNet开始又再焕发第二春，从ZF Net到VGG，GoogLeNet再到ResNet和最近的DenseNet，网络越来越深，架构越来越复杂，解决反向传播时梯度消失的方法也越来越巧妙。本文针对过往一些主流CNN网络">
+<meta name="keywords" content="CNN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CNN网络架构演进:从LeNet到DenseNet">
+<meta property="og:url" content="http://bjutliuyan.github.io/blog/2019/12/11/深度学习/CNN网络架构演进-从LeNet到DenseNet/index.html">
 <meta property="og:site_name" content="Bjutliuyan&#39;s blog">
+<meta property="og:description" content="前言卷积神经网络可谓是现在深度学习领域中大红大紫的网络框架，尤其在计算机视觉领域更是一枝独秀。CNN从90年代的LeNet开始，21世纪初沉寂了10年，直到12年AlexNet开始又再焕发第二春，从ZF Net到VGG，GoogLeNet再到ResNet和最近的DenseNet，网络越来越深，架构越来越复杂，解决反向传播时梯度消失的方法也越来越巧妙。本文针对过往一些主流CNN网络">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://bjutliuyan.github.io/blog/images/og_image.png">
+<meta property="og:updated_time" content="2019-12-11T13:44:47.761Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Bjutliuyan&#39;s blog">
+<meta name="twitter:title" content="CNN网络架构演进:从LeNet到DenseNet">
+<meta name="twitter:description" content="前言卷积神经网络可谓是现在深度学习领域中大红大紫的网络框架，尤其在计算机视觉领域更是一枝独秀。CNN从90年代的LeNet开始，21世纪初沉寂了10年，直到12年AlexNet开始又再焕发第二春，从ZF Net到VGG，GoogLeNet再到ResNet和最近的DenseNet，网络越来越深，架构越来越复杂，解决反向传播时梯度消失的方法也越来越巧妙。本文针对过往一些主流CNN网络">
 <meta name="twitter:image" content="http://bjutliuyan.github.io/blog/images/og_image.png">
 
 
@@ -94,7 +99,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/blog/">
             
-                <img src="/blog/images/logo.svg" alt="Bjutliuyan&#39;s blog" height="28">
+                <img src="/blog/images/logo.svg" alt="CNN网络架构演进:从LeNet到DenseNet" height="28">
             
             </a>
         </div>
@@ -139,222 +144,227 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-12-11T02:41:39.000Z">2019-12-11</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    19 分钟 读完 (大约 2893 个字)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span>次访问
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                CNN网络架构演进:从LeNet到DenseNet
+            
+        </h1>
+        <div class="content">
+            <div align="center">  
+<img src="001.jpg">  
+</div> 
 
-<div class="card widget">
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>卷积神经网络可谓是现在深度学习领域中大红大紫的网络框架，尤其在计算机视觉领域更是一枝独秀。CNN从90年代的LeNet开始，21世纪初沉寂了10年，直到12年AlexNet开始又再焕发第二春，从ZF Net到VGG，GoogLeNet再到ResNet和最近的DenseNet，网络越来越深，架构越来越复杂，解决反向传播时梯度消失的方法也越来越巧妙。本文针对过往一些主流CNN网络架构进行总结。<br>本文将会谈及到以下经典的卷积神经网络：</p>
+<ul>
+<li>LeNet</li>
+<li>AlexNet</li>
+<li>ZF</li>
+<li>VGG</li>
+<li>Network in Network</li>
+<li>GoogLeNet(Inception-v1/v2/v3/v4)</li>
+<li>ResNet</li>
+<li>DenseNet</li>
+</ul>
+<h2 id="1-开山之作：LeNet"><a href="#1-开山之作：LeNet" class="headerlink" title="1.开山之作：LeNet"></a>1.开山之作：LeNet</h2><p><img src="https://images2017.cnblogs.com/blog/1093303/201802/1093303-20180217131615671-367457714.png" alt><br>LeNet是卷积神经网络的祖师爷LeCun在1998年提出，用于解决手写数字识别的视觉任务。自那时起，CNN的最基本的架构就定下来了：卷积层、池化层、全连接层。如今各大深度学习框架中所使用的LeNet都是简化改进过的LeNet-5（-5表示具有5个层），和原始的LeNet有些许不同，比如把激活函数改为了现在很常用的ReLu。<br>LeNet-5跟现有的conv-&gt;pool-&gt;ReLU的套路不同，它使用的方式是<code>conv1-&gt;pool-&gt;conv2-&gt;pool2再接全连接层</code>，但是不变的是，卷积层后紧接池化层的模式依旧不变。</p>
+<div align="center">  
+<img src="https://images2017.cnblogs.com/blog/1093303/201802/1093303-20180217131630609-291700181.png">  
+</div> 
+
+<h2 id="2-王者归来：AlexNet"><a href="#2-王者归来：AlexNet" class="headerlink" title="2.王者归来：AlexNet"></a>2.王者归来：AlexNet</h2><p>AlexNet在2012年ImageNet竞赛中以超过第二名10.9个百分点的绝对优势一举夺冠，从此深度学习和卷积神经网络名声鹊起，深度学习的研究如雨后春笋般出现，AlexNet的出现可谓是卷积神经网络的王者归来。<br><img src="https://images2017.cnblogs.com/blog/1093303/201802/1093303-20180217131643890-1883639712.png" alt><br>闪光点：</p>
+<ul>
+<li>更深的网络<br>以上图AlexNet架构为例，这个网络<code>前面5层是卷积层，后面三层是全连接层，最终softmax输出是1000类</code>。层数比LeNet多了不少，但<code>卷积神经网络总的流程并没有变化，只是在深度上加了不少</code>。</li>
+<li>数据增广<br>AlexNet针对的是1000类的分类问题，输入图片规定是256×256的三通道彩色图片，为了增强模型的泛化能力，避免过拟合，作者使用了随机裁剪的思路对原来256×256的图像进行随机裁剪，得到尺寸为3×224×224的图像，输入到网络训练。<br><img src="https://images2017.cnblogs.com/blog/1093303/201802/1093303-20180217131703406-1977094290.png" alt></li>
+<li>多GPU训练（结构上双分支）</li>
+<li>ReLu<br>最后一层的激活函数，由LeNet的Sigmoid改为ReLu加快随机梯度下降的收敛速度。</li>
+<li>Dropout<br>缓解过拟合</li>
+<li>LRN<br>对局部神经元的活动创建竞争机制，使得其中响应比较大的值变得相对更大，并抑制其他反馈较小的神经元，增强了模型的泛化能力。</li>
+</ul>
+<h2 id="3-稳步前行：ZF-Net"><a href="#3-稳步前行：ZF-Net" class="headerlink" title="3.稳步前行：ZF-Net"></a>3.稳步前行：ZF-Net</h2><p>ZFNet是2013ImageNet分类任务的冠军，其网络结构没什么改进，只是调了调参，性能较Alex提升了不少。<code>ZF-Net只是将AlexNet第一层卷积核由11变成7，步长由4变为2，第3，4，5卷积层转变为384，384，256</code>。这一年的ImageNet还是比较平静的一届，其冠军ZF-Net的名堂也没其他届的经典网络架构响亮。<br><img src="https://images2017.cnblogs.com/blog/1093303/201802/1093303-20180217131724437-1439325209.png" alt></p>
+<h2 id="4-越走越深：VGG-Nets"><a href="#4-越走越深：VGG-Nets" class="headerlink" title="4.越走越深：VGG-Nets"></a>4.越走越深：VGG-Nets</h2><p>VGG-Nets是由牛津大学VGG（Visual Geometry Group）提出，是2014年ImageNet竞赛定位任务的第一名和分类任务的第二名的中的基础网络。<code>VGG可以看成是加深版本的AlexNet. 都是conv layer + FC layer</code>。<br><strong>优点：</strong>VGG采用的是一种Pre-training的方式，这种方式在经典的神经网络中常见得到，就是先训练一部分小网络，然后再确保这部分网络稳定之后，再在这基础上逐渐加深。下表从左到右体现的就是这个过程，并且当网络处于D阶段的时候，效果是最优的，因此D阶段的网络也就是VGG-16了！E阶段得到的网络就是VGG-19了！VGG-16的16指的是conv+fc的总层数是16，是不包括max pool的层数！使用更小的卷积核3X3,1X1,3X3减小计算参数，1X1减小输入维度，同时都增加了非线性。</p>
+<div align="center">  
+<img src="https://images2017.cnblogs.com/blog/1093303/201802/1093303-20180217131736640-1269864740.png">  
+</div> 
+下面这个图就是VGG-16的网络结构:
+<div align="center">  
+<img src="https://images2017.cnblogs.com/blog/1093303/201802/1093303-20180217131751843-269987601.png">  
+</div> 
+从上图看出，VGG网络filter的个数（卷积后的输出通道数）从64开始，然后没接一个pooling后其成倍的增加，128、512，VGG的注意贡献是使用小尺寸的filter，及有规则的卷积-池化操作。
+闪光点：
+- 卷积层使用更小的尺寸
+>- 3×3卷积核的优点：
+>>*   多个3×3的卷基层比一个大尺寸filter卷基层有更多的非线性，使得判决函数更加具有判决性
+>>*   多个3×3的卷积层比一个大尺寸的filter有更少的参数，假设卷基层的输入和输出的特征图大小相同为C，那么三个3×3的卷积层参数个数3×（3×3×C×C）=27CC；一个7×7的卷积层参数为49CC；所以可以把三个3×3的filter看成是一个7×7filter的分解（中间层有非线性的分解）
+>- 1*1卷积核的优点：
+>>*  升降维：比如，一张500 * 500且厚度depth为100 的图片在20个filter上做1*1的卷积，那么结果的大小为500*500*20。
+>>* 加入非线性：卷积层之后经过激励层，1*1的卷积在前一层的学习表示上添加了非线性激励（ non-linear activation ），提升网络的表达能力；
+
+
+<h2 id="5-端到端：Network-in-Network"><a href="#5-端到端：Network-in-Network" class="headerlink" title="5.端到端：Network in Network"></a>5.端到端：Network in Network</h2><p><strong>优点：</strong></p>
+<ul>
+<li>数据处理，随机裁剪等；</li>
+<li>使用好的激活函数，relu替换sigmoid，防止过拟合采用dropout，lrn，卷积核变小减少计算量和参数，增加非线性，采用1X1减少维度，</li>
+<li>加速训练分组训练；</li>
+</ul>
+<p><strong>全连接的目的是什么呢？因为传统的网络我们的输出都是分类，也就是几个类别的概率甚至就是一个数–类别号，那么全连接层就是高度提纯的特征了，方便交给最后的分类器或者回归。</strong><br><strong>但是全连接的参数太多了，所以现在的趋势是尽量避免全连接，近期的大部分论文FC多用全局平均池化层（GAP，Global Average Pooling）的方法代替。后者的思想就是：用 feature map 直接表示属于某个类的 confidence map，比如有10个类，就在最后输出10个 feature map，每个feature map中的值加起来求平均值，这十个数字就是对应的概率或者叫置信度。然后把得到的这些平均值直接作为属于某个类别的 confidence value，再输入softmax中分类， 更重要的是实验效果并不比用 FC 差。</strong><br>关于Network in Network的解释参考以下链接[<a href="https://www.jianshu.com/p/defcd6a90205" target="_blank" rel="noopener">link</a>]<br><img src="https://upload-images.jianshu.io/upload_images/2795802-269bce3451079f09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/991/format/webp" alt></p>
+<h2 id="6-大浪推手：GoogLeNet"><a href="#6-大浪推手：GoogLeNet" class="headerlink" title="6.大浪推手：GoogLeNet"></a>6.大浪推手：GoogLeNet</h2><p><strong>优点：</strong></p>
+<ul>
+<li><code>使用Network in Network中1x1 conv及AvgPool替换fc</code></li>
+<li><code>引入inception模块</code><br>想通过一种spared layer architecture来实现较优的多维度特征表达，然后通过对这种结构进行叠加，中间不时再插入一些MaxPool层以减少参数数目（从而节省内存与计算开销）。<strong>具体来说，就是将CNN中常用的卷积（1x1，3x3，5x5）、池化操作（3x3）堆叠在一起（卷积、池化后的尺寸相同，将通道相加），一方面增加了网络的宽度，另一方面也增加了网络对尺度的适应性。</strong></li>
+</ul>
+<p>输入（可以是被卷积完的长方体输出作为该层的输入）进来后，通常可以选择直接使用像素信息(1x1卷积)传递到下一层，可以选择3x3卷积，可以选择5x5卷积，还可以选择max pooling对刚被卷积后的特征图降采样。但在实际的网络设计中，究竟该如何选择需要大量的实验和经验。Inception就不用我们来选择，而是将4个选项给神经网络，让网络自己去选择最合适的解决方案。<br><img src="https://pic1.zhimg.com/80/v2-9692631d087622f1b34c80055f13fac5_hd.jpg" alt><br>上图结构就是Inception，结构里的卷积stride都是1，另外为了保持特征响应图大小一致，都用了零填充。最后每个卷积层后面都立刻接了个ReLU层。在输出前有个叫concatenate的层，直译的意思是“并置”，即把4组不同类型但大小相同的特征响应图一张张并排叠起来，形成新的特征响应图。</p>
+<h2 id="7-坚持可持续性发展：Inception-v1-v2-v3-v4"><a href="#7-坚持可持续性发展：Inception-v1-v2-v3-v4" class="headerlink" title="7.坚持可持续性发展：Inception-v1/v2/v3/v4"></a>7.坚持可持续性发展：Inception-v1/v2/v3/v4</h2><p><code>这四个网络都是对Inception结构进行调整</code>。</p>
+<h2 id="8-里程碑式创新：ResNet"><a href="#8-里程碑式创新：ResNet" class="headerlink" title="8.里程碑式创新：ResNet"></a>8.里程碑式创新：ResNet</h2><p>2015年何恺明推出的ResNet在ISLVRC和COCO上横扫所有选手，获得冠军。ResNet在网络结构上做了大创新，而不再是简单的堆积层数，ResNet在卷积神经网络的新思路，绝对是深度学习发展历程上里程碑式的事件。详解参见该链接[<a href="https://www.jianshu.com/p/23c73b90657f" target="_blank" rel="noopener">link</a>]。<br>当卷积网络层数增加的同时容易引发梯度消失或梯度爆炸问题，ResNet的主要思想是在网络中增加了直连通道，即Highway Network的思想。此前的网络结构是性能输入做一个非线性变换，而Highway Network则允许保留之前网络层的一定比例的输出。ResNet的思想和Highway Network的思想也非常类似，允许原始输入信息直接传到后面的层中，如下图所示。<br><code>可以直接学习输入和输出的差值F(x)</code><br><img src="https://images2017.cnblogs.com/blog/1093303/201802/1093303-20180217131952952-92773471.png" alt></p>
+<p><img src="https://images2017.cnblogs.com/blog/1093303/201802/1093303-20180217131926202-233779647.jpg" alt><br><strong>优点：</strong></p>
+<ul>
+<li><code>层数已经非常深，超过百层</code></li>
+<li><code>引入残差单元来解决退化问题</code></li>
+</ul>
+<h2 id="9-继往开来：DenseNet"><a href="#9-继往开来：DenseNet" class="headerlink" title="9.继往开来：DenseNet"></a>9.继往开来：DenseNet</h2><p><strong>优点：</strong>有效地复用各layers之间的feature map计算，从而减少每层需用的训练参数。<br>自Resnet提出以后，ResNet的变种网络层出不穷，都各有其特点，网络性能也有一定的提升。本文介绍的最后一个网络是CVPR 2017最佳论文DenseNet，论文中提出的DenseNet（Dense Convolutional Network）主要还是和ResNet及Inception网络做对比，思想上有借鉴，但却是全新的结构，网络结构并不复杂，却非常有效，在CIFAR指标上全面超越ResNet。可以说DenseNet吸收了ResNet最精华的部分，并在此上做了更加创新的工作，使得网络性能进一步提升。<br><img src="https://images2017.cnblogs.com/blog/1093303/201802/1093303-20180217132019609-1216378928.png" alt></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/blog/tags/CNN/">CNN</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
     <div class="card-content">
-        <h3 class="tag is-link">
-        2019
-        </h3>
-        <div class="timeline">
-        
-            <article class="media">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
                 
-                <a href="/blog/2019/09/17/TensorFlow/四-TensorFlow数据读取/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568741106099&amp;di=93dcc8d78c3fdbc53ef21733862c46d9&amp;imgtype=0&amp;src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F69187cc5a0ee5414cb3437c272f1a6a112c0a76c5267b-eRcrDK_fw658" alt="(四)TensorFlow数据读取">
-                    </p>
-                </a>
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/blog/images/alipay.jpg" alt="支付宝"></div>
+</a>
+
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-09-17T14:27:18.000Z">2019-09-17</time>
-                        <a href="/blog/2019/09/17/TensorFlow/四-TensorFlow数据读取/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(四)TensorFlow数据读取</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
                 
-                <a href="/blog/2019/09/17/TensorFlow/三-TensorBoard可视化及模型数据的保存与加载/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568720993556&amp;di=27eecec21f23c01516a4957906b840fe&amp;imgtype=0&amp;src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170925%2F3c83dd1aa9ec47e58744928e22c5d152.jpeg" alt="(三)TensorBoard可视化及模型数据的保存加载">
-                    </p>
-                </a>
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/blog/images/wechat_pay.jpg" alt="微信"></div>
+</a>
+
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-09-17T07:28:31.000Z">2019-09-17</time>
-                        <a href="/blog/2019/09/17/TensorFlow/三-TensorBoard可视化及模型数据的保存与加载/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(三)TensorBoard可视化及模型数据的保存加载</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/blog/2019/09/17/TensorFlow/二-TensorFlow常量、变量、占位符及op详解/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568696615309&amp;di=32782aecbdc08438d1812e3064739c91&amp;imgtype=0&amp;src=http%3A%2F%2Fstatic.open-open.com%2Fnews%2FuploadImg%2F20160421%2F20160421204054_742.jpg" alt="(二)TensorFlow常量、变量、占位符及op详解">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-09-17T02:04:07.000Z">2019-09-17</time>
-                        <a href="/blog/2019/09/17/TensorFlow/二-TensorFlow常量、变量、占位符及op详解/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(二)TensorFlow常量、变量、占位符及op详解</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/blog/2019/09/16/TensorFlow/一-TensorFlow相关介绍及安装步骤详解/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="http://www.soomal.com/images/doc/20180628/00075647_01.jpg" alt="(一)TensorFlow相关介绍及安装步骤详解">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-09-16T05:28:00.000Z">2019-09-16</time>
-                        <a href="/blog/2019/09/16/TensorFlow/一-TensorFlow相关介绍及安装步骤详解/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(一)TensorFlow相关介绍及安装步骤详解</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/blog/2019/09/11/随笔/随笔篇20190911/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1568793614&amp;di=85c9260ee79f336b4d216705778fa920&amp;imgtype=jpg&amp;er=1&amp;src=http%3A%2F%2Fpic.90sjimg.com%2Fback_pic%2Fqk%2Fback_origin_pic%2F00%2F03%2F80%2Fs_1198_e44a249490ea3c74e83e338dc18678bc.jpg" alt="随笔篇20190911">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-09-11T07:56:05.000Z">2019-09-11</time>
-                        <a href="/blog/2019/09/11/随笔/随笔篇20190911/" class="title has-link-black-ter is-size-6 has-text-weight-normal">随笔篇20190911</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/blog/categories/随笔/">随笔</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/blog/2019/09/10/OpenCV/02图像/五-OpenCV图像处理-图像梯度、边缘检测/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1567750445013&amp;di=8f019f210c98688dec883c85a8c9f92b&amp;imgtype=0&amp;src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg" alt="(五)OpenCV图像处理_图像梯度、边缘检测">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-09-10T14:45:31.000Z">2019-09-10</time>
-                        <a href="/blog/2019/09/10/OpenCV/02图像/五-OpenCV图像处理-图像梯度、边缘检测/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(五)OpenCV图像处理_图像梯度、边缘检测</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/blog/2019/09/09/OpenCV/02图像/四-OpenCV图像处理-图像阀值、平滑、形态学转换/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1567750445013&amp;di=8f019f210c98688dec883c85a8c9f92b&amp;imgtype=0&amp;src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-20618e0a1265ce9411db5c4d49bedc1f_1200x500.jpg" alt="(四)OpenCV图像处理_图像阀值、平滑、形态学转换">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-09-09T04:40:34.000Z">2019-09-09</time>
-                        <a href="/blog/2019/09/09/OpenCV/02图像/四-OpenCV图像处理-图像阀值、平滑、形态学转换/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(四)OpenCV图像处理_图像阀值、平滑、形态学转换</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
         </div>
     </div>
 </div>
 
 
 
-    
 <div class="card card-transparent">
-    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-        <div class="pagination-previous">
-            <a class="is-flex-grow has-text-black-ter" href="/blog/archives/2019/page/3/">上一页</a>
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/blog/2019/12/05/MySql/数据库安全保护机制大总结/">
+                <span class="level-item">数据库安全机制及恢复技术大总结</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
         </div>
-        <div class="pagination-next">
-            <a class="is-flex-grow has-text-black-ter" href="/blog/archives/2019/page/5/">下一页</a>
-        </div>
-        <ul class="pagination-list is-hidden-mobile">
-            
-            <li><a class="pagination-link has-text-black-ter" href="/blog/archives/2019/">1</a></li>
-            
-            <li><a class="pagination-link has-text-black-ter" href="/blog/archives/2019/page/2/">2</a></li>
-            
-            <li><a class="pagination-link has-text-black-ter" href="/blog/archives/2019/page/3/">3</a></li>
-            
-            <li><a class="pagination-link is-current" href="/blog/archives/2019/page/4/">4</a></li>
-            
-            <li><a class="pagination-link has-text-black-ter" href="/blog/archives/2019/page/5/">5</a></li>
-            
-            <li><a class="pagination-link has-text-black-ter" href="/blog/archives/2019/page/6/">6</a></li>
-            
-        </ul>
-    </nav>
+        
+    </div>
 </div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+
+<!--gitment 评论-->
+  <div class="comments" id="comments">
+  
+    <!--汉化-->
+    <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+    <script src="https://billts.site/js/gitment.js"></script>
+    <!--原型-->
+    <!--
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js" type="text/javascript"></script>
+    -->
+    
+      <div id="gitmentContainer" style="margin-bottom: -19px;"></div>
+     
+      <style>
+        .gitment-container a {
+          border: none;
+        }
+        .comments {
+          margin: 60px 0 0;padding: 0 60px;
+        }
+      </style>
+     
+      <script type="text/javascript">
+        var gitment = new Gitment({
+              id: 'CNN网络架构演进:从LeNet到DenseNet',
+              title: 'CNN网络架构演进:从LeNet到DenseNet',
+              owner: 'bjutliuyan',
+              repo: 'hello-world',
+              oauth: {
+                client_id: 'fdf345739039350618b5',
+                client_secret: '9d97d820336314984fc3ef8ffc1e5c786b46572f',
+              },
+        })
+        gitment.render('gitmentContainer')
+      </script>
+    
+  </div>
+<!--gitment 评论 end-->
+    </div>
+</div>
+
 </div>
                 
 
@@ -1258,7 +1268,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/blog/">
                 
-                    <img src="/blog/images/logo.svg" alt="Bjutliuyan&#39;s blog" height="28">
+                    <img src="/blog/images/logo.svg" alt="CNN网络架构演进:从LeNet到DenseNet" height="28">
                 
                 </a>
                 <p class="is-size-7">
