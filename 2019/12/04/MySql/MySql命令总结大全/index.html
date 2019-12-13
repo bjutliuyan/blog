@@ -184,7 +184,8 @@
             
         </h1>
         <div class="content">
-            <p>对MySql中命令进行详细总结。<br><a id="more"></a></p>
+            <p>对MySql中命令进行详细总结。</p>
+<a id="more"></a>
 <ul>
 <li>最近详细过了下SQL有关知识，以及刷完了Leetcode上所有有关数据库的题目。因此在这里想开启一段MySql探讨之旅，从<strong>常用命令-&gt;数据库基础知识-&gt;安全保护机制-&gt;并发版本控制(锁协议)-&gt;物理索引机制-&gt;LeetCode优秀题目-&gt;JDBC中间件-&gt;数据库系统架构等</strong>进行一份超全总结。不完善的地方小伙伴们可以在评论里提醒作者进行补充。</li>
 </ul>
@@ -207,6 +208,7 @@
 </li>
 <li><p><strong>视图的定义与删除</strong></p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 创建视图</span><br><span class="line">create view 视图名 as select语句；</span><br><span class="line"></span><br><span class="line"># 查询视图</span><br><span class="line">describe 视图名；</span><br><span class="line"></span><br><span class="line"># 删除视图</span><br><span class="line">drop 视图名；</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h2 id="3-DML"><a href="#3-DML" class="headerlink" title="3.DML"></a>3.DML</h2><ul>
@@ -218,6 +220,7 @@
 </li>
 <li><p><strong>修改表中数据</strong></p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update 表名 set 列名 = 新值 where name = &apos;小明&apos;</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h2 id="4-DCL"><a href="#4-DCL" class="headerlink" title="4.DCL"></a>4.DCL</h2><ul>
@@ -226,6 +229,7 @@
 </li>
 <li><p><strong>权限管理</strong></p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 授权</span><br><span class="line">GRANT &lt;权限&gt; ON &lt;数据库&gt;.&lt;表名&gt; TO &lt;用户名&gt;；</span><br><span class="line"></span><br><span class="line"># 删除权限</span><br><span class="line">remove 权限 on 数据库.表名 from 用户名；</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h2 id="5-DQL"><a href="#5-DQL" class="headerlink" title="5.DQL"></a>5.DQL</h2><ul>
@@ -246,6 +250,7 @@
 </li>
 <li><p><strong>常用聚集函数</strong></p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">COUNT（个数）</span><br><span class="line">SUM（求和）</span><br><span class="line">AVG（求平均）</span><br><span class="line">MAX（最大值）</span><br><span class="line">MIN（最小值）</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h2 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h2><ul>

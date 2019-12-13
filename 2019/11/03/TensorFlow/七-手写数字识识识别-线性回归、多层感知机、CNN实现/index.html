@@ -199,6 +199,7 @@
 </li>
 <li><p><strong>独热表示</strong><br>手写数字识别的标签是通过<code>独热编码</code>表示的。</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">from</span> tensorflow.examples.tutorials.mnist <span class="hljs-keyword">import</span> input_data</span><br><span class="line"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</span><br><span class="line"></span><br><span class="line">mnist = input_data.read_data_sets(<span class="hljs-string">"../MNIST_data"</span>, one_hot=<span class="hljs-literal">True</span>)</span><br><span class="line"><span class="hljs-comment">#看前20张训练图片的label for i in range(20):</span></span><br><span class="line">    one_hot_label = mnist.train.labels[i, :]</span><br><span class="line">    label = np.argmax(one_hot_label)</span><br><span class="line">    print(<span class="hljs-string">'mnist_train_%d.jpg label: %d'</span> % (i, label))</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 <h2 id="二、线性回归识别MNIST"><a href="#二、线性回归识别MNIST" class="headerlink" title="二、线性回归识别MNIST"></a>二、线性回归识别MNIST</h2><ul>

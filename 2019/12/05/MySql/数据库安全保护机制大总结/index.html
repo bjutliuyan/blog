@@ -17,7 +17,7 @@
 <meta property="og:description" content="本文对数据库中的安全保护机制进行详细总计。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575557339669&di=4dc8bb79574f0620fe694be0b936fffa&imgtype=0&src=http%3A%2F%2Fwww.51cto.com%2Ffiles%2Fuploadimg%2F20110801%2F102020807.jpg">
-<meta property="og:updated_time" content="2019-12-05T12:10:37.359Z">
+<meta property="og:updated_time" content="2019-12-12T11:04:59.639Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库安全机制及恢复技术大总结">
 <meta name="twitter:description" content="本文对数据库中的安全保护机制进行详细总计。">
@@ -166,7 +166,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    几秒 读完 (大约 76 个字)
+                    3 分钟 读完 (大约 512 个字)
                 </span>
                 
                 
@@ -194,12 +194,56 @@
 <li>数据加密</li>
 <li>其他</li>
 <li>数据库恢复技术</li>
+<li>事务的基本概念</li>
 <li>故障种类</li>
 <li>恢复技术(转储、镜像)</li>
 </ul>
 </li>
 </ul>
-<h2 id="1-数据库安全性"><a href="#1-数据库安全性" class="headerlink" title="1.数据库安全性"></a>1.数据库安全性</h2>
+<h2 id="1-数据库安全性"><a href="#1-数据库安全性" class="headerlink" title="1.数据库安全性"></a>1.数据库安全性</h2><ul>
+<li><p><strong>不安全因素</strong></p>
+<blockquote>
+<ul>
+<li>非授权用户对数据库的恶意存取和破坏</li>
+<li>数据库中重要或敏感数据被泄露</li>
+<li>安全环经的脆弱</li>
+</ul>
+</blockquote>
+</li>
+<li><p><strong>安全控制机制</strong></p>
+<blockquote>
+<ul>
+<li>用户身份鉴别<br>(静态口令鉴别、动态口令鉴别、生物特征鉴别、智能卡鉴别)</li>
+<li>存取控制<br>定义用户权限（将用户权限登记到数据字典中）<br>合法权限检查（<code>自主存取控制、强制存取控制</code>）</li>
+</ul>
+</blockquote>
+</li>
+<li><p><strong>视图机制</strong><br>把保密的数据对无权存取的用户隐藏起来</p>
+</li>
+<li><p><strong>审计</strong><br>相当于把用户对数据库的所有操作自动记录下来放入审计日志，根据审计日志就可以找到非法操作的人、时间、操作内容。</p>
+</li>
+<li><p><strong>数据加密</strong><br>存储加密、传输加密</p>
+</li>
+<li><p><strong>其它</strong><br>推理控制、隐蔽信道、数据隐私</p>
+</li>
+</ul>
+<h2 id="2-数据库恢复技术"><a href="#2-数据库恢复技术" class="headerlink" title="2.数据库恢复技术"></a>2.数据库恢复技术</h2><ul>
+<li><p><strong>事务的基本概念</strong><br>事务是用户定义的一个数据库操作序列，这些操作要么全做，要么全不做。需要保证以下四个特性ACID:</p>
+<blockquote>
+<ul>
+<li>原子性<br>事务中的操作要么全做要么全不做</li>
+<li>一致性<br>事务执行的结果必须是使数据库从一个一致性状态变到另一个一致性状态。</li>
+<li>隔离性<br>一个事务的执行不能被其它事务干扰。</li>
+<li>持续性<br>一个事务一旦提交，它对数据库中数据的改变应该是永久性的。</li>
+</ul>
+</blockquote>
+</li>
+<li><p><strong>故障的种类</strong><br>事务内部的故障<br>系统故障<br>介质故障<br>计算机病毒</p>
+</li>
+<li><p><strong>恢复的实现技术</strong></p>
+</li>
+</ul>
+
         </div>
         
         <div class="level is-size-7 is-uppercase">
