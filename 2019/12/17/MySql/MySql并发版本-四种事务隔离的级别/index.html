@@ -3,19 +3,24 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-<title>归档: 2019/11 - Bjutliuyan&#39;s blog</title>
+<title>MySql并发版本_四种事务隔离的级别 - Bjutliuyan&#39;s blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Bjutliuyan&#39;s blog">
-<meta property="og:url" content="http://bjutliuyan.github.io/blog/archives/2019/11/index.html">
+    <meta name="description" content="本文对数据库操作中的事务以及事务的隔离级别进行详细介绍。">
+<meta name="keywords" content="MySql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySql并发版本_四种事务隔离的级别">
+<meta property="og:url" content="http://bjutliuyan.github.io/blog/2019/12/17/MySql/MySql并发版本-四种事务隔离的级别/index.html">
 <meta property="og:site_name" content="Bjutliuyan&#39;s blog">
+<meta property="og:description" content="本文对数据库操作中的事务以及事务的隔离级别进行详细介绍。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://bjutliuyan.github.io/blog/images/og_image.png">
+<meta property="og:updated_time" content="2019-12-17T07:22:53.797Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Bjutliuyan&#39;s blog">
+<meta name="twitter:title" content="MySql并发版本_四种事务隔离的级别">
+<meta name="twitter:description" content="本文对数据库操作中的事务以及事务的隔离级别进行详细介绍。">
 <meta name="twitter:image" content="http://bjutliuyan.github.io/blog/images/og_image.png">
 
 
@@ -94,7 +99,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/blog/">
             
-                <img src="/blog/images/logo.svg" alt="Bjutliuyan&#39;s blog" height="28">
+                <img src="/blog/images/logo.svg" alt="MySql并发版本_四种事务隔离的级别" height="28">
             
             </a>
         </div>
@@ -139,109 +144,224 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-12-17T06:02:11.000Z">2019-12-17</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/blog/categories/WEB/MySql/">MySql</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    13 分钟 读完 (大约 1944 个字)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span>次访问
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                MySql并发版本_四种事务隔离的级别
+            
+        </h1>
+        <div class="content">
+            <p>本文对数据库操作中的事务以及事务的隔离级别进行详细介绍。</p>
+<a id="more"></a>
+<p><strong>本文实验的测试环境: Windows10+cmd+MySQL5.6.36+InnoDB</strong></p>
+<h2 id="一、事务的四个特性（ACID）"><a href="#一、事务的四个特性（ACID）" class="headerlink" title="一、事务的四个特性（ACID）"></a>一、事务的四个特性（ACID）</h2><ol>
+<li><code>原子性（Atomicity）：</code><br>事务开始后所有操作，要么全部做完，要么全部不做，不可能停滞在中间环节。事务执行过程中出错，会回滚到事务开始前的状态，所有的操作就像没有发生一样。也就是说事务是一个不可分割的整体，就像化学中学过的原子，是物质构成的基本单位。</li>
+<li><code>一致性（Consistency）：</code><br>事务开始前和结束后，数据库的完整性约束没有被破坏 。比如A向B转账，不可能A扣了钱，B却没收到。</li>
+<li><code>隔离性（Isolation）：</code><br>同一时间，只允许一个事务请求同一数据，不同的事务之间彼此没有任何干扰。比如A正在从一张银行卡中取钱，在A取钱的过程结束前，B不能向这张卡转账。</li>
+<li><code>持久性（Durability）：</code><br>事务完成后，事务对数据库的所有更新将被保存到数据库，不能回滚。</li>
+</ol>
+<h2 id="二、事务的并发问题"><a href="#二、事务的并发问题" class="headerlink" title="二、事务的并发问题"></a>二、事务的并发问题</h2><ol>
+<li><code>脏读：</code><br>事务A读取了事务B更新的数据，然后B回滚操作，那么A读取到的数据是脏数据。</li>
+<li><code>不可重复读：</code><br>事务 A 多次读取同一数据，事务 B 在事务A多次读取的过程中，对数据作了更新并提交，导致事务A多次读取同一数据时，结果不一致。</li>
+<li><code>幻读：</code><br>系统管理员A将数据库中所有学生的成绩从具体分数改为ABCDE等级，但是系统管理员B就在这个时候插入了一条具体分数的记录，当系统管理员A改结束后发现还有一条记录没有改过来，就好像发生了幻觉一样，这就叫幻读。</li>
+</ol>
+<p><strong>小结**</strong>：不可重复读的和幻读很容易混淆，不可重复读侧重于修改，幻读侧重于新增或删除。<code>解决不可重复读的问题只需锁住满足条件的行，解决幻读需要锁表</code>。</p>
+<h2 id="三、MySQL事务隔离级别"><a href="#三、MySQL事务隔离级别" class="headerlink" title="三、MySQL事务隔离级别"></a>三、MySQL事务隔离级别</h2><table>
+<thead>
+<tr>
+<th>事务隔离级别</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>读未提交（read-uncommitted）</td>
+<td>是</td>
+<td>是</td>
+<td>是</td>
+</tr>
+<tr>
+<td>读已提交（read-committed）</td>
+<td>否</td>
+<td>是</td>
+<td>是</td>
+</tr>
+<tr>
+<td>可重复读（repeatable-read）</td>
+<td>否</td>
+<td>否</td>
+<td>是</td>
+</tr>
+<tr>
+<td>串行化（serializable）</td>
+<td>否</td>
+<td>否</td>
+<td>否</td>
+</tr>
+</tbody></table>
+<p><code>mysql默认的事务隔离级别是可重复读</code><br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170615222358540-978383734.png" alt></p>
+<h2 id="四、用例子说明各个隔离级别的情况"><a href="#四、用例子说明各个隔离级别的情况" class="headerlink" title="四、用例子说明各个隔离级别的情况"></a>四、用例子说明各个隔离级别的情况</h2><ol>
+<li><p><strong>读未提交</strong><br>（1）打开一个客户端A，并设置当前事务模式为read uncommitted（未提交读），查询表account的初始值：<br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170615225939087-367776221.png" alt><br>（2）在客户端A的事务提交之前，打开另一个客户端B，更新表account：<br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170615230218306-862399438.png" alt><br>（3）这时，虽然客户端B的事务还没提交，但是客户端A就可以查询到B已经更新的数据：<br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170615230427790-2059251412.png" alt><br>（4）一旦客户端B的事务因为某种原因回滚，所有的操作都将会被撤销，那客户端A查询到的数据其实就是脏数据：<br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170615230655400-1018252120.png" alt><br>（5）在客户端A执行更新语句update account set balance = balance - 50 where id =1，lilei的balance没有变成350，居然是400，是不是很奇怪，数据不一致啊，<code>如果你这么想就太天真了，在应用程序中，我们会用400-50=350，并不知道其他会话回滚了，要想解决这个问题可以采用读已提交的隔离级别</code><br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170616203815181-1023048699.png" alt></p>
+</li>
+<li><p><strong>读已提交</strong><br>（1）打开一个客户端A，并设置当前事务模式为read committed（读已提交），查询表account的所有记录：<br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170615231437353-1441361659.png" alt><br>（2）在客户端A的事务提交之前，打开另一个客户端B，更新表account：<br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170615231920696-48081094.png" alt><br>（3）这时，客户端B的事务还没提交，客户端A不能查询到B已经更新的数据，解决了脏读问题：<br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170615232203978-179631977.png" alt><br>（4）客户端B的事务提交<br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170615232506650-1677223761.png" alt><br>（5）客户端A执行与上一步相同的查询，结果 与上一步不一致，即产生了不可重复读的问题<br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170615232748337-2092924598.png" alt></p>
+</li>
+<li><p><strong>可重复读</strong><br>（1）打开一个客户端A，并设置当前事务模式为可重复读(repeatable read)，查询表account的所有记录<br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170615233320290-1840487787.png" alt><br>（2）在客户端A的事务提交之前，打开另一个客户端B，更新表account并提交<br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170615233526103-1495989601.png" alt><br>（3）在客户端A查询表account的所有记录，与步骤（1）查询结果一致，没有出现不可重复读的问题<br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170615233858087-1000794949.png" alt><br>（4）在客户端A，接着执行update balance = balance - 50 where id = 1，balance没有变成400-50=350，balance值用的是步骤（2）中的350来算的，所以是300，数据的一致性倒是没有被破坏。<code>可重复读的隔离级别下使用了MVCC机制，select操作不会更新版本号，是快照读（历史版本）；insert、update和delete会更新版本号，是当前读（当前版本）</code>。<br><img src="https://images2018.cnblogs.com/blog/1183794/201809/1183794-20180903014747581-1570431335.png" alt><br>（5）重新打开客户端B，插入一条新数据后提交<br><img src="https://images2018.cnblogs.com/blog/1183794/201809/1183794-20180903015202958-625875608.png" alt><br>(6）在客户端A查询表account的所有记录，没有查出新增数据，所以没有出现幻读<br><img src="https://images2018.cnblogs.com/blog/1183794/201809/1183794-20180903015501418-1606127377.png" alt></p>
+</li>
+<li><p><strong>串行化</strong><br>（1）打开一个客户端A，并设置当前事务模式为serializable，查询表account的初始值：<br><img src="001.jpg" alt><br>（2）打开一个客户端B，并设置当前事务模式为可串行化(serializable)，插入一条记录报错，表被锁了插入失败（因为客户端A的事务还未提交），mysql中事务隔离级别为serializable时会锁表，因此不会出现幻读的情况，这种隔离级别并发性极低，开发中很少会用到。<br><img src="002.jpg" alt></p>
+</li>
+</ol>
+<h2 id="五、补充"><a href="#五、补充" class="headerlink" title="五、补充"></a>五、补充</h2><ol>
+<li>事务隔离级别为读已提交时，写数据只会锁住相应的行</li>
+<li>事务隔离级别为可重复读时，如果检索条件有索引（包括主键索引）的时候，默认加锁方式是next-key锁；如果检索条件没有索引，更新数据时会锁住整张表。一个间隙被事务加了锁，其他事务是不能在这个间隙插入记录的，这样可以防止幻读。</li>
+<li>事务隔离级别为串行化时，读写数据都会锁住整张表</li>
+<li>隔离级别越高，越能保证数据的完整性和一致性，但是对并发性能的影响也越大。</li>
+<li>关于多版本控制MMVC的解释可以参考以下链接(最好的解释，没有之一)[<a href="https://blog.csdn.net/whoamiyang/article/details/51901888" target="_blank" rel="noopener">link</a>]</li>
+<li>关于next-key 锁可以参考链接[<a href="https://blog.csdn.net/bigtree_3721/article/details/73731377" target="_blank" rel="noopener">link</a>]</li>
+</ol>
 
-<div class="card widget">
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/blog/tags/MySql/">MySql</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
     <div class="card-content">
-        <h3 class="tag is-link">
-        十一月 2019
-        </h3>
-        <div class="timeline">
-        
-            <article class="media">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-11-04T15:36:07.000Z">2019-11-04</time>
-                        <a href="/blog/2019/11/04/TensorFlow/八-CIFAR-10与ImageNet图像识别/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(八)CIFAR-10与ImageNet图像识别</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/blog/images/alipay.jpg" alt="支付宝"></div>
+</a>
+
                 
-                <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2843800037,1554891732&amp;fm=26&amp;gp=0.jpg" alt="(七)手写数字识别_线性回归、多层感知机、CNN实现">
-                    </p>
-                </a>
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-11-03T08:27:02.000Z">2019-11-03</time>
-                        <a href="/blog/2019/11/03/TensorFlow/七-手写数字识识识别-线性回归、多层感知机、CNN实现/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(七)手写数字识别_线性回归、多层感知机、CNN实现</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/blog/categories/TensorFlow/">TensorFlow</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/blog/images/wechat_pay.jpg" alt="微信"></div>
+</a>
+
                 
-                <a href="/blog/2019/11/02/OpenCV/02图像/八-OpenCV图像处理-图像分割、交互式前景提取/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="https://static.cdn.longmaosoft.com/o_1db09hk4a1tl91uhuao7r6v1ovi2i.png" alt="(八)OpenCV图像处理_图像分割、交互式前景提取">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-11-02T08:11:17.000Z">2019-11-02</time>
-                        <a href="/blog/2019/11/02/OpenCV/02图像/八-OpenCV图像处理-图像分割、交互式前景提取/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(八)OpenCV图像处理_图像分割、交互式前景提取</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/blog/categories/OpenCV/">OpenCV</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/blog/2019/11/01/WEB/JAVA面向过程基础总结/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="http://pic2.zhimg.com/v2-e75055be5076ae979cf23bd7d597637f_1200x500.jpg" alt="JAVA面向过程基础总结">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-11-01T15:41:16.000Z">2019-11-01</time>
-                        <a href="/blog/2019/11/01/WEB/JAVA面向过程基础总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JAVA面向过程基础总结</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JAVA/">JAVA</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
         </div>
     </div>
 </div>
 
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/blog/2019/12/11/深度学习/CNN网络架构演进-从LeNet到DenseNet/">
+                <span class="level-item">CNN网络架构演进:从LeNet到DenseNet</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+
+<!--gitment 评论-->
+  <div class="comments" id="comments">
+  
+    <!--汉化-->
+    <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+    <script src="https://billts.site/js/gitment.js"></script>
+    <!--原型-->
+    <!--
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js" type="text/javascript"></script>
+    -->
+    
+      <div id="gitmentContainer" style="margin-bottom: -19px;"></div>
+     
+      <style>
+        .gitment-container a {
+          border: none;
+        }
+        .comments {
+          margin: 60px 0 0;padding: 0 60px;
+        }
+      </style>
+     
+      <script type="text/javascript">
+        var gitment = new Gitment({
+              id: 'MySql并发版本_四种事务隔离的级别',
+              title: 'MySql并发版本_四种事务隔离的级别',
+              owner: 'bjutliuyan',
+              repo: 'hello-world',
+              oauth: {
+                client_id: 'fdf345739039350618b5',
+                client_secret: '9d97d820336314984fc3ef8ffc1e5c786b46572f',
+              },
+        })
+        gitment.render('gitmentContainer')
+      </script>
+    
+  </div>
+<!--gitment 评论 end-->
+    </div>
+</div>
 
 </div>
                 
@@ -1146,7 +1266,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/blog/">
                 
-                    <img src="/blog/images/logo.svg" alt="Bjutliuyan&#39;s blog" height="28">
+                    <img src="/blog/images/logo.svg" alt="MySql并发版本_四种事务隔离的级别" height="28">
                 
                 </a>
                 <p class="is-size-7">
