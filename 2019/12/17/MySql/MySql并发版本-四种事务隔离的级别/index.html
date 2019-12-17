@@ -17,7 +17,7 @@
 <meta property="og:description" content="本文对数据库操作中的事务以及事务的隔离级别进行详细介绍。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://bjutliuyan.github.io/blog/images/og_image.png">
-<meta property="og:updated_time" content="2019-12-17T07:22:53.797Z">
+<meta property="og:updated_time" content="2019-12-17T07:45:19.189Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySql并发版本_四种事务隔离的级别">
 <meta name="twitter:description" content="本文对数据库操作中的事务以及事务的隔离级别进行详细介绍。">
@@ -160,7 +160,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    13 分钟 读完 (大约 1944 个字)
+                    12 分钟 读完 (大约 1874 个字)
                 </span>
                 
                 
@@ -227,13 +227,13 @@
 <td>否</td>
 </tr>
 </tbody></table>
-<p><code>mysql默认的事务隔离级别是可重复读</code><br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170615222358540-978383734.png" alt></p>
+<p><code>mysql默认的事务隔离级别是可重复读</code><br><img src="016.jpg" alt></p>
 <h2 id="四、用例子说明各个隔离级别的情况"><a href="#四、用例子说明各个隔离级别的情况" class="headerlink" title="四、用例子说明各个隔离级别的情况"></a>四、用例子说明各个隔离级别的情况</h2><ol>
-<li><p><strong>读未提交</strong><br>（1）打开一个客户端A，并设置当前事务模式为read uncommitted（未提交读），查询表account的初始值：<br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170615225939087-367776221.png" alt><br>（2）在客户端A的事务提交之前，打开另一个客户端B，更新表account：<br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170615230218306-862399438.png" alt><br>（3）这时，虽然客户端B的事务还没提交，但是客户端A就可以查询到B已经更新的数据：<br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170615230427790-2059251412.png" alt><br>（4）一旦客户端B的事务因为某种原因回滚，所有的操作都将会被撤销，那客户端A查询到的数据其实就是脏数据：<br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170615230655400-1018252120.png" alt><br>（5）在客户端A执行更新语句update account set balance = balance - 50 where id =1，lilei的balance没有变成350，居然是400，是不是很奇怪，数据不一致啊，<code>如果你这么想就太天真了，在应用程序中，我们会用400-50=350，并不知道其他会话回滚了，要想解决这个问题可以采用读已提交的隔离级别</code><br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170616203815181-1023048699.png" alt></p>
+<li><p><strong>读未提交</strong><br>（1）打开一个客户端A，并设置当前事务模式为read uncommitted（未提交读），查询表account的初始值：<br><img src="003.jpg" alt><br>（2）在客户端A的事务提交之前，打开另一个客户端B，更新表account：<br><img src="004.jpg" alt><br>（3）这时，虽然客户端B的事务还没提交，但是客户端A就可以查询到B已经更新的数据：<br><img src="005.jpg" alt><br>（4）一旦客户端B的事务因为某种原因回滚，所有的操作都将会被撤销，那客户端A查询到的数据其实就是脏数据：<br><img src="006.jpg" alt><br>（5）在客户端A执行更新语句update account set balance = balance - 50 where id =1，lilei的balance没有变成350，居然是400，是不是很奇怪，数据不一致啊，<code>如果你这么想就太天真了，在应用程序中，我们会用400-50=350，并不知道其他会话回滚了，要想解决这个问题可以采用读已提交的隔离级别</code><br><img src="007.jpg" alt></p>
 </li>
-<li><p><strong>读已提交</strong><br>（1）打开一个客户端A，并设置当前事务模式为read committed（读已提交），查询表account的所有记录：<br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170615231437353-1441361659.png" alt><br>（2）在客户端A的事务提交之前，打开另一个客户端B，更新表account：<br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170615231920696-48081094.png" alt><br>（3）这时，客户端B的事务还没提交，客户端A不能查询到B已经更新的数据，解决了脏读问题：<br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170615232203978-179631977.png" alt><br>（4）客户端B的事务提交<br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170615232506650-1677223761.png" alt><br>（5）客户端A执行与上一步相同的查询，结果 与上一步不一致，即产生了不可重复读的问题<br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170615232748337-2092924598.png" alt></p>
+<li><p><strong>读已提交</strong><br>（1）打开一个客户端A，并设置当前事务模式为read committed（读已提交），查询表account的所有记录：<br><img src="008.jpg" alt><br>（2）在客户端A的事务提交之前，打开另一个客户端B，更新表account：<br><img src="009.jpg" alt><br>（3）这时，客户端B的事务还没提交，客户端A不能查询到B已经更新的数据，解决了脏读问题：<br><img src="010.jpg" alt><br>（4）客户端B的事务提交<br><img src="011.jpg" alt><br>（5）客户端A执行与上一步相同的查询，结果 与上一步不一致，即产生了不可重复读的问题<br><img src="012.jpg" alt></p>
 </li>
-<li><p><strong>可重复读</strong><br>（1）打开一个客户端A，并设置当前事务模式为可重复读(repeatable read)，查询表account的所有记录<br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170615233320290-1840487787.png" alt><br>（2）在客户端A的事务提交之前，打开另一个客户端B，更新表account并提交<br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170615233526103-1495989601.png" alt><br>（3）在客户端A查询表account的所有记录，与步骤（1）查询结果一致，没有出现不可重复读的问题<br><img src="https://images2015.cnblogs.com/blog/1183794/201706/1183794-20170615233858087-1000794949.png" alt><br>（4）在客户端A，接着执行update balance = balance - 50 where id = 1，balance没有变成400-50=350，balance值用的是步骤（2）中的350来算的，所以是300，数据的一致性倒是没有被破坏。<code>可重复读的隔离级别下使用了MVCC机制，select操作不会更新版本号，是快照读（历史版本）；insert、update和delete会更新版本号，是当前读（当前版本）</code>。<br><img src="https://images2018.cnblogs.com/blog/1183794/201809/1183794-20180903014747581-1570431335.png" alt><br>（5）重新打开客户端B，插入一条新数据后提交<br><img src="https://images2018.cnblogs.com/blog/1183794/201809/1183794-20180903015202958-625875608.png" alt><br>(6）在客户端A查询表account的所有记录，没有查出新增数据，所以没有出现幻读<br><img src="https://images2018.cnblogs.com/blog/1183794/201809/1183794-20180903015501418-1606127377.png" alt></p>
+<li><p><strong>可重复读</strong><br>（1）打开一个客户端A，并设置当前事务模式为可重复读(repeatable read)，查询表account的所有记录<br><img src="013.jpg" alt><br>（2）在客户端A的事务提交之前，打开另一个客户端B，更新表account并提交<br><img src="014.jpg" alt><br>（3）在客户端A查询表account的所有记录，与步骤（1）查询结果一致，没有出现不可重复读的问题<br><img src="015.jpg" alt><br>（4）在客户端A，接着执行update balance = balance - 50 where id = 1，balance没有变成400-50=350，balance值用的是步骤（2）中的350来算的，所以是300，数据的一致性倒是没有被破坏。<code>可重复读的隔离级别下使用了MVCC机制，select操作不会更新版本号，是快照读（历史版本）；insert、update和delete会更新版本号，是当前读（当前版本）</code>。<br><img src="https://images2018.cnblogs.com/blog/1183794/201809/1183794-20180903014747581-1570431335.png" alt><br>（5）重新打开客户端B，插入一条新数据后提交<br><img src="https://images2018.cnblogs.com/blog/1183794/201809/1183794-20180903015202958-625875608.png" alt><br>(6）在客户端A查询表account的所有记录，没有查出新增数据，所以没有出现幻读<br><img src="https://images2018.cnblogs.com/blog/1183794/201809/1183794-20180903015501418-1606127377.png" alt></p>
 </li>
 <li><p><strong>串行化</strong><br>（1）打开一个客户端A，并设置当前事务模式为serializable，查询表account的初始值：<br><img src="001.jpg" alt><br>（2）打开一个客户端B，并设置当前事务模式为可串行化(serializable)，插入一条记录报错，表被锁了插入失败（因为客户端A的事务还未提交），mysql中事务隔离级别为serializable时会锁表，因此不会出现幻读的情况，这种隔离级别并发性极低，开发中很少会用到。<br><img src="002.jpg" alt></p>
 </li>
