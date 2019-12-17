@@ -17,7 +17,7 @@
 <meta property="og:description" content="本文对数据库中的安全保护机制进行详细总计。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575557339669&di=4dc8bb79574f0620fe694be0b936fffa&imgtype=0&src=http%3A%2F%2Fwww.51cto.com%2Ffiles%2Fuploadimg%2F20110801%2F102020807.jpg">
-<meta property="og:updated_time" content="2019-12-12T11:04:59.639Z">
+<meta property="og:updated_time" content="2019-12-17T04:04:39.814Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库安全机制及恢复技术大总结">
 <meta name="twitter:description" content="本文对数据库中的安全保护机制进行详细总计。">
@@ -166,7 +166,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 512 个字)
+                    8 分钟 读完 (大约 1144 个字)
                 </span>
                 
                 
@@ -186,14 +186,18 @@
         <div class="content">
             <p>本文对数据库中的安全保护机制进行详细总计。<a id="more"></a></p>
 <ul>
-<li>数据库安全性<ul>
+<li><p>数据库安全性</p>
+<ul>
 <li>不安全因素</li>
 <li>安全性控制</li>
 <li>视图机制</li>
 <li>审计</li>
 <li>数据加密</li>
 <li>其他</li>
-<li>数据库恢复技术</li>
+</ul>
+</li>
+<li><p>数据库恢复技术</p>
+<ul>
 <li>事务的基本概念</li>
 <li>故障种类</li>
 <li>恢复技术(转储、镜像)</li>
@@ -238,11 +242,18 @@
 </ul>
 </blockquote>
 </li>
-<li><p><strong>故障的种类</strong><br>事务内部的故障<br>系统故障<br>介质故障<br>计算机病毒</p>
+<li><p><strong>故障的种类</strong><br>各类故障对数据库的影响可能有两种可能性：一是数据库本身被破坏，二是数据库没有破坏但是数据可能不正确。<br>1）事务内部的故障（非预期的，可能由运算溢出、并发事务发生死锁而被撤销选中事务等原因造成）<br>2）系统故障（如操作系统故障、系统断电等）<br>3）介质故障（外存故障）<br>4）计算机病毒</p>
 </li>
-<li><p><strong>恢复的实现技术</strong></p>
+<li><p><strong>恢复的实现技术</strong><br>恢复的基本原理是通过<code>冗余</code>。所以恢复技术涉及的两个关键问题是：<code>如何建立冗余数据</code>、<code>如何利用这些冗余数据实施数据库恢复</code>。</p>
+<blockquote>
+<ul>
+<li>数据转存分类：<br>1）静态海量存储：在系统中无运行事务时进行，每次转储全部数据库。<br>2）静态增量存储：在系统中无运行事务时进行，每次转储上次转储后更新的数据。<br>3）动态海量存储：转储期间允许数据库进行存取或修改，每次转储全部数据库。需要日志文件。<br>4）动态增量存储：转储期间允许数据库进行存取或修改，每次转储上次转储后更新的数据。需要日志文件</li>
+<li>恢复策略<br>1）事务故障的恢复：反向扫描日志文件，对故障事务的更新操作执行逆操作。<br>2）系统故障的恢复：正向扫描日志文件，对撤销队列中的各事务进行撤销操作，对重做队列中的各事务进行重做操作 。<br>3）介质故障的恢复：重装数据库，利用数据库副本和日志文件重做已完成的事务。 或者利用<code>镜像</code>技术。</li>
+</ul>
+</blockquote>
 </li>
 </ul>
+<p>补充：利用日志技术进行数据库恢复时，恢复子系统必须搜索日志，确定哪些事务需要重做，哪些需要撤销。一般来说，需要检查所有日志记录。这样做有两个问题，一是搜索日志将耗费大量时间，而是很多需要重做处理的事务实际上已经将它们的更新操作写到了数据库中，然后恢复子系统又重新执行了这些操作，浪费了大量的时间。为了解决这些问题，又增加了<code>检查点记录</code>。</p>
 
         </div>
         
