@@ -17,7 +17,7 @@
 <meta property="og:description" content="本文对卷积网络的演进进行详细介绍。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://bjutliuyan.github.io/blog/images/og_image.png">
-<meta property="og:updated_time" content="2019-12-19T03:23:45.414Z">
+<meta property="og:updated_time" content="2019-12-20T03:56:35.685Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CNN网络架构演进:从LeNet到DenseNet">
 <meta name="twitter:description" content="本文对卷积网络的演进进行详细介绍。">
@@ -160,7 +160,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    19 分钟 读完 (大约 2857 个字)
+                    19 分钟 读完 (大约 2845 个字)
                 </span>
                 
                 
@@ -268,12 +268,19 @@ AlexNet针对的是1000类的分类问题，输入图片规定是256×256的三�
 <img src="010.jpg">  
 </div> 
 
-<p><img src="https://images2017.cnblogs.com/blog/1093303/201802/1093303-20180217131926202-233779647.jpg" alt><br><strong>优点：</strong></p>
-<ul>
-<li><code>层数已经非常深，超过百层</code></li>
-<li><code>引入残差单元来解决退化问题</code></li>
-</ul>
-<h2 id="9-继往开来：DenseNet"><a href="#9-继往开来：DenseNet" class="headerlink" title="9.继往开来：DenseNet"></a>9.继往开来：DenseNet</h2><p><strong>优点：</strong>有效地复用各layers之间的feature map计算，从而减少每层需用的训练参数。<br>自Resnet提出以后，ResNet的变种网络层出不穷，都各有其特点，网络性能也有一定的提升。本文介绍的最后一个网络是CVPR 2017最佳论文DenseNet，论文中提出的DenseNet（Dense Convolutional Network）主要还是和ResNet及Inception网络做对比，思想上有借鉴，但却是全新的结构，网络结构并不复杂，却非常有效，在CIFAR指标上全面超越ResNet。可以说DenseNet吸收了ResNet最精华的部分，并在此上做了更加创新的工作，使得网络性能进一步提升。<br><img src="https://images2017.cnblogs.com/blog/1093303/201802/1093303-20180217132019609-1216378928.png" alt></p>
+<div align="center">  
+<img src="012.jpg">  
+</div> 
+**优点：**
+- `层数已经非常深，超过百层`
+- `引入残差单元来解决退化问题`
+
+
+<h2 id="9-继往开来：DenseNet"><a href="#9-继往开来：DenseNet" class="headerlink" title="9.继往开来：DenseNet"></a>9.继往开来：DenseNet</h2><p><strong>优点：</strong>有效地复用各layers之间的feature map计算，从而减少每层需用的训练参数。<br>自Resnet提出以后，ResNet的变种网络层出不穷，都各有其特点，网络性能也有一定的提升。本文介绍的最后一个网络是CVPR 2017最佳论文DenseNet，论文中提出的DenseNet（Dense Convolutional Network）主要还是和ResNet及Inception网络做对比，思想上有借鉴，但却是全新的结构，网络结构并不复杂，却非常有效，在CIFAR指标上全面超越ResNet。可以说DenseNet吸收了ResNet最精华的部分，并在此上做了更加创新的工作，使得网络性能进一步提升。</p>
+<div align="center">  
+<img src="011.jpg">  
+</div> 
+
 
         </div>
         
