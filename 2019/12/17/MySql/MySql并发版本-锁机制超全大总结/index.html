@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="Bjutliuyan&#39;s blog">
 <meta property="og:description" content="本文对MySQL中的所激进进行一份详细总结。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://bjutliuyan.github.io/blog/images/og_image.png">
-<meta property="og:updated_time" content="2019-12-17T12:08:34.734Z">
+<meta property="og:image" content="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4251502268,342352007&fm=15&gp=0.jpg">
+<meta property="og:updated_time" content="2019-12-20T05:49:02.359Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySql并发版本_锁机制超全大总结">
 <meta name="twitter:description" content="本文对MySQL中的所激进进行一份详细总结。">
-<meta name="twitter:image" content="http://bjutliuyan.github.io/blog/images/og_image.png">
+<meta name="twitter:image" content="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4251502268,342352007&fm=15&gp=0.jpg">
 
 
 
@@ -146,6 +146,12 @@
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
     
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4251502268,342352007&amp;fm=15&amp;gp=0.jpg" alt="MySql并发版本_锁机制超全大总结">
+        </span>
+    </div>
+    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
@@ -195,7 +201,7 @@
 <li>Gap Lock(间隙锁)<br>键值不在条件范围内，叫做间隙(GAP)，引擎就会对这个间隙枷锁，这种机制就是Gap机制</li>
 <li>Next-Key Lock(行&amp;间隙)<br>在键值范围条件内，同时键值又不存在条件范围内</li>
 </ul>
-<ol start="2">
+<ol>
 <li>表锁算法</li>
 </ol>
 <ul>
@@ -212,12 +218,11 @@
 <li>乐观锁</li>
 <li>悲观锁</li>
 </ol>
-<h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h2><p>锁是协调多个进程或线程并发访问某一资源的一种机制。相对于其他的数据库而言，<strong>MySQL的锁机制比较简单，最显著的特点就是不同的存储引擎支持不同的锁机制</strong>。根据不同的存储引擎，MySQL中锁的特性可以大致归纳如下：<br>| 引擎 | 行锁|表锁|页锁|<br>|——|—-|—-|—|<br>|MyISAM|    | √  |   |<br>|BDB   |    | √  | √ |<br>|InnoDB| √  | √  |   |</p>
+<h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h2><p>锁是协调多个进程或线程并发访问某一资源的一种机制。相对于其他的数据库而言，<strong>MySQL的锁机制比较简单，最显著的特点就是不同的存储引擎支持不同的锁机制</strong>。根据不同的存储引擎，MySQL中锁的特性可以大致归纳如下：<br>| 引擎 | 行锁|表锁|页锁|<br>|———|——|——|—-|<br>|MyISAM|    | √  |   |<br>|BDB   |    | √  | √ |<br>|InnoDB| √  | √  |   |</p>
 <ul>
 <li>表锁：<br>开销小，加锁快；不会出现死锁；锁定粒度大，发生锁冲突概率高，并发度最低</li>
 <li>行锁：<br>开销大，加锁慢；会出现死锁；锁定粒度小，发生锁冲突的概率低，并发度高</li>
-<li>页锁：<br>开销和加锁速度介于表锁和行锁之间；会出现死锁；锁定粒度介于表锁和行锁之间，并发度一般</li>
-<li><em>总结：*</em>表锁更适用于以查询为主，只有少量按索引条件更新数据的应用；行锁更适用于有大量按索引条件并发更新少量不同数据，同时又有并发查询的应用。</li>
+<li>页锁：<br>开销和加锁速度介于表锁和行锁之间；会出现死锁；锁定粒度介于表锁和行锁之间，并发度一般<br><strong>总结：</strong>表锁更适用于以查询为主，只有少量按索引条件更新数据的应用；行锁更适用于有大量按索引条件并发更新少量不同数据，同时又有并发查询的应用。</li>
 </ul>
 <h2 id="2-MyISAM引擎"><a href="#2-MyISAM引擎" class="headerlink" title="2.MyISAM引擎"></a>2.MyISAM引擎</h2><p>MyISAM存储引擎只支持表锁，这也是MySQL开始几个版本中唯一支持的锁类型。随着应用对事务完整性和并发性要求的不断提高，MySQL才开始开发基于事务的存储引擎，后来慢慢出现了支持页锁的BDB存储引擎和支持行锁的InnoDB存储引擎（实际 InnoDB是单独的一个公司，现在已经被Oracle公司收购）。但是MyISAM的表锁依然是使用最为广泛的锁类型。</p>
 
@@ -617,7 +622,7 @@
             
             <a href="/blog/2019/12/17/MySql/MySql索引机制大总结/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="MySql索引机制大总结">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1576830896832&amp;di=2ad812ad37414cc67b22ddb669c3156b&amp;imgtype=0&amp;src=http%3A%2F%2Fpic2.52pk.com%2Ffiles%2F160621%2F7229800_091016_1_lit.jpg" alt="MySql索引机制大总结">
                 </p>
             </a>
             
@@ -636,7 +641,7 @@
             
             <a href="/blog/2019/12/17/MySql/MySql并发版本-锁机制超全大总结/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="MySql并发版本_锁机制超全大总结">
+                    <img class="thumbnail" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4251502268,342352007&amp;fm=15&amp;gp=0.jpg" alt="MySql并发版本_锁机制超全大总结">
                 </p>
             </a>
             
@@ -655,7 +660,7 @@
             
             <a href="/blog/2019/12/17/MySql/MySql并发版本-四种事务隔离的级别/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="MySql并发版本_四种事务隔离的级别">
+                    <img class="thumbnail" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1232276607,3654627549&amp;fm=11&amp;gp=0.jpg" alt="MySql并发版本_四种事务隔离的级别">
                 </p>
             </a>
             
@@ -937,7 +942,7 @@
             
             <a href="/blog/2019/12/17/MySql/MySql索引机制大总结/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="MySql索引机制大总结">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1576830896832&amp;di=2ad812ad37414cc67b22ddb669c3156b&amp;imgtype=0&amp;src=http%3A%2F%2Fpic2.52pk.com%2Ffiles%2F160621%2F7229800_091016_1_lit.jpg" alt="MySql索引机制大总结">
                 </p>
             </a>
             
@@ -956,7 +961,7 @@
             
             <a href="/blog/2019/12/17/MySql/MySql并发版本-锁机制超全大总结/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="MySql并发版本_锁机制超全大总结">
+                    <img class="thumbnail" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4251502268,342352007&amp;fm=15&amp;gp=0.jpg" alt="MySql并发版本_锁机制超全大总结">
                 </p>
             </a>
             
@@ -975,7 +980,7 @@
             
             <a href="/blog/2019/12/17/MySql/MySql并发版本-四种事务隔离的级别/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="MySql并发版本_四种事务隔离的级别">
+                    <img class="thumbnail" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1232276607,3654627549&amp;fm=11&amp;gp=0.jpg" alt="MySql并发版本_四种事务隔离的级别">
                 </p>
             </a>
             
