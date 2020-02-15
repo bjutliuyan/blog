@@ -199,6 +199,7 @@
 <ol>
 <li><p><strong>简单阀值</strong><br>针对于灰度图片的灰度值，当灰度值高于阀值时，给这个灰度值赋一个新值：</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#参数：原始图像，阀值，新值，阀值规则</span></span><br><span class="line">ret,thresh1 = cv2.threshold(img,<span class="hljs-number">127</span>,<span class="hljs-number">255</span>,cv2.THRESH_TOZERO);</span><br><span class="line">ret,thresh2 = cv2.threshold(img,<span class="hljs-number">127</span>,<span class="hljs-number">255</span>,cv2.THRESH_BINARY_INV);</span><br><span class="line">ret,thresh3 = cv2.threshold(img,<span class="hljs-number">127</span>,<span class="hljs-number">255</span>,cv2.THRESH_TRUNC);</span><br><span class="line">ret,thresh4 = cv2.threshold(img,<span class="hljs-number">127</span>,<span class="hljs-number">255</span>,cv2.THRESH_TOZERO);</span><br><span class="line">ret,thresh5 = cv2.threshold(img,<span class="hljs-number">127</span>,<span class="hljs-number">255</span>,cv2.THRESH_TOZERO_INV);</span><br></pre></td></tr></table></figure>
+
 <p>阀值规则对应如下：</p>
 <div align="center">  
 <img src="001.jpg">  
@@ -209,6 +210,7 @@
 </li>
 <li><p><strong>Otsu‘s 二值化</strong><br>在简单阀值时是随便给了一个数来做阀值，那么怎么知道选取的好坏呢？答案就是不停的尝试。如果是一幅双峰图像，就应该根据其直方图计算出一个阀值。</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ret2,th2 = cv2.threshold(img,<span class="hljs-number">0</span>,<span class="hljs-number">255</span>,cv2.THRESH_BINARY+cv2.THRESH_OTS);</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 <h2 id="二、图像平滑"><a href="#二、图像平滑" class="headerlink" title="二、图像平滑"></a>二、图像平滑</h2><ul>
@@ -218,6 +220,7 @@
 <ol>
 <li><p><strong>2D卷积</strong><br>与信号一样，可以对2D图像实施低通滤波(LPF)，高通滤波(HPF)等。LPF帮助去除噪声、模糊图像；HPF帮助找得到图像的边缘。</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kernel = np.ones((<span class="hljs-number">5</span>,<span class="hljs-number">5</span>),np.float32)/<span class="hljs-number">25</span>;</span><br><span class="line"><span class="hljs-comment">#when ddepth=-1, the output image will have the same depth as the source</span></span><br><span class="line">dst = cv2.filter2D(img,<span class="hljs-number">-1</span>,kernel);</span><br></pre></td></tr></table></figure>
+
 <p>效果如下：</p>
 <div align="center">  
 <img src="002.jpg">  
@@ -236,6 +239,7 @@
 </li>
 <li><p>双边滤波<br>高斯滤波器是求中心点邻近区域像素的高斯加权平均值，这种只考虑像素之间的空间关系，而不会考虑像素值之间的关系（像素的相似度）。所以这种方法不会考虑一个像素是否位于边界，边界也会模糊掉。<br><code>双边滤波同时使用空间高斯权重和灰度值相似性高斯权重</code>。空间高斯函数确保只有邻近区域的像素对中心点有影响，灰度值相似性高斯函数确保只有与中心像素灰度值相近的才会被用来做模糊运算。所以这种方法会确保边界不会被模糊掉，因为边界处的灰度值变化比较大。</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#9表示邻域直径，两个75分别是空间高斯函数标准差、灰度值相似性高斯函数标准差</span></span><br><span class="line">  blur = cv2.bilateralFilter(img, <span class="hljs-number">9</span>, <span class="hljs-number">75</span>, <span class="hljs-number">75</span>)</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 </li>
@@ -243,32 +247,44 @@
 <h2 id="三、形态学转换"><a href="#三、形态学转换" class="headerlink" title="三、形态学转换"></a>三、形态学转换</h2><ul>
 <li>腐蚀、膨胀、开运算、闭运算等<br>形态学操作是根据图像形状进行的简单操作。一般情况下对二值化图像进行的操作。需要输入两个参数，一个是原始图像，第二个被称为结构化元素或核，它是用来决定操作的性质的。两个基本的形态学操作是腐蚀和膨胀。他们的变体构成了开运算，闭运算，梯度等。主要介绍三个方法：<code>cv2.erode()、cv2.dilate()、cv2.morphologyEx()</code></li>
 </ul>
-<p>1.<strong>腐蚀</strong><br><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">img = cv2.imread(<span class="hljs-string">'j.png'</span>,<span class="hljs-number">0</span>);</span><br><span class="line">kernel = np.ones((<span class="hljs-number">5</span>,<span class="hljs-number">5</span>),np.uint8);</span><br><span class="line"><span class="hljs-comment">#参数：原图像，核，腐蚀操作被递归执行的次数</span></span><br><span class="line">erosion = cv2.erode(img,kernel,iterations = <span class="hljs-number">1</span>);</span><br></pre></td></tr></table></figure></p>
+<p>1.<strong>腐蚀</strong></p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">img = cv2.imread(<span class="hljs-string">'j.png'</span>,<span class="hljs-number">0</span>);</span><br><span class="line">kernel = np.ones((<span class="hljs-number">5</span>,<span class="hljs-number">5</span>),np.uint8);</span><br><span class="line"><span class="hljs-comment">#参数：原图像，核，腐蚀操作被递归执行的次数</span></span><br><span class="line">erosion = cv2.erode(img,kernel,iterations = <span class="hljs-number">1</span>);</span><br></pre></td></tr></table></figure>
+
 <div align="center">  
 <img src="003.jpg">  
 </div>
 
-<p> 2.<strong>膨胀</strong><br><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dilation = cv2.dilate(img,kernel,iterations = <span class="hljs-number">1</span>);</span><br></pre></td></tr></table></figure></p>
+<p> 2.<strong>膨胀</strong></p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dilation = cv2.dilate(img,kernel,iterations = <span class="hljs-number">1</span>);</span><br></pre></td></tr></table></figure>
+
 <div align="center">  
 <img src="004.jpg">  
 </div>
 
-<p>3.<strong>开运算</strong><br>先腐蚀后膨胀(常用来去除噪声)<br><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">opening = cv2.morphologyEx(img, cv2.MORPH_OPEN, kernel);</span><br></pre></td></tr></table></figure></p>
+<p>3.<strong>开运算</strong><br>先腐蚀后膨胀(常用来去除噪声)</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">opening = cv2.morphologyEx(img, cv2.MORPH_OPEN, kernel);</span><br></pre></td></tr></table></figure>
+
 <div align="center">  
 <img src="005.jpg">  
 </div>
 
-<p>4.<strong>闭运算</strong><br>先膨胀后腐蚀（常被用来填充前景物体中的小洞）<br><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">closing = cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel);</span><br></pre></td></tr></table></figure></p>
+<p>4.<strong>闭运算</strong><br>先膨胀后腐蚀（常被用来填充前景物体中的小洞）</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">closing = cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel);</span><br></pre></td></tr></table></figure>
+
 <div align="center">  
 <img src="006.jpg">  
 </div>
 
-<p>5.<strong>形态学梯度</strong><br>其实就是一幅图像膨胀与腐蚀的差别，结果看上去就像前景物体的轮廓。<br><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradient = cv2.morphologyEx(img,cv2.MORPH_GRADIENT,kernel);</span><br></pre></td></tr></table></figure></p>
+<p>5.<strong>形态学梯度</strong><br>其实就是一幅图像膨胀与腐蚀的差别，结果看上去就像前景物体的轮廓。</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradient = cv2.morphologyEx(img,cv2.MORPH_GRADIENT,kernel);</span><br></pre></td></tr></table></figure>
+
 <div align="center">  
 <img src="007.jpg">  
 </div>
 
-<p>6.<strong>礼帽与黑帽</strong><br>原始图像与开运算或闭运算的差。<br><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#礼帽（原始图像与开运算的差）</span></span><br><span class="line">tophat = cv2.morphologyEx(img, cv2.MORPH_TOPHAT, kernel);</span><br><span class="line"><span class="hljs-comment">#黑帽（原始图像与闭运算的差）</span></span><br><span class="line">tophat = cv2.morphologyEx(img, cv2.MORPH_TOPHAT, kernel);</span><br></pre></td></tr></table></figure></p>
+<p>6.<strong>礼帽与黑帽</strong><br>原始图像与开运算或闭运算的差。</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#礼帽（原始图像与开运算的差）</span></span><br><span class="line">tophat = cv2.morphologyEx(img, cv2.MORPH_TOPHAT, kernel);</span><br><span class="line"><span class="hljs-comment">#黑帽（原始图像与闭运算的差）</span></span><br><span class="line">tophat = cv2.morphologyEx(img, cv2.MORPH_TOPHAT, kernel);</span><br></pre></td></tr></table></figure>
+
 
         </div>
         
@@ -436,7 +452,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        47
+                        48
                     </p>
                 </div>
             </div>
@@ -601,7 +617,7 @@
                 <span class="level-item">WEB</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">12</span>
+                <span class="level-item tag">13</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/blog/categories/WEB/JavaWeb开发基础/">
@@ -609,7 +625,7 @@
                 <span class="level-item">JavaWeb开发基础</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">5</span>
+                <span class="level-item tag">6</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/blog/categories/WEB/MySql/">
@@ -669,6 +685,25 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581764970215&amp;di=9aa67542cb28c838b8649a684401140c&amp;imgtype=0&amp;src=http%3A%2F%2Fimg1.gtimg.com%2Fgamezone%2Fpics%2Fhv1%2F32%2F4%2F686%2F44608202.jpg" alt="(六)web四君子：Request&amp;Response以及Cookie&amp;Session">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-15T06:58:33.000Z">2020-02-15</time></div>
+                    <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(六)web四君子：Request&amp;Response以及Cookie&amp;Session</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -746,25 +781,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://img4.imgtn.bdimg.com/it/u=4139699928,2936590328&amp;fm=26&amp;gp=0.jpg" alt="(一)HTML&amp;&amp;CSS常用技术总结">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-13T15:25:35.000Z">2020-02-13</time></div>
-                    <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(一)HTML&amp;&amp;CSS常用技术总结</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -783,7 +799,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">5</span>
+                    <span class="level-item tag">6</span>
                 </span>
             </a>
         </li>
@@ -1045,6 +1061,25 @@
         
         <article class="media">
             
+            <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581764970215&amp;di=9aa67542cb28c838b8649a684401140c&amp;imgtype=0&amp;src=http%3A%2F%2Fimg1.gtimg.com%2Fgamezone%2Fpics%2Fhv1%2F32%2F4%2F686%2F44608202.jpg" alt="(六)web四君子：Request&amp;Response以及Cookie&amp;Session">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-15T06:58:33.000Z">2020-02-15</time></div>
+                    <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(六)web四君子：Request&amp;Response以及Cookie&amp;Session</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581715119481&amp;di=628bfdf1bbbba9653cc170c953b153d4&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.eeyy.com%2Fuploadfile%2F2015%2F0910%2F20150910062559126.jpg" alt="(五)五分钟快速了解Tomcat&amp;Servlet原理及应用">
@@ -1119,25 +1154,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://img4.imgtn.bdimg.com/it/u=4139699928,2936590328&amp;fm=26&amp;gp=0.jpg" alt="(一)HTML&amp;&amp;CSS常用技术总结">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-13T15:25:35.000Z">2020-02-13</time></div>
-                    <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(一)HTML&amp;&amp;CSS常用技术总结</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1156,7 +1172,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">5</span>
+                    <span class="level-item tag">6</span>
                 </span>
             </a>
         </li>

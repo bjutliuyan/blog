@@ -210,8 +210,9 @@
 <li>标红框的节点表示<strong>Terminal-Node</strong>（对特征实现传统网络的变换，又实现类似于ResNet的跳跃连接）</li>
 <li>又加入了紫色的<strong>横向连接</strong>（相当于在不引入额外参数的情况下增加了特征重用与流动节点深度）</li>
 <li><strong>与或图组成式架构</strong>：提供了更灵<br>活的信息流，实现多种特征组合方案</li>
-<li><strong>整体与或语法</strong>：实现了有效的网络深度和宽度的平衡<br><strong>AOG构建块的具体构建结合了广度优先算法，具体可参考原文。</strong><br><img src="004.jpg" alt></li>
+<li><strong>整体与或语法</strong>：实现了有效的网络深度和宽度的平衡</li>
 </ul>
+<p><strong>AOG构建块的具体构建结合了广度优先算法，具体可参考原文。</strong><br><img src="004.jpg" alt></p>
 <h2 id="3-AOG构建块的简化"><a href="#3-AOG构建块的简化" class="headerlink" title="3.AOG构建块的简化"></a>3.AOG构建块的简化</h2><p>由于语法句子结构是存在冗余情况的，类似于我是LY与LY是我表达的是同样的意思，所以可以进一步再对AOG构建块进行剪枝。剪枝策略：凡是碰到Or-Node，其节点子集中若存在对称节点，则删除其一。<br>比如下图，最上面的根节点的第二个节点与第四个节点对称，所以就可以剪去第四个节点。<br><img src="006.jpg" alt></p>
 <h2 id="4-实验结果"><a href="#4-实验结果" class="headerlink" title="4.实验结果"></a>4.实验结果</h2><p>作者针对本网络对ImageNet 1K与COCO测试集进行了测试，发现在使用更小参数的情况下，对图片的识别效率更好。<br><img src="005.jpg" alt></p>
 
@@ -381,7 +382,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        47
+                        48
                     </p>
                 </div>
             </div>
@@ -546,7 +547,7 @@
                 <span class="level-item">WEB</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">12</span>
+                <span class="level-item tag">13</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/blog/categories/WEB/JavaWeb开发基础/">
@@ -554,7 +555,7 @@
                 <span class="level-item">JavaWeb开发基础</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">5</span>
+                <span class="level-item tag">6</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/blog/categories/WEB/MySql/">
@@ -614,6 +615,25 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581764970215&amp;di=9aa67542cb28c838b8649a684401140c&amp;imgtype=0&amp;src=http%3A%2F%2Fimg1.gtimg.com%2Fgamezone%2Fpics%2Fhv1%2F32%2F4%2F686%2F44608202.jpg" alt="(六)web四君子：Request&amp;Response以及Cookie&amp;Session">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-15T06:58:33.000Z">2020-02-15</time></div>
+                    <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(六)web四君子：Request&amp;Response以及Cookie&amp;Session</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -691,25 +711,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://img4.imgtn.bdimg.com/it/u=4139699928,2936590328&amp;fm=26&amp;gp=0.jpg" alt="(一)HTML&amp;&amp;CSS常用技术总结">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-13T15:25:35.000Z">2020-02-13</time></div>
-                    <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(一)HTML&amp;&amp;CSS常用技术总结</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -728,7 +729,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">5</span>
+                    <span class="level-item tag">6</span>
                 </span>
             </a>
         </li>
@@ -990,6 +991,25 @@
         
         <article class="media">
             
+            <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581764970215&amp;di=9aa67542cb28c838b8649a684401140c&amp;imgtype=0&amp;src=http%3A%2F%2Fimg1.gtimg.com%2Fgamezone%2Fpics%2Fhv1%2F32%2F4%2F686%2F44608202.jpg" alt="(六)web四君子：Request&amp;Response以及Cookie&amp;Session">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-15T06:58:33.000Z">2020-02-15</time></div>
+                    <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(六)web四君子：Request&amp;Response以及Cookie&amp;Session</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581715119481&amp;di=628bfdf1bbbba9653cc170c953b153d4&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.eeyy.com%2Fuploadfile%2F2015%2F0910%2F20150910062559126.jpg" alt="(五)五分钟快速了解Tomcat&amp;Servlet原理及应用">
@@ -1064,25 +1084,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://img4.imgtn.bdimg.com/it/u=4139699928,2936590328&amp;fm=26&amp;gp=0.jpg" alt="(一)HTML&amp;&amp;CSS常用技术总结">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-13T15:25:35.000Z">2020-02-13</time></div>
-                    <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(一)HTML&amp;&amp;CSS常用技术总结</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1101,7 +1102,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">5</span>
+                    <span class="level-item tag">6</span>
                 </span>
             </a>
         </li>

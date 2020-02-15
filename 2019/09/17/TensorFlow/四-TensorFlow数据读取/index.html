@@ -194,17 +194,23 @@
 <li>文件读取： 在TensorFlow图的起始， 让一个输入管线从文件中读取数据。</li>
 <li>预加载数据：在TensorFlow图中定义常量或变量来保存所有数据(仅适用于数据量比较小的情况)。</li>
 </ul>
-<h2 id="一、供给数据"><a href="#一、供给数据" class="headerlink" title="一、供给数据"></a>一、供给数据</h2><p>供给数据(Feeding)就是之前讲解变量那一节提到的通过<code>feed_dict</code>给<code>placeholder占位符</code>提供值。<br><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">with</span> tf.Session():</span><br><span class="line">  input = tf.placeholder(tf.float32)</span><br><span class="line">  classifier = ...</span><br><span class="line">  <span class="hljs-keyword">print</span> classifier.eval(feed_dict=&#123;input: my_python_preprocessing_fn()&#125;)</span><br></pre></td></tr></table></figure></p>
+<h2 id="一、供给数据"><a href="#一、供给数据" class="headerlink" title="一、供给数据"></a>一、供给数据</h2><p>供给数据(Feeding)就是之前讲解变量那一节提到的通过<code>feed_dict</code>给<code>placeholder占位符</code>提供值。</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">with</span> tf.Session():</span><br><span class="line">  input = tf.placeholder(tf.float32)</span><br><span class="line">  classifier = ...</span><br><span class="line">  <span class="hljs-keyword">print</span> classifier.eval(feed_dict=&#123;input: my_python_preprocessing_fn()&#125;)</span><br></pre></td></tr></table></figure>
+
 <h2 id="二、文件读取"><a href="#二、文件读取" class="headerlink" title="二、文件读取"></a>二、文件读取</h2><p>当数据集很大，使用此方法可以确保不是所有数据都立即占用内存（如60GB的YouTube-8m数据集）。从文件读取的过程可以通过以下步骤完成：</p>
 <ol>
-<li>使用字符串张量 [“file0”，”file1”] 或者 [(“file%d”i)for in in range(2)] 的方式创建文件命名列表，或者使用 <code>files=tf.train.match_filenames_once(&#39;*.JPG&#39;)</code> 函数创建。</li>
+<li><p>使用字符串张量 [“file0”，”file1”] 或者 [(“file%d”i)for in in range(2)] 的方式创建文件命名列表，或者使用 <code>files=tf.train.match_filenames_once(&#39;*.JPG&#39;)</code> 函数创建。</p>
+</li>
 <li><p>将文件名列表交给<code>tf.train.string_input_producer</code> 函数来生成一个先入先出的队列，文件阅读器会需要它来读取数据。</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#string_input_producer提供的可配置参数来设置文件名乱序和最大的训练迭代数</span></span><br><span class="line">filename_queue = tf.train.string_input_producer(files)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>Reader用于从文件名队列中读取文件：<br>根据输入文件格式选择相应的阅读器，然后将文件名队列提供给阅读器的<code>read</code>方法。</p>
 </li>
-<li>Decoder：使用一个或多个解码器和转换操作将值字符串解码为构成训练样本的张量：<br>上一步阅读器的read方法会输出一个key来表征输入的文件和其中的纪录(对于调试非常有用)，同时得到一个字符串标量，这个字符串标量可以被一个或多个解析器，或者转换操作将其解码为张量并且构造成为样本。</li>
-<li>以CSV格式文件举例：<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">filename_queue = tf.train.string_input_producer([<span class="hljs-string">"file0.csv"</span>, <span class="hljs-string">"file1.csv"</span>])</span><br><span class="line"></span><br><span class="line">reader = tf.TextLineReader()</span><br><span class="line">key, value = reader.read(filename_queue)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># Default values, in case of empty columns. Also specifies the type of the</span></span><br><span class="line"><span class="hljs-comment"># decoded result.</span></span><br><span class="line">record_defaults = [[<span class="hljs-number">1</span>], [<span class="hljs-number">1</span>], [<span class="hljs-number">1</span>], [<span class="hljs-number">1</span>], [<span class="hljs-number">1</span>]]</span><br><span class="line">col1, col2, col3, col4, col5 = tf.decode_csv(value, record_defaults=record_defaults)</span><br><span class="line">features = tf.concat(<span class="hljs-number">0</span>, [col1, col2, col3, col4])</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">with</span> tf.Session() <span class="hljs-keyword">as</span> sess:</span><br><span class="line">  <span class="hljs-comment"># Start populating the filename quee.</span></span><br><span class="line">  coord = tf.train.Coordinator()</span><br><span class="line">  threads = tf.train.start_queue_runners(coord=coord)</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1200</span>):</span><br><span class="line">    <span class="hljs-comment"># Retrieve a single instance:</span></span><br><span class="line">    example, label = sess.run([features, col5])</span><br><span class="line"></span><br><span class="line">  coord.request_stop()</span><br><span class="line">  coord.join(threads)</span><br></pre></td></tr></table></figure>
+<li><p>Decoder：使用一个或多个解码器和转换操作将值字符串解码为构成训练样本的张量：<br>上一步阅读器的read方法会输出一个key来表征输入的文件和其中的纪录(对于调试非常有用)，同时得到一个字符串标量，这个字符串标量可以被一个或多个解析器，或者转换操作将其解码为张量并且构造成为样本。</p>
+</li>
+<li><p>以CSV格式文件举例：</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">filename_queue = tf.train.string_input_producer([<span class="hljs-string">"file0.csv"</span>, <span class="hljs-string">"file1.csv"</span>])</span><br><span class="line"></span><br><span class="line">reader = tf.TextLineReader()</span><br><span class="line">key, value = reader.read(filename_queue)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># Default values, in case of empty columns. Also specifies the type of the</span></span><br><span class="line"><span class="hljs-comment"># decoded result.</span></span><br><span class="line">record_defaults = [[<span class="hljs-number">1</span>], [<span class="hljs-number">1</span>], [<span class="hljs-number">1</span>], [<span class="hljs-number">1</span>], [<span class="hljs-number">1</span>]]</span><br><span class="line">col1, col2, col3, col4, col5 = tf.decode_csv(value, record_defaults=record_defaults)</span><br><span class="line">features = tf.concat(<span class="hljs-number">0</span>, [col1, col2, col3, col4])</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">with</span> tf.Session() <span class="hljs-keyword">as</span> sess:</span><br><span class="line">  <span class="hljs-comment"># Start populating the filename quee.</span></span><br><span class="line">  coord = tf.train.Coordinator()</span><br><span class="line">  threads = tf.train.start_queue_runners(coord=coord)</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1200</span>):</span><br><span class="line">    <span class="hljs-comment"># Retrieve a single instance:</span></span><br><span class="line">    example, label = sess.run([features, col5])</span><br><span class="line"></span><br><span class="line">  coord.request_stop()</span><br><span class="line">  coord.join(threads)</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 <p>每次<code>read</code>的执行都会从文件中读取一行内容， <code>decode_csv</code> 操作会解析这一行内容并将其转为张量列表。如果输入的参数有缺失，<code>record_default</code>参数可以根据张量的类型来设置默认值。<br>在调用run或者eval去执行read之前， 必须调用<code>tf.train.start_queue_runners</code>来将文件名填充到队列。否则read操作会被阻塞到文件名队列中有值为止。</p>
@@ -215,6 +221,7 @@
 </li>
 <li><p>存储在变量中，初始化后，永远不要改变它的值</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">training_data = ...</span><br><span class="line">training_labels = ...</span><br><span class="line"><span class="hljs-keyword">with</span> tf.Session() <span class="hljs-keyword">as</span> sess:</span><br><span class="line">  data_initializer = tf.placeholder(dtype=training_data.dtype,shape=training_data.shape)</span><br><span class="line">  label_initializer = tf.placeholder(dtype=training_labels.dtype,shape=training_labels.shape)</span><br><span class="line">  input_data = tf.Variable(data_initalizer, trainable=<span class="hljs-literal">False</span>, collections=[])</span><br><span class="line">  input_labels = tf.Variable(label_initalizer, trainable=<span class="hljs-literal">False</span>, collections=[])</span><br><span class="line">  ...</span><br><span class="line">  sess.run(input_data.initializer,feed_dict=&#123;data_initializer: training_data&#125;)</span><br><span class="line">  sess.run(input_labels.initializer,feed_dict=&#123;label_initializer: training_lables&#125;)</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 
@@ -384,7 +391,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        47
+                        48
                     </p>
                 </div>
             </div>
@@ -549,7 +556,7 @@
                 <span class="level-item">WEB</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">12</span>
+                <span class="level-item tag">13</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/blog/categories/WEB/JavaWeb开发基础/">
@@ -557,7 +564,7 @@
                 <span class="level-item">JavaWeb开发基础</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">5</span>
+                <span class="level-item tag">6</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/blog/categories/WEB/MySql/">
@@ -617,6 +624,25 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581764970215&amp;di=9aa67542cb28c838b8649a684401140c&amp;imgtype=0&amp;src=http%3A%2F%2Fimg1.gtimg.com%2Fgamezone%2Fpics%2Fhv1%2F32%2F4%2F686%2F44608202.jpg" alt="(六)web四君子：Request&amp;Response以及Cookie&amp;Session">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-15T06:58:33.000Z">2020-02-15</time></div>
+                    <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(六)web四君子：Request&amp;Response以及Cookie&amp;Session</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -694,25 +720,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://img4.imgtn.bdimg.com/it/u=4139699928,2936590328&amp;fm=26&amp;gp=0.jpg" alt="(一)HTML&amp;&amp;CSS常用技术总结">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-13T15:25:35.000Z">2020-02-13</time></div>
-                    <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(一)HTML&amp;&amp;CSS常用技术总结</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -731,7 +738,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">5</span>
+                    <span class="level-item tag">6</span>
                 </span>
             </a>
         </li>
@@ -993,6 +1000,25 @@
         
         <article class="media">
             
+            <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581764970215&amp;di=9aa67542cb28c838b8649a684401140c&amp;imgtype=0&amp;src=http%3A%2F%2Fimg1.gtimg.com%2Fgamezone%2Fpics%2Fhv1%2F32%2F4%2F686%2F44608202.jpg" alt="(六)web四君子：Request&amp;Response以及Cookie&amp;Session">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-15T06:58:33.000Z">2020-02-15</time></div>
+                    <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(六)web四君子：Request&amp;Response以及Cookie&amp;Session</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581715119481&amp;di=628bfdf1bbbba9653cc170c953b153d4&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.eeyy.com%2Fuploadfile%2F2015%2F0910%2F20150910062559126.jpg" alt="(五)五分钟快速了解Tomcat&amp;Servlet原理及应用">
@@ -1067,25 +1093,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://img4.imgtn.bdimg.com/it/u=4139699928,2936590328&amp;fm=26&amp;gp=0.jpg" alt="(一)HTML&amp;&amp;CSS常用技术总结">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-13T15:25:35.000Z">2020-02-13</time></div>
-                    <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(一)HTML&amp;&amp;CSS常用技术总结</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1104,7 +1111,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">5</span>
+                    <span class="level-item tag">6</span>
                 </span>
             </a>
         </li>

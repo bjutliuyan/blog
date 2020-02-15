@@ -199,16 +199,18 @@
 </li>
 </ol>
 <ul>
-<li>[ ] 配置文件 </li>
-<li>[ ] 在网络中传输   </li>
+<li><input disabled type="checkbox"> 配置文件 </li>
+<li><input disabled type="checkbox"> 在网络中传输   </li>
 </ul>
-<ol>
+<ol start="4">
 <li>XML与HTML的区别<br>1）XML标签都是自定义的，HTML标签是预定义的<br>2）XML语法非常严格，HTML语法非常松散<br>3）XML是存储数据，HTML是展示数据</li>
 </ol>
 <h2 id="二、XML语法"><a href="#二、XML语法" class="headerlink" title="二、XML语法"></a>二、XML语法</h2><ol>
-<li><p>组成部分<br><div align="center">  
+<li><p>组成部分</p>
+<div align="center">  
 <img src="002.jpg">  
-</div><br>如下所示：</p>
+</div> 
+如下所示：
 <figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">&lt;?xml version="1.0" encoding="utf-8" standalone='yes' ?&gt;</span></span><br><span class="line"><span class="hljs-meta">&lt;?xml-stylesheet type="text/css" href="a.css"?&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">users</span>&gt;</span></span><br><span class="line">    <span class="hljs-comment">&lt;!--id值需要唯一--&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">user</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"'1"</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>张三<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">age</span>&gt;</span>23<span class="hljs-tag">&lt;/<span class="hljs-name">age</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">gander</span>&gt;</span>male<span class="hljs-tag">&lt;/<span class="hljs-name">gander</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;/<span class="hljs-name">user</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">user</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"2"</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>李四<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">age</span>&gt;</span>24<span class="hljs-tag">&lt;/<span class="hljs-name">age</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">gander</span>&gt;</span>famale<span class="hljs-tag">&lt;/<span class="hljs-name">gander</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;/<span class="hljs-name">user</span>&gt;</span></span><br><span class="line">    <span class="hljs-comment">&lt;!--CDATA中的数据会原样显示--&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span></span><br><span class="line">        &lt;![CDATA[</span><br><span class="line">            if(a &lt; b &amp;&amp; a &gt; c)&#123;&#125;</span><br><span class="line">        ]]]&gt;</span><br><span class="line">    <span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">users</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>约束<br>在WEB开发中XML常被用来作为一些配置文件，因此XML文件的编写需要满足一些约束（指定XML的书写规则），方便解析。如下图所示：</p>
@@ -220,10 +222,12 @@
 <li>谁编写xml? —— 用户（程序员）；</li>
 <li>软件使用者 谁解析xml? —— 软件（半成品软件，框架） </li>
 <li>作为框架的使用者(程序员)：<pre><code>1）能够在xml中引入约束文档 
-2）能够简单的读懂约束文档
-</code></pre>其中约束文档又分为<code>dtd</code>、<code>Schema</code>两类：<br><div align="center">  
+2）能够简单的读懂约束文档</code></pre>其中约束文档又分为<code>dtd</code>、<code>Schema</code>两类：<div align="center">  
 <img src="003.jpg">  
-</div><br>(具体代码的编写，后期会上传到本人的个人github)</li>
+</div> 
+(具体代码的编写，后期会上传到本人的个人github)
+
+</li>
 </ul>
 <h2 id="三、XML解析"><a href="#三、XML解析" class="headerlink" title="三、XML解析"></a>三、XML解析</h2><div align="center">  
 <img src="004.jpg">  
@@ -410,7 +414,7 @@ XML的解析有`DOM`、`SAX`两种方式，常用的是通过DOM树操作，需�
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        47
+                        48
                     </p>
                 </div>
             </div>
@@ -575,7 +579,7 @@ XML的解析有`DOM`、`SAX`两种方式，常用的是通过DOM树操作，需�
                 <span class="level-item">WEB</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">12</span>
+                <span class="level-item tag">13</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/blog/categories/WEB/JavaWeb开发基础/">
@@ -583,7 +587,7 @@ XML的解析有`DOM`、`SAX`两种方式，常用的是通过DOM树操作，需�
                 <span class="level-item">JavaWeb开发基础</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">5</span>
+                <span class="level-item tag">6</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/blog/categories/WEB/MySql/">
@@ -643,6 +647,25 @@ XML的解析有`DOM`、`SAX`两种方式，常用的是通过DOM树操作，需�
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581764970215&amp;di=9aa67542cb28c838b8649a684401140c&amp;imgtype=0&amp;src=http%3A%2F%2Fimg1.gtimg.com%2Fgamezone%2Fpics%2Fhv1%2F32%2F4%2F686%2F44608202.jpg" alt="(六)web四君子：Request&amp;Response以及Cookie&amp;Session">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-15T06:58:33.000Z">2020-02-15</time></div>
+                    <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(六)web四君子：Request&amp;Response以及Cookie&amp;Session</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -720,25 +743,6 @@ XML的解析有`DOM`、`SAX`两种方式，常用的是通过DOM树操作，需�
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://img4.imgtn.bdimg.com/it/u=4139699928,2936590328&amp;fm=26&amp;gp=0.jpg" alt="(一)HTML&amp;&amp;CSS常用技术总结">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-13T15:25:35.000Z">2020-02-13</time></div>
-                    <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(一)HTML&amp;&amp;CSS常用技术总结</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -757,7 +761,7 @@ XML的解析有`DOM`、`SAX`两种方式，常用的是通过DOM树操作，需�
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">5</span>
+                    <span class="level-item tag">6</span>
                 </span>
             </a>
         </li>
@@ -1019,6 +1023,25 @@ XML的解析有`DOM`、`SAX`两种方式，常用的是通过DOM树操作，需�
         
         <article class="media">
             
+            <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581764970215&amp;di=9aa67542cb28c838b8649a684401140c&amp;imgtype=0&amp;src=http%3A%2F%2Fimg1.gtimg.com%2Fgamezone%2Fpics%2Fhv1%2F32%2F4%2F686%2F44608202.jpg" alt="(六)web四君子：Request&amp;Response以及Cookie&amp;Session">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-15T06:58:33.000Z">2020-02-15</time></div>
+                    <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(六)web四君子：Request&amp;Response以及Cookie&amp;Session</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581715119481&amp;di=628bfdf1bbbba9653cc170c953b153d4&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.eeyy.com%2Fuploadfile%2F2015%2F0910%2F20150910062559126.jpg" alt="(五)五分钟快速了解Tomcat&amp;Servlet原理及应用">
@@ -1093,25 +1116,6 @@ XML的解析有`DOM`、`SAX`两种方式，常用的是通过DOM树操作，需�
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://img4.imgtn.bdimg.com/it/u=4139699928,2936590328&amp;fm=26&amp;gp=0.jpg" alt="(一)HTML&amp;&amp;CSS常用技术总结">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-13T15:25:35.000Z">2020-02-13</time></div>
-                    <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(一)HTML&amp;&amp;CSS常用技术总结</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1130,7 +1134,7 @@ XML的解析有`DOM`、`SAX`两种方式，常用的是通过DOM树操作，需�
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">5</span>
+                    <span class="level-item tag">6</span>
                 </span>
             </a>
         </li>

@@ -250,7 +250,7 @@
 </li>
 <li>1*1卷积核的优点：<blockquote>
 <ul>
-<li>升降维：比如，一张500 <em> 500且厚度depth为100 的图片在20个filter上做1</em>1的卷积，那么结果的大小为500<em>500</em>20。</li>
+<li>升降维：比如，一张500 * 500且厚度depth为100 的图片在20个filter上做1<em>1的卷积，那么结果的大小为500</em>500*20。</li>
 <li>加入非线性：卷积层之后经过激励层，1*1的卷积在前一层的学习表示上添加了非线性激励（ non-linear activation ），提升网络的表达能力；</li>
 </ul>
 </blockquote>
@@ -265,7 +265,7 @@
 <li>使用好的激活函数，relu替换sigmoid，防止过拟合采用dropout，lrn，卷积核变小减少计算量和参数，增加非线性，采用1X1减少维度，</li>
 <li>加速训练分组训练；</li>
 <li>使用全局平均池化层代替全连接<blockquote>
-<p>全连接的目的是什么呢？因为传统的网络我们的输出都是分类，也就是几个类别的概率甚至就是一个数—类别号，那么全连接层就是高度提纯的特征了，方便交给最后的分类器或者回归。<br>但是全连接的参数太多了，所以现在的趋势是尽量避免全连接，近期的大部分论文FC多用全局平均池化层（GAP，Global Average Pooling）的方法代替。后者的思想就是：用 feature map 直接表示属于某个类的 confidence map，比如有10个类，就在最后输出10个 feature map，每个feature map中的值加起来求平均值，这十个数字就是对应的概率或者叫置信度。然后把得到的这些平均值直接作为属于某个类别的 confidence value，再输入softmax中分类， 更重要的是实验效果并不比用 FC 差。<br>关于Network in Network的解释参考以下链接[<a href="https://www.jianshu.com/p/defcd6a90205" target="_blank" rel="noopener">link</a>]</p>
+<p>全连接的目的是什么呢？因为传统的网络我们的输出都是分类，也就是几个类别的概率甚至就是一个数–类别号，那么全连接层就是高度提纯的特征了，方便交给最后的分类器或者回归。<br>但是全连接的参数太多了，所以现在的趋势是尽量避免全连接，近期的大部分论文FC多用全局平均池化层（GAP，Global Average Pooling）的方法代替。后者的思想就是：用 feature map 直接表示属于某个类的 confidence map，比如有10个类，就在最后输出10个 feature map，每个feature map中的值加起来求平均值，这十个数字就是对应的概率或者叫置信度。然后把得到的这些平均值直接作为属于某个类别的 confidence value，再输入softmax中分类， 更重要的是实验效果并不比用 FC 差。<br>关于Network in Network的解释参考以下链接[<a href="https://www.jianshu.com/p/defcd6a90205" target="_blank" rel="noopener">link</a>]</p>
 </blockquote>
 </li>
 </ul>
@@ -273,9 +273,13 @@
 <h2 id="6-大浪推手：GoogLeNet"><a href="#6-大浪推手：GoogLeNet" class="headerlink" title="6.大浪推手：GoogLeNet"></a>6.大浪推手：GoogLeNet</h2><p><strong>优点：</strong></p>
 <ul>
 <li><code>使用Network in Network中1x1 conv及AvgPool替换fc</code></li>
-<li><code>引入inception模块</code><br>想通过一种spared layer architecture来实现较优的多维度特征表达，然后通过对这种结构进行叠加，中间不时再插入一些MaxPool层以减少参数数目（从而节省内存与计算开销）。<strong>具体来说，就是将CNN中常用的卷积（1x1，3x3，5x5）、池化操作（3x3）堆叠在一起（卷积、池化后的尺寸相同，将通道相加），一方面增加了网络的宽度，另一方面也增加了网络对尺度的适应性。</strong><br>输入（可以是被卷积完的长方体输出作为该层的输入）进来后，通常可以选择直接使用像素信息(1x1卷积)传递到下一层，可以选择3x3卷积，可以选择5x5卷积，还可以选择max pooling对刚被卷积后的特征图降采样。但在实际的网络设计中，究竟该如何选择需要大量的实验和经验。Inception就不用我们来选择，而是将4个选项给神经网络，让网络自己去选择最合适的解决方案。<br><div align="center">  
+<li><code>引入inception模块</code><br>想通过一种spared layer architecture来实现较优的多维度特征表达，然后通过对这种结构进行叠加，中间不时再插入一些MaxPool层以减少参数数目（从而节省内存与计算开销）。<strong>具体来说，就是将CNN中常用的卷积（1x1，3x3，5x5）、池化操作（3x3）堆叠在一起（卷积、池化后的尺寸相同，将通道相加），一方面增加了网络的宽度，另一方面也增加了网络对尺度的适应性。</strong><br>输入（可以是被卷积完的长方体输出作为该层的输入）进来后，通常可以选择直接使用像素信息(1x1卷积)传递到下一层，可以选择3x3卷积，可以选择5x5卷积，还可以选择max pooling对刚被卷积后的特征图降采样。但在实际的网络设计中，究竟该如何选择需要大量的实验和经验。Inception就不用我们来选择，而是将4个选项给神经网络，让网络自己去选择最合适的解决方案。<div align="center">  
 <img src="009.jpg">  
-</div><br>上图结构就是Inception，结构里的卷积stride都是1，另外为了保持特征响应图大小一致，都用了零填充。最后每个卷积层后面都立刻接了个ReLU层。在输出前有个叫concatenate的层，直译的意思是“并置”，即把4组不同类型但大小相同的特征响应图一张张并排叠起来，形成新的特征响应图。</li>
+</div> 
+上图结构就是Inception，结构里的卷积stride都是1，另外为了保持特征响应图大小一致，都用了零填充。最后每个卷积层后面都立刻接了个ReLU层。在输出前有个叫concatenate的层，直译的意思是“并置”，即把4组不同类型但大小相同的特征响应图一张张并排叠起来，形成新的特征响应图。
+
+
+</li>
 </ul>
 <h2 id="7-坚持可持续性发展：Inception-v1-v2-v3-v4"><a href="#7-坚持可持续性发展：Inception-v1-v2-v3-v4" class="headerlink" title="7.坚持可持续性发展：Inception-v1/v2/v3/v4"></a>7.坚持可持续性发展：Inception-v1/v2/v3/v4</h2><p><code>这四个网络都是对Inception结构进行调整</code>。</p>
 <h2 id="8-里程碑式创新：ResNet"><a href="#8-里程碑式创新：ResNet" class="headerlink" title="8.里程碑式创新：ResNet"></a>8.里程碑式创新：ResNet</h2><p>2015年何恺明推出的ResNet在ISLVRC和COCO上横扫所有选手，获得冠军。ResNet在网络结构上做了大创新，而不再是简单的堆积层数，ResNet在卷积神经网络的新思路，绝对是深度学习发展历程上里程碑式的事件。详解参见该链接[<a href="https://www.jianshu.com/p/23c73b90657f" target="_blank" rel="noopener">link</a>]。<br>当卷积网络层数增加的同时容易引发梯度消失或梯度爆炸问题，ResNet的主要思想是在网络中增加了直连通道，即Highway Network的思想。此前的网络结构是性能输入做一个非线性变换，而Highway Network则允许保留之前网络层的一定比例的输出。ResNet的思想和Highway Network的思想也非常类似，允许原始输入信息直接传到后面的层中，如下图所示。<br><code>可以直接学习输入和输出的差值F(x)</code></p>
@@ -464,7 +468,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        47
+                        48
                     </p>
                 </div>
             </div>
@@ -629,7 +633,7 @@
                 <span class="level-item">WEB</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">12</span>
+                <span class="level-item tag">13</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/blog/categories/WEB/JavaWeb开发基础/">
@@ -637,7 +641,7 @@
                 <span class="level-item">JavaWeb开发基础</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">5</span>
+                <span class="level-item tag">6</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/blog/categories/WEB/MySql/">
@@ -697,6 +701,25 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581764970215&amp;di=9aa67542cb28c838b8649a684401140c&amp;imgtype=0&amp;src=http%3A%2F%2Fimg1.gtimg.com%2Fgamezone%2Fpics%2Fhv1%2F32%2F4%2F686%2F44608202.jpg" alt="(六)web四君子：Request&amp;Response以及Cookie&amp;Session">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-15T06:58:33.000Z">2020-02-15</time></div>
+                    <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(六)web四君子：Request&amp;Response以及Cookie&amp;Session</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -774,25 +797,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://img4.imgtn.bdimg.com/it/u=4139699928,2936590328&amp;fm=26&amp;gp=0.jpg" alt="(一)HTML&amp;&amp;CSS常用技术总结">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-13T15:25:35.000Z">2020-02-13</time></div>
-                    <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(一)HTML&amp;&amp;CSS常用技术总结</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -811,7 +815,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">5</span>
+                    <span class="level-item tag">6</span>
                 </span>
             </a>
         </li>
@@ -1073,6 +1077,25 @@
         
         <article class="media">
             
+            <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581764970215&amp;di=9aa67542cb28c838b8649a684401140c&amp;imgtype=0&amp;src=http%3A%2F%2Fimg1.gtimg.com%2Fgamezone%2Fpics%2Fhv1%2F32%2F4%2F686%2F44608202.jpg" alt="(六)web四君子：Request&amp;Response以及Cookie&amp;Session">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-15T06:58:33.000Z">2020-02-15</time></div>
+                    <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(六)web四君子：Request&amp;Response以及Cookie&amp;Session</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581715119481&amp;di=628bfdf1bbbba9653cc170c953b153d4&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.eeyy.com%2Fuploadfile%2F2015%2F0910%2F20150910062559126.jpg" alt="(五)五分钟快速了解Tomcat&amp;Servlet原理及应用">
@@ -1147,25 +1170,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://img4.imgtn.bdimg.com/it/u=4139699928,2936590328&amp;fm=26&amp;gp=0.jpg" alt="(一)HTML&amp;&amp;CSS常用技术总结">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-13T15:25:35.000Z">2020-02-13</time></div>
-                    <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(一)HTML&amp;&amp;CSS常用技术总结</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1184,7 +1188,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">5</span>
+                    <span class="level-item tag">6</span>
                 </span>
             </a>
         </li>

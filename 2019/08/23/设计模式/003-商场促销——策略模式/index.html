@@ -190,21 +190,26 @@
         <div class="content">
             <p>面向对象的编程并不是类越多越好，类的划分是为了封装，但分类的基础是抽象，具有相同属性和功能的对象的集合才是类。<a id="more"></a></p>
 <ol>
-<li><strong>需求：</strong><blockquote>
+<li><p><strong>需求：</strong></p>
+<blockquote>
 <p>假如设计一个商场收银软件，营业员根据客户所购买的商品的单价和数量，向客户收费。==考虑到不同商品有不同的促销方式：打1折、打3折、满300减100、满200减50、满100积分10点（积分达到一定程度可以领取相对应奖品）==。<br>考虑界面如下：<br><img src="001.jpg" alt></p>
 </blockquote>
 </li>
 <li><p><strong>简单工厂实现</strong></p>
 <blockquote>
 <p>按照<a href="https://" target="_blank" rel="noopener">上一节</a>的讲法可以根据简单工厂模式建立类图如下，其中注意为了更好的抽象，应将打折操作（1折、2折等）抽象为一个类而不是两个类，其余操作也类似：<br><img src="002.jpg" alt><br>如果现在需要再添加打5折、满500减200活动，按照简单工厂的思想，只需要在收费生成对象工厂添加两个switch条件，再在下拉选框里加两项就OK了；如果加入满100送10积分的活动，需要添加该收费标准子类，再到界面稍加改动，</p>
+</blockquote>
+<blockquote>
 <p>可以看出的是，简单工厂只是解决了对象创建的问题，每次维护和扩展收费方式都要改动这个工厂，以致代码需要重新编译部署。面对算法时常变动，应该有更好的设计模式去选择。</p>
 </blockquote>
 </li>
-<li><strong>策略模式实现</strong><blockquote>
+<li><p><strong>策略模式实现</strong></p>
+<blockquote>
 <p><code>策略模式：</code>是一种定义一系列算法的方法，从概念上看，所有这些算法完成的都是相同的工作，只是实现不同，它可以相同的方式调用所有的算法，减少各种算法与使用算法类之间的耦合。（即通过一个Context类，引入Strategy策略父类，根据传入不同对象，调用具体对应方法），<code>**策略模式封装变化**</code><br><img src="003.jpg" alt><br>CashContext类：<br><img src="004.jpg" alt><br><img src="005.jpg" alt><br>客户端主要代码：<br><img src="006.jpg" alt></p>
 </blockquote>
 </li>
-<li><strong>简单工厂-策略模式相结合</strong><blockquote>
+<li><p><strong>简单工厂-策略模式相结合</strong></p>
+<blockquote>
 <p>可以发现策略模式又回到未用简单工厂之前的老套路，直接在哭护短去判断使用哪一个算法。显然是不合适的。所以可以将简单工厂在策略模式基础上将判断过程从客户端程序移走。<br>改造后CashContext类：<br><img src="007.jpg" alt><br>改造后客户端主要代码：<br><img src="008.jpg" alt><br><img src="009.jpg" alt><br><code>对比原先简单工厂的发现，简单工厂需要客户端认识两个类：CashSuper、CashFactory；而现在只需要认识一个CashContext类就可以了。使得具体的收费算法彻底地与客户端分离，连算法的父类CashSuper都不让客户端认识了，耦合度更加降低。</code><br>不过，目前仍不够完美，因为CashContext里还是用到了switch判断，但是相比原先的简单工厂改动成本较小。当然还有更好的办法，比如反射技术，在后面会进行相关整理介绍。</p>
 </blockquote>
 </li>
@@ -376,7 +381,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        47
+                        48
                     </p>
                 </div>
             </div>
@@ -541,7 +546,7 @@
                 <span class="level-item">WEB</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">12</span>
+                <span class="level-item tag">13</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/blog/categories/WEB/JavaWeb开发基础/">
@@ -549,7 +554,7 @@
                 <span class="level-item">JavaWeb开发基础</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">5</span>
+                <span class="level-item tag">6</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/blog/categories/WEB/MySql/">
@@ -609,6 +614,25 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581764970215&amp;di=9aa67542cb28c838b8649a684401140c&amp;imgtype=0&amp;src=http%3A%2F%2Fimg1.gtimg.com%2Fgamezone%2Fpics%2Fhv1%2F32%2F4%2F686%2F44608202.jpg" alt="(六)web四君子：Request&amp;Response以及Cookie&amp;Session">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-15T06:58:33.000Z">2020-02-15</time></div>
+                    <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(六)web四君子：Request&amp;Response以及Cookie&amp;Session</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -686,25 +710,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://img4.imgtn.bdimg.com/it/u=4139699928,2936590328&amp;fm=26&amp;gp=0.jpg" alt="(一)HTML&amp;&amp;CSS常用技术总结">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-13T15:25:35.000Z">2020-02-13</time></div>
-                    <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(一)HTML&amp;&amp;CSS常用技术总结</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -723,7 +728,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">5</span>
+                    <span class="level-item tag">6</span>
                 </span>
             </a>
         </li>
@@ -985,6 +990,25 @@
         
         <article class="media">
             
+            <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581764970215&amp;di=9aa67542cb28c838b8649a684401140c&amp;imgtype=0&amp;src=http%3A%2F%2Fimg1.gtimg.com%2Fgamezone%2Fpics%2Fhv1%2F32%2F4%2F686%2F44608202.jpg" alt="(六)web四君子：Request&amp;Response以及Cookie&amp;Session">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-15T06:58:33.000Z">2020-02-15</time></div>
+                    <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(六)web四君子：Request&amp;Response以及Cookie&amp;Session</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581715119481&amp;di=628bfdf1bbbba9653cc170c953b153d4&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.eeyy.com%2Fuploadfile%2F2015%2F0910%2F20150910062559126.jpg" alt="(五)五分钟快速了解Tomcat&amp;Servlet原理及应用">
@@ -1059,25 +1083,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://img4.imgtn.bdimg.com/it/u=4139699928,2936590328&amp;fm=26&amp;gp=0.jpg" alt="(一)HTML&amp;&amp;CSS常用技术总结">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-13T15:25:35.000Z">2020-02-13</time></div>
-                    <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(一)HTML&amp;&amp;CSS常用技术总结</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1096,7 +1101,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">5</span>
+                    <span class="level-item tag">6</span>
                 </span>
             </a>
         </li>

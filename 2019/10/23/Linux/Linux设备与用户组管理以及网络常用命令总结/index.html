@@ -191,7 +191,8 @@
             <p>针对设备管理进行简单介绍，并对用户组管理常用命令进行总结。<a id="more"></a></p>
 <h2 id="一、设备管理"><a href="#一、设备管理" class="headerlink" title="一、设备管理"></a>一、设备管理</h2><p>Linux设备管理的主要任务是控制设备完成输入/输出操作，所以又称输入输出（I/O）子系统。Linux把设备看作特殊文件，系统通过处理文件的接口——虚拟文件系统来管理和控制各种设备。它的任务是把各种设备硬件的复杂物理特性的细节屏蔽起来，提供一个队各种不同设备使用同一方式进行操作的接口。</p>
 <ul>
-<li>设备的绝对号<br>Linux系统按照某种规则为每台设备分配了唯一的号码，用作设备的区分和识别。</li>
+<li><p>设备的绝对号<br>Linux系统按照某种规则为每台设备分配了唯一的号码，用作设备的区分和识别。</p>
+</li>
 <li><p>设备文件</p>
 <blockquote>
 <ul>
@@ -208,19 +209,25 @@
 <ul>
 <li><p>用户的管理<br><code>useradd（添加用户）</code></p>
  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd 用户名</span><br></pre></td></tr></table></figure>
+
 <p> <code>passwd（修改密码）</code><br> <code>userMod（改变用户的属性）</code><br> <code>userdel （删除用户）</code></p>
 </li>
 <li><p>组管理<br> <code>groupadd(添加组名)</code><br> <code>groupmod(修改组属性)</code><br> <code>gpasswd(改变组中成员用户或组的密码)</code></p>
  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#修改user1组的密码</span><br><span class="line">gpasswd user1</span><br><span class="line">#添加student用户到user1组</span><br><span class="line">gpasswd -a student user1</span><br><span class="line">#删除student从user1组</span><br><span class="line">gpasswd -d student user1</span><br></pre></td></tr></table></figure>
+
 <p> <code>groupdel(删除组)</code></p>
 </li>
 <li><p>权限控制<br>访问权限内规定了不同用户的3种访问文件或目录的方式：<code>读(r)、写(w)、可执行或查找(x)</code>。基本上文件或目录的9个属性分别属于文件主、组用户、其他用户这3类用户，在设定权限时可以对3类用户采用如下方式表示：<br>u(user)：表示文件所有者<br>g(group)：表示文件的所属组<br>o(others)：表示其他用户<br>a(all)：表示所有用户(即u+g+o)<br> <code>chmod（改变或设置文件或目录的访问权限）</code></p>
  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#将文件profile的权限改为所有用户对其都有执行权限</span><br><span class="line">chmod a+x profile</span><br><span class="line">#将文件profile的权限重新设置为文件主可以读和执行，组用户可以执行，其他用户无权访问</span><br><span class="line">chmod u=rx,g=x,o= profile</span><br><span class="line">#将文件profile的权限重新设置为只有文件主可以读和执行</span><br><span class="line">chmod g-x profile</span><br></pre></td></tr></table></figure>
+
 <p> <code>chown（改变某个文件或目录的拥有者和所属的组）</code></p>
  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#改变文件profile的文件主和用户组为student、group1</span><br><span class="line">chown student:group1 profile</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
-<h2 id="三、sudo工具的使用"><a href="#三、sudo工具的使用" class="headerlink" title="三、sudo工具的使用"></a>三、sudo工具的使用</h2><p>在Linux系统中，提供了一个特殊的工具sudo，sudo允许系统管理员让普通用户执行部分或全部需要root权限命令的工具。要使用sudo工具的用户需要在/etc/sudoers里添加一行student ALL=(ALL) ALL<br>使用sudo命令很简单，只要在运行的命令前加上sudo，然后再运行，如：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir file</span><br></pre></td></tr></table></figure></p>
+<h2 id="三、sudo工具的使用"><a href="#三、sudo工具的使用" class="headerlink" title="三、sudo工具的使用"></a>三、sudo工具的使用</h2><p>在Linux系统中，提供了一个特殊的工具sudo，sudo允许系统管理员让普通用户执行部分或全部需要root权限命令的工具。要使用sudo工具的用户需要在/etc/sudoers里添加一行student ALL=(ALL) ALL<br>使用sudo命令很简单，只要在运行的命令前加上sudo，然后再运行，如：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir file</span><br></pre></td></tr></table></figure>
+
 
         </div>
         
@@ -388,7 +395,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        47
+                        48
                     </p>
                 </div>
             </div>
@@ -553,7 +560,7 @@
                 <span class="level-item">WEB</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">12</span>
+                <span class="level-item tag">13</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/blog/categories/WEB/JavaWeb开发基础/">
@@ -561,7 +568,7 @@
                 <span class="level-item">JavaWeb开发基础</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">5</span>
+                <span class="level-item tag">6</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/blog/categories/WEB/MySql/">
@@ -621,6 +628,25 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581764970215&amp;di=9aa67542cb28c838b8649a684401140c&amp;imgtype=0&amp;src=http%3A%2F%2Fimg1.gtimg.com%2Fgamezone%2Fpics%2Fhv1%2F32%2F4%2F686%2F44608202.jpg" alt="(六)web四君子：Request&amp;Response以及Cookie&amp;Session">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-15T06:58:33.000Z">2020-02-15</time></div>
+                    <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(六)web四君子：Request&amp;Response以及Cookie&amp;Session</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -698,25 +724,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://img4.imgtn.bdimg.com/it/u=4139699928,2936590328&amp;fm=26&amp;gp=0.jpg" alt="(一)HTML&amp;&amp;CSS常用技术总结">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-13T15:25:35.000Z">2020-02-13</time></div>
-                    <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(一)HTML&amp;&amp;CSS常用技术总结</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -735,7 +742,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">5</span>
+                    <span class="level-item tag">6</span>
                 </span>
             </a>
         </li>
@@ -997,6 +1004,25 @@
         
         <article class="media">
             
+            <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581764970215&amp;di=9aa67542cb28c838b8649a684401140c&amp;imgtype=0&amp;src=http%3A%2F%2Fimg1.gtimg.com%2Fgamezone%2Fpics%2Fhv1%2F32%2F4%2F686%2F44608202.jpg" alt="(六)web四君子：Request&amp;Response以及Cookie&amp;Session">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-15T06:58:33.000Z">2020-02-15</time></div>
+                    <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(六)web四君子：Request&amp;Response以及Cookie&amp;Session</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581715119481&amp;di=628bfdf1bbbba9653cc170c953b153d4&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.eeyy.com%2Fuploadfile%2F2015%2F0910%2F20150910062559126.jpg" alt="(五)五分钟快速了解Tomcat&amp;Servlet原理及应用">
@@ -1071,25 +1097,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://img4.imgtn.bdimg.com/it/u=4139699928,2936590328&amp;fm=26&amp;gp=0.jpg" alt="(一)HTML&amp;&amp;CSS常用技术总结">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-13T15:25:35.000Z">2020-02-13</time></div>
-                    <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(一)HTML&amp;&amp;CSS常用技术总结</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1108,7 +1115,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">5</span>
+                    <span class="level-item tag">6</span>
                 </span>
             </a>
         </li>

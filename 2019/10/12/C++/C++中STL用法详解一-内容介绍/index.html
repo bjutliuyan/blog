@@ -244,6 +244,7 @@
 </ul>
 <h3 id="2-4-仿函数"><a href="#2-4-仿函数" class="headerlink" title="2.4 仿函数"></a>2.4 仿函数</h3><p>C++中通过一个类或结构体中重载括号运算符的方法使用一个函数对象而不是一个普通函数，要使<br>使用仿函数比一般函数优点参考以下链接<a href="https://blog.csdn.net/u012803067/article/details/79700434" target="_blank" rel="noopener">link</a></p>
 <figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">cmp</span>&#123;</span></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">(ListNode* node1, ListNode* node2)</span></span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> node1-&gt;val &gt; node2-&gt;val;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">sort(a, a+n, cmp); <span class="hljs-comment">//按照cmp的规则迭代排序</span></span><br></pre></td></tr></table></figure>
+
 <p>用STL内建的仿函数，必须包含<functional>头文件。该头文件包含的仿函数分类包括：</functional></p>
 <ul>
 <li>算术类仿函数<br>加：            plus <t><br>减：            minus <t><br>乘：            multiplies <t><br>除：            dividex <t><br>模取：        modulus <t><br>否定：        negate <t></t></t></t></t></t></t></li>
@@ -251,39 +252,35 @@
 <li>逻辑运算仿函数<br>逻辑与：    logical_and <t><br>逻辑或：    logical_or <t><br>逻辑否：    logical_no <t></t></t></t></li>
 </ul>
 <p>除了使用STL内建的仿函数，还可以使用自定义的仿函数。</p>
-<h3 id="2-5-容器适配器"><a href="#2-5-容器适配器" class="headerlink" title="2.5 容器适配器"></a>2.5 容器适配器</h3><p>容器适配器(配接器)对容器进行包装使其表现出另外一种行为。例如stack<int, vector<int>&gt;实现了栈的功能，但其内部使用顺序容器vector<int>来存储数据（相当于是vector<int>表现出了栈的行为）</int></int></int,></p>
-<div class="table-container">
+<h3 id="2-5-容器适配器"><a href="#2-5-容器适配器" class="headerlink" title="2.5 容器适配器"></a>2.5 容器适配器</h3><p>容器适配器(配接器)对容器进行包装使其表现出另外一种行为。例如stack&lt;int, vector<int>&gt;实现了栈的功能，但其内部使用顺序容器vector<int>来存储数据（相当于是vector<int>表现出了栈的行为）</int></int></int></p>
 <table>
 <thead>
 <tr>
 <th>种类</th>
 <th>默认顺序容器</th>
-<th style="text-align:right">可用顺序容器</th>
-<th style="text-align:right">说明</th>
+<th align="right">可用顺序容器</th>
+<th align="right">说明</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>stack</td>
 <td>deque</td>
-<td style="text-align:right">vector、list、deque</td>
-<td style="text-align:right">#include “stack”</td>
+<td align="right">vector、list、deque</td>
+<td align="right">#include “stack”</td>
 </tr>
 <tr>
 <td>queue</td>
 <td>deque</td>
-<td style="text-align:right">list、deque</td>
-<td style="text-align:right">#include “queue”；基础容器必须提供push_front()运算</td>
+<td align="right">list、deque</td>
+<td align="right">#include “queue”；基础容器必须提供push_front()运算</td>
 </tr>
 <tr>
 <td>priority_queue</td>
 <td>vector</td>
-<td style="text-align:right">vector、deque</td>
-<td style="text-align:right">#include “queue”；基础容器必须提供随机访问功能</td>
+<td align="right">vector、deque</td>
+<td align="right">#include “queue”；基础容器必须提供随机访问功能</td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <ul>
 <li><p>定义适配器</p>
 <ul>
@@ -292,6 +289,7 @@
 </li>
 <li><p>覆盖默认容器类型</p>
 <figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">stack</span>&lt;<span class="hljs-keyword">int</span>, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &gt;T;</span><br></pre></td></tr></table></figure>
+
 <p>(需注意两个“&lt;”之间要留一个空格，以免被编译器当作输出流符号)</p>
 </li>
 </ul>
@@ -471,7 +469,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        47
+                        48
                     </p>
                 </div>
             </div>
@@ -636,7 +634,7 @@
                 <span class="level-item">WEB</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">12</span>
+                <span class="level-item tag">13</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/blog/categories/WEB/JavaWeb开发基础/">
@@ -644,7 +642,7 @@
                 <span class="level-item">JavaWeb开发基础</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">5</span>
+                <span class="level-item tag">6</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/blog/categories/WEB/MySql/">
@@ -704,6 +702,25 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581764970215&amp;di=9aa67542cb28c838b8649a684401140c&amp;imgtype=0&amp;src=http%3A%2F%2Fimg1.gtimg.com%2Fgamezone%2Fpics%2Fhv1%2F32%2F4%2F686%2F44608202.jpg" alt="(六)web四君子：Request&amp;Response以及Cookie&amp;Session">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-15T06:58:33.000Z">2020-02-15</time></div>
+                    <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(六)web四君子：Request&amp;Response以及Cookie&amp;Session</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -781,25 +798,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://img4.imgtn.bdimg.com/it/u=4139699928,2936590328&amp;fm=26&amp;gp=0.jpg" alt="(一)HTML&amp;&amp;CSS常用技术总结">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-13T15:25:35.000Z">2020-02-13</time></div>
-                    <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(一)HTML&amp;&amp;CSS常用技术总结</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -818,7 +816,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">5</span>
+                    <span class="level-item tag">6</span>
                 </span>
             </a>
         </li>
@@ -1080,6 +1078,25 @@
         
         <article class="media">
             
+            <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581764970215&amp;di=9aa67542cb28c838b8649a684401140c&amp;imgtype=0&amp;src=http%3A%2F%2Fimg1.gtimg.com%2Fgamezone%2Fpics%2Fhv1%2F32%2F4%2F686%2F44608202.jpg" alt="(六)web四君子：Request&amp;Response以及Cookie&amp;Session">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-15T06:58:33.000Z">2020-02-15</time></div>
+                    <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/六-web四君子：Request-Response以及Cookie-Session/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(六)web四君子：Request&amp;Response以及Cookie&amp;Session</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581715119481&amp;di=628bfdf1bbbba9653cc170c953b153d4&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.eeyy.com%2Fuploadfile%2F2015%2F0910%2F20150910062559126.jpg" alt="(五)五分钟快速了解Tomcat&amp;Servlet原理及应用">
@@ -1154,25 +1171,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="http://img4.imgtn.bdimg.com/it/u=4139699928,2936590328&amp;fm=26&amp;gp=0.jpg" alt="(一)HTML&amp;&amp;CSS常用技术总结">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-13T15:25:35.000Z">2020-02-13</time></div>
-                    <a href="/blog/2020/02/13/WEB/JavaWeb开发基础/一-HTML-CSS常用技术总结/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(一)HTML&amp;&amp;CSS常用技术总结</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1191,7 +1189,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">5</span>
+                    <span class="level-item tag">6</span>
                 </span>
             </a>
         </li>
