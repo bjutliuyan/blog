@@ -189,11 +189,8 @@
         </h1>
         <div class="content">
             <p>轮廓可以是简单连续的点连在一起的曲线，具有相同的颜色或灰度。<a id="more"></a>轮廓在形状分析和物体的检测和识别中很有用。</p>
-<h2 id="1-轮廓"><a href="#1-轮廓" class="headerlink" title="1 轮廓"></a>1 轮廓</h2><h3 id="1-1-初识轮廓"><a href="#1-1-初识轮廓" class="headerlink" title="1.1 初识轮廓"></a>1.1 初识轮廓</h3><p>为了更加准确，要使用<a href="https://baike.baidu.com/item/%E5%9B%BE%E5%83%8F%E4%BA%8C%E5%80%BC%E5%8C%96/1748870?fromtitle=%E4%BA%8C%E5%80%BC%E5%8C%96%E5%9B%BE%E5%83%8F&fromid=22023759&fr=aladdin" target="_blank" rel="noopener">二值化图像</a>。在寻找图像之前，要进行阀值化处理或Canny边界检测。<br>查找轮廓的函数会修改原始图像，如果在找到轮廓之后还想使用原始图像的话，应该将原始图像存储到其它变量之中。<br>在OpenCV中，查找轮廓就像在黑白背景中找白色物体。</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#在二值图像中查找轮廓，参数:输入图像、轮廓检索模式、轮廓近似方法，返回值：图像、轮廓、层析结构</span></span><br><span class="line">img = cv2.imread(<span class="hljs-string">'test.jpg'</span>);</span><br><span class="line">imgray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY);</span><br><span class="line">ret,thresh = cv2.threshold(imgray,<span class="hljs-number">127</span>,<span class="hljs-number">255</span>,<span class="hljs-number">0</span>)</span><br><span class="line">image,contours,hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE);</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#参数：原始图像、轮廓、轮廓的索引</span></span><br><span class="line">img = cv2.drawContour(img, contours, <span class="hljs-number">-1</span>, (<span class="hljs-number">0</span>,<span class="hljs-number">255</span>,<span class="hljs-number">0</span>), <span class="hljs-number">3</span>)</span><br></pre></td></tr></table></figure>
-
+<h2 id="1-轮廓"><a href="#1-轮廓" class="headerlink" title="1 轮廓"></a>1 轮廓</h2><h3 id="1-1-初识轮廓"><a href="#1-1-初识轮廓" class="headerlink" title="1.1 初识轮廓"></a>1.1 初识轮廓</h3><p>为了更加准确，要使用<a href="https://baike.baidu.com/item/%E5%9B%BE%E5%83%8F%E4%BA%8C%E5%80%BC%E5%8C%96/1748870?fromtitle=%E4%BA%8C%E5%80%BC%E5%8C%96%E5%9B%BE%E5%83%8F&amp;fromid=22023759&amp;fr=aladdin" target="_blank" rel="noopener">二值化图像</a>。在寻找图像之前，要进行阀值化处理或Canny边界检测。<br>查找轮廓的函数会修改原始图像，如果在找到轮廓之后还想使用原始图像的话，应该将原始图像存储到其它变量之中。<br>在OpenCV中，查找轮廓就像在黑白背景中找白色物体。<br><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#在二值图像中查找轮廓，参数:输入图像、轮廓检索模式、轮廓近似方法，返回值：图像、轮廓、层析结构</span></span><br><span class="line">img = cv2.imread(<span class="hljs-string">'test.jpg'</span>);</span><br><span class="line">imgray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY);</span><br><span class="line">ret,thresh = cv2.threshold(imgray,<span class="hljs-number">127</span>,<span class="hljs-number">255</span>,<span class="hljs-number">0</span>)</span><br><span class="line">image,contours,hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE);</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#参数：原始图像、轮廓、轮廓的索引</span></span><br><span class="line">img = cv2.drawContour(img, contours, <span class="hljs-number">-1</span>, (<span class="hljs-number">0</span>,<span class="hljs-number">255</span>,<span class="hljs-number">0</span>), <span class="hljs-number">3</span>)</span><br></pre></td></tr></table></figure></p>
 <h3 id="1-2-轮廓的特征"><a href="#1-2-轮廓的特征" class="headerlink" title="1.2 轮廓的特征"></a>1.2 轮廓的特征</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#图像的矩(根据图像的矩可近一步计算出图像的重心)</span></span><br><span class="line">M = cv2.moments(contours[<span class="hljs-number">0</span>]);</span><br><span class="line"><span class="hljs-comment">#轮廓的面积</span></span><br><span class="line">area = cv2.contourArea(contours[<span class="hljs-number">0</span>]);</span><br><span class="line"><span class="hljs-comment">#轮廓的周长</span></span><br><span class="line">perimeter = cv2.arcLength(contours[<span class="hljs-number">0</span>]);</span><br><span class="line"><span class="hljs-comment">#凸性检测</span></span><br><span class="line">flag = cv2.isContourConvex(contours[<span class="hljs-number">0</span>]);</span><br><span class="line"><span class="hljs-comment">#边界矩形(直角边界矩形)</span></span><br><span class="line">x,y,w,h = cv2.boundingRect(contours[<span class="hljs-number">0</span>]);</span><br><span class="line">img = cv2.rectangle(img, (x,y), (x+w,y+h), (<span class="hljs-number">0</span>,<span class="hljs-number">255</span>,<span class="hljs-number">0</span>), <span class="hljs-number">2</span>);</span><br><span class="line"><span class="hljs-comment">#边界矩形(旋转的边界矩形)略</span></span><br><span class="line"><span class="hljs-comment">#最小外接圆</span></span><br><span class="line">(x,y),radius = cv2.minEnclosingCircle(contours[<span class="hljs-number">0</span>]);</span><br><span class="line">center = (int(x), int(y));</span><br><span class="line">radius = int(radius);</span><br><span class="line">img = cv2.circle(img, center, radius, (<span class="hljs-number">0</span>,<span class="hljs-number">255</span>,<span class="hljs-number">0</span>), <span class="hljs-number">2</span>);</span><br><span class="line"><span class="hljs-comment">#椭圆拟合</span></span><br><span class="line">ellipse = cv2.fitEllipse(contours[<span class="hljs-number">0</span>]);</span><br><span class="line">img = cv2.ellipse(img, ellipse, (<span class="hljs-number">0</span>,<span class="hljs-number">255</span>,<span class="hljs-number">0</span>), <span class="hljs-number">2</span>);</span><br></pre></td></tr></table></figure>
-
 <h2 id="2-直方图"><a href="#2-直方图" class="headerlink" title="2.直方图"></a>2.直方图</h2><p>直方图是整幅图像的灰度分布，x轴表示灰度值，y轴表示图片中具有同一个灰度值点的数目。</p>
 <h3 id="2-1-一维直方图"><a href="#2-1-一维直方图" class="headerlink" title="2.1 一维直方图"></a>2.1 一维直方图</h3><ul>
 <li><p>统计直方图</p>
@@ -201,7 +198,6 @@
 </li>
 <li><p>画出彩色图的一维直方图</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#画出彩色BGR的直方图</span></span><br><span class="line"><span class="hljs-keyword">import</span> cv2</span><br><span class="line"><span class="hljs-keyword">from</span> matplotlib <span class="hljs-keyword">import</span> pyplot <span class="hljs-keyword">as</span> plt</span><br><span class="line">img = cv2.imread(<span class="hljs-string">'image01.jpg'</span>)</span><br><span class="line">color = (<span class="hljs-string">'b'</span>,<span class="hljs-string">'g'</span>,<span class="hljs-string">'r'</span>)</span><br><span class="line"><span class="hljs-keyword">for</span> i,col <span class="hljs-keyword">in</span> enumerate(color):</span><br><span class="line">    histr = cv2.calcHist([img],[i],<span class="hljs-literal">None</span>,[<span class="hljs-number">256</span>],[<span class="hljs-number">0</span>,<span class="hljs-number">256</span>])</span><br><span class="line">    plt.plot(histr,color = col)</span><br><span class="line">    plt.xlim([<span class="hljs-number">0</span>,<span class="hljs-number">256</span>])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <div align="center">  
@@ -210,7 +206,6 @@
 
 <ul>
 <li>画出灰度图的一维直方图<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#画出灰度值的直方图</span></span><br><span class="line"><span class="hljs-keyword">import</span> cv2</span><br><span class="line"><span class="hljs-keyword">from</span> matplotlib <span class="hljs-keyword">import</span> pyplot <span class="hljs-keyword">as</span> plt</span><br><span class="line">img = cv2.imread(<span class="hljs-string">'image01.jpg'</span>, cv2.IMREAD_COLOR)</span><br><span class="line">plt.hist(img.ravel(),<span class="hljs-number">256</span>,[<span class="hljs-number">0</span>,<span class="hljs-number">256</span>]);</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <div align="center">  
@@ -222,7 +217,6 @@
 </li>
 <li><p>直方图均衡化<br>常用来作为图像增强。</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">img = cv2.imread(<span class="hljs-string">'image01.jpg'</span>, <span class="hljs-number">0</span>);</span><br><span class="line"><span class="hljs-comment"># openCV中的直方图均衡化函数，返回均衡化后图像</span></span><br><span class="line">equ = cv2.equalizeHist(img);</span><br><span class="line"><span class="hljs-comment"># 横向拼接</span></span><br><span class="line">res = np.hstack((img, equ));</span><br><span class="line">cv2.imwrite(<span class="hljs-string">'res.jpg'</span>, res);</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <div align="center">  
@@ -231,7 +225,6 @@
 
 <ul>
 <li>CLAHE直方图均衡化<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</span><br><span class="line"><span class="hljs-keyword">import</span> cv2</span><br><span class="line">img = cv2.imread(<span class="hljs-string">'tsukuba_l.png'</span>,<span class="hljs-number">0</span>)</span><br><span class="line">clahe = cv2.createCLAHE(clipLimit=<span class="hljs-number">2.0</span>, tileGridSize=(<span class="hljs-number">8</span>,<span class="hljs-number">8</span>))</span><br><span class="line">cl1 = clahe.apply(img)</span><br><span class="line">cv2.imwrite(<span class="hljs-string">'clahe_2.jpg'</span>,cl1)</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h3 id="2-2-2D直方图"><a href="#2-2-2D直方图" class="headerlink" title="2.2 2D直方图"></a>2.2 2D直方图</h3><p>上面所介绍的是一维直方图，多用来处理灰度图。对于彩色图像，通常情况下我们需要考虑每个的<code>颜色(Hue)</code>和<code>饱和度(Saturation)</code>。根据这两个特征绘制2D直方图。</p>
@@ -241,16 +234,13 @@
 </li>
 <li><p>绘制2D直方图</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plt.imshow(hist, interpolation = <span class="hljs-string">'nearest'</span>)</span><br><span class="line">plt.show();</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <div align="center">  
 <img src="005.jpg">  
 </div>
 
-<h3 id="2-3-直方图反向投影"><a href="#2-3-直方图反向投影" class="headerlink" title="2.3 直方图反向投影"></a>2.3 直方图反向投影</h3><p>直方图反向投影可以用来做图像分割，或者在图像中找寻感兴趣的部分。它会输出与输入图像同样大小的图像，其中的每一个像素值代表了输入图像对应点属于目标图像的概率。更简单来说，输出图像中像素值越高的点就越可能代表要搜索的目标（在输入图像所在位置）。直方图投影经常与camshift算法等一起使用。</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> cv2</span><br><span class="line"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</span><br><span class="line">roi = cv2.imread(<span class="hljs-string">'tar.jpg'</span>)</span><br><span class="line">hsv = cv2.cvtColor(roi,cv2.COLOR_BGR2HSV)</span><br><span class="line">target = cv2.imread(<span class="hljs-string">'roi.jpg'</span>)</span><br><span class="line">hsvt = cv2.cvtColor(target,cv2.COLOR_BGR2HSV)</span><br><span class="line"><span class="hljs-comment"># calculating object histogram</span></span><br><span class="line">roihist = cv2.calcHist([hsv],[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>], <span class="hljs-literal">None</span>, [<span class="hljs-number">180</span>, <span class="hljs-number">256</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">180</span>, <span class="hljs-number">0</span>, <span class="hljs-number">256</span>] )</span><br><span class="line"><span class="hljs-comment"># normalize histogram and apply backprojection</span></span><br><span class="line"><span class="hljs-comment"># 归一化：原始图像，结果图像，映射到结果图像中的最小值，最大值，归一化类型</span></span><br><span class="line"><span class="hljs-comment">#cv2.NORM_MINMAX 对数组的所有值进行转化，使它们线性映射到最小值和最大值之间</span></span><br><span class="line"><span class="hljs-comment"># 归一化之后的直方图便于显示，归一化之后就成了 0 到 255 之间的数了。</span></span><br><span class="line">cv2.normalize(roihist,roihist,<span class="hljs-number">0</span>,<span class="hljs-number">255</span>,cv2.NORM_MINMAX)</span><br><span class="line">dst = cv2.calcBackProject([hsvt],[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>],roihist,[<span class="hljs-number">0</span>,<span class="hljs-number">180</span>,<span class="hljs-number">0</span>,<span class="hljs-number">256</span>],<span class="hljs-number">1</span>)</span><br><span class="line"><span class="hljs-comment"># Now convolute with circular disc</span></span><br><span class="line"><span class="hljs-comment"># 此处卷积可以把分散的点连在一起</span></span><br><span class="line">disc = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(<span class="hljs-number">5</span>,<span class="hljs-number">5</span>))</span><br><span class="line">dst=cv2.filter2D(dst,<span class="hljs-number">-1</span>,disc)</span><br><span class="line"><span class="hljs-comment"># threshold and binary AND</span></span><br><span class="line">ret,thresh = cv2.threshold(dst,<span class="hljs-number">50</span>,<span class="hljs-number">255</span>,<span class="hljs-number">0</span>)</span><br><span class="line"><span class="hljs-comment"># 别忘了是三通道图像，因此这里使用 merge 变成 3 通道</span></span><br><span class="line">thresh = cv2.merge((thresh,thresh,thresh))</span><br><span class="line"><span class="hljs-comment"># 按位操作</span></span><br><span class="line">res = cv2.bitwise_and(target,thresh)</span><br><span class="line">res = np.hstack((target,thresh,res))</span><br><span class="line">cv2.imwrite(<span class="hljs-string">'res.jpg'</span>,res)</span><br><span class="line"><span class="hljs-comment"># 显示图像</span></span><br><span class="line">cv2.imshow(<span class="hljs-string">'1'</span>,res)</span><br><span class="line">cv2.waitKey(<span class="hljs-number">0</span>)</span><br></pre></td></tr></table></figure>
-
+<h3 id="2-3-直方图反向投影"><a href="#2-3-直方图反向投影" class="headerlink" title="2.3 直方图反向投影"></a>2.3 直方图反向投影</h3><p>直方图反向投影可以用来做图像分割，或者在图像中找寻感兴趣的部分。它会输出与输入图像同样大小的图像，其中的每一个像素值代表了输入图像对应点属于目标图像的概率。更简单来说，输出图像中像素值越高的点就越可能代表要搜索的目标（在输入图像所在位置）。直方图投影经常与camshift算法等一起使用。<br><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> cv2</span><br><span class="line"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</span><br><span class="line">roi = cv2.imread(<span class="hljs-string">'tar.jpg'</span>)</span><br><span class="line">hsv = cv2.cvtColor(roi,cv2.COLOR_BGR2HSV)</span><br><span class="line">target = cv2.imread(<span class="hljs-string">'roi.jpg'</span>)</span><br><span class="line">hsvt = cv2.cvtColor(target,cv2.COLOR_BGR2HSV)</span><br><span class="line"><span class="hljs-comment"># calculating object histogram</span></span><br><span class="line">roihist = cv2.calcHist([hsv],[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>], <span class="hljs-literal">None</span>, [<span class="hljs-number">180</span>, <span class="hljs-number">256</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">180</span>, <span class="hljs-number">0</span>, <span class="hljs-number">256</span>] )</span><br><span class="line"><span class="hljs-comment"># normalize histogram and apply backprojection</span></span><br><span class="line"><span class="hljs-comment"># 归一化：原始图像，结果图像，映射到结果图像中的最小值，最大值，归一化类型</span></span><br><span class="line"><span class="hljs-comment">#cv2.NORM_MINMAX 对数组的所有值进行转化，使它们线性映射到最小值和最大值之间</span></span><br><span class="line"><span class="hljs-comment"># 归一化之后的直方图便于显示，归一化之后就成了 0 到 255 之间的数了。</span></span><br><span class="line">cv2.normalize(roihist,roihist,<span class="hljs-number">0</span>,<span class="hljs-number">255</span>,cv2.NORM_MINMAX)</span><br><span class="line">dst = cv2.calcBackProject([hsvt],[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>],roihist,[<span class="hljs-number">0</span>,<span class="hljs-number">180</span>,<span class="hljs-number">0</span>,<span class="hljs-number">256</span>],<span class="hljs-number">1</span>)</span><br><span class="line"><span class="hljs-comment"># Now convolute with circular disc</span></span><br><span class="line"><span class="hljs-comment"># 此处卷积可以把分散的点连在一起</span></span><br><span class="line">disc = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(<span class="hljs-number">5</span>,<span class="hljs-number">5</span>))</span><br><span class="line">dst=cv2.filter2D(dst,<span class="hljs-number">-1</span>,disc)</span><br><span class="line"><span class="hljs-comment"># threshold and binary AND</span></span><br><span class="line">ret,thresh = cv2.threshold(dst,<span class="hljs-number">50</span>,<span class="hljs-number">255</span>,<span class="hljs-number">0</span>)</span><br><span class="line"><span class="hljs-comment"># 别忘了是三通道图像，因此这里使用 merge 变成 3 通道</span></span><br><span class="line">thresh = cv2.merge((thresh,thresh,thresh))</span><br><span class="line"><span class="hljs-comment"># 按位操作</span></span><br><span class="line">res = cv2.bitwise_and(target,thresh)</span><br><span class="line">res = np.hstack((target,thresh,res))</span><br><span class="line">cv2.imwrite(<span class="hljs-string">'res.jpg'</span>,res)</span><br><span class="line"><span class="hljs-comment"># 显示图像</span></span><br><span class="line">cv2.imshow(<span class="hljs-string">'1'</span>,res)</span><br><span class="line">cv2.waitKey(<span class="hljs-number">0</span>)</span><br></pre></td></tr></table></figure></p>
 <p>下面是我使用的一幅图像。我使用图中蓝色矩形中的区域作为取样对象，再根据这个样本搜索图中所有的类似区域（草地）。</p>
 <div align="center">  
 <img src="004.jpg">  
@@ -422,7 +412,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        46
+                        47
                     </p>
                 </div>
             </div>
@@ -442,7 +432,7 @@
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        22
+                        23
                     </p>
                 </div>
             </div>
@@ -587,7 +577,7 @@
                 <span class="level-item">WEB</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">11</span>
+                <span class="level-item tag">12</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/blog/categories/WEB/JavaWeb开发基础/">
@@ -595,7 +585,7 @@
                 <span class="level-item">JavaWeb开发基础</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">4</span>
+                <span class="level-item tag">5</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/blog/categories/WEB/MySql/">
@@ -641,7 +631,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/blog/tags/AOGNets/" style="font-size: 10px;">AOGNets</a> <a href="/blog/tags/BootStrap/" style="font-size: 10px;">BootStrap</a> <a href="/blog/tags/C-STL/" style="font-size: 12px;">C++_STL</a> <a href="/blog/tags/CIFAR-10/" style="font-size: 10px;">CIFAR-10</a> <a href="/blog/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/blog/tags/HTML-CSS/" style="font-size: 10px;">HTML&CSS</a> <a href="/blog/tags/JS/" style="font-size: 10px;">JS</a> <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/blog/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/MySql/" style="font-size: 18px;">MySql</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 16px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 16px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/XML/" style="font-size: 10px;">XML</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 16px;">设计模式</a> <a href="/blog/tags/随笔/" style="font-size: 10px;">随笔</a>
+        <a href="/blog/tags/AOGNets/" style="font-size: 10px;">AOGNets</a> <a href="/blog/tags/BootStrap/" style="font-size: 10px;">BootStrap</a> <a href="/blog/tags/C-STL/" style="font-size: 12px;">C++_STL</a> <a href="/blog/tags/CIFAR-10/" style="font-size: 10px;">CIFAR-10</a> <a href="/blog/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/blog/tags/HTML-CSS/" style="font-size: 10px;">HTML&CSS</a> <a href="/blog/tags/JS/" style="font-size: 10px;">JS</a> <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/blog/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/MySql/" style="font-size: 18px;">MySql</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 16px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 16px;">TensorFlow</a> <a href="/blog/tags/Tomcat/" style="font-size: 10px;">Tomcat</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/XML/" style="font-size: 10px;">XML</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 16px;">设计模式</a> <a href="/blog/tags/随笔/" style="font-size: 10px;">随笔</a>
     </div>
 </div>
 
@@ -655,6 +645,25 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581715119481&amp;di=628bfdf1bbbba9653cc170c953b153d4&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.eeyy.com%2Fuploadfile%2F2015%2F0910%2F20150910062559126.jpg" alt="(五)五分钟快速了解Tomcat&amp;Servlet原理及应用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-14T17:29:58.000Z">2020-02-15</time></div>
+                    <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(五)五分钟快速了解Tomcat&amp;Servlet原理及应用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -732,25 +741,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/12/20/深度学习/AOGNets与或文法网络结构理解/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://github.com/iVMCL/AOGNets/raw/master/images/teaser.png" alt="AOGNets与或文法网络结构理解">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-20T08:15:20.000Z">2019-12-20</time></div>
-                    <a href="/blog/2019/12/20/深度学习/AOGNets与或文法网络结构理解/" class="title has-link-black-ter is-size-6 has-text-weight-normal">AOGNets与或文法网络结构理解</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/深度学习/">深度学习</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -769,7 +759,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -958,6 +948,13 @@
                     <a class="tags has-addons" href="/blog/tags/TensorFlow/">
                         <span class="tag">TensorFlow</span>
                         <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/Tomcat/">
+                        <span class="tag">Tomcat</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
@@ -1024,6 +1021,25 @@
         
         <article class="media">
             
+            <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581715119481&amp;di=628bfdf1bbbba9653cc170c953b153d4&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.eeyy.com%2Fuploadfile%2F2015%2F0910%2F20150910062559126.jpg" alt="(五)五分钟快速了解Tomcat&amp;Servlet原理及应用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-14T17:29:58.000Z">2020-02-15</time></div>
+                    <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(五)五分钟快速了解Tomcat&amp;Servlet原理及应用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2020/02/14/WEB/JavaWeb开发基础/四-BootStrap十分钟快速入门/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="http://img2.imgtn.bdimg.com/it/u=4094302043,1148188201&amp;fm=26&amp;gp=0.jpg" alt="(四)BootStrap十分钟快速入门">
@@ -1098,25 +1114,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/12/20/深度学习/AOGNets与或文法网络结构理解/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://github.com/iVMCL/AOGNets/raw/master/images/teaser.png" alt="AOGNets与或文法网络结构理解">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-20T08:15:20.000Z">2019-12-20</time></div>
-                    <a href="/blog/2019/12/20/深度学习/AOGNets与或文法网络结构理解/" class="title has-link-black-ter is-size-6 has-text-weight-normal">AOGNets与或文法网络结构理解</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/深度学习/">深度学习</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1135,7 +1132,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -1324,6 +1321,13 @@
                     <a class="tags has-addons" href="/blog/tags/TensorFlow/">
                         <span class="tag">TensorFlow</span>
                         <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/Tomcat/">
+                        <span class="tag">Tomcat</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 

@@ -193,22 +193,22 @@
 <p>为了实现这些，总不能每次写完一部分代码后，再一次性上传服务器进行调试吧，这种方式很笨拙。真正有效的方法是实现本地编辑代码能够与服务器同步。因此就需要进行以下一些相关配置。</p>
 <p>相关操作不难，几分钟左右即可。</p>
 <h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><ul>
-<li><input disabled type="checkbox"> 配置远程服务器信息<pre><code>能够上传到服务器也能从服务器下载</code></pre></li>
-<li><input disabled type="checkbox"> 配置Interperter解释器信息<pre><code>能够调用远程服务器的解释器去执行代码</code></pre></li>
+<li>[ ] 配置远程服务器信息<pre><code>能够上传到服务器也能从服务器下载
+</code></pre></li>
+<li>[ ] 配置Interperter解释器信息<pre><code>能够调用远程服务器的解释器去执行代码
+</code></pre></li>
 </ul>
 <h2 id="配置远程服务器信息"><a href="#配置远程服务器信息" class="headerlink" title="配置远程服务器信息"></a>配置远程服务器信息</h2><ol>
-<li>打开pycharm，选择Tools — Deployment — Configuration,如下图所示：<br><img src="001.jpg" alt></li>
+<li>打开pycharm，选择Tools —- Deployment —- Configuration,如下图所示：<br><img src="001.jpg" alt></li>
 <li>然后，选择左上方的加号，选择SFTP即可，name 按照自己习惯编写。然后填写如下信息：<br><img src="002.jpg" alt></li>
 <li>然后配置mapping（相当于本地项目文件地址与远程服务器项目地址的对应关系）:<br><img src="003.jpg" alt></li>
 <li>配置完这些之后，就发现Development里的上传和下载可以点击了，在这里可以点击自动上传，这样以后本地代码一有改动就会自动的变更到服务器，实现真正同步：<br><img src="004.jpg" alt></li>
 </ol>
 <h2 id="配置Interperter解释器信息"><a href="#配置Interperter解释器信息" class="headerlink" title="配置Interperter解释器信息"></a>配置Interperter解释器信息</h2><ol>
-<li>点击files —-setting — project Interpreter:<br><img src="005.jpg" alt></li>
+<li>点击files ——setting —- project Interpreter:<br><img src="005.jpg" alt></li>
 <li>可以看到上图中我选择的解释还是本地的，现在需要选择远程服务器的解释器，如果上一部分的服务器信息已经配置好，这里是直接有可以选择的：<br><img src="006.jpg" alt><br>到此，整体配置完成，已经可以实现本地与远程服务器同步。</li>
 </ol>
-<h2 id="测试是否成功"><a href="#测试是否成功" class="headerlink" title="测试是否成功"></a>测试是否成功</h2><p>现在如果远程服务器已经安装了TensorFlow深度学习框架，那么在本地运行一个简单的TensorFlow程序，如果可以跑通说明配置成功：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line"># 创建常量 </span><br><span class="line">hello = tf.constant(&apos;Hello,world!&apos;)</span><br><span class="line"># 创建会话 </span><br><span class="line">sess = tf.Session()</span><br><span class="line"># 执行 </span><br><span class="line">result = sess.run(hello)</span><br><span class="line"># 关闭会话 </span><br><span class="line">sess.close()</span><br><span class="line"># 输出结果 </span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
-
+<h2 id="测试是否成功"><a href="#测试是否成功" class="headerlink" title="测试是否成功"></a>测试是否成功</h2><p>现在如果远程服务器已经安装了TensorFlow深度学习框架，那么在本地运行一个简单的TensorFlow程序，如果可以跑通说明配置成功：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line"># 创建常量 </span><br><span class="line">hello = tf.constant(&apos;Hello,world!&apos;)</span><br><span class="line"># 创建会话 </span><br><span class="line">sess = tf.Session()</span><br><span class="line"># 执行 </span><br><span class="line">result = sess.run(hello)</span><br><span class="line"># 关闭会话 </span><br><span class="line">sess.close()</span><br><span class="line"># 输出结果 </span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure></p>
 <h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
 <li>可以直接在本机上编写代码</li>
 <li>代码自动同步到远程服务器</li>
@@ -381,7 +381,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        46
+                        47
                     </p>
                 </div>
             </div>
@@ -401,7 +401,7 @@
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        22
+                        23
                     </p>
                 </div>
             </div>
@@ -546,7 +546,7 @@
                 <span class="level-item">WEB</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">11</span>
+                <span class="level-item tag">12</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/blog/categories/WEB/JavaWeb开发基础/">
@@ -554,7 +554,7 @@
                 <span class="level-item">JavaWeb开发基础</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">4</span>
+                <span class="level-item tag">5</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/blog/categories/WEB/MySql/">
@@ -600,7 +600,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/blog/tags/AOGNets/" style="font-size: 10px;">AOGNets</a> <a href="/blog/tags/BootStrap/" style="font-size: 10px;">BootStrap</a> <a href="/blog/tags/C-STL/" style="font-size: 12px;">C++_STL</a> <a href="/blog/tags/CIFAR-10/" style="font-size: 10px;">CIFAR-10</a> <a href="/blog/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/blog/tags/HTML-CSS/" style="font-size: 10px;">HTML&CSS</a> <a href="/blog/tags/JS/" style="font-size: 10px;">JS</a> <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/blog/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/MySql/" style="font-size: 18px;">MySql</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 16px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 16px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/XML/" style="font-size: 10px;">XML</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 16px;">设计模式</a> <a href="/blog/tags/随笔/" style="font-size: 10px;">随笔</a>
+        <a href="/blog/tags/AOGNets/" style="font-size: 10px;">AOGNets</a> <a href="/blog/tags/BootStrap/" style="font-size: 10px;">BootStrap</a> <a href="/blog/tags/C-STL/" style="font-size: 12px;">C++_STL</a> <a href="/blog/tags/CIFAR-10/" style="font-size: 10px;">CIFAR-10</a> <a href="/blog/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/blog/tags/HTML-CSS/" style="font-size: 10px;">HTML&CSS</a> <a href="/blog/tags/JS/" style="font-size: 10px;">JS</a> <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/blog/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/MySql/" style="font-size: 18px;">MySql</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 16px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 16px;">TensorFlow</a> <a href="/blog/tags/Tomcat/" style="font-size: 10px;">Tomcat</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/XML/" style="font-size: 10px;">XML</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 16px;">设计模式</a> <a href="/blog/tags/随笔/" style="font-size: 10px;">随笔</a>
     </div>
 </div>
 
@@ -614,6 +614,25 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581715119481&amp;di=628bfdf1bbbba9653cc170c953b153d4&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.eeyy.com%2Fuploadfile%2F2015%2F0910%2F20150910062559126.jpg" alt="(五)五分钟快速了解Tomcat&amp;Servlet原理及应用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-14T17:29:58.000Z">2020-02-15</time></div>
+                    <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(五)五分钟快速了解Tomcat&amp;Servlet原理及应用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -691,25 +710,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/12/20/深度学习/AOGNets与或文法网络结构理解/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://github.com/iVMCL/AOGNets/raw/master/images/teaser.png" alt="AOGNets与或文法网络结构理解">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-20T08:15:20.000Z">2019-12-20</time></div>
-                    <a href="/blog/2019/12/20/深度学习/AOGNets与或文法网络结构理解/" class="title has-link-black-ter is-size-6 has-text-weight-normal">AOGNets与或文法网络结构理解</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/深度学习/">深度学习</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -728,7 +728,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -917,6 +917,13 @@
                     <a class="tags has-addons" href="/blog/tags/TensorFlow/">
                         <span class="tag">TensorFlow</span>
                         <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/Tomcat/">
+                        <span class="tag">Tomcat</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
@@ -983,6 +990,25 @@
         
         <article class="media">
             
+            <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581715119481&amp;di=628bfdf1bbbba9653cc170c953b153d4&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.eeyy.com%2Fuploadfile%2F2015%2F0910%2F20150910062559126.jpg" alt="(五)五分钟快速了解Tomcat&amp;Servlet原理及应用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-14T17:29:58.000Z">2020-02-15</time></div>
+                    <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(五)五分钟快速了解Tomcat&amp;Servlet原理及应用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2020/02/14/WEB/JavaWeb开发基础/四-BootStrap十分钟快速入门/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="http://img2.imgtn.bdimg.com/it/u=4094302043,1148188201&amp;fm=26&amp;gp=0.jpg" alt="(四)BootStrap十分钟快速入门">
@@ -1057,25 +1083,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/12/20/深度学习/AOGNets与或文法网络结构理解/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://github.com/iVMCL/AOGNets/raw/master/images/teaser.png" alt="AOGNets与或文法网络结构理解">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-20T08:15:20.000Z">2019-12-20</time></div>
-                    <a href="/blog/2019/12/20/深度学习/AOGNets与或文法网络结构理解/" class="title has-link-black-ter is-size-6 has-text-weight-normal">AOGNets与或文法网络结构理解</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/深度学习/">深度学习</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1094,7 +1101,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -1283,6 +1290,13 @@
                     <a class="tags has-addons" href="/blog/tags/TensorFlow/">
                         <span class="tag">TensorFlow</span>
                         <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/Tomcat/">
+                        <span class="tag">Tomcat</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 

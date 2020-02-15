@@ -189,21 +189,14 @@
         </h1>
         <div class="content">
             <p>对Python中的高级特性：列表推导、迭代器生成器进行介绍。<a id="more"></a></p>
-<h2 id="列表推导"><a href="#列表推导" class="headerlink" title="列表推导"></a>列表推导</h2><p>列表生成式即List Comprehensions，是Python内置的非常简单却强大的可以用来创建list的生成式。<br>举个例子，要生成list <code>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]</code>可以用<code>list(range(1, 11))</code><br>如果要生成[1x1, 2x2, 3x3, …, 10x10]，可以通过循环，但这样太繁琐，用列表生成式可以用一行语句生成：</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">L = []</span><br><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>,<span class="hljs-number">11</span>):</span><br><span class="line">  L.append(ixi)</span><br><span class="line"><span class="hljs-comment">#列表方法</span></span><br><span class="line">L = [ixi <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>,<span class="hljs-number">11</span>)]</span><br></pre></td></tr></table></figure>
-
-<p>for 循环后还可以添加if判断语句，仅筛选出偶数的平方：</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">L = [ixi <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>,<span class="hljs-number">11</span>) <span class="hljs-keyword">if</span> i % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>]</span><br></pre></td></tr></table></figure>
-
-<p>还可以使用双重循环生成全排列：</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># 输出['AX', 'AY', 'AZ', 'BX', 'BY', 'BZ', 'CX', 'CY', 'CZ']</span></span><br><span class="line">[m + n <span class="hljs-keyword">for</span> m <span class="hljs-keyword">in</span> <span class="hljs-string">'ABC'</span> <span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> <span class="hljs-string">'XYZ'</span>]</span><br></pre></td></tr></table></figure>
-
+<h2 id="列表推导"><a href="#列表推导" class="headerlink" title="列表推导"></a>列表推导</h2><p>列表生成式即List Comprehensions，是Python内置的非常简单却强大的可以用来创建list的生成式。<br>举个例子，要生成list <code>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]</code>可以用<code>list(range(1, 11))</code><br>如果要生成[1x1, 2x2, 3x3, …, 10x10]，可以通过循环，但这样太繁琐，用列表生成式可以用一行语句生成：<br><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">L = []</span><br><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>,<span class="hljs-number">11</span>):</span><br><span class="line">  L.append(ixi)</span><br><span class="line"><span class="hljs-comment">#列表方法</span></span><br><span class="line">L = [ixi <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>,<span class="hljs-number">11</span>)]</span><br></pre></td></tr></table></figure></p>
+<p>for 循环后还可以添加if判断语句，仅筛选出偶数的平方：<br><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">L = [ixi <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>,<span class="hljs-number">11</span>) <span class="hljs-keyword">if</span> i % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>]</span><br></pre></td></tr></table></figure></p>
+<p>还可以使用双重循环生成全排列：<br><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># 输出['AX', 'AY', 'AZ', 'BX', 'BY', 'BZ', 'CX', 'CY', 'CZ']</span></span><br><span class="line">[m + n <span class="hljs-keyword">for</span> m <span class="hljs-keyword">in</span> <span class="hljs-string">'ABC'</span> <span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> <span class="hljs-string">'XYZ'</span>]</span><br></pre></td></tr></table></figure></p>
 <h2 id="迭代器生成器"><a href="#迭代器生成器" class="headerlink" title="迭代器生成器"></a>迭代器生成器</h2><ul>
 <li>生成器<br>使用了yield函数被称为生成器generator，返回的是一个迭代器。<br>在调用生成器运行过程中,每次遇到yield时函数会暂停并保存当前所有的运行信息，返回yield的值，并在下一次执行next()方法时从当前位置继续运行。</li>
 </ul>
 <ul>
 <li>迭代器<br>从集合的第一个元素开始访问，直到所有的元素被访问完结束，只能往前不会后；字符串、列表或元组对象都可用于创建迭代器，next()方法返回的是下一个迭代器对象。<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#斐波那契数列使用迭代器生成器实现 </span></span><br><span class="line"><span class="hljs-keyword">import</span> sys</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fibonacci</span><span class="hljs-params">(n,w=<span class="hljs-number">0</span>)</span>:</span> <span class="hljs-comment"># 生成器函数 - 斐波那契</span></span><br><span class="line">  a, b, counter = <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span></span><br><span class="line">  <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:</span><br><span class="line">    <span class="hljs-keyword">if</span> (counter &gt; n):</span><br><span class="line">      <span class="hljs-keyword">return</span></span><br><span class="line">    <span class="hljs-keyword">yield</span> a</span><br><span class="line">    a, b = b, a + b</span><br><span class="line">    print(<span class="hljs-string">'%d,%d'</span> % (a,b))</span><br><span class="line">    counter += <span class="hljs-number">1</span> f = fibonacci(<span class="hljs-number">10</span>,<span class="hljs-number">0</span>) <span class="hljs-comment"># f 是一个迭代器，由生成器返回生成   </span></span><br><span class="line">    </span><br><span class="line"><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:</span><br><span class="line">  <span class="hljs-keyword">try</span>:</span><br><span class="line">  <span class="hljs-keyword">print</span> (next(f), end=<span class="hljs-string">" "</span>)</span><br><span class="line">    <span class="hljs-keyword">except</span> :</span><br><span class="line">  sys.exit()</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 
@@ -373,7 +366,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        46
+                        47
                     </p>
                 </div>
             </div>
@@ -393,7 +386,7 @@
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        22
+                        23
                     </p>
                 </div>
             </div>
@@ -538,7 +531,7 @@
                 <span class="level-item">WEB</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">11</span>
+                <span class="level-item tag">12</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/blog/categories/WEB/JavaWeb开发基础/">
@@ -546,7 +539,7 @@
                 <span class="level-item">JavaWeb开发基础</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">4</span>
+                <span class="level-item tag">5</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/blog/categories/WEB/MySql/">
@@ -592,7 +585,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/blog/tags/AOGNets/" style="font-size: 10px;">AOGNets</a> <a href="/blog/tags/BootStrap/" style="font-size: 10px;">BootStrap</a> <a href="/blog/tags/C-STL/" style="font-size: 12px;">C++_STL</a> <a href="/blog/tags/CIFAR-10/" style="font-size: 10px;">CIFAR-10</a> <a href="/blog/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/blog/tags/HTML-CSS/" style="font-size: 10px;">HTML&CSS</a> <a href="/blog/tags/JS/" style="font-size: 10px;">JS</a> <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/blog/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/MySql/" style="font-size: 18px;">MySql</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 16px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 16px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/XML/" style="font-size: 10px;">XML</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 16px;">设计模式</a> <a href="/blog/tags/随笔/" style="font-size: 10px;">随笔</a>
+        <a href="/blog/tags/AOGNets/" style="font-size: 10px;">AOGNets</a> <a href="/blog/tags/BootStrap/" style="font-size: 10px;">BootStrap</a> <a href="/blog/tags/C-STL/" style="font-size: 12px;">C++_STL</a> <a href="/blog/tags/CIFAR-10/" style="font-size: 10px;">CIFAR-10</a> <a href="/blog/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/blog/tags/HTML-CSS/" style="font-size: 10px;">HTML&CSS</a> <a href="/blog/tags/JS/" style="font-size: 10px;">JS</a> <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/blog/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/MySql/" style="font-size: 18px;">MySql</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 16px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 16px;">TensorFlow</a> <a href="/blog/tags/Tomcat/" style="font-size: 10px;">Tomcat</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/XML/" style="font-size: 10px;">XML</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 16px;">设计模式</a> <a href="/blog/tags/随笔/" style="font-size: 10px;">随笔</a>
     </div>
 </div>
 
@@ -606,6 +599,25 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581715119481&amp;di=628bfdf1bbbba9653cc170c953b153d4&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.eeyy.com%2Fuploadfile%2F2015%2F0910%2F20150910062559126.jpg" alt="(五)五分钟快速了解Tomcat&amp;Servlet原理及应用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-14T17:29:58.000Z">2020-02-15</time></div>
+                    <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(五)五分钟快速了解Tomcat&amp;Servlet原理及应用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -683,25 +695,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/12/20/深度学习/AOGNets与或文法网络结构理解/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://github.com/iVMCL/AOGNets/raw/master/images/teaser.png" alt="AOGNets与或文法网络结构理解">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-20T08:15:20.000Z">2019-12-20</time></div>
-                    <a href="/blog/2019/12/20/深度学习/AOGNets与或文法网络结构理解/" class="title has-link-black-ter is-size-6 has-text-weight-normal">AOGNets与或文法网络结构理解</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/深度学习/">深度学习</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -720,7 +713,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -909,6 +902,13 @@
                     <a class="tags has-addons" href="/blog/tags/TensorFlow/">
                         <span class="tag">TensorFlow</span>
                         <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/Tomcat/">
+                        <span class="tag">Tomcat</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
@@ -975,6 +975,25 @@
         
         <article class="media">
             
+            <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581715119481&amp;di=628bfdf1bbbba9653cc170c953b153d4&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.eeyy.com%2Fuploadfile%2F2015%2F0910%2F20150910062559126.jpg" alt="(五)五分钟快速了解Tomcat&amp;Servlet原理及应用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-14T17:29:58.000Z">2020-02-15</time></div>
+                    <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(五)五分钟快速了解Tomcat&amp;Servlet原理及应用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2020/02/14/WEB/JavaWeb开发基础/四-BootStrap十分钟快速入门/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="http://img2.imgtn.bdimg.com/it/u=4094302043,1148188201&amp;fm=26&amp;gp=0.jpg" alt="(四)BootStrap十分钟快速入门">
@@ -1049,25 +1068,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/12/20/深度学习/AOGNets与或文法网络结构理解/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://github.com/iVMCL/AOGNets/raw/master/images/teaser.png" alt="AOGNets与或文法网络结构理解">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-20T08:15:20.000Z">2019-12-20</time></div>
-                    <a href="/blog/2019/12/20/深度学习/AOGNets与或文法网络结构理解/" class="title has-link-black-ter is-size-6 has-text-weight-normal">AOGNets与或文法网络结构理解</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/深度学习/">深度学习</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1086,7 +1086,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -1275,6 +1275,13 @@
                     <a class="tags has-addons" href="/blog/tags/TensorFlow/">
                         <span class="tag">TensorFlow</span>
                         <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/Tomcat/">
+                        <span class="tag">Tomcat</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 

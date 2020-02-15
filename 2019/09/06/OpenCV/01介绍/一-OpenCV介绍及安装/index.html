@@ -190,15 +190,11 @@
         <div class="content">
             <p><a href="https://docs.opencv.org/3.4/index.html" target="_blank" rel="noopener">OpenCV</a>是一个跨平台的计算机视觉库，可运行在多个平台，<a id="more"></a>由一系列 C 函数和少量 C++ 类，并同时提供了Python、Ruby、MATLAB等语言的接口，实现了图像处理和计算机视觉方面的很多通用算法。<br>以下介绍前提是已经安装好了Python和基本的numpy、matplotlib库。</p>
 <h2 id="Windows下安装OpenCV"><a href="#Windows下安装OpenCV" class="headerlink" title="Windows下安装OpenCV"></a>Windows下安装OpenCV</h2><ol>
-<li><p>到<a href="https://opencv.org/releases.html" target="_blank" rel="noopener">OpenCV官网</a>下载合适的win pack版本，然后傻瓜式操作解压安装：<br><img src="https://img-blog.csdn.net/20180807092613500" alt></p>
-</li>
-<li><p>安装完成之后，配置相应环境变量（依次选择计算机—&gt;属性—&gt;高级系统设置—&gt;环境变量，找到Path变量，然后把OpenCV执行文件的路径新增进去；OpenCV执行文件在解压好的OpenCV文件夹里，依次选择build—&gt;x64—&gt;vc15—&gt;bin）：<br><img src="001.jpg" alt></p>
-</li>
-<li><p>找到opencv-&gt;build-&gt;python-&gt;3.5-&gt;x64下的cv2.pyd工具包，拷贝到Python安装目录下的Lib-&gt;site-packages下<br>到此Windows下OpenCV配置完成。</p>
-</li>
+<li>到<a href="https://opencv.org/releases.html" target="_blank" rel="noopener">OpenCV官网</a>下载合适的win pack版本，然后傻瓜式操作解压安装：<br><img src="https://img-blog.csdn.net/20180807092613500" alt></li>
+<li>安装完成之后，配置相应环境变量（依次选择计算机—&gt;属性—&gt;高级系统设置—&gt;环境变量，找到Path变量，然后把OpenCV执行文件的路径新增进去；OpenCV执行文件在解压好的OpenCV文件夹里，依次选择build—&gt;x64—&gt;vc15—&gt;bin）：<br><img src="001.jpg" alt></li>
+<li>找到opencv-&gt;build-&gt;python-&gt;3.5-&gt;x64下的cv2.pyd工具包，拷贝到Python安装目录下的Lib-&gt;site-packages下<br>到此Windows下OpenCV配置完成。</li>
 <li><p>一个简单测试：<br>新建text.py，输入如下的程序，cmd下输入python text.py，如果可以正确的显示图片，证明安装成功。</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> cv2</span><br><span class="line"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</span><br><span class="line"></span><br><span class="line">img = cv2.imread(<span class="hljs-string">"1.jpg"</span>)</span><br><span class="line">emptyImage = np.zeros(img.shape, np.uint8)</span><br><span class="line">emptyImage2 = img.copy()</span><br><span class="line">emptyImage3=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)</span><br><span class="line">cv2.imshow(<span class="hljs-string">"EmptyImage3"</span>, emptyImage3)</span><br><span class="line">cv2.waitKey (<span class="hljs-number">0</span>)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
-
 <p>   显示图片如下：<img src="https://img-blog.csdn.net/20160829164236865" alt></p>
 </li>
 </ol>
@@ -206,13 +202,16 @@
 <ul>
 <li>ubuntu 16.04 64位</li>
 <li>python3<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install opencv-python</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
-<p>(国内很多大学提供了pip安装镜像，安装过程中，推荐使用国内镜像安装，速度会快很多[<a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/" target="_blank" rel="noopener">link</a>])<br>    到此linux下安装OpenCV已经完成。<br>3. 一个简单测试：</p>
+<p>(国内很多大学提供了pip安装镜像，安装过程中，推荐使用国内镜像安装，速度会快很多[<a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/" target="_blank" rel="noopener">link</a>])<br>    到此linux下安装OpenCV已经完成。</p>
+<ol>
+<li><p>一个简单测试：</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line">print(cv2.__version__)</span><br></pre></td></tr></table></figure>
+<p>  能输出版本号则说明安装成功。</p>
+</li>
+</ol>
 
-<pre><code>能输出版本号则说明安装成功。</code></pre>
         </div>
         
         <div class="level is-size-7 is-uppercase">
@@ -379,7 +378,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        46
+                        47
                     </p>
                 </div>
             </div>
@@ -399,7 +398,7 @@
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        22
+                        23
                     </p>
                 </div>
             </div>
@@ -544,7 +543,7 @@
                 <span class="level-item">WEB</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">11</span>
+                <span class="level-item tag">12</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/blog/categories/WEB/JavaWeb开发基础/">
@@ -552,7 +551,7 @@
                 <span class="level-item">JavaWeb开发基础</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">4</span>
+                <span class="level-item tag">5</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/blog/categories/WEB/MySql/">
@@ -598,7 +597,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/blog/tags/AOGNets/" style="font-size: 10px;">AOGNets</a> <a href="/blog/tags/BootStrap/" style="font-size: 10px;">BootStrap</a> <a href="/blog/tags/C-STL/" style="font-size: 12px;">C++_STL</a> <a href="/blog/tags/CIFAR-10/" style="font-size: 10px;">CIFAR-10</a> <a href="/blog/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/blog/tags/HTML-CSS/" style="font-size: 10px;">HTML&CSS</a> <a href="/blog/tags/JS/" style="font-size: 10px;">JS</a> <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/blog/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/MySql/" style="font-size: 18px;">MySql</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 16px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 16px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/XML/" style="font-size: 10px;">XML</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 16px;">设计模式</a> <a href="/blog/tags/随笔/" style="font-size: 10px;">随笔</a>
+        <a href="/blog/tags/AOGNets/" style="font-size: 10px;">AOGNets</a> <a href="/blog/tags/BootStrap/" style="font-size: 10px;">BootStrap</a> <a href="/blog/tags/C-STL/" style="font-size: 12px;">C++_STL</a> <a href="/blog/tags/CIFAR-10/" style="font-size: 10px;">CIFAR-10</a> <a href="/blog/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/blog/tags/HTML-CSS/" style="font-size: 10px;">HTML&CSS</a> <a href="/blog/tags/JS/" style="font-size: 10px;">JS</a> <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/blog/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/MySql/" style="font-size: 18px;">MySql</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 16px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 16px;">TensorFlow</a> <a href="/blog/tags/Tomcat/" style="font-size: 10px;">Tomcat</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/XML/" style="font-size: 10px;">XML</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 16px;">设计模式</a> <a href="/blog/tags/随笔/" style="font-size: 10px;">随笔</a>
     </div>
 </div>
 
@@ -612,6 +611,25 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581715119481&amp;di=628bfdf1bbbba9653cc170c953b153d4&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.eeyy.com%2Fuploadfile%2F2015%2F0910%2F20150910062559126.jpg" alt="(五)五分钟快速了解Tomcat&amp;Servlet原理及应用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-14T17:29:58.000Z">2020-02-15</time></div>
+                    <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(五)五分钟快速了解Tomcat&amp;Servlet原理及应用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -689,25 +707,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/12/20/深度学习/AOGNets与或文法网络结构理解/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://github.com/iVMCL/AOGNets/raw/master/images/teaser.png" alt="AOGNets与或文法网络结构理解">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-20T08:15:20.000Z">2019-12-20</time></div>
-                    <a href="/blog/2019/12/20/深度学习/AOGNets与或文法网络结构理解/" class="title has-link-black-ter is-size-6 has-text-weight-normal">AOGNets与或文法网络结构理解</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/深度学习/">深度学习</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -726,7 +725,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -915,6 +914,13 @@
                     <a class="tags has-addons" href="/blog/tags/TensorFlow/">
                         <span class="tag">TensorFlow</span>
                         <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/Tomcat/">
+                        <span class="tag">Tomcat</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
@@ -981,6 +987,25 @@
         
         <article class="media">
             
+            <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581715119481&amp;di=628bfdf1bbbba9653cc170c953b153d4&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.eeyy.com%2Fuploadfile%2F2015%2F0910%2F20150910062559126.jpg" alt="(五)五分钟快速了解Tomcat&amp;Servlet原理及应用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-14T17:29:58.000Z">2020-02-15</time></div>
+                    <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(五)五分钟快速了解Tomcat&amp;Servlet原理及应用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2020/02/14/WEB/JavaWeb开发基础/四-BootStrap十分钟快速入门/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="http://img2.imgtn.bdimg.com/it/u=4094302043,1148188201&amp;fm=26&amp;gp=0.jpg" alt="(四)BootStrap十分钟快速入门">
@@ -1055,25 +1080,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/12/20/深度学习/AOGNets与或文法网络结构理解/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://github.com/iVMCL/AOGNets/raw/master/images/teaser.png" alt="AOGNets与或文法网络结构理解">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-20T08:15:20.000Z">2019-12-20</time></div>
-                    <a href="/blog/2019/12/20/深度学习/AOGNets与或文法网络结构理解/" class="title has-link-black-ter is-size-6 has-text-weight-normal">AOGNets与或文法网络结构理解</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/深度学习/">深度学习</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1092,7 +1098,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -1281,6 +1287,13 @@
                     <a class="tags has-addons" href="/blog/tags/TensorFlow/">
                         <span class="tag">TensorFlow</span>
                         <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/Tomcat/">
+                        <span class="tag">Tomcat</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 

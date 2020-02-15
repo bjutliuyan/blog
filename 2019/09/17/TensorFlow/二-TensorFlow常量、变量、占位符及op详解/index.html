@@ -189,53 +189,50 @@
         </h1>
         <div class="content">
             <p>TensorFLow提供了一个库来定义和执行对张量的各种数学运算。<a id="more"></a><code>张量</code>可理解为一个n维矩阵，所有类型的数据，包括标量、矢量、和矩阵等都是特殊类型的张量。</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
 <th>数据的类型</th>
 <th>张量</th>
-<th align="right">形状</th>
+<th style="text-align:right">形状</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>标量</td>
 <td>0维张量</td>
-<td align="right">[]</td>
+<td style="text-align:right">[]</td>
 </tr>
 <tr>
 <td>向量</td>
 <td>1维张量</td>
-<td align="right">[D0]</td>
+<td style="text-align:right">[D0]</td>
 </tr>
 <tr>
 <td>矩阵</td>
 <td>2维张量</td>
-<td align="right">[D0,D1]</td>
+<td style="text-align:right">[D0,D1]</td>
 </tr>
 <tr>
 <td>张量</td>
 <td>N维张量</td>
-<td align="right">[D0,D1…Dn-1]</td>
+<td style="text-align:right">[D0,D1…Dn-1]</td>
 </tr>
-<tr>
-<td>TensorFlow支持以下三种类型的张量：</td>
-<td></td>
-<td align="right"></td>
-</tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
+<p>TensorFlow支持以下三种类型的张量：</p>
 <h2 id="一、TensorFlow常量"><a href="#一、TensorFlow常量" class="headerlink" title="一、TensorFlow常量"></a>一、TensorFlow常量</h2><p>常量是值不能改变的张量。</p>
 <ol>
 <li><p>声明标量、向量、矩阵的常量</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#1.声明一个标量常量：</span></span><br><span class="line">t_1 = tf.constant(<span class="hljs-number">4</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#2.声明一个向量常量：</span></span><br><span class="line">t_2 = tf.constant([<span class="hljs-number">4</span>,<span class="hljs-number">3</span>,<span class="hljs-number">2</span>])</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#3.声明一个2*3的零矩阵常量、全1矩阵常量（第二个参数表示类型）：</span></span><br><span class="line">zero_t = tf.zeros([<span class="hljs-number">2</span>,<span class="hljs-number">3</span>],tf.int32)</span><br><span class="line">ones_t = tf.ones([<span class="hljs-number">2</span>,<span class="hljs-number">3</span>],tf.int32)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#4.创建一个与现有Numpy数组或张量常量具有相同形状的张量常量</span></span><br><span class="line">t_3 = tf.zeros_like(t_2)</span><br><span class="line">t_4 = tf.ones_like(t_2)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#5.声明一个在一定范围内等差排列的序列</span></span><br><span class="line">t_5 = tf.linspace(start,stop,num)</span><br><span class="line">t_6 = tf.range(start,limit,delta)</span><br></pre></td></tr></table></figure>
-
 <p><img src="002.jpg" alt></p>
 </li>
 <li><p>创建随机张量<br>TensorFlow允许创建具有不同分布的随机张量：</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#1.创建标准正态随机分布(mean表示均值，stddev表示标准差)</span></span><br><span class="line">t_random = tf.random_normal([<span class="hljs-number">2</span>,<span class="hljs-number">3</span>],mean=<span class="hljs-number">2.0</span>,stddev=<span class="hljs-number">4</span>,seed=<span class="hljs-literal">None</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#2.创建正态随机分布</span></span><br><span class="line">t_random = tf.truncated_normal([<span class="hljs-number">2</span>,<span class="hljs-number">3</span>],mean=<span class="hljs-number">2.0</span>,stddev=<span class="hljs-number">2</span>,seed=<span class="hljs-literal">None</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#3.创建均匀随机分布</span></span><br><span class="line">t_random = tf.random_uniform([<span class="hljs-number">2</span>,<span class="hljs-number">3</span>],minval=<span class="hljs-number">0.</span><span class="hljs-number">.0</span>,maxval=<span class="hljs-number">1.0</span>,seed=<span class="hljs-literal">None</span>)</span><br></pre></td></tr></table></figure>
-
 <p><img src="003.jpg" alt><br>如果t_random是要将给定的[3,6]张量随机剪裁为[2,5]大小：</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tf.random_crop(t_random, [<span class="hljs-number">2</span>,<span class="hljs-number">5</span>], seed=<span class="hljs-literal">None</span>)</span><br></pre></td></tr></table></figure>
-
 </li>
 </ol>
 <h2 id="二、TensorFlow变量"><a href="#二、TensorFlow变量" class="headerlink" title="二、TensorFlow变量"></a>二、TensorFlow变量</h2><p><code>Variable变量通常在神经网络中表示权重和偏置。</code></p>
@@ -245,14 +242,10 @@
 </li>
 <li><p>在使用Variable时，必须初始化变量，也就是调用它们的初始化方法。调用初始化的方法可以全局调用，也可以初始化某些变量：<br> <img src="004.jpg" alt></p>
 </li>
-<li><p>Variable变量可以通过assign赋值，赋值的过程是一个op，也是需要执行才会产生效果：<br> <img src="005.jpg" alt></p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">var_a = tf.Variable(<span class="hljs-number">3</span>, dtype=tf.int32)</span><br><span class="line"><span class="hljs-comment">#变量重新赋值 </span></span><br><span class="line">assign_op = var_a.assign(<span class="hljs-number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#变量初始化 </span></span><br><span class="line">init = tf.global_variables_initializer()</span><br><span class="line"><span class="hljs-comment">#开启一个会话 </span></span><br><span class="line"><span class="hljs-keyword">with</span> tf.Session() <span class="hljs-keyword">as</span> sess:</span><br><span class="line">    <span class="hljs-comment">#执行变量初始化op</span></span><br><span class="line">  sess.run(init)</span><br><span class="line">    <span class="hljs-comment">#执行赋值op</span></span><br><span class="line">  sess.run(assign_op)</span><br><span class="line">    <span class="hljs-comment">#输出赋值后新的结果</span></span><br><span class="line">  print(sess.run(var_a))</span><br></pre></td></tr></table></figure>
-
+<li>Variable变量可以通过assign赋值，赋值的过程是一个op，也是需要执行才会产生效果：<br> <img src="005.jpg" alt><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">var_a = tf.Variable(<span class="hljs-number">3</span>, dtype=tf.int32)</span><br><span class="line"><span class="hljs-comment">#变量重新赋值 </span></span><br><span class="line">assign_op = var_a.assign(<span class="hljs-number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#变量初始化 </span></span><br><span class="line">init = tf.global_variables_initializer()</span><br><span class="line"><span class="hljs-comment">#开启一个会话 </span></span><br><span class="line"><span class="hljs-keyword">with</span> tf.Session() <span class="hljs-keyword">as</span> sess:</span><br><span class="line">    <span class="hljs-comment">#执行变量初始化op</span></span><br><span class="line">  sess.run(init)</span><br><span class="line">    <span class="hljs-comment">#执行赋值op</span></span><br><span class="line">  sess.run(assign_op)</span><br><span class="line">    <span class="hljs-comment">#输出赋值后新的结果</span></span><br><span class="line">  print(sess.run(var_a))</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="三、TensorFlow占位符"><a href="#三、TensorFlow占位符" class="headerlink" title="三、TensorFlow占位符"></a>三、TensorFlow占位符</h2><p>TensorFlow允许通过<code>tf.placeholder(dtype,shape=None,name=None)</code>在构建图的时候占据一个位置，然后等到执行图的时候再带入具体的值。<br>占据一个位置：<br>   <img src="006.jpg" alt><br>执行图时赋值：<br>   <img src="007.jpg" alt></p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">x = tf.placeholder(dtype=tf.float32)</span><br><span class="line">y = <span class="hljs-number">2</span> * x</span><br><span class="line">data = tf.random_uniform(shape=[<span class="hljs-number">4</span>,<span class="hljs-number">5</span>], minval=<span class="hljs-number">0.0</span>, maxval=<span class="hljs-number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#开启一个会话 with tf.Session() as sess:</span></span><br><span class="line">    x_data = sess.run(data)</span><br><span class="line">    print(sess.run(y, feed_dict=&#123;x: x_data&#125;))</span><br></pre></td></tr></table></figure>
-
+<h2 id="三、TensorFlow占位符"><a href="#三、TensorFlow占位符" class="headerlink" title="三、TensorFlow占位符"></a>三、TensorFlow占位符</h2><p>TensorFlow允许通过<code>tf.placeholder(dtype,shape=None,name=None)</code>在构建图的时候占据一个位置，然后等到执行图的时候再带入具体的值。<br>占据一个位置：<br>   <img src="006.jpg" alt><br>执行图时赋值：<br>   <img src="007.jpg" alt><br><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">x = tf.placeholder(dtype=tf.float32)</span><br><span class="line">y = <span class="hljs-number">2</span> * x</span><br><span class="line">data = tf.random_uniform(shape=[<span class="hljs-number">4</span>,<span class="hljs-number">5</span>], minval=<span class="hljs-number">0.0</span>, maxval=<span class="hljs-number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#开启一个会话 with tf.Session() as sess:</span></span><br><span class="line">    x_data = sess.run(data)</span><br><span class="line">    print(sess.run(y, feed_dict=&#123;x: x_data&#125;))</span><br></pre></td></tr></table></figure></p>
 <p><code>（需要注意的是，所有常量、变量和占位符将在代码的构建图部分中定义。如果在定义部分使用 print 语句，只会得到有关张量类型的信息，而不是它的值。为了得到相关的值，需要创建会话图并对需要提取的张量显式使用运行命令）</code></p>
 <h2 id="四、op"><a href="#四、op" class="headerlink" title="四、op"></a>四、op</h2><p>TensorFlow的基本操作定义为op，以下是常见的op:<br><img src="008.jpg" alt><br>矩阵的<code>reshape</code>在数据处理方面经常用到：<br><img src="009.jpg" alt></p>
 
@@ -422,7 +415,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        46
+                        47
                     </p>
                 </div>
             </div>
@@ -442,7 +435,7 @@
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        22
+                        23
                     </p>
                 </div>
             </div>
@@ -587,7 +580,7 @@
                 <span class="level-item">WEB</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">11</span>
+                <span class="level-item tag">12</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/blog/categories/WEB/JavaWeb开发基础/">
@@ -595,7 +588,7 @@
                 <span class="level-item">JavaWeb开发基础</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">4</span>
+                <span class="level-item tag">5</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/blog/categories/WEB/MySql/">
@@ -641,7 +634,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/blog/tags/AOGNets/" style="font-size: 10px;">AOGNets</a> <a href="/blog/tags/BootStrap/" style="font-size: 10px;">BootStrap</a> <a href="/blog/tags/C-STL/" style="font-size: 12px;">C++_STL</a> <a href="/blog/tags/CIFAR-10/" style="font-size: 10px;">CIFAR-10</a> <a href="/blog/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/blog/tags/HTML-CSS/" style="font-size: 10px;">HTML&CSS</a> <a href="/blog/tags/JS/" style="font-size: 10px;">JS</a> <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/blog/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/MySql/" style="font-size: 18px;">MySql</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 16px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 16px;">TensorFlow</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/XML/" style="font-size: 10px;">XML</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 16px;">设计模式</a> <a href="/blog/tags/随笔/" style="font-size: 10px;">随笔</a>
+        <a href="/blog/tags/AOGNets/" style="font-size: 10px;">AOGNets</a> <a href="/blog/tags/BootStrap/" style="font-size: 10px;">BootStrap</a> <a href="/blog/tags/C-STL/" style="font-size: 12px;">C++_STL</a> <a href="/blog/tags/CIFAR-10/" style="font-size: 10px;">CIFAR-10</a> <a href="/blog/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/blog/tags/HTML-CSS/" style="font-size: 10px;">HTML&CSS</a> <a href="/blog/tags/JS/" style="font-size: 10px;">JS</a> <a href="/blog/tags/LinearRegression/" style="font-size: 10px;">LinearRegression</a> <a href="/blog/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/blog/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/blog/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/blog/tags/MySql/" style="font-size: 18px;">MySql</a> <a href="/blog/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/blog/tags/Pycharm/" style="font-size: 10px;">Pycharm</a> <a href="/blog/tags/Python/" style="font-size: 16px;">Python</a> <a href="/blog/tags/TensorBoard/" style="font-size: 10px;">TensorBoard</a> <a href="/blog/tags/TensorFlow/" style="font-size: 16px;">TensorFlow</a> <a href="/blog/tags/Tomcat/" style="font-size: 10px;">Tomcat</a> <a href="/blog/tags/WEB/" style="font-size: 10px;">WEB</a> <a href="/blog/tags/XML/" style="font-size: 10px;">XML</a> <a href="/blog/tags/hexo搭建/" style="font-size: 10px;">hexo搭建</a> <a href="/blog/tags/设计模式/" style="font-size: 16px;">设计模式</a> <a href="/blog/tags/随笔/" style="font-size: 10px;">随笔</a>
     </div>
 </div>
 
@@ -655,6 +648,25 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581715119481&amp;di=628bfdf1bbbba9653cc170c953b153d4&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.eeyy.com%2Fuploadfile%2F2015%2F0910%2F20150910062559126.jpg" alt="(五)五分钟快速了解Tomcat&amp;Servlet原理及应用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-14T17:29:58.000Z">2020-02-15</time></div>
+                    <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(五)五分钟快速了解Tomcat&amp;Servlet原理及应用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -732,25 +744,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/12/20/深度学习/AOGNets与或文法网络结构理解/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://github.com/iVMCL/AOGNets/raw/master/images/teaser.png" alt="AOGNets与或文法网络结构理解">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-20T08:15:20.000Z">2019-12-20</time></div>
-                    <a href="/blog/2019/12/20/深度学习/AOGNets与或文法网络结构理解/" class="title has-link-black-ter is-size-6 has-text-weight-normal">AOGNets与或文法网络结构理解</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/深度学习/">深度学习</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -769,7 +762,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -958,6 +951,13 @@
                     <a class="tags has-addons" href="/blog/tags/TensorFlow/">
                         <span class="tag">TensorFlow</span>
                         <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/Tomcat/">
+                        <span class="tag">Tomcat</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
@@ -1024,6 +1024,25 @@
         
         <article class="media">
             
+            <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1581715119481&amp;di=628bfdf1bbbba9653cc170c953b153d4&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.eeyy.com%2Fuploadfile%2F2015%2F0910%2F20150910062559126.jpg" alt="(五)五分钟快速了解Tomcat&amp;Servlet原理及应用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-14T17:29:58.000Z">2020-02-15</time></div>
+                    <a href="/blog/2020/02/15/WEB/JavaWeb开发基础/五-五分钟快速了解Tomcat-Servlet原理及应用/" class="title has-link-black-ter is-size-6 has-text-weight-normal">(五)五分钟快速了解Tomcat&amp;Servlet原理及应用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/blog/categories/WEB/">WEB</a> / <a class="has-link-grey -link" href="/blog/categories/WEB/JavaWeb开发基础/">JavaWeb开发基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/blog/2020/02/14/WEB/JavaWeb开发基础/四-BootStrap十分钟快速入门/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="http://img2.imgtn.bdimg.com/it/u=4094302043,1148188201&amp;fm=26&amp;gp=0.jpg" alt="(四)BootStrap十分钟快速入门">
@@ -1098,25 +1117,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/blog/2019/12/20/深度学习/AOGNets与或文法网络结构理解/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://github.com/iVMCL/AOGNets/raw/master/images/teaser.png" alt="AOGNets与或文法网络结构理解">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-20T08:15:20.000Z">2019-12-20</time></div>
-                    <a href="/blog/2019/12/20/深度学习/AOGNets与或文法网络结构理解/" class="title has-link-black-ter is-size-6 has-text-weight-normal">AOGNets与或文法网络结构理解</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/blog/categories/深度学习/">深度学习</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1135,7 +1135,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -1324,6 +1324,13 @@
                     <a class="tags has-addons" href="/blog/tags/TensorFlow/">
                         <span class="tag">TensorFlow</span>
                         <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/blog/tags/Tomcat/">
+                        <span class="tag">Tomcat</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
